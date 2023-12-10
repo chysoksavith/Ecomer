@@ -3,9 +3,11 @@
 
 <head>
     <meta charset="utf-8">
+    <meta name="csrf-token" content="{{ csrf_token() }}" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>AdminLTE 3 | Dashboard 2</title>
-
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -30,7 +32,11 @@
         {{-- side bar --}}
         @include('admin.layouts.sidebar')
         {{-- content --}}
-        @yield('content')
+        <div class="content-wrapper">
+
+            @yield('content')
+
+        </div>
         <!-- Control Sidebar -->
         <aside class="control-sidebar control-sidebar-dark">
             <!-- Control sidebar content goes here -->
@@ -39,9 +45,7 @@
 
         @include('admin.layouts.footer')
     </div>
-    <!-- ./wrapper -->
-
-    <!-- REQUIRED SCRIPTS -->
+    @yield('scrotps')
     <!-- jQuery -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="{{ asset('admin/plugins/jquery/jquery.min.js') }}"></script>
@@ -65,6 +69,11 @@
     <script src="{{ asset('admin/js/demo.js') }}"></script>
     <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
     <script src="{{ asset('admin/js/pages/dashboard2.js') }}"></script>
+    {{-- custome js --}}
+    <script src="{{ asset('admin/js/custome.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
+    </script>
 </body>
 
 </html>

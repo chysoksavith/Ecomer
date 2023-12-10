@@ -23,6 +23,13 @@ Route::group(['prefix' => '/admin'], function () {
     Route::group(['middleware' => ['admin']], function () {
         Route::controller(AdminController::class)->group(function () {
             Route::get('dashboard', 'dashboard')->name('admin.index');
+            Route::get('logout', 'logout')->name('admin.logout');
+            // password
+            Route::match(['get', 'post'],'update-password', 'updatePassword')->name('admin.update.password');
+            Route::match(['get', 'post'],'update-detail', 'updateAdminDetail')->name('admin.update.adminDetails');
+            Route::post('check-current-password', 'checkCurrentPassword')->name('admin.checkCurrent.password');
+
+
         });
     });
     // login
