@@ -17,6 +17,9 @@
     <link rel="stylesheet" href="{{ asset('admin/plugins/overlayScrollbars/css/OverlayScrollbars.min.css') }}">
     <!-- Theme style -->
     <link rel="stylesheet" href="{{ asset('admin/css/adminlte.min.css') }}">
+    <!-- Select2 -->
+    <link rel="stylesheet" href="{{ asset('admin/plugins/select2/css/select2.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('admin/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css') }}">
 </head>
 
 <body class="hold-transition dark-mode sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
@@ -45,7 +48,7 @@
 
         @include('admin.layouts.footer')
     </div>
-    @yield('scrotps')
+    @yield('scritps')
     <!-- jQuery -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="{{ asset('admin/plugins/jquery/jquery.min.js') }}"></script>
@@ -55,8 +58,6 @@
     <script src="{{ asset('admin/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js') }}"></script>
     <!-- AdminLTE App -->
     <script src="{{ asset('admin/js/adminlte.js') }}"></script>
-
-    <!-- PAGE PLUGINS -->
     <!-- jQuery Mapael -->
     <script src="{{ asset('admin/plugins/jquery-mousewheel/jquery.mousewheel.js') }}"></script>
     <script src="{{ asset('admin/plugins/raphael/raphael.min.js') }}"></script>
@@ -64,16 +65,24 @@
     <script src="{{ asset('admin/plugins/jquery-mapael/maps/usa_states.min.js') }}"></script>
     <!-- ChartJS -->
     <script src="{{ asset('admin/plugins/chart.js/Chart.min.js') }}"></script>
-
+    {{-- sweetalert 2 --}}
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <!-- AdminLTE for demo purposes -->
     <script src="{{ asset('admin/js/demo.js') }}"></script>
     <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
     <script src="{{ asset('admin/js/pages/dashboard2.js') }}"></script>
     {{-- custome js --}}
+    <script src="{{ asset('admin/plugins/select2/js/select2.full.min.js') }}"></script>
     <script src="{{ asset('admin/js/custome.js') }}"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
     </script>
+    <script>
+        $(function() {
+            $('.select2').select2();
+        })
+    </script>
+
 </body>
 
 </html>

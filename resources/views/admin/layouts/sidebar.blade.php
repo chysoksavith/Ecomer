@@ -72,7 +72,7 @@
                       @endphp
                   @endif
                   <li class="nav-item">
-                      <a href="#" class="nav-link {{$active}}">
+                      <a href="#" class="nav-link {{ $active }}">
                           <i class="nav-icon fas fa-chart-pie"></i>
                           <p>
                               Setting
@@ -111,26 +111,22 @@
                       </ul>
                   </li>
                   {{-- cms page --}}
+                  @if (Session::get('page') == 'cms-pages')
+                      @php
+                          $active = 'active';
+                      @endphp
+                  @else
+                      @php
+                          $active = '';
+                      @endphp
+                  @endif
                   <li class="nav-item">
-                      <a href="#" class="nav-link">
-                          <i class="nav-icon fas fa-chart-pie"></i>
+                      <a href="{{route('admin.cmspages')}}" class="nav-link {{ $active }}">
+                          <i class="nav-icon fas fa-th"></i>
                           <p>
-                              CMS Pages
-                              <i class="right fas fa-angle-left"></i>
+                              Cms Pages
                           </p>
                       </a>
-                      <ul class="nav nav-treeview">
-                          <li class="nav-item">
-                              <a href="" class="nav-link">
-                                  <i class="far fa-circle nav-icon"></i>
-                                  <p>Update Admin Pass</p>
-                              </a>
-                              <a href="" class="nav-link">
-                                  <i class="far fa-circle nav-icon"></i>
-                                  <p>Update Admin Details</p>
-                              </a>
-                          </li>
-                      </ul>
                   </li>
                   <li class="nav-item">
                       <a href="#" class="nav-link">

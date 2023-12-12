@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\admin\AdminController;
+use App\Http\Controllers\admin\CmsController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -28,8 +29,13 @@ Route::group(['prefix' => '/admin'], function () {
             Route::match(['get', 'post'],'update-password', 'updatePassword')->name('admin.update.password');
             Route::match(['get', 'post'],'update-detail', 'updateAdminDetail')->name('admin.update.adminDetails');
             Route::post('check-current-password', 'checkCurrentPassword')->name('admin.checkCurrent.password');
-
-
+        });
+        // Cms pages
+        Route::controller(CmsController::class)->group(function(){
+            Route::get('cms-pages', 'index')->name('admin.cmspages');
+            Route::post('update-cms-pages-status', 'update')->name('admin.cmspages.update');
+            Route::match(['get','post'], 'add-edit-cms-pages/{id?}', 'edit')->name('admin-addedit-cms-page');
+            Route::get('delete-cms-pages/{id?}', 'destroy');
         });
     });
     // login
