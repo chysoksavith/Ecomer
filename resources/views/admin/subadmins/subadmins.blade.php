@@ -7,13 +7,13 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>DataTables</h1>
+                    <h1>Sub Admins</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="#">Home</a></li>
                         <li class="breadcrumb-item active">
-                            <a href="">Create Cms Pages</a>
+                            <a href="">Sub Admin</a>
                         </li>
                     </ol>
                 </div>
@@ -29,10 +29,7 @@
                     <div class="card">
                         <div class="card-header">
                             <div class=" float-right">
-                                @if ($pageModule['edit_access'] == 1 || $pageModule['full_access'] == 1)
-                                    <a href="{{ route('admin-addedit-cms-page') }}" class=" btn btn-primary">Create Cms
-                                        Pages</a>
-                                @endif
+                                <a href="{{ route('admin-addedit-subadmin') }}" class=" btn btn-primary">Add Subadmin</a>
                             </div>
                         </div>
                         <hr>
@@ -58,7 +55,7 @@
                                 <div class="col-md-12">
                                     <div class=" d-flex justify-content-between align-items-center">
                                         <div class=" card-title">
-                                            <a href="{{ route('admin.cmspages') }}" class="btn btn-sm btn-default">Reset</a>
+                                            <a href="{{ route('admin.subadmin') }}" class="btn btn-sm btn-default">Reset</a>
                                         </div>
                                         <div class="card-tools">
                                             <div class="input-group input-group" style="width: 250px;">
@@ -81,53 +78,57 @@
                             <thead>
                                 <tr>
                                     <th>Id</th>
-                                    <th>Ttile</th>
-                                    <th>Url</th>
-                                    <th>Create on</th>
+                                    <th>Name</th>
+                                    <th>Mobile</th>
+                                    <th>Email</th>
+                                    <th>Type</th>
+                                    <th>Created on</th>
                                     <th>Status</th>
+                                    <th>Access</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @forelse ($CmsPage as $page)
+                                @forelse ($subadmins as $subadmin)
                                     <tr>
-                                        <td>{{ $page->id ?? 'N/A' }}</td>
-                                        <td>{{ $page->title ?? 'N/A' }}</td>
-                                        <td>{{ $page->description ?? 'N/A' }}</td>
+                                        <td>{{ $subadmin->id ?? 'N/A' }}</td>
+                                        <td>{{ $subadmin->name ?? 'N/A' }}</td>
+                                        <td>{{ $subadmin->mobile ?? 'N/A' }}</td>
+                                        <td>{{ $subadmin->email ?? 'N/A' }}</td>
+                                        <td>{{ $subadmin->type ?? 'N/A' }}</td>
                                         <td>
-                                            @if (!empty($page->created_at))
-                                                {{ $page->created_at->format('Y-m-d') }}
+                                            @if (!empty($subadmin->created_at))
+                                                {{ $subadmin->created_at->format('Y-m-d') }}
                                             @else
                                                 N/A
                                             @endif
                                         </td>
                                         <td>
-                                            @if ($pageModule['edit_access'] == 1 || $pageModule['full_access'] == 1)
-                                                <a class="updateCmsPageStatus" id="page-{{ $page['id'] }}"
-                                                    page_id="{{ $page['id'] }}" href="javascript:void(0)">
-                                                    @if ($page['status'] == 1)
-                                                        <i class="fas fa-toggle-on" status="Active"></i>
-                                                    @else
-                                                        <i class="fas fa-toggle-off" style="color: grey"
-                                                            status="Inactive"></i>
-                                                    @endif
-                                                </a>
-                                            @endif
+                                            <a class="updateSubAdmin" id="subadmin-{{ $subadmin->id }}"
+                                                subadmin_id="{{ $subadmin->id }}" href="javascript:void(0)">
+                                                @if ($subadmin['status'] == 1)
+                                                    <i class="fas fa-toggle-on" status="Active"></i>
+                                                @else
+                                                    <i class="fas fa-toggle-off" style="color: grey" status="Inactive"></i>
+                                                @endif
+                                            </a>
                                         </td>
+                                        {{-- access --}}
+                                        <td>
+                                            <a href="{{ url('admin/update-role/' . $subadmin->id) }}"><i
+                                                    class="fas fa-unlock" style="font-size: #3fed3"></i></a>
+                                        </td>
+                                        {{-- action --}}
                                         <td class=" d-flex justify-content-around align-items-center">
-                                            @if ($pageModule['edit_access'] == 1 || $pageModule['full_access'] == 1)
-                                                <a href="{{ url('admin/add-edit-cms-pages/' . $page->id) }}"><i
-                                                        class="fas fa-edit" style="font-size: #3fed3"></i></a>
-                                            @endif
-                                            @if ($pageModule['full_access'] == 1)
-                                                <a class="confirmDelete" name="Cms Page" title="Delete Cms Page"
-                                                    href="javascript:void(0)" record="cms-pages"
-                                                    recordid="{{ $page->id }}"><i class="fas fa-trash"
-                                                        style="font-size: red"></i></a>
-                                            @endif
+                                            <a href="{{ url('admin/add-edit-subadmin/' . $subadmin->id) }}"><i
+                                                    class="fas fa-edit" style="font-size: #3fed3"></i></a>
+                                            {{-- delete --}}
+                                            <a class="confirmDelete" name="subadmin" title="Delete SubAdmin"
+                                                href="javascript:void(0)" record="subadmin"
+                                                recordid="{{ $subadmin->id }}"><i class="fas fa-trash"
+                                                    style="font-size: red"></i></a>
                                         </td>
                                     </tr>
-                                    {{-- href="{{ url('admin/delete-cms-pages/' . $page->id) }}" --}}
                                 @empty
                                     <tr>
                                         <td colspan="5">No item record</td>
@@ -137,7 +138,7 @@
                         </table>
                     </div>
                     <div>
-                        {{ $CmsPage->links() }}
+                        {{ $subadmins->links() }}
                     </div>
                 </div>
             </div>

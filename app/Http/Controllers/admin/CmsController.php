@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers\admin;
 
-use App\Http\Controllers\Controller;
 use App\Models\CmsPage;
+use App\Models\AdminRoles;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 
 class CmsController extends Controller
@@ -20,10 +22,23 @@ class CmsController extends Controller
         if ($request->get('Keyword')) {
             $CmsPage = $CmsPage->where('title', 'like', '%' . $request->Keyword . '%');
         }
-
         $CmsPage = $CmsPage->paginate(10);
 
-        return view('admin.pages.cms_pages', compact('CmsPage'));
+        // set admin/subadmin permissions for CMS Pages
+        $cmspagesModuleCount = AdminRoles::where(['subadmins_id' => Auth::guard('admin')->user()->id, 'module' => 'cms_pages'])->count();
+
+        $pageModule = array();
+        if (Auth::guard('admin')->user()->type == "admin") {
+            $pageModule['view_access'] = 1;
+            $pageModule['edit_access'] = 1;
+            $pageModule['full_access'] = 1;
+        } else if ($cmspagesModuleCount == 0) {
+            $message = "This feature is restricted for you";
+            return redirect('admin/dashboard')->with('error_message', $message);
+        }else{
+            $pageModule = AdminRoles::where(['subadmins_id' => Auth::guard('admin')->user()->id, 'module' => 'cms_pages'])->first()->toArray();
+        }
+        return view('admin.pages.cms_pages', compact('CmsPage', 'pageModule'));
     }
 
     /**
@@ -113,7 +128,7 @@ class CmsController extends Controller
      */
     public function destroy($id)
     {
-        CmsPage::where('id',$id)->delete();
+        CmsPage::where('id', $id)->delete();
         return redirect()->back()->with('success_message', 'Cms Page Delete Success');
     }
 }

@@ -17,31 +17,10 @@ class AdmniTableSeeder extends Seeder
         $password = Hash::make('123456');
         $adminRecords = [
             [
-                'id' => 1,
-                'name' => 'Admin',
-                'type' => 'admin',
-                'mobile' => 9999999,
-                'email' => 'admin@gmail.com',
-                'password' => $password,
-                'image' => '',
-                'status' => 1
-            ],
-            [
-                'id' => 2,
-                'name' => 'Admin1',
-                'type' => 'admin',
-                'mobile' => 9999999,
-                'email' => 'admin1@gmail.com',
-                'password' => $password,
-                'image' => '',
-                'status' => 1
-            ],
-            [
-                'id' => 3,
-                'name' => 'Admin2',
-                'type' => 'admin',
-                'mobile' => 9999999,
-                'email' => 'admin2@gmail.com',
+                'name' => 'Amit',
+                'type' => 'subadmin',
+                'mobile' => 32342342,
+                'email' => 'amit@gmail.com',
                 'password' => $password,
                 'image' => '',
                 'status' => 1

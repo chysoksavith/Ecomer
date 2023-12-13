@@ -73,4 +73,32 @@ $(document).ready(function () {
             }
         });
     });
+     // update subadmin Status
+     $(document).on("click", ".updateSubAdmin", function () {
+        var status = $(this).find("i").attr("status");
+        var subadmin_id = $(this).attr("subadmin_id");
+
+        $.ajax({
+            headers: {
+                "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+            },
+            type: "post",
+            url: "/admin/update-subadmin-status",
+            data: { status: status, subadmin_id: subadmin_id },
+            success: function (response) {
+                if (response["status"] == 0) {
+                    $("#subadmin-" + subadmin_id).html(
+                        "<i class='fas fa-toggle-off' style='color:grey;' status='Inactive'></i>"
+                    );
+                } else if (response["status"] == 1) {
+                    $("#subadmin-" + subadmin_id).html(
+                        "<i class='fas fa-toggle-on' style='color:blue;' status='Active'></i>"
+                    );
+                }
+            },
+            error: function () {
+                alert("Error occurred during AJAX request");
+            },
+        });
+    });
 });

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Admin;
+use App\Models\AdminRoles;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -34,10 +35,10 @@ class AdminController extends Controller
             if (Auth::guard('admin')->attempt(['email' => $data['email'], 'password' => $data['password']])) {
 
                 // remember admin email and password
-                if(isset($data['remember']) && !empty($data['remember'])){
-                    setcookie("email",$data['email'],time()+3600);
-                    setcookie("password",$data['password'],time()+3600);
-                }else{
+                if (isset($data['remember']) && !empty($data['remember'])) {
+                    setcookie("email", $data['email'], time() + 3600);
+                    setcookie("password", $data['password'], time() + 3600);
+                } else {
                     setcookie("email", "");
                     setcookie("password", "");
                 }
@@ -147,4 +148,138 @@ class AdminController extends Controller
 
         return view('admin.update_admin_detail');
     }
+    // subadmin
+    public function subadmin(Request $request)
+    {
+        Session::put('page', 'subadmins');
+        $subadmins = Admin::latest('id');
+
+        if ($request->get('Keyword')) {
+            $subadmins = $subadmins->where('name', 'like', '%' . $request->Keyword . '%');
+        }
+
+        $subadmins = $subadmins->paginate(10);
+        return view('admin.subadmins.subadmins')->with(compact('subadmins'));
+    }
+    // sub admin status
+    public function SubAdminStatus(Request $request)
+    {
+        if ($request->ajax()) {
+            $data = $request->all();
+            $status = ($data['status'] == "Active") ? 0 : 1;
+
+            Admin::where('id', $data['subadmin_id'])->update(['status' => $status]);
+
+            return response()->json(['status' => $status, 'subadmin_id' => $data['subadmin_id']]);
+        }
+    }
+
+    // add edit sub admin
+    public function addedit_subadmin(Request $request, $id = null)
+    {
+        Session::put('page', 'subadmins');
+
+        if ($id == "") {
+            $title = "Add SubAdmin";
+            $subadminData = new Admin;
+            $message = "Subadmin added successfully";
+        } else {
+            $title = "Edit SubAdmin";
+            $subadminData = Admin::find($id);
+            $message = "Subadmin updated successfully";
+        }
+        if ($request->isMethod('post')) {
+            $data = $request->all();
+            if ($id == "") {
+                $subadminCount = Admin::where('email', $data['email'])->count();
+                if ($subadminCount > 0) {
+                    return redirect()->back()->with('error_message', 'subadmin Already exist!');
+                }
+            }
+            $rules = [
+                'name' => 'required',
+                'mobile' => 'required|numeric',
+                'image' => 'image'
+            ];
+            $customMessages = [
+                'name.required' => "Name is required",
+                'mobile.required' => 'Mobile is required',
+                'mobile.numeric' => 'Valid Mobile is required',
+                'image.image' => 'Valid image is required'
+            ];
+            $this->validate($request, $rules, $customMessages);
+            // Image upload
+            if ($request->hasFile('image')) {
+                $image = $request->file('image');
+                $imageName = time() . '.' . $image->getClientOriginalExtension();
+                $imagePath = 'admin/images/photos/' . $imageName;
+                $image->move(public_path('admin/images/photos'), $imageName);
+            } else if (!empty($data['current_image'])) {
+                $imageName = $data['current_image'];
+            } else {
+                $imageName = "";
+            }
+            $subadminData->image = $imageName;
+            $subadminData->name = $data['name'];
+            $subadminData->mobile = $data['mobile'];
+            if ($id == "") {
+                $subadminData->email = $data['email'];
+                $subadminData->type = 'subadmin';
+            }
+            if ($data['password'] != "") {
+                $subadminData->password = bcrypt($data['password']);
+            }
+            $subadminData->save();
+            return redirect('admin/subadmin')->with('success_message', $message);
+        }
+        return view('admin.subadmins.add_edit_subadmin', compact('title', 'subadminData', 'message'));
+    }
+    // update role
+    public function updateRoles($id, Request $request){
+        if($request->isMethod('post')){
+            $data = $request->all();
+            AdminRoles::where('subadmins_id',$id)->delete();
+
+            foreach($data as $Key => $value){
+                if(isset($value['view'])){
+                    $view = $value['view'];
+                }else{
+                    $view = 0;
+                }
+                if(isset($value['edit'])){
+                    $edit = $value['edit'];
+                }else{
+                    $edit = 0;
+                }
+                if(isset($value['full'])){
+                    $full = $value['full'];
+                }else{
+                    $full = 0;
+                }
+            }
+
+            $role = new AdminRoles;
+            $role->subadmins_id = $id;
+            $role->module = $Key;
+            $role->view_access = $view;
+            $role->edit_access = $edit;
+            $role->full_access = $full;
+            $role->save();
+
+            $message = "Subadmin Roles updated successfully";
+            return redirect()->back()->with('success_message', $message);
+        }
+
+        $subadminRoles = AdminRoles::where('subadmins_id', $id)->get()->toArray();
+        $subadminDetails = Admin::where('id',$id)->first()->toArray();
+        $title = "Update" .$subadminDetails ['name'] . " Subadmin Role/Permission";
+
+        return view ('admin.subadmins.update_role')->with(compact('title','id', 'subadminRoles'));
+    }
+     // delete sub admin
+     public function Subadmindestroy($id)
+     {
+         Admin::where('id', $id)->delete();
+         return redirect()->back()->with('success_message', 'Sub Admin deleted successfully!');
+     }
 }

@@ -29,6 +29,14 @@ Route::group(['prefix' => '/admin'], function () {
             Route::match(['get', 'post'],'update-password', 'updatePassword')->name('admin.update.password');
             Route::match(['get', 'post'],'update-detail', 'updateAdminDetail')->name('admin.update.adminDetails');
             Route::post('check-current-password', 'checkCurrentPassword')->name('admin.checkCurrent.password');
+            // subadmin
+            Route::get('subadmin', 'subadmin')->name('admin.subadmin');
+            Route::post('update-subadmin-status', 'SubAdminStatus' );
+            Route::get('delete-subadmin/{id?}', 'Subadmindestroy');
+            Route::match(['get','post'], 'add-edit-subadmin/{id?}', 'addedit_subadmin')->name('admin-addedit-subadmin');
+            Route::match(['get','post'], 'update-role/{id?}', 'updateRoles')->name('admin-updateRoles');
+
+
         });
         // Cms pages
         Route::controller(CmsController::class)->group(function(){

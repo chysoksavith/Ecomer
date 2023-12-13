@@ -110,6 +110,24 @@
                           </li>
                       </ul>
                   </li>
+                  {{-- Subadmin --}}
+                  @if (Session::get('page') == 'subadmins')
+                      @php
+                          $active = 'active';
+                      @endphp
+                  @else
+                      @php
+                          $active = '';
+                      @endphp
+                  @endif
+                  <li class="nav-item">
+                      <a href="{{ route('admin.subadmin') }}" class="nav-link {{ $active }}">
+                          <i class="nav-icon fas fa-users"></i>
+                          <p>
+                              Sub Admin
+                          </p>
+                      </a>
+                  </li>
                   {{-- cms page --}}
                   @if (Session::get('page') == 'cms-pages')
                       @php
@@ -121,7 +139,7 @@
                       @endphp
                   @endif
                   <li class="nav-item">
-                      <a href="{{route('admin.cmspages')}}" class="nav-link {{ $active }}">
+                      <a href="{{ route('admin.cmspages') }}" class="nav-link {{ $active }}">
                           <i class="nav-icon fas fa-th"></i>
                           <p>
                               Cms Pages
