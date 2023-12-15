@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\admin\AdminController;
+use App\Http\Controllers\admin\CategoryController;
 use App\Http\Controllers\admin\CmsController;
 use Illuminate\Support\Facades\Route;
 
@@ -36,7 +37,6 @@ Route::group(['prefix' => '/admin'], function () {
             Route::match(['get','post'], 'add-edit-subadmin/{id?}', 'addedit_subadmin')->name('admin-addedit-subadmin');
             Route::match(['get','post'], 'update-role/{id?}', 'updateRoles')->name('admin-updateRoles');
 
-
         });
         // Cms pages
         Route::controller(CmsController::class)->group(function(){
@@ -45,7 +45,22 @@ Route::group(['prefix' => '/admin'], function () {
             Route::match(['get','post'], 'add-edit-cms-pages/{id?}', 'edit')->name('admin-addedit-cms-page');
             Route::get('delete-cms-pages/{id?}', 'destroy');
         });
+        // Categories
+        Route::controller(CategoryController::class)->group(function(){
+            Route::get('categories', 'categories')->name('admin.categories');
+            Route::post('update-category-status', 'updateCategoryStatus')->name('admin.update.category.status');
+            Route::get('delete-category/{id?}', 'deleteCategory');
+            Route::get('delete-category-image/{id?}', 'deleteCategoryImage');
+            Route::match(['get', 'post'], 'add-edit-category/{id?}', 'AddUpdateCategorys')->name('admin.add.edit.category');
+        });
     });
+
+
+
+
+
+
+
     // login
     Route::controller(AdminController::class)->group(function () {
         Route::match(['get', 'post'], 'login', 'login')->name('admin.login');

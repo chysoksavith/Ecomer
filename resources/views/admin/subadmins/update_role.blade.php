@@ -96,7 +96,6 @@
                                                 @endphp
                                             @endif
                                             {{-- full --}}
-                                            {{-- edit --}}
                                             @if ($role['full_access'] == 1)
                                                 @php
                                                     $fullCMSPages = 'checked';
@@ -104,6 +103,38 @@
                                             @else
                                                 @php
                                                     $fullCMSPages = '';
+                                                @endphp
+                                            @endif
+                                        @endif
+                                        {{-- module category --}}
+                                        @if ($role['module'] == 'categories')
+                                            @if ($role['view_access'] == 1)
+                                                @php
+                                                    $viewCategories = 'checked';
+                                                @endphp
+                                            @else
+                                                @php
+                                                    $viewCategories = '';
+                                                @endphp
+                                            @endif
+                                            {{-- edit --}}
+                                            @if ($role['edit_access'] == 1)
+                                                @php
+                                                    $editCategories = 'checked';
+                                                @endphp
+                                            @else
+                                                @php
+                                                    $editCategories = '';
+                                                @endphp
+                                            @endif
+                                            {{-- full --}}
+                                            @if ($role['full_access'] == 1)
+                                                @php
+                                                    $fullCategories = 'checked';
+                                                @endphp
+                                            @else
+                                                @php
+                                                    $fullCategories = '';
                                                 @endphp
                                             @endif
                                         @endif
@@ -130,7 +161,28 @@
                                         <label class="form-check-label">Full Access</label>
                                     </div>
                                 </div>
+                                {{-- Module Category --}}
+                                <div class="form-group">
+                                    <label for="title">Category</label>
 
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" name="categories[view]"
+                                            value="1" @if (isset($viewCategories)) {{ $viewCategories }} @endif>
+                                        <label class="form-check-label">View Access</label>
+                                    </div>
+
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" name="categories[edit]"
+                                            value="1" @if (isset($editCategories)) {{ $editCategories }} @endif>
+                                        <label class="form-check-label">Edit Access</label>
+                                    </div>
+
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" name="categories[full]"
+                                            value="1" @if (isset($fullCategories)) {{ $fullCategories }} @endif>
+                                        <label class="form-check-label">Full Access</label>
+                                    </div>
+                                </div>
 
                             </div>
                             <!-- /.card-body -->

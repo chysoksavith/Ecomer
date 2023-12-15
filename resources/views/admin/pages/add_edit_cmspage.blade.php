@@ -17,6 +17,16 @@
     </div>
     <section class="content">
         <div class="container-fluid">
+            @if ($errors->any())
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
+   
             <div class="row">
                 <!-- left column -->
                 <div class="col-md-12">
@@ -52,8 +62,8 @@
                                     <label for="description">Description</label>
                                     <textarea class="form-control" name="description" id="description">
                                         @if (!empty($cmsPage['description']))
-                                        {{ $cmsPage['description'] }}
-                                        @endif
+{{ $cmsPage['description'] }}
+@endif
                                     </textarea>
                                 </div>
                                 <div class="form-group">

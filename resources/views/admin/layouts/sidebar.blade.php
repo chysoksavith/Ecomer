@@ -1,10 +1,10 @@
   <!-- Main Sidebar Container -->
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
       <!-- Brand Logo -->
-      <a href="index3.html" class="brand-link">
+      <a href="{{ route('admin.index') }}" class="brand-link">
           <img src="{{ asset('admin/images/AdminLTELogo.png') }}" alt="AdminLTE Logo"
               class="brand-image img-circle elevation-3" style="opacity: .8">
-          <span class="brand-text font-weight-light">EcoShop</span>
+          <span class="brand-text font-weight-light text-white">EcoShop</span>
       </a>
 
 
@@ -42,8 +42,6 @@
           <nav class="mt-2">
               <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
                   data-accordion="false">
-                  <!-- Add icons to the links using the .nav-icon class
-               with font-awesome or any other icon font library -->
                   @if (Session::get('page') == 'dashboard')
                       @php
                           $active = 'active';
@@ -62,74 +60,78 @@
                       </a>
                   </li>
                   {{-- setting --}}
-                  @if (Session::get('page') == 'update-password' || Session::get('page') == 'update-detail')
-                      @php
-                          $active = 'active';
-                      @endphp
-                  @else
-                      @php
-                          $active = '';
-                      @endphp
+                  @if (Auth::guard('admin')->user()->type == 'admin')
+
+
+                      @if (Session::get('page') == 'update-password' || Session::get('page') == 'update-detail')
+                          @php
+                              $active = 'active';
+                          @endphp
+                      @else
+                          @php
+                              $active = '';
+                          @endphp
+                      @endif
+                      <li class="nav-item">
+                          <a href="#" class="nav-link {{ $active }}">
+                              <i class="nav-icon fas fa-chart-pie"></i>
+                              <p>
+                                  Setting
+                                  <i class="right fas fa-angle-left"></i>
+                              </p>
+                          </a>
+                          <ul class="nav nav-treeview">
+                              <li class="nav-item">
+                                  @if (Session::get('page') == 'update-password')
+                                      @php
+                                          $active = 'active';
+                                      @endphp
+                                  @else
+                                      @php
+                                          $active = '';
+                                      @endphp
+                                  @endif
+                                  <a href="{{ route('admin.update.password') }}" class="nav-link {{ $active }}">
+                                      <i class="far fa-circle nav-icon"></i>
+                                      <p>Update Admin Pass</p>
+                                  </a>
+                                  @if (Session::get('page') == 'update-detail')
+                                      @php
+                                          $active = 'active';
+                                      @endphp
+                                  @else
+                                      @php
+                                          $active = '';
+                                      @endphp
+                                  @endif
+                                  <a href="{{ route('admin.update.adminDetails') }}"
+                                      class="nav-link {{ $active }}">
+                                      <i class="far fa-circle nav-icon"></i>
+                                      <p>Update Admin Details</p>
+                                  </a>
+                              </li>
+                          </ul>
+                      </li>
+                      {{-- Subadmin --}}
+                      @if (Session::get('page') == 'subadmins')
+                          @php
+                              $active = 'active';
+                          @endphp
+                      @else
+                          @php
+                              $active = '';
+                          @endphp
+                      @endif
+                      <li class="nav-item">
+                          <a href="{{ route('admin.subadmin') }}" class="nav-link {{ $active }}">
+                              <i class="nav-icon fas fa-users"></i>
+                              <p>
+                                  Sub Admin
+                              </p>
+                          </a>
+                      </li>
                   @endif
-                  <li class="nav-item">
-                      <a href="#" class="nav-link {{ $active }}">
-                          <i class="nav-icon fas fa-chart-pie"></i>
-                          <p>
-                              Setting
-                              <i class="right fas fa-angle-left"></i>
-                          </p>
-                      </a>
-                      <ul class="nav nav-treeview">
-                          <li class="nav-item">
-                              @if (Session::get('page') == 'update-password')
-                                  @php
-                                      $active = 'active';
-                                  @endphp
-                              @else
-                                  @php
-                                      $active = '';
-                                  @endphp
-                              @endif
-                              <a href="{{ route('admin.update.password') }}" class="nav-link {{ $active }}">
-                                  <i class="far fa-circle nav-icon"></i>
-                                  <p>Update Admin Pass</p>
-                              </a>
-                              @if (Session::get('page') == 'update-detail')
-                                  @php
-                                      $active = 'active';
-                                  @endphp
-                              @else
-                                  @php
-                                      $active = '';
-                                  @endphp
-                              @endif
-                              <a href="{{ route('admin.update.adminDetails') }}" class="nav-link {{ $active }}">
-                                  <i class="far fa-circle nav-icon"></i>
-                                  <p>Update Admin Details</p>
-                              </a>
-                          </li>
-                      </ul>
-                  </li>
-                  {{-- Subadmin --}}
-                  @if (Session::get('page') == 'subadmins')
-                      @php
-                          $active = 'active';
-                      @endphp
-                  @else
-                      @php
-                          $active = '';
-                      @endphp
-                  @endif
-                  <li class="nav-item">
-                      <a href="{{ route('admin.subadmin') }}" class="nav-link {{ $active }}">
-                          <i class="nav-icon fas fa-users"></i>
-                          <p>
-                              Sub Admin
-                          </p>
-                      </a>
-                  </li>
-                  {{-- cms page --}}
-                  @if (Session::get('page') == 'cms-pages')
+                  @if (Session::get('page') == 'cms pages')
                       @php
                           $active = 'active';
                       @endphp
@@ -140,47 +142,63 @@
                   @endif
                   <li class="nav-item">
                       <a href="{{ route('admin.cmspages') }}" class="nav-link {{ $active }}">
-                          <i class="nav-icon fas fa-th"></i>
+                          <i class="nav-icon fas fa-users"></i>
                           <p>
-                              Cms Pages
+                              CMS Pages
                           </p>
                       </a>
                   </li>
+                  {{-- Category --}}
+                  @if (Session::get('page') == 'categories' || Session::get('page') == 'products')
+                      @php
+                          $active = 'active';
+                      @endphp
+                  @else
+                      @php
+                          $active = '';
+                      @endphp
+                  @endif
                   <li class="nav-item">
-                      <a href="#" class="nav-link">
-                          <i class="nav-icon fas fa-chart-pie"></i>
+                      <a href="#" class="nav-link {{ $active }}">
+                          <i class="nav-icon fas fa-th"></i>
                           <p>
-                              Charts
+                              Catelouge
                               <i class="right fas fa-angle-left"></i>
                           </p>
                       </a>
                       <ul class="nav nav-treeview">
                           <li class="nav-item">
-                              <a href="pages/charts/chartjs.html" class="nav-link">
+                              @if (Session::get('page') == 'categories')
+                                  @php
+                                      $active = 'active';
+                                  @endphp
+                              @else
+                                  @php
+                                      $active = '';
+                                  @endphp
+                              @endif
+                              <a href="{{ route('admin.categories') }}" class="nav-link {{ $active }}">
                                   <i class="far fa-circle nav-icon"></i>
-                                  <p>ChartJS</p>
+                                  <p>Category</p>
                               </a>
-                          </li>
-                          <li class="nav-item">
-                              <a href="pages/charts/flot.html" class="nav-link">
+                              @if (Session::get('page') == 'products')
+                                  @php
+                                      $active = 'active';
+                                  @endphp
+                              @else
+                                  @php
+                                      $active = '';
+                                  @endphp
+                              @endif
+                              <a href="" class="nav-link {{ $active }}">
                                   <i class="far fa-circle nav-icon"></i>
-                                  <p>Flot</p>
-                              </a>
-                          </li>
-                          <li class="nav-item">
-                              <a href="pages/charts/inline.html" class="nav-link">
-                                  <i class="far fa-circle nav-icon"></i>
-                                  <p>Inline</p>
-                              </a>
-                          </li>
-                          <li class="nav-item">
-                              <a href="pages/charts/uplot.html" class="nav-link">
-                                  <i class="far fa-circle nav-icon"></i>
-                                  <p>uPlot</p>
+                                  <p>Products</p>
                               </a>
                           </li>
                       </ul>
                   </li>
+
+
               </ul>
           </nav>
           <!-- /.sidebar-menu -->
