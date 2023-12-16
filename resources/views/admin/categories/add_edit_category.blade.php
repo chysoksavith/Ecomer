@@ -52,48 +52,21 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="category_image">Category Level (Parent Category)</label>
-                                    {{-- <select class="form-select" name="parent_id">
-                                        <option value="">Select</option>
-                                        <option value="0">Main Category</option>
-                                        @foreach ($getCategories as $cat)
-                                            <option value="{{ $cat['id'] }}">{{ $cat['category_name'] }}</option>
-                                            @if (!empty($cat['subCategories']))
-                                                @foreach ($cat['subCategories'] as $subcat)
-                                                    <option value="{{ $subcar['id'] }}"> &nbsp;&nbsp;&raquo;
-                                                        {{ $subcat['category_name'] }}
-                                                    </option>
-                                                    @if (!empty($subcat['subCategories']))
-                                                        @foreach ($subcat['subCategories'] as $subsubcat)
-                                                            <option value="{{$subsubcat['id']}}">&nbsp;&nbsp;&nbsp;&nbsp;&raquo; {{ $subsubcat['category_name'] }} </option>
-                                                        @endforeach
-                                                    @endif
-                                                @endforeach
-                                            @endif
-                                        @endforeach
-                                    </select> --}}
                                     <select class="form-select" name="parent_id">
                                         <option value="">Select</option>
-                                        <option value="0" @if ($category['parent_id'] == 0) selected @endif>
-                                            Main Category
-                                        </option>
+                                        <option value="0" @if ($category->parent_id == 0) selected @endif>Main
+                                            Category</option>
                                         @foreach ($getCategories as $cat)
-                                            <option @if (isset($category['parent_id']) && $category['parent_id'] == $cat['id']) selected @endif
-                                                value="{{ $cat['id'] }}">⚫ {{ $cat['category_name'] }}</option>
-                                            @if (!empty($cat['subCategories']))
-                                                @foreach ($cat['subCategories'] as $subcat)
-                                                    <option @if (isset($category['parent_id']) && $category['parent_id'] == $subcat['id']) selected @endif
-                                                        value="{{ $subcat['id'] }}">
-                                                        ⚪ {{ $subcat['category_name'] }}
+                                            <option @if ($category->parent_id == $cat->id) selected @endif
+                                                value="{{ $cat->id }}">⚫ {{ $cat->category_name }}</option>
+                                            @foreach ($cat->subCategories as $subcat)
+                                                <option @if ($category->parent_id == $subcat->id) selected @endif
+                                                    value="{{ $subcat->id }}">⚪⚪ {{ $subcat->category_name }}</option>
+                                                @foreach ($subcat->subCategories as $subsubcat)
+                                                    <option value="{{ $subsubcat->id }}"class="red-text">⚪ ⚪⚪ {{ $subsubcat->category_name }}
                                                     </option>
-                                                    {{-- Loop through subsubcategories --}}
-                                                    @if (!empty($subcat['subCategories']))
-                                                        @foreach ($subcat['subCategories'] as $subsubcat)
-                                                            <option value="{{ $subsubcat['id'] }}">⚪
-                                                                {{ $subsubcat['category_name'] }}</option>
-                                                        @endforeach
-                                                    @endif
                                                 @endforeach
-                                            @endif
+                                            @endforeach
                                         @endforeach
                                     </select>
 
@@ -107,9 +80,9 @@
                                                 <img src="{{ asset('admin/images/category/' . $category['category_image']) }}"
                                                     alt="sdf" class="img-fluid"> <br>
                                                 <div class=" d-flex justify-content-center mt-2">
-                                                    <a class="confirmDelete text-danger" name="category" title="Delete category Image"
-                                                        href="javascript:void(0)" record="category-image"
-                                                        recordid="{{ $category->id }}">
+                                                    <a class="confirmDelete text-danger" name="category"
+                                                        title="Delete category Image" href="javascript:void(0)"
+                                                        record="category-image" recordid="{{ $category->id }}">
                                                         <i class="fas fa-trash"></i>Delete
                                                     </a>
                                                 </div>

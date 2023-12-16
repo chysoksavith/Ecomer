@@ -3,6 +3,7 @@
 use App\Http\Controllers\admin\AdminController;
 use App\Http\Controllers\admin\CategoryController;
 use App\Http\Controllers\admin\CmsController;
+use App\Http\Controllers\admin\ProductsController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -52,6 +53,15 @@ Route::group(['prefix' => '/admin'], function () {
             Route::get('delete-category/{id?}', 'deleteCategory');
             Route::get('delete-category-image/{id?}', 'deleteCategoryImage');
             Route::match(['get', 'post'], 'add-edit-category/{id?}', 'AddUpdateCategorys')->name('admin.add.edit.category');
+        });
+        // Product
+        Route::controller(ProductsController::class)->group( function(){
+            Route::get('products', 'products')->name('admin.products');
+            Route::match(['get', 'post'], 'add-edit-product/{id?}', 'AddUpdateProducts')->name('admin.add.edit.product');
+            Route::post('update-product-status', 'updateProductStatus')->name('admin.update.product.status');
+            Route::get('delete-product/{id?}', 'deleteProduct');
+
+
         });
     });
 

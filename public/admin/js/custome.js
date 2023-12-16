@@ -102,8 +102,8 @@ $(document).ready(function () {
             },
         });
     });
-      // update Category Status
-      $(document).on("click", ".updateCategoryStatus", function () {
+    // update Category Status
+    $(document).on("click", ".updateCategoryStatus", function () {
         var status = $(this).find("i").attr("status");
         var category_id = $(this).attr("category_id");
 
@@ -121,6 +121,34 @@ $(document).ready(function () {
                     );
                 } else if (response["status"] == 1) {
                     $("#category-" + category_id).html(
+                        "<i class='fas fa-toggle-on' style='color:blue;' status='Active'></i>"
+                    );
+                }
+            },
+            error: function () {
+                alert("Error occurred during AJAX request");
+            },
+        });
+    });
+     // update Product Status
+     $(document).on("click", ".updateProductStatus", function () {
+        var status = $(this).find("i").attr("status");
+        var product_id = $(this).attr("product_id");
+
+        $.ajax({
+            headers: {
+                "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+            },
+            type: "post",
+            url: "/admin/update-product-status",
+            data: { status: status, product_id: product_id },
+            success: function (response) {
+                if (response["status"] == 0) {
+                    $("#product-" + product_id).html(
+                        "<i class='fas fa-toggle-off' style='color:grey;' status='Inactive'></i>"
+                    );
+                } else if (response["status"] == 1) {
+                    $("#product-" + product_id).html(
                         "<i class='fas fa-toggle-on' style='color:blue;' status='Active'></i>"
                     );
                 }

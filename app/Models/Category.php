@@ -42,10 +42,9 @@ class Category extends Model
         $getCategories = static::with(['subCategories' => function ($query) {
             $query->with('subCategories');
         }])
-        ->where('parent_id', 0)
-        ->where('status', 1)
-        ->get()
-        ->toArray();
+            ->where('parent_id', 0)
+            ->where('status', 1)
+            ->get();
 
         return $getCategories;
     }
