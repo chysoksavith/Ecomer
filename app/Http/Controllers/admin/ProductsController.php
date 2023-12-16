@@ -68,6 +68,21 @@ class ProductsController extends Controller
             ];
 
             $this->validate($request, $rules, $customMessage);
+
+            // product video
+            if ($request->hasFile('product_video')) {
+                $video_tmp = $request->file('product_video');
+                if ($video_tmp->isValid()) {
+                    $videoName = $video_tmp->getClientOriginalName();
+                    $videoExtension = $video_tmp->getClientOriginalExtension();
+                    $videoName = $videoName . '-' . rand() . '.' . $videoExtension;
+                    $videoPath = "front/videos/";
+                    $video_tmp->move($videoPath, $videoName);
+                    $product->product_video = $videoName;
+                }
+            }
+
+
             $product->category_id = $data['category_id'];
             $product->product_name = $data['product_name'];
             $product->product_code = $data['product_code'];
@@ -134,7 +149,7 @@ class ProductsController extends Controller
     // delete
     public function deleteProduct($id)
     {
-        Product::where('id', $id);
+        Product::where('id', $id)->delete();
         return redirect()->back()->with('success_message', 'Product deleted Successfully');
     }
 }
