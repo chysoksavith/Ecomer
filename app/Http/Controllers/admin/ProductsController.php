@@ -34,6 +34,9 @@ class ProductsController extends Controller
             $message = ' Product added successfully';
         } else {
             $title = "Edit Products";
+            $product = Product::find($id);
+
+            $message = 'Product update successfully';
         }
         if ($request->isMethod('post')) {
             $data = $request->all();
@@ -89,8 +92,23 @@ class ProductsController extends Controller
             $product->product_color = $data['product_color'];
             $product->product_price = $data['product_price'];
             $product->product_discount = $data['product_discount'];
+            if (!empty($data['product_discount']) && $data['product_discount'] > 0) {
+                $product->discount_type = 'product';
+                $product->final_price = $data['product_price'] = ($data['product_price'] * $data['product_discount']) / 100;
+            } else {
+                $getCategoryDiscount = Category::select('category_discount')->where('id', $data['category_id'])->first();
+                if ($getCategoryDiscount->category_discount == 0) {
+                    $product->discount_type = "";
+                    $product->final_price = $data['product_price'];
+                } else {
+                    $product->discount_type = 'category';
+                    $product->final_price =  $data['product_price'] - ($data['product_price'] * $getCategoryDiscount->category_discount) / 100;
+                }
+            }
+            $product->family_color = $data['family_color'];
             $product->product_weight = $data['product_weight'];
             $product->description = $data['description'];
+            $product->Search_Keywords = $data['Search_Keywords'];
             $product->group_code = $data['group_code'];
             $product->wash_care = $data['wash_care'];
             $product->fabric = $data['fabric'];
@@ -104,14 +122,14 @@ class ProductsController extends Controller
             if (!empty($data['is_featured'])) {
                 $product->is_featured = $data['is_featured'];
             } else {
-                $product_is_featured = "No";
+                $product->is_featured = "No";
             }
             $product->status = 1;
             $product->save();
             return redirect('admin/products')->with('success_message', $message);
         }
 
-        return view('admin.products.add_edit_products')->with(compact('title', 'getCategories', 'productsFilters'));
+        return view('admin.products.add_edit_products')->with(compact('title', 'getCategories', 'productsFilters', 'product'));
     }
 
 
@@ -151,5 +169,18 @@ class ProductsController extends Controller
     {
         Product::where('id', $id)->delete();
         return redirect()->back()->with('success_message', 'Product deleted Successfully');
+    }
+    // delete video
+    public function deleteProductVideo($id){
+        $productVideo = Product::select('product_video')->where('id', $id)->first();
+        $product_video_path = "front/videos/";
+        if(file_exists($product_video_path.$productVideo->product_video)){
+            unlink($product_video_path.$productVideo->product_video);
+        }
+
+        Product::where('id', $id)->update(['product_video' => '']);
+
+        $message = "Product video has been delete successfully";
+        return redirect()->back()->with('success_message', $message);
     }
 }

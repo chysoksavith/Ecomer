@@ -60,6 +60,8 @@ Route::group(['prefix' => '/admin'], function () {
             Route::match(['get', 'post'], 'add-edit-product/{id?}', 'AddUpdateProducts')->name('admin.add.edit.product');
             Route::post('update-product-status', 'updateProductStatus')->name('admin.update.product.status');
             Route::get('delete-product/{id?}', 'deleteProduct');
+            Route::get('delete-product-video/{id?}', 'deleteProductVideo');
+
 
 
         });
