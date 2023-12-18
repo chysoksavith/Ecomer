@@ -155,6 +155,31 @@
                                         </div>
                                     @endif
                                 </div>
+                                <div class="form-group">
+                                    <label for="product_images">Product image</label>
+                                    <input type="file" class="form-control" id="product_images"
+                                        name="product_images[]" multiple>
+                                    <label for="product_images" class="mt-3">Curretn image</label>
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        @foreach ($product['images'] as $image)
+                                            <div class="contra">
+                                                <img class="img_pr"
+                                                    src="{{ asset('front/images/products/' . $image['image']) }}"
+                                                    alt="">
+                                            </div>
+                                            <input type="hidden" name="image[]" value="{{$image['image']}}">
+                                            <input type="number" name="image_sort[]" value="{{$image['image_sort']}}" style="width: 30px">
+                                            <div class="btndele">
+
+                                                <a class="btn btn-danger confirmDelete" title="Delete Product images"
+                                                    href="javascrpt:void(0)" record="product-image"
+                                                    recordid="{{ $image['id'] }}">Delete image</a>
+                                            </div>
+                                        @endforeach
+                                    </div>
+
+                                </div>
+
 
                                 {{-- ----------------------------Product Filter ----------------------------- --}}
                                 @include('admin.products.filter_product')

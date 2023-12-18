@@ -1,3 +1,15 @@
 .red-text {
     color: red;
 }
+.contra{
+    width: 150px;
+    height: 150px;
+}
+.img_pr{
+    width: 100%;
+    height: 100%;
+}
+.btndele{
+    display: block;
+
+}

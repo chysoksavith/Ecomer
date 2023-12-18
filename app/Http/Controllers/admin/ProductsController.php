@@ -5,7 +5,9 @@ namespace App\Http\Controllers\admin;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Product;
+use App\Models\ProductImage;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 
 class ProductsController extends Controller
@@ -34,8 +36,7 @@ class ProductsController extends Controller
             $message = ' Product added successfully';
         } else {
             $title = "Edit Products";
-            $product = Product::find($id);
-
+            $product = Product::with('images')->find($id);
             $message = 'Product update successfully';
         }
         if ($request->isMethod('post')) {
@@ -126,6 +127,42 @@ class ProductsController extends Controller
             }
             $product->status = 1;
             $product->save();
+
+            if ($id == "") {
+                $product_id = DB::getPdo()->lastInsertId();
+            } else {
+                $product_id = $id;
+            }
+
+            if ($request->hasFile('product_images')) {
+                $images = $request->file('product_images');
+                foreach ($images as $key => $image) {
+                    // Output file information for debugging
+                    echo "File Name: " . $image->getClientOriginalName() . "<br>";
+                    echo "File Size: " . $image->getSize() . " bytes<br>";
+
+                    $extension = $image->getClientOriginalExtension();
+                    $imageName = 'product-' . rand(1111, 9999999) . '.' . $extension;
+                    $image->move('front/images/products/', $imageName);
+
+                    $productImage = new ProductImage;
+                    $productImage->image = $imageName;
+                    $productImage->product_id = $product_id;
+                    $productImage->status = 1;
+                    $productImage->save();
+
+                }
+            }
+            // update sort image
+            if($id != ""){
+                if(isset($data['image'])){
+                    foreach ($data['image'] as $key => $image ){
+                        ProductImage::where(['product_id' => $id, 'image' => $image])->update(['image_sort' => $data['image_sort'] [$key] ]);
+                    }
+                }
+            }
+
+
             return redirect('admin/products')->with('success_message', $message);
         }
 
@@ -171,16 +208,28 @@ class ProductsController extends Controller
         return redirect()->back()->with('success_message', 'Product deleted Successfully');
     }
     // delete video
-    public function deleteProductVideo($id){
+    public function deleteProductVideo($id)
+    {
         $productVideo = Product::select('product_video')->where('id', $id)->first();
         $product_video_path = "front/videos/";
-        if(file_exists($product_video_path.$productVideo->product_video)){
-            unlink($product_video_path.$productVideo->product_video);
+        if (file_exists($product_video_path . $productVideo->product_video)) {
+            unlink($product_video_path . $productVideo->product_video);
         }
 
         Product::where('id', $id)->update(['product_video' => '']);
 
         $message = "Product video has been delete successfully";
+        return redirect()->back()->with('success_message', $message);
+    }
+    public function deleteProductImage($id){
+        $productImage = ProductImage::select('image')->where('id', $id)->first();
+        $image_path = 'front/images/products/';
+
+        if(file_exists($image_path.$productImage->image)){
+            unlink($image_path.$productImage->image);
+        }
+        ProductImage::where('id', $id)->delete();
+        $message = "Product Image have been delete";
         return redirect()->back()->with('success_message', $message);
     }
 }

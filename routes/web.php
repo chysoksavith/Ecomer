@@ -61,9 +61,7 @@ Route::group(['prefix' => '/admin'], function () {
             Route::post('update-product-status', 'updateProductStatus')->name('admin.update.product.status');
             Route::get('delete-product/{id?}', 'deleteProduct');
             Route::get('delete-product-video/{id?}', 'deleteProductVideo');
-
-
-
+            Route::get('delete-product-image/{id?}', 'deleteProductImage');
         });
     });
 
