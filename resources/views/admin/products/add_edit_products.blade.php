@@ -167,8 +167,9 @@
                                                     src="{{ asset('front/images/products/' . $image['image']) }}"
                                                     alt="">
                                             </div>
-                                            <input type="hidden" name="image[]" value="{{$image['image']}}">
-                                            <input type="number" name="image_sort[]" value="{{$image['image_sort']}}" style="width: 30px">
+                                            <input type="hidden" name="image[]" value="{{ $image['image'] }}">
+                                            <input type="number" name="image_sort[]" value="{{ $image['image_sort'] }}"
+                                                style="width: 30px">
                                             <div class="btndele">
 
                                                 <a class="btn btn-danger confirmDelete" title="Delete Product images"
@@ -177,10 +178,84 @@
                                             </div>
                                         @endforeach
                                     </div>
+                                </div>
+                                <div class="form-group">
+                                    <label>Added Attr</label>
+                                    <table class="table" style="width: 50%;">
+                                        <thead>
+                                            <tr>
+                                                <th>ID</th>
+                                                <th>Size</th>
+                                                <th>SKU</th>
+                                                <th>Price</th>
+                                                <th>Stock</th>
+                                                <th>Status</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @if (!empty($product['attributes']))
+                                                @foreach ($product['attributes'] as $attribute)
+                                                    <input type="hidden" name="attributeId[]"
+                                                        value="{{ $attribute['id'] }}">
+                                                    <tr>
+                                                        <td>{{ $attribute['id'] }}</td>
+                                                        <td>{{ $attribute['size'] }}</td>
+                                                        <td>{{ $attribute['sku'] }}</td>
+                                                        <td>
+                                                            <input type="number" style="width: 100px" name="price[]"
+                                                                value="{{ $attribute['price'] }}">
+                                                        </td>
+                                                        <td>
+                                                            <input type="number" style="width: 100px" name="stock[]"
+                                                                value="{{ $attribute['stock'] }}">
+                                                        </td>
+                                                        <td>
+                                                            <a class="updateAttributeStatus"
+                                                                id="attribute-{{ $attribute['id'] }}"
+                                                                attribute_id="{{ $attribute['id'] }}"
+                                                                href="javascript:void(0)">
+                                                                @if ($attribute['status'] == 1)
+                                                                    <i class="fas fa-toggle-on" status="Active"></i>
+                                                                @else
+                                                                    <i class="fas fa-toggle-off" style="color: grey"
+                                                                        status="Inactive"></i>
+                                                                @endif
+                                                            </a>
+                                                        </td>
+                                                        <td class=" ">
+                                                            <a class="confirmDelete" name="attribute"
+                                                                title="Delete attribute" href="javascript:void(0)"
+                                                                record="attribute" recordid="{{ $attribute->id }}"><i
+                                                                    class="fas fa-trash" style="font-size: red"></i></a>
+
+                                                        </td>
+
+                                                    </tr>
+                                                @endforeach
+                                            @endif
+
+                                        </tbody>
+
+                                    </table>
 
                                 </div>
-
-
+                                <div class="form-group">
+                                    <label>Add Product Attr</label>
+                                    <div class="field_wrapper">
+                                        <div>
+                                            <input type="text" name="size[]" id="size" placeholder="Size"
+                                                style=" width: 120px;" />
+                                            <input type="text" name="sku[]" id="sku" placeholder="sku"
+                                                style=" width: 120px;" />
+                                            <input type="text" name="price[]" id="price" placeholder="price"
+                                                style=" width: 120px;" />
+                                            <input type="text" name="stock[]" id="stock" placeholder="stock"
+                                                style=" width: 120px;" />
+                                            <a href="javascript:void(0);" class="add_button" title="Add field">Add</a>
+                                        </div>
+                                    </div>
+                                </div>
                                 {{-- ----------------------------Product Filter ----------------------------- --}}
                                 @include('admin.products.filter_product')
                                 {{-- ----------------------------Text area----------------------------- --}}

@@ -62,6 +62,10 @@ Route::group(['prefix' => '/admin'], function () {
             Route::get('delete-product/{id?}', 'deleteProduct');
             Route::get('delete-product-video/{id?}', 'deleteProductVideo');
             Route::get('delete-product-image/{id?}', 'deleteProductImage');
+            Route::post('update-attribute-status', 'updateAttributeStatus')->name('admin.update.attribute.status');
+            Route::get('delete-attribute/{id?}', 'deleteAttribute');
+
+
         });
     });
 

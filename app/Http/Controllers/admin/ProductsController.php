@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Product;
 use App\Models\ProductImage;
+use App\Models\ProductsAttribure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
@@ -36,7 +37,7 @@ class ProductsController extends Controller
             $message = ' Product added successfully';
         } else {
             $title = "Edit Products";
-            $product = Product::with('images')->find($id);
+            $product = Product::with(['images', 'attributes'])->find($id);
             $message = 'Product update successfully';
         }
         if ($request->isMethod('post')) {
@@ -150,17 +151,60 @@ class ProductsController extends Controller
                     $productImage->product_id = $product_id;
                     $productImage->status = 1;
                     $productImage->save();
-
                 }
             }
             // update sort image
-            if($id != ""){
-                if(isset($data['image'])){
-                    foreach ($data['image'] as $key => $image ){
-                        ProductImage::where(['product_id' => $id, 'image' => $image])->update(['image_sort' => $data['image_sort'] [$key] ]);
+            if ($id != "") {
+                if (isset($data['image'])) {
+                    foreach ($data['image'] as $key => $image) {
+                        ProductImage::where(['product_id' => $id, 'image' => $image])->update(['image_sort' => $data['image_sort'][$key]]);
                     }
                 }
             }
+            // add product attr
+            foreach ($data['sku'] as $key => $value) {
+                if (!empty($value)) {
+                    // Check if SKU already exists
+                    $existingAttribute = ProductsAttribure::where('sku', $value)->first();
+
+                    if ($existingAttribute) {
+                        // SKU already exists, update the existing record
+                        $existingAttribute->update([
+                            'size' => $data['size'][$key],
+                            'price' => $data['price'][$key],
+                            'stock' => $data['stock'][$key],
+                        ]);
+                    } else {
+                        // SKU doesn't exist, create a new record
+                        $attributes = new ProductsAttribure;
+                        $attributes->product_id = $product_id;
+                        $attributes->sku = $value;
+                        $attributes->size = $data['size'][$key];
+                        $attributes->price = $data['price'][$key];
+                        $attributes->stock = $data['stock'][$key];
+                        $attributes->status = 1;
+                        $attributes->save();
+                    }
+                }
+            }
+
+            // edit product attr
+            foreach ($data['attributeId'] as $akey => $attributeId) {
+                $attributeId = (int) $attributeId;
+
+                if (!empty($attributeId)) {
+                    $attribute = ProductsAttribure::find($attributeId);
+
+                    if ($attribute) {
+                        // Update existing attributes
+                        $attribute->update([
+                            'price' => $data['price'][$akey],
+                            'stock' => $data['stock'][$akey],
+                        ]);
+                    }
+                }
+            }
+
 
 
             return redirect('admin/products')->with('success_message', $message);
@@ -221,15 +265,37 @@ class ProductsController extends Controller
         $message = "Product video has been delete successfully";
         return redirect()->back()->with('success_message', $message);
     }
-    public function deleteProductImage($id){
+    public function deleteProductImage($id)
+    {
         $productImage = ProductImage::select('image')->where('id', $id)->first();
         $image_path = 'front/images/products/';
 
-        if(file_exists($image_path.$productImage->image)){
-            unlink($image_path.$productImage->image);
+        if (file_exists($image_path . $productImage->image)) {
+            unlink($image_path . $productImage->image);
         }
         ProductImage::where('id', $id)->delete();
         $message = "Product Image have been delete";
         return redirect()->back()->with('success_message', $message);
+    }
+    // attr
+    public function updateAttributeStatus(Request $request)
+    {
+        if ($request->ajax()) {
+            if ($request->ajax()) {
+                $data = $request->all();
+                if ($data['status'] == 'Active') {
+                    $status = 0;
+                } else {
+                    $status = 1;
+                }
+                ProductsAttribure::where('id', $data['attribute_id'])->update(['status' => $status]);
+                return response()->json(['status' => $status, 'attribute_id' => $data['attribute_id']]);
+            }
+        }
+    }
+    public function deleteAttribute($id)
+    {
+        ProductsAttribure::where('id', $id)->delete();
+        return redirect()->back()->with('success_message', 'Product Attr Successfully');
     }
 }
