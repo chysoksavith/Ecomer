@@ -138,6 +138,38 @@
                                                 @endphp
                                             @endif
                                         @endif
+                                        {{-- module poducts --}}
+                                        @if ($role['module'] == 'products')
+                                            @if ($role['view_access'] == 1)
+                                                @php
+                                                    $viewproducts = 'checked';
+                                                @endphp
+                                            @else
+                                                @php
+                                                    $viewproducts = '';
+                                                @endphp
+                                            @endif
+                                            {{-- edit --}}
+                                            @if ($role['edit_access'] == 1)
+                                                @php
+                                                    $editproducts = 'checked';
+                                                @endphp
+                                            @else
+                                                @php
+                                                    $editproducts = '';
+                                                @endphp
+                                            @endif
+                                            {{-- full --}}
+                                            @if ($role['full_access'] == 1)
+                                                @php
+                                                    $fullproducts = 'checked';
+                                                @endphp
+                                            @else
+                                                @php
+                                                    $fullproducts = '';
+                                                @endphp
+                                            @endif
+                                        @endif
                                     @endforeach
                                 @endif
                                 <div class="form-group">
@@ -183,7 +215,28 @@
                                         <label class="form-check-label">Full Access</label>
                                     </div>
                                 </div>
+                                {{-- Module Product --}}
+                                <div class="form-group">
+                                    <label for="title">Products</label>
 
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" name="products[view]"
+                                            value="1" @if (isset($viewproducts)) {{ $viewproducts }} @endif>
+                                        <label class="form-check-label">View Access</label>
+                                    </div>
+
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" name="products[edit]"
+                                            value="1" @if (isset($editproducts)) {{ $editproducts }} @endif>
+                                        <label class="form-check-label">Edit Access</label>
+                                    </div>
+
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" name="products[full]"
+                                            value="1" @if (isset($fullproducts)) {{ $fullproducts }} @endif>
+                                        <label class="form-check-label">Full Access</label>
+                                    </div>
+                                </div>
                             </div>
                             <!-- /.card-body -->
 

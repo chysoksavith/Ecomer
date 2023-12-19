@@ -3,11 +3,13 @@
 namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\AdminRoles;
 use App\Models\Category;
 use App\Models\Product;
 use App\Models\ProductImage;
 use App\Models\ProductsAttribure;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 
@@ -16,13 +18,38 @@ class ProductsController extends Controller
     public function products(Request $request)
     {
         Session::put('page', 'products');
-        $products = Product::latest()->paginate(10);
+
+        // Use paginate here
+        $productsQuery = Product::with('category')->latest();
 
         if ($request->get('Keyword')) {
-            $products = $products->where('product_name', 'like', '%' . $request->Keyword . '%');
+            $keyword = $request->input('Keyword');
+
+            // Apply the condition to filter products by 'product_name'
+            $productsQuery = $productsQuery->where('product_name', 'like', '%' . $keyword . '%');
         }
-        return view('admin.products.products',)->with(compact('products'));
+
+        // Apply paginate after conditions
+        $products = $productsQuery->paginate(4);
+
+        $productsModuleCount = AdminRoles::where(['subadmins_id' => Auth::guard('admin')->user()->id, 'module' => 'products'])->count();
+
+        $productsModule = array();
+
+        if (Auth::guard('admin')->user()->type == "admin") {
+            $productsModule['view_access'] = 1;
+            $productsModule['edit_access'] = 1;
+            $productsModule['full_access'] = 1;
+        } elseif ($productsModuleCount == 0) {
+            $message = "This feature is restricted for you";
+            return redirect('admin/dashboard')->with('error_message', $message);
+        } else {
+            $productsModule = AdminRoles::where(['subadmins_id' => Auth::guard('admin')->user()->id, 'module' => 'products'])->first()->toArray();
+        }
+
+        return view('admin.products.products')->with(compact('products','productsModule'));
     }
+
     // add product
     public function AddUpdateProducts(Request $request, $id = null)
     {
@@ -189,18 +216,20 @@ class ProductsController extends Controller
             }
 
             // edit product attr
-            foreach ($data['attributeId'] as $akey => $attributeId) {
-                $attributeId = (int) $attributeId;
+            if (isset($data['attributeId'])) {
+                foreach ($data['attributeId'] as $akey => $attributeId) {
+                    $attributeId = (int) $attributeId;
 
-                if (!empty($attributeId)) {
-                    $attribute = ProductsAttribure::find($attributeId);
+                    if (!empty($attributeId)) {
+                        $attribute = ProductsAttribure::find($attributeId);
 
-                    if ($attribute) {
-                        // Update existing attributes
-                        $attribute->update([
-                            'price' => $data['price'][$akey],
-                            'stock' => $data['stock'][$akey],
-                        ]);
+                        if ($attribute) {
+                            // Update existing attributes
+                            $attribute->update([
+                                'price' => $data['price'][$akey] ?? null,
+                                'stock' => $data['stock'][$akey] ?? null,
+                            ]);
+                        }
                     }
                 }
             }

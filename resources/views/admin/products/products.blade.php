@@ -29,8 +29,10 @@
                     <div class="card">
                         <div class="card-header">
                             <div class=" float-right">
-                                <a href="{{ route('admin.add.edit.product') }}" class=" btn btn-primary">Create
-                                    Products</a>
+                                @if ($productsModule['edit_access'] == 1 || $productsModule['full_access'] == 1)
+                                    <a href="{{ route('admin.add.edit.product') }}" class=" btn btn-primary">Create
+                                        Products</a>
+                                @endif
                             </div>
                         </div>
                         <hr>
@@ -56,8 +58,7 @@
                                 <div class="col-md-12">
                                     <div class=" d-flex justify-content-between align-items-center">
                                         <div class=" card-title">
-                                            <a href="{{ route('admin.categories') }}"
-                                                class="btn btn-sm btn-default">Reset</a>
+                                            <a href="{{ route('admin.products') }}" class="btn btn-sm btn-default">Reset</a>
                                         </div>
                                         <div class="card-tools">
                                             <div class="input-group input-group" style="width: 250px;">
@@ -101,24 +102,29 @@
                                                     @endif
                                                 </td>
                                                 <td>
-                                                    <a class="updateProductStatus" id="product-{{ $product['id'] }}"
-                                                        product_id="{{ $product['id'] }}" href="javascript:void(0)">
-                                                        @if ($product['status'] == 1)
-                                                            <i class="fas fa-toggle-on" status="Active"></i>
-                                                        @else
-                                                            <i class="fas fa-toggle-off" style="color: grey"
-                                                                status="Inactive"></i>
-                                                        @endif
-                                                    </a>
+                                                    @if ($productsModule['edit_access'] == 1 || $productsModule['full_access'] == 1)
+                                                        <a class="updateProductStatus" id="product-{{ $product['id'] }}"
+                                                            product_id="{{ $product['id'] }}" href="javascript:void(0)">
+                                                            @if ($product['status'] == 1)
+                                                                <i class="fas fa-toggle-on" status="Active"></i>
+                                                            @else
+                                                                <i class="fas fa-toggle-off" style="color: grey"
+                                                                    status="Inactive"></i>
+                                                            @endif
+                                                        </a>
+                                                    @endif
                                                 </td>
                                                 <td class=" d-flex justify-content-around align-items-center">
-                                                    <a href="{{ url('admin/add-edit-product/' . $product->id) }}"><i
-                                                            class="fas fa-edit" style="font-size: #3fed3"></i></a>
-                                                    <a class="confirmDelete" name="product" title="Delete product"
-                                                        href="javascript:void(0)" record="product"
-                                                        recordid="{{ $product->id }}"><i class="fas fa-trash"
-                                                            style="font-size: red"></i></a>
-
+                                                    @if ($productsModule['edit_access'] == 1 || $productsModule['full_access'] == 1)
+                                                        <a href="{{ url('admin/add-edit-product/' . $product->id) }}"><i
+                                                                class="fas fa-edit" style="font-size: #3fed3"></i></a>
+                                                    @endif
+                                                    @if ($productsModule['full_access'] == 1)
+                                                        <a class="confirmDelete" name="product" title="Delete product"
+                                                            href="javascript:void(0)" record="product"
+                                                            recordid="{{ $product->id }}"><i class="fas fa-trash"
+                                                                style="font-size: red"></i></a>
+                                                    @endif
                                                 </td>
                                             </tr>
                                             {{-- href="{{ url('admin/delete-cms-pages/' . $page->id) }}" --}}
