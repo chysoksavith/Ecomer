@@ -170,38 +170,70 @@
                                                 @endphp
                                             @endif
                                         @endif
-                                         {{-- module Brands --}}
-                                         @if ($role['module'] == 'brands')
-                                         @if ($role['view_access'] == 1)
-                                             @php
-                                                 $viewbrands = 'checked';
-                                             @endphp
-                                         @else
-                                             @php
-                                                 $viewbrands = '';
-                                             @endphp
-                                         @endif
-                                         {{-- edit --}}
-                                         @if ($role['edit_access'] == 1)
-                                             @php
-                                                 $editbrands = 'checked';
-                                             @endphp
-                                         @else
-                                             @php
-                                                 $editbrands = '';
-                                             @endphp
-                                         @endif
-                                         {{-- full --}}
-                                         @if ($role['full_access'] == 1)
-                                             @php
-                                                 $fullbrands = 'checked';
-                                             @endphp
-                                         @else
-                                             @php
-                                                 $fullbrands = '';
-                                             @endphp
-                                         @endif
-                                     @endif
+                                        {{-- module Brands --}}
+                                        @if ($role['module'] == 'brands')
+                                            @if ($role['view_access'] == 1)
+                                                @php
+                                                    $viewbrands = 'checked';
+                                                @endphp
+                                            @else
+                                                @php
+                                                    $viewbrands = '';
+                                                @endphp
+                                            @endif
+                                            {{-- edit --}}
+                                            @if ($role['edit_access'] == 1)
+                                                @php
+                                                    $editbrands = 'checked';
+                                                @endphp
+                                            @else
+                                                @php
+                                                    $editbrands = '';
+                                                @endphp
+                                            @endif
+                                            {{-- full --}}
+                                            @if ($role['full_access'] == 1)
+                                                @php
+                                                    $fullbrands = 'checked';
+                                                @endphp
+                                            @else
+                                                @php
+                                                    $fullbrands = '';
+                                                @endphp
+                                            @endif
+                                        @endif
+                                        {{-- module Banners --}}
+                                        @if ($role['module'] == 'banners')
+                                            @if ($role['view_access'] == 1)
+                                                @php
+                                                    $viewbanners = 'checked';
+                                                @endphp
+                                            @else
+                                                @php
+                                                    $viewbanners = '';
+                                                @endphp
+                                            @endif
+                                            {{-- edit --}}
+                                            @if ($role['edit_access'] == 1)
+                                                @php
+                                                    $editbanners = 'checked';
+                                                @endphp
+                                            @else
+                                                @php
+                                                    $editbanners = '';
+                                                @endphp
+                                            @endif
+                                            {{-- full --}}
+                                            @if ($role['full_access'] == 1)
+                                                @php
+                                                    $fullbanners = 'checked';
+                                                @endphp
+                                            @else
+                                                @php
+                                                    $fullbanners = '';
+                                                @endphp
+                                            @endif
+                                        @endif
                                     @endforeach
                                 @endif
                                 <div class="form-group">
@@ -252,25 +284,25 @@
                                     <label for="title">Products</label>
 
                                     <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" name="products[view]"
-                                            value="1" @if (isset($viewproducts)) {{ $viewproducts }} @endif>
+                                        <input class="form-check-input" type="checkbox" name="products[view]" value="1"
+                                            @if (isset($viewproducts)) {{ $viewproducts }} @endif>
                                         <label class="form-check-label">View Access</label>
                                     </div>
 
                                     <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" name="products[edit]"
-                                            value="1" @if (isset($editproducts)) {{ $editproducts }} @endif>
+                                        <input class="form-check-input" type="checkbox" name="products[edit]" value="1"
+                                            @if (isset($editproducts)) {{ $editproducts }} @endif>
                                         <label class="form-check-label">Edit Access</label>
                                     </div>
 
                                     <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" name="products[full]"
-                                            value="1" @if (isset($fullproducts)) {{ $fullproducts }} @endif>
+                                        <input class="form-check-input" type="checkbox" name="products[full]" value="1"
+                                            @if (isset($fullproducts)) {{ $fullproducts }} @endif>
                                         <label class="form-check-label">Full Access</label>
                                     </div>
                                 </div>
-                                 {{-- Module Brands --}}
-                                 <div class="form-group">
+                                {{-- Module Brands --}}
+                                <div class="form-group">
                                     <label for="title">Brands</label>
 
                                     <div class="form-check">
@@ -288,6 +320,28 @@
                                     <div class="form-check">
                                         <input class="form-check-input" type="checkbox" name="brands[full]"
                                             value="1" @if (isset($fullbrands)) {{ $fullbrands }} @endif>
+                                        <label class="form-check-label">Full Access</label>
+                                    </div>
+                                </div>
+                                 {{-- Module Banner --}}
+                                 <div class="form-group">
+                                    <label for="title">Banners</label>
+
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" name="banners[view]"
+                                            value="1" @if (isset($viewbanners)) {{ $viewbanners }} @endif>
+                                        <label class="form-check-label">View Access</label>
+                                    </div>
+
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" name="banners[edit]"
+                                            value="1" @if (isset($editbanners)) {{ $editbanners }} @endif>
+                                        <label class="form-check-label">Edit Access</label>
+                                    </div>
+
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" name="banners[full]"
+                                            value="1" @if (isset($fullbanners)) {{ $fullbanners }} @endif>
                                         <label class="form-check-label">Full Access</label>
                                     </div>
                                 </div>

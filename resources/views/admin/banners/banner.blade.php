@@ -7,13 +7,13 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>Brands</h1>
+                    <h1>Banners</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="#">Home</a></li>
                         <li class="breadcrumb-item active">
-                            <a href="">Categories Cms Pages</a>
+                            <a href="">Banners</a>
                         </li>
                     </ol>
                 </div>
@@ -29,10 +29,8 @@
                     <div class="card">
                         <div class="card-header">
                             <div class=" float-right">
-                                @if ($brandsModule['edit_access'] == 1 || $brandsModule['full_access'] == 1)
-                                    <a href="{{ route('admin.add.edit.brand') }}" class=" btn btn-primary">Create
-                                        Brands</a>
-                                @endif
+                                <a href="{{ route('admin.add.edit.banner') }}" class=" btn btn-primary">Create
+                                    banners</a>
                             </div>
                         </div>
                         <hr>
@@ -58,8 +56,7 @@
                                 <div class="col-md-12">
                                     <div class=" d-flex justify-content-between align-items-center">
                                         <div class=" card-title">
-                                            <a href="{{ route('admin.brands') }}"
-                                                class="btn btn-sm btn-default">Reset</a>
+                                            <a href="{{ route('admin.banners') }}" class="btn btn-sm btn-default">Reset</a>
                                         </div>
                                         <div class="card-tools">
                                             <div class="input-group input-group" style="width: 250px;">
@@ -80,50 +77,55 @@
                                     <thead>
                                         <tr>
                                             <th>Id</th>
-                                            <th>Name</th>
-                                            <th>Url</th>
+                                            <th>Image</th>
+                                            <th>Type</th>
+                                            <th>Link</th>
+                                            <th>Title</th>
                                             <th>Create on</th>
                                             <th>Status</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @forelse ($brands as $brand)
+                                        @forelse ($banners as $banner)
                                             <tr>
-                                                <td>{{ optional($brand)->id ?? 'N/A' }}</td>
-                                                <td>{{ optional($brand)->brand_name ?? 'N/A' }}</td>
-                                                <td>{{ optional($brand)->url ?? 'N/A' }}</td>
+                                                <td>{{ optional($banner)->id ?? 'N/A' }}</td>
                                                 <td>
-                                                    @if (optional($brand->created_at)->format('Y-m-d'))
-                                                        {{ optional($brand->created_at)->format('Y-m-d') }}
+                                                    <a target="_blank"
+                                                        href="{{ url('front/images/banner/' . $banner['image']) }}">
+                                                        <img src="{{ asset('front/images/banner/' . $banner['image']) }}"
+                                                            alt="imgBanner" style="width: 130px">
+                                                    </a>
+                                                </td>
+
+                                                <td>{{ optional($banner)->type ?? 'N/A' }}</td>
+                                                <td>{{ optional($banner)->link ?? 'N/A' }}</td>
+                                                <td>{{ optional($banner)->title ?? 'N/A' }}</td>
+                                                <td>
+                                                    @if (optional($banner->created_at)->format('Y-m-d'))
+                                                        {{ optional($banner->created_at)->format('Y-m-d') }}
                                                     @else
                                                         N/A
                                                     @endif
                                                 </td>
                                                 <td>
-                                                    @if ($brandsModule['edit_access'] == 1 || $brandsModule['full_access'] == 1)
-                                                        <a class="updateBrandStatus" id="brand-{{ $brand['id'] }}"
-                                                            brand_id="{{ $brand['id'] }}" href="javascript:void(0)">
-                                                            @if ($brand['status'] == 1)
-                                                                <i class="fas fa-toggle-on" status="Active"></i>
-                                                            @else
-                                                                <i class="fas fa-toggle-off" style="color: grey"
-                                                                    status="Inactive"></i>
-                                                            @endif
-                                                        </a>
-                                                    @endif
+                                                    <a class="updatebannerStatus" id="banner-{{ $banner['id'] }}"
+                                                        banner_id="{{ $banner['id'] }}" href="javascript:void(0)">
+                                                        @if ($banner['status'] == 1)
+                                                            <i class="fas fa-toggle-on" status="Active"></i>
+                                                        @else
+                                                            <i class="fas fa-toggle-off" style="color: grey"
+                                                                status="Inactive"></i>
+                                                        @endif
+                                                    </a>
                                                 </td>
                                                 <td class=" d-flex justify-content-around align-items-center">
-                                                    @if ($brandsModule['edit_access'] == 1 || $brandsModule['full_access'] == 1)
-                                                        <a href="{{ url('admin/add-edit-brand/' . $brand->id) }}"><i
-                                                                class="fas fa-edit" style="font-size: #3fed3"></i></a>
-                                                    @endif
-                                                    @if ($brandsModule['full_access'] == 1)
-                                                        <a class="confirmDelete" name="brand" title="Delete brand"
-                                                            href="javascript:void(0)" record="brand"
-                                                            recordid="{{ $brand->id }}"><i class="fas fa-trash"
-                                                                style="font-size: red"></i></a>
-                                                    @endif
+                                                    <a href="{{ url('admin/add-edit-banner/' . $banner->id) }}"><i
+                                                            class="fas fa-edit" style="font-size: #3fed3"></i></a>
+                                                    <a class="confirmDelete" name="banner" title="Delete banner"
+                                                        href="javascript:void(0)" record="banner"
+                                                        recordid="{{ $banner->id }}"><i class="fas fa-trash"
+                                                            style="font-size: red"></i></a>
                                                 </td>
                                             </tr>
                                             {{-- href="{{ url('admin/delete-cms-pages/' . $page->id) }}" --}}
@@ -139,7 +141,7 @@
                         <!-- /.card-header -->
                     </div>
                     <div>
-                        {{ $brands->links() }}
+                        {{ $banners->links() }}
                     </div>
                 </div>
             </div>

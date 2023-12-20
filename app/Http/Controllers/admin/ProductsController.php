@@ -4,6 +4,7 @@ namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\AdminRoles;
+use App\Models\Brand;
 use App\Models\Category;
 use App\Models\Product;
 use App\Models\ProductImage;
@@ -57,6 +58,9 @@ class ProductsController extends Controller
         $getCategories = Category::getCategories();
         // product filter
         $productsFilters = Product::productsFilters();
+        // brands filter
+        $getBrands = Brand::where('status', 1)->get()->toArray();
+
         $product = new Product;
         if ($id == "") {
             $title = "Add Products";
@@ -116,6 +120,7 @@ class ProductsController extends Controller
 
 
             $product->category_id = $data['category_id'];
+            $product->brand_id = $data['brand_id'];
             $product->product_name = $data['product_name'];
             $product->product_code = $data['product_code'];
             $product->product_color = $data['product_color'];
@@ -239,7 +244,7 @@ class ProductsController extends Controller
             return redirect('admin/products')->with('success_message', $message);
         }
 
-        return view('admin.products.add_edit_products')->with(compact('title', 'getCategories', 'productsFilters', 'product'));
+        return view('admin.products.add_edit_products')->with(compact('title', 'getCategories', 'productsFilters', 'product', 'getBrands'));
     }
 
 

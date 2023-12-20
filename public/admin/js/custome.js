@@ -214,6 +214,34 @@ $(document).ready(function () {
             },
         });
     });
+     // update Banner Status
+     $(document).on("click", ".updatebannerStatus", function () {
+        var status = $(this).find("i").attr("status");
+        var banner_id = $(this).attr("banner_id");
+
+        $.ajax({
+            headers: {
+                "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+            },
+            type: "post",
+            url: "/admin/update-banner-status",
+            data: { status: status, banner_id: banner_id },
+            success: function (response) {
+                if (response["status"] == 0) {
+                    $("#banner-" + banner_id).html(
+                        "<i class='fas fa-toggle-off' style='color:grey;' status='Inactive'></i>"
+                    );
+                } else if (response["status"] == 1) {
+                    $("#banner-" + banner_id).html(
+                        "<i class='fas fa-toggle-on' style='color:blue;' status='Active'></i>"
+                    );
+                }
+            },
+            error: function () {
+                alert("Error occurred during AJAX request");
+            },
+        });
+    });
     // ---------------------------- Add Attr Script --------------------------------
     $(document).ready(function () {
         var maxField = 10; //Input fields increment limitation
