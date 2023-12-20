@@ -170,6 +170,38 @@
                                                 @endphp
                                             @endif
                                         @endif
+                                         {{-- module Brands --}}
+                                         @if ($role['module'] == 'brands')
+                                         @if ($role['view_access'] == 1)
+                                             @php
+                                                 $viewbrands = 'checked';
+                                             @endphp
+                                         @else
+                                             @php
+                                                 $viewbrands = '';
+                                             @endphp
+                                         @endif
+                                         {{-- edit --}}
+                                         @if ($role['edit_access'] == 1)
+                                             @php
+                                                 $editbrands = 'checked';
+                                             @endphp
+                                         @else
+                                             @php
+                                                 $editbrands = '';
+                                             @endphp
+                                         @endif
+                                         {{-- full --}}
+                                         @if ($role['full_access'] == 1)
+                                             @php
+                                                 $fullbrands = 'checked';
+                                             @endphp
+                                         @else
+                                             @php
+                                                 $fullbrands = '';
+                                             @endphp
+                                         @endif
+                                     @endif
                                     @endforeach
                                 @endif
                                 <div class="form-group">
@@ -234,6 +266,28 @@
                                     <div class="form-check">
                                         <input class="form-check-input" type="checkbox" name="products[full]"
                                             value="1" @if (isset($fullproducts)) {{ $fullproducts }} @endif>
+                                        <label class="form-check-label">Full Access</label>
+                                    </div>
+                                </div>
+                                 {{-- Module Brands --}}
+                                 <div class="form-group">
+                                    <label for="title">Brands</label>
+
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" name="brands[view]"
+                                            value="1" @if (isset($viewbrands)) {{ $viewbrands }} @endif>
+                                        <label class="form-check-label">View Access</label>
+                                    </div>
+
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" name="brands[edit]"
+                                            value="1" @if (isset($editbrands)) {{ $editbrands }} @endif>
+                                        <label class="form-check-label">Edit Access</label>
+                                    </div>
+
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" name="brands[full]"
+                                            value="1" @if (isset($fullbrands)) {{ $fullbrands }} @endif>
                                         <label class="form-check-label">Full Access</label>
                                     </div>
                                 </div>

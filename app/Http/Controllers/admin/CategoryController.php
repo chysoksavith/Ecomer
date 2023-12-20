@@ -5,6 +5,7 @@ namespace App\Http\Controllers\admin;
 use App\Http\Controllers\Controller;
 use App\Models\AdminRoles;
 use App\Models\Category;
+use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
@@ -101,6 +102,14 @@ class CategoryController extends Controller
             }
             if (empty($data['category_discount'])) {
                 $data['category_discount'] = 0;
+                if($id != ""){
+                    $categoryProducts = Product::where('category_id', $id)->get()->toArray();
+                    foreach ($categoryProducts as $Key => $product){
+                        if($product['discount_type'] == "category"){
+                            Product::where('id', $product['id'])->update(['discount_type' == '', 'final_price' == $product['product_price']]);
+                        }
+                    }
+                }
             }
 
             $category->category_name = $data['category_name'];

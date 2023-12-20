@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\admin\AdminController;
+use App\Http\Controllers\admin\BrandsController;
 use App\Http\Controllers\admin\CategoryController;
 use App\Http\Controllers\admin\CmsController;
 use App\Http\Controllers\admin\ProductsController;
@@ -64,6 +65,15 @@ Route::group(['prefix' => '/admin'], function () {
             Route::get('delete-product-image/{id?}', 'deleteProductImage');
             Route::post('update-attribute-status', 'updateAttributeStatus')->name('admin.update.attribute.status');
             Route::get('delete-attribute/{id?}', 'deleteAttribute');
+        });
+        // Brands
+        Route::controller(BrandsController::class)->group(function(){
+            Route::get('brands', 'brands')->name('admin.brands');
+            Route::match(['get', 'post'], 'add-edit-brand/{id?}', 'AddUpdateBrands')->name('admin.add.edit.brand');
+            Route::post('update-brand-status', 'updateBrandStatus')->name('admin.update.brand.status');
+            Route::get('delete-brand/{id?}', 'deleteBrand');
+            Route::get('delete-brand-image/{id?}', 'deleteBrandImage');
+            Route::get('delete-brand-logo/{id?}', 'deleteBrandLogo');
 
 
         });

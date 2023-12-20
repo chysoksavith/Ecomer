@@ -181,6 +181,7 @@
                                   <i class="far fa-circle nav-icon"></i>
                                   <p>Category</p>
                               </a>
+                              {{-- product --}}
                               @if (Session::get('page') == 'products')
                                   @php
                                       $active = 'active';
@@ -193,6 +194,20 @@
                               <a href="{{route('admin.products')}}" class="nav-link {{ $active }}">
                                   <i class="far fa-circle nav-icon"></i>
                                   <p>Products</p>
+                              </a>
+                              {{-- brand --}}
+                              @if (Session::get('page') == 'brands')
+                                  @php
+                                      $active = 'active';
+                                  @endphp
+                              @else
+                                  @php
+                                      $active = '';
+                                  @endphp
+                              @endif
+                              <a href="{{route('admin.brands')}}" class="nav-link {{ $active }}">
+                                  <i class="far fa-circle nav-icon"></i>
+                                  <p>Brands</p>
                               </a>
                           </li>
                       </ul>
