@@ -82,12 +82,7 @@
                                         placeholder="Enter Page title"
                                         @if (!empty($banner['title'])) value="{{ $banner['title'] }}"  @else value="{{ old('title') }}" @endif>
                                 </div>
-                                <div class="form-group">
-                                    <label for="link">link*</label>
-                                    <input type="text" class="form-control" name="link" id="link"
-                                        placeholder="Enter Page link"
-                                        @if (!empty($banner['link'])) value="{{ $banner['link'] }}"  @else value="{{ old('link') }}" @endif>
-                                </div>
+
                                 <div class="form-group">
                                     <label for="alt">alt*</label>
                                     <input type="text" class="form-control" name="alt" id="alt"

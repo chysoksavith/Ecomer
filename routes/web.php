@@ -6,6 +6,7 @@ use App\Http\Controllers\admin\BrandsController;
 use App\Http\Controllers\admin\CategoryController;
 use App\Http\Controllers\admin\CmsController;
 use App\Http\Controllers\admin\ProductsController;
+use App\Http\Controllers\front\IndexController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -19,10 +20,17 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
+Route::namespace('App\Http\Controllers\front')->group(function(){
 
+    Route::controller(IndexController::class)->group(function(){
+        Route::get('/', 'index')->name('front.home');
+        Route::get('HomePage', 'HomePage')->name('HomePage');
+    });
+
+});
 Route::group(['prefix' => '/admin'], function () {
 
     Route::group(['middleware' => ['admin']], function () {

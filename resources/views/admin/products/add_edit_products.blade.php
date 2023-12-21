@@ -78,7 +78,9 @@
                                     <select name="brand_id" id="brand_id" class="form-select">
                                         <option value="">Select</option>
                                         @foreach ($getBrands as $brand)
-                                        <option value="{{ $brand['id'] }}" @if(!empty($product['brand_id']) && $product['brand_id'] == $brand['id']) selected @endif >{{$brand['brand_name']}}</option>
+                                            <option value="{{ $brand['id'] }}"
+                                                @if (!empty($product['brand_id']) && $product['brand_id'] == $brand['id']) selected @endif>
+                                                {{ $brand['brand_name'] }}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -318,7 +320,13 @@
                                         is_featured
                                     </label>
                                 </div>
-
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="Yes" name="is_bestseller"
+                                        @if (!empty($product['is_bestseller']) && $product['is_bestseller'] == 'Yes') checked @endif>
+                                    <label class="form-check-label" for="flexCheckDefault">
+                                        is_bestseller
+                                    </label>
+                                </div>
                             </div>
                             <!-- /.card-body -->
 

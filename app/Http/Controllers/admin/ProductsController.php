@@ -48,7 +48,7 @@ class ProductsController extends Controller
             $productsModule = AdminRoles::where(['subadmins_id' => Auth::guard('admin')->user()->id, 'module' => 'products'])->first()->toArray();
         }
 
-        return view('admin.products.products')->with(compact('products','productsModule'));
+        return view('admin.products.products')->with(compact('products', 'productsModule'));
     }
 
     // add product
@@ -126,9 +126,29 @@ class ProductsController extends Controller
             $product->product_color = $data['product_color'];
             $product->product_price = $data['product_price'];
             $product->product_discount = $data['product_discount'];
+            // if (!empty($data['product_discount']) && $data['product_discount'] > 0) {
+            //     $product->discount_type = 'product';
+            //     $product->final_price = $data['product_price'] = ($data['product_price'] * $data['product_discount']) / 100;
+            // } else {
+            //     $getCategoryDiscount = Category::select('category_discount')->where('id', $data['category_id'])->first();
+            //     if ($getCategoryDiscount->category_discount == 0) {
+            //         $product->discount_type = "";
+            //         $product->final_price = $data['product_price'];
+            //     } else {
+            //         $product->discount_type = 'category';
+            //         $product->final_price =  $data['product_price'] - ($data['product_price'] * $getCategoryDiscount->category_discount) / 100;
+            //     }
+            // }
             if (!empty($data['product_discount']) && $data['product_discount'] > 0) {
-                $product->discount_type = 'product';
-                $product->final_price = $data['product_price'] = ($data['product_price'] * $data['product_discount']) / 100;
+                if (!empty($data['product_discount_type']) && $data['product_discount_type'] == 'fixed') {
+                    // Apply fixed discount
+                    $product->discount_type = 'product';
+                    $product->final_price = $data['product_price'] - $data['product_discount'];
+                } else {
+                    // Apply percentage discount
+                    $product->discount_type = 'product';
+                    $product->final_price = $data['product_price'] - ($data['product_price'] * $data['product_discount']) / 100;
+                }
             } else {
                 $getCategoryDiscount = Category::select('category_discount')->where('id', $data['category_id'])->first();
                 if ($getCategoryDiscount->category_discount == 0) {
@@ -136,9 +156,10 @@ class ProductsController extends Controller
                     $product->final_price = $data['product_price'];
                 } else {
                     $product->discount_type = 'category';
-                    $product->final_price =  $data['product_price'] - ($data['product_price'] * $getCategoryDiscount->category_discount) / 100;
+                    $product->final_price = $data['product_price'] - ($data['product_price'] * $getCategoryDiscount->category_discount) / 100;
                 }
             }
+
             $product->family_color = $data['family_color'];
             $product->product_weight = $data['product_weight'];
             $product->description = $data['description'];
@@ -157,6 +178,11 @@ class ProductsController extends Controller
                 $product->is_featured = $data['is_featured'];
             } else {
                 $product->is_featured = "No";
+            }
+            if (!empty($data['is_bestseller'])) {
+                $product->is_bestseller = $data['is_bestseller'];
+            } else {
+                $product->is_bestseller = "No";
             }
             $product->status = 1;
             $product->save();

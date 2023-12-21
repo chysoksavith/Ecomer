@@ -39,56 +39,60 @@ class BannersController extends Controller
 
     public function AddUpdatebanners(Request $request, $id = null)
     {
-        if ($id == "") {
+        if ($id === "") {
             $title = "Add Banner";
             $banner = new Banners;
-            $message = "Brand added successfully";
+            $message = "Banner added successfully";
         } else {
-            $title = "update Banner";
+            $title = "Update Banner";
             $banner = Banners::find($id);
-            $message = "Banner update successfully";
+            $message = "Banner updated successfully";
         }
 
         if ($request->isMethod('post')) {
             $data = $request->all();
-            if ($id == "") {
-                $rules = [
-                    'type' => 'required',
-                    'image' => 'required',
-                ];
-            } else {
-                $rules = [
-                    'type' => 'required',
-                    'image' => 'required'
-                ];
+
+            // Validation rules
+            $rules = [
+                'type' => 'required',
+            ];
+
+            // If it's a new banner or the image is being updated, add the 'image' validation rule
+            if ($id === "" || $request->hasFile('image')) {
+                $rules['image'] = 'required|image';
             }
+
             $customMessage = [
-                'image' => 'image required',
-                'type' => 'Banner type required',
+                'image.required' => 'Image is required',
+                'image.image' => 'Invalid image format',
+                'type.required' => 'Banner type is required',
             ];
 
             $this->validate($request, $rules, $customMessage);
 
             if ($request->hasFile('image')) {
+                // Upload and save image
                 $image = $request->file('image');
                 $imageName = time() . '.' . $image->getClientOriginalExtension();
                 $imagePath = 'front/images/banner/' . $imageName;
                 $image->move(public_path('front/images/banner'), $imageName);
                 $banner->image = $imageName;
-            } else {
-                $banner->image = "";
             }
 
+            // Update other fields
             $banner->title = $data['title'];
             $banner->alt = $data['alt'];
             $banner->link = $data['link'];
             $banner->sort = $data['sort'];
             $banner->type = $data['type'];
+
             $banner->save();
             return redirect('admin/banners')->with('success_message', $message);
         }
+
         return view('admin.banners.add_edit_banner')->with(compact('title', 'banner'));
     }
+
 
 
 

@@ -1,0 +1,130 @@
+.MainContainerFirstPage{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0px 20px;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+.ContainerFirstPage{
+    margin-top: 10px;
+    width: 380px;
+    height: 600px;
+}
+.ImageFirstPage{
+    position: relative;
+}
+.soldOutItems{
+    position: absolute;
+    top: 3%;
+    left: 3%;
+    font-size: 14px;
+    color: #737373;
+}
+.ImageFirstPage  img{
+    width: 100%;
+    height: 500px;
+    object-fit: cover;
+
+}
+.TitleFirstPage{
+    text-align: center;
+    padding: 8px;
+    height: 100px;
+}
+.NameProFirstPage{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 100%;
+}
+.NameProFirstPageColor{
+    color: #737373 !important;
+}
+.TitleFirstPage span{
+    font-size: 14px;
+    font-weight: 300;
+    color: #000000;
+    margin-top: 8px;
+    display: block;
+}
+.fial_price{
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+}
+.PriceFirstPageoG{
+    text-decoration: line-through;
+}
+/* --------banner------- */
+.bannerIndex{
+    position: relative;
+    width: 100%;
+    height: 900px;
+    background-color: red;
+}
+.BannerImage img{
+    position: absolute;
+    width: 100%;
+    height: 900px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+/* Small Devices (Mobile Portrait) */
+@media (max-width: 575.98px) {
+    .MainContainerFirstPage {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .MainContainerFirstPage > div {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+}
+
+/* Medium Devices (Tablet Landscape) */
+@media (min-width: 576px) and (max-width: 767.98px) {
+    .MainContainerFirstPage {
+        flex-direction: row;
+    }
+
+    .MainContainerFirstPage > div {
+        width: 49%; /* Two columns on tablet landscape */
+        margin-bottom: 10px;
+    }
+}
+
+/* Large Devices (Tablet Landscape) */
+@media (min-width: 768px) and (max-width: 991.98px) {
+    .MainContainerFirstPage {
+        flex-direction: row;
+    }
+
+    .MainContainerFirstPage > div {
+        width: 49%; /* Two columns on larger tablets */
+        margin-bottom: 10px;
+    }
+}
+
+/* Large Devices (Desktops) */
+@media (min-width: 992px) and (max-width: 1199.98px) {
+    .MainContainerFirstPage > div {
+        width: 32%; /* Three columns on desktops */
+        margin-bottom: 10px;
+    }
+}
+/* Extra Large Devices (Large Desktops) */
+@media (min-width: 1200px) {
+    /* Your styles for extra large devices go here */
+}

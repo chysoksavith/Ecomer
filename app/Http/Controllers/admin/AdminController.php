@@ -5,6 +5,10 @@ namespace App\Http\Controllers\admin;
 use App\Http\Controllers\Controller;
 use App\Models\Admin;
 use App\Models\AdminRoles;
+use App\Models\Brand;
+use App\Models\Category;
+use App\Models\Product;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -15,7 +19,11 @@ class AdminController extends Controller
     public function dashboard()
     {
         Session::put('page', 'dashboard');
-        return view('admin.dashboard');
+        $categoryCount = Category::get()->count();
+        $ProductCount = Product::get()->count();
+        $brandCount = Brand::get()->count();
+        $userCount = User::get()->count();
+        return view('admin.dashboard')->with(compact('categoryCount','ProductCount','brandCount','userCount'));
     }
     public function login(Request $request)
     {

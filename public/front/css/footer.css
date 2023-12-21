@@ -1,0 +1,32 @@
+footer{
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+}
+.Footer{
+    display: flex;
+    align-items: center;
+    list-style: none;
+}
+.Footer li{
+    padding: 5px 15px;
+}
+.Footer a{
+    letter-spacing: 2px;
+    font-size: 14px;
+    font-weight: 400;
+    text-decoration: none;
+    color: black;
+}
+.leftfooter ul{
+    display: flex;
+    align-items: center;
+    list-style: none;
+}
+.leftfooter li{
+    letter-spacing: 2px;
+    padding: 5px 15px;
+    font-size: 15px;
+    font-weight: 300;
+}
