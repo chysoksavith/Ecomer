@@ -13,6 +13,8 @@
     <link rel="stylesheet" href="{{ asset('front/css/footer.css') }}">
     <link rel="stylesheet" href="{{ asset('front/css/home.css') }}">
     <link rel="stylesheet" href="{{ asset('front/css/homePages.css') }}">
+    <link rel="stylesheet" href="{{ asset('front/css/listing.css') }}">
+    <link rel="stylesheet" href="{{ asset('front/css/sortNewstListing.css') }}">
     <title>EcoStore</title>
 </head>
 

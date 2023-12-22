@@ -42,12 +42,16 @@ $categories = Category::getCategories();
                                     <div class="subcategory">
                                         @foreach ($category->subCategories as $subcategory)
                                             <div class="dropdown-heading">
-                                                <a href="{{ url($subcategory->url) }}">{{ $subcategory->category_name }}</a>
+                                                <a href="{{ url($subcategory->url) }}">
+                                                    {{ $subcategory->category_name }}
+                                                </a>
                                             </div>
                                             @if (count($subcategory->subCategories))
                                                 <div class="dropdown-links">
                                                     @foreach ($subcategory->subCategories as $subsubcategory)
-                                                    <a href="{{ url($subcategory->url) }}">{{ $subsubcategory->category_name }}</a>
+                                                        <a href="{{ url($subsubcategory->url) }}">
+                                                            {{ $subsubcategory->category_name }}
+                                                        </a>
                                                     @endforeach
                                                 </div>
                                             @endif

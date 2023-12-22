@@ -1,0 +1,105 @@
+.center {
+    width: 100%;
+    height: 100%;
+    transform: translateY(50%);
+}
+
+.container {
+    align-items: center;
+    justify-content: center;
+    margin-left: auto;
+    display: block;
+    width: 200px;
+}
+
+/* the code below is for the dropdown menu */
+.wrapper-dropdown {
+    margin-left: 28px;
+    position: relative;
+    display: inline-block;
+    width: auto;
+    font-size: 14px;
+    color: #666666;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.scrollable-menu {
+    height: auto;
+    max-height: 200px;
+    overflow-x: hidden;
+}
+
+.arrow {
+    margin-left: 10px;
+    margin-right: 10px;
+    float: right;
+    rotate: 180deg;
+}
+
+.selected-display {
+    margin-left: 20px;
+}
+
+svg {
+    transition: all 0.3s;
+}
+
+.wrapper-dropdown::before {
+    position: absolute;
+    top: 50%;
+    right: 16px;
+    margin-top: -2px;
+    border-width: 6px 6px 0 6px;
+    border-style: solid;
+    border-color: #fff transparent;
+}
+
+.rotated {
+    transform: rotate(-180deg);
+}
+
+.wrapper-dropdown .dropdown {
+    z-index: 1;
+    transition: 0.3s;
+    position: absolute;
+    top: 120%;
+    right: 0;
+    left: 0;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    box-shadow: inherit;
+    background: inherit;
+    -webkit-transform-origin: top;
+    -moz-transform-origin: top;
+    -ms-transform-origin: top;
+    transform-origin: top;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    opacity: 0;
+    visibility: hidden;
+    box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px 0px;
+
+}
+
+.wrapper-dropdown .dropdown li {
+    overflow: hidden;
+}
+
+.wrapper-dropdown .dropdown li:last-child {
+    border-bottom: none;
+}
+
+.dropdown {
+    padding: 0.5rem !important;
+}
+.wrapper-dropdown.active .dropdown {
+    opacity: 1;
+    visibility: visible;
+}

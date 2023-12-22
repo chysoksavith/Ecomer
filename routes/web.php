@@ -7,6 +7,8 @@ use App\Http\Controllers\admin\CategoryController;
 use App\Http\Controllers\admin\CmsController;
 use App\Http\Controllers\admin\ProductsController;
 use App\Http\Controllers\front\IndexController;
+use App\Http\Controllers\front\ProductController;
+use App\Models\Category;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -23,13 +25,18 @@ use Illuminate\Support\Facades\Route;
 // Route::get('/', function () {
 //     return view('welcome');
 // });
-Route::namespace('App\Http\Controllers\front')->group(function(){
+Route::namespace('App\Http\Controllers\front')->group(function () {
 
-    Route::controller(IndexController::class)->group(function(){
+    Route::controller(IndexController::class)->group(function () {
         Route::get('/', 'index')->name('front.home');
         Route::get('HomePage', 'HomePage')->name('HomePage');
     });
+    // Listing Category Routes
+    $catUrls = Category::select('url')->where('status', 1)->get()->pluck('url');
 
+    foreach ($catUrls as $url) {
+        Route::get($url, [ProductController::class, 'listing']);
+    }
 });
 Route::group(['prefix' => '/admin'], function () {
 

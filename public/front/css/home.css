@@ -1,4 +1,7 @@
-.MainContainerFirstPage{
+.DivTitle{
+    margin-top: 20px;
+}
+.MainContainerFirstPage {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -6,79 +9,77 @@
     flex-direction: row;
     flex-wrap: wrap;
 }
-.ContainerFirstPage{
-    margin-top: 10px;
+.ContainerFirstPage {
+    margin-top: 20px;
     width: 380px;
     height: 600px;
 }
-.ImageFirstPage{
+
+.ImageFirstPage {
     position: relative;
+    width: 100%;
+    height: 500px;
 }
-.soldOutItems{
+
+.soldOutItems {
     position: absolute;
+    z-index: 1;
     top: 3%;
     left: 3%;
     font-size: 14px;
     color: #737373;
 }
-.ImageFirstPage  img{
+
+.ImageFirstPage img {
     width: 100%;
     height: 500px;
     object-fit: cover;
-
 }
-.TitleFirstPage{
+.TitleFirstPage {
     text-align: center;
     padding: 8px;
     height: 100px;
 }
-.NameProFirstPage{
+.NameProFirstPage {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
     width: 100%;
 }
-.NameProFirstPageColor{
+.NameProFirstPageColor {
     color: #737373 !important;
 }
-.TitleFirstPage span{
+.TitleFirstPage span {
     font-size: 14px;
     font-weight: 300;
     color: #000000;
     margin-top: 8px;
     display: block;
 }
-.fial_price{
+.fial_price {
     display: flex;
     justify-content: center;
     gap: 30px;
 }
-.PriceFirstPageoG{
+.PriceFirstPageoG {
     text-decoration: line-through;
 }
+.AherfItemProduct{
+    text-decoration: none;
+    color: #000000;
+}
 /* --------banner------- */
-.bannerIndex{
+.bannerIndex {
     position: relative;
     width: 100%;
     height: 900px;
     background-color: red;
 }
-.BannerImage img{
+.BannerImage img {
     position: absolute;
     width: 100%;
     height: 900px;
 }
-
-
-
-
-
-
-
-
-
-
-
 
 /* Small Devices (Mobile Portrait) */
 @media (max-width: 575.98px) {
