@@ -1,20 +1,20 @@
-.containerList{
+.containerList {
     display: flex;
     justify-content: space-between;
     margin-top: 20px;
     padding: 0px 20px;
 }
-.FilterContainer{
+.FilterContainer {
     padding: 10px;
     width: 320px;
     height: auto;
 }
-.TitleFilter{
+.TitleFilter {
     display: flex;
     align-items: center;
     font-size: 20px;
 }
-.fikte{
+.fikte {
     font-weight: 400;
     letter-spacing: 1px;
     font-size: 15px;
@@ -24,25 +24,41 @@
     margin-top: 10px;
     padding: 10px;
     box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px 0px;
-
 }
-.MainMainCate{
+.MainMainCate {
     font-size: 15px;
 }
-.textDecorA{
+.textDecorA {
     color: #000000;
     text-decoration: none;
     font-size: 14px;
     font-weight: 300;
+}
+.coverCategory {
+    margin-top: 20px;
+}
 
+.labelBrandandSize, .priceFil {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 14px;
+    font-weight: 300;
+    width: 100px;
+}
+.label {
+    width: 1.4em;
+    height: 1.4em;
+    font-size: 14px;
+    font-weight: 300;
 }
 /* ------------list product--------------- */
-.ListProductContent{
+.ListProductContent {
     padding: 0px 20px;
     width: 1500px;
     height: auto;
 }
-.productFoundContain{
+.productFoundContain {
     margin-top: 20px;
     width: 100%;
     height: 90px;
@@ -50,7 +66,7 @@
     border-radius: 20px;
     box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px 0px;
 }
-.fountItem{
+.fountItem {
     margin-left: 20px;
     display: block;
     font-size: 16px;
@@ -70,40 +86,51 @@
     padding: 7px 20px;
     background-color: #000000;
 }
-.btnTitleIte a{
-
+.btnTitleIte a {
     text-decoration: none;
     color: white;
 }
 /* pagination */
-.containerPaginate {
-    margin-top: 50px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  .containerPaginate .pagination {
-    height: 60px;
-    background: rgba(255, 255, 255, 0.05);
-    box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px 0px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    backdrop-filter: blur(3px);
-    border-radius: 2px;
-  }
-  .containerPaginate .pagination li {
+.pagination nav li {
     list-style-type: none;
-    display: inline-block;
-  }
-  .containerPaginate .pagination li a {
-    padding: 20px 25px;
+    float: left;
+    width: 20px;
+}
+.pagination nav li a {
     text-decoration: none;
-    color: #000000;
-    font-weight: 500;
-    font-size: 14px;
-  }
-  .containerPaginate .pagination li a:hover,
-  .containerPaginate .pagination li.active a {
-    background: rgba(51, 46, 46, 0.2);
-  }
+    color: black;
+    font-weight: 300;
+}
+.checkbox-wrapper-1 {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+/* Color checkbox in filter */
+input[type="checkbox"],
+input[type="radio"] {
+    width: 1.5em;
+    height: 1.5em;
+    margin-right: 0.65rem;
+}
+.radio-wrapper input[type="checkbox"] {
+    position: absolute;
+    opacity: 0;
+}
+
+/* Style the label to represent the checkbox */
+.radio-wrapper .label {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 2px solid #ccc;
+    background-color: #fff;
+    cursor: pointer;
+}
+
+/* Style the label to represent a checked checkbox */
+.radio-wrapper input[type="checkbox"]:checked + .label {
+    background-color: green; /* Set the color you want for the checked state */
+}

@@ -13,7 +13,7 @@ class Product extends Model
         $productsFilters['fabricArray'] = array('Cotton', 'Polyester', 'Wool');
         $productsFilters['sleeveArray'] = array('Full Sleeve', 'Half Sleeve', 'Short Sleeve');
         $productsFilters['patternArray'] = array('Checked', 'Plain', 'Printed', 'Self', 'Solid');
-        $productsFilters['fitArray'] = array('Regular', 'Slim');
+        $productsFilters['fitArray'] = array('Regular', 'Slim', 'OverSize');
         $productsFilters['occasionArray'] = array('Casual', 'Formal');
         return $productsFilters;
     }

@@ -8,19 +8,22 @@
                 <div class="SortByNewstItem">
                     <div class="center">
                         <div class="container">
-                            <div class="wrapper-dropdown" id="dropdown">
-                                <span class="selected-display" id="destination">Sort By: Newest</span>
-                                <svg class="arrow" id="drp-arrow" width="24" height="24" viewBox="0 0 24 24"
-                                    fill="none" xmlns="http://www.w3.org/2000/svg"
-                                    class="transition-all ml-auto rotate-180">
-                                    <path d="M7 14.5l5-5 5 5" stroke="currentColor" stroke-width="1.5"
-                                        stroke-linecap="round" stroke-linejoin="round"></path>
-                                </svg>
-                                <ul class="dropdown">
-                                    <li class="item">Option 1</li>
-                                </ul>
-                            </div>
-
+                            <form action="" name="sortProducts" id="sortProducts">
+                                @csrf
+                                <input type="hidden" name="url" id="url" value="{{{$url}}}">
+                                <select name="sort" id="sort" class="getsort">
+                                    <option value="">Sort Items</option>
+                                    <option value="product_latest" {{ isset($_GET['sort']) && !empty($_GET['sort']) && $_GET['sort'] == "product_latest" ? 'selected' : '' }}>
+                                        Sort By: Latest Items
+                                    </option>
+                                    <option value="best_selling" {{ isset($_GET['sort']) && !empty($_GET['sort']) && $_GET['sort'] == "best_selling" ? 'selected' : '' }}>Best Selling</option>
+                                    <option value="best_rating" {{ isset($_GET['sort']) && !empty($_GET['sort']) && $_GET['sort'] == "best_rating" ? 'selected' : '' }}>Best Rating</option>
+                                    <option value="lowest_price" {{ isset($_GET['sort']) && !empty($_GET['sort']) && $_GET['sort'] == "lowest_price" ? 'selected' : '' }}>Lowest Price</option>
+                                    <option value="highest_price" {{ isset($_GET['sort']) && !empty($_GET['sort']) && $_GET['sort'] == "highest_price" ? 'selected' : '' }}>Highesh Price</option>
+                                    <option value="featired_items" {{ isset($_GET['sort']) && !empty($_GET['sort']) && $_GET['sort'] == "featired_items" ? 'selected' : '' }}>Featured Items</option>
+                                    <option value="discount_items" {{ isset($_GET['sort']) && !empty($_GET['sort']) && $_GET['sort'] == "discount_items" ? 'selected' : '' }}>Discoutn iTEMS</option>
+                                </select>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -33,34 +36,12 @@
                 </div>
 
                 {{-- product --}}
-                <div class="MainContainerFirstPage">
+                <div class="MainMainContanerFirstPage" id="appendProducts" >
                     @include('client.products.ajax_products_list')
                 </div>
-                <div class="containerPaginate">
-                    <ul class="pagination">
-                        @if ($categoryProducts->currentPage() > 1)
-                            <li>
-                                <a href="{{ $categoryProducts->previousPageUrl() }}" aria-label="Previous">
-                                    <span aria-hidden="true">&laquo; Prev</span>
-                                </a>
-                            </li>
-                        @endif
 
-                        @for ($i = 1; $i <= $categoryProducts->lastPage(); $i++)
-                            <li class="{{ $categoryProducts->currentPage() == $i ? 'active' : '' }}">
-                                <a href="{{ $categoryProducts->url($i) }}">{{ $i }}</a>
-                            </li>
-                        @endfor
 
-                        @if ($categoryProducts->currentPage() < $categoryProducts->lastPage())
-                            <li>
-                                <a href="{{ $categoryProducts->nextPageUrl() }}" aria-label="Next">
-                                    <span aria-hidden="true">Next &raquo;</span>
-                                </a>
-                            </li>
-                        @endif
-                    </ul>
-                </div>
+
 
             </div>
         </div>
