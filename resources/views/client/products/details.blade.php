@@ -43,10 +43,10 @@
                         <div class="OfferPrice RightD getAttributePrice">
                             <span class="FinalPrice ">{{ $productDetails->final_price }}$</span>
                             {{-- <div class="DiscoAFinal"> --}}
-                                @if ($productDetails->discount_type != '')
-                                    <span class="offerPercentage">( {{ $productDetails->product_discount }}% )</span>
-                                    <span class="dicPrice">{{ $productDetails->product_price }}$</span>
-                                @endif
+                            @if ($productDetails->discount_type != '')
+                                <span class="offerPercentage">( {{ $productDetails->product_discount }}% )</span>
+                                <span class="dicPrice">{{ $productDetails->product_price }}$</span>
+                            @endif
                             {{-- </div> --}}
                         </div>
                     </li>
@@ -78,18 +78,30 @@
                             <span>{{ $productDetails->description }}</span>
                         </div>
                     </li>
+                    {{-- <input type="checkbox" name="" id="">
+                    <label for="" class="LabelNameColor">Black</label> --}}
                     {{-- Color --}}
                     <li class="rightDet">
-                        <div class=" RightD ColorSelected">
-                            <span class="TtitleColor"> Color : </span>
-                            <div class="selectedColor">
-                                <div class="checkSelecColor">
-                                    <input type="checkbox" name="" id="">
-                                    <label for="" class="LabelNameColor">Black</label>
-                                </div>
+                        @if (count($groupProducts) > 0)
+                            <div class="RightD ColorSelected">
+                                <span class="TtitleColor"> Color : </span>
+                                <div class="selectedColor">
+                                    <div class="checkSelecColor">
+                                        @foreach ($groupProducts as $product)
+                                            <a href="{{ url('product/' . $product->id) }}">
+                                                <div class="clor_radio">
+                                                    <label style="background-color: {{ $product->product_color }}"
+                                                        class="productColor"></label>
+                                                </div>
+                                            </a>
+                                        @endforeach
 
+                                    </div>
+                                </div>
                             </div>
-                        </div>
+                        @endif
+
+
                     </li>
                     {{-- Size --}}
                     <li class="rightDet">
@@ -97,8 +109,12 @@
                             <span class="TtitleColor"> Size : </span>
                             <div class="selectedSizes">
                                 @foreach ($productDetails->attributes as $attribute)
-                                    <input class="btnsize getPrice" type="radio" id="{{$attribute->size}}" name="size" value="{{$attribute->size}}" product_id={{$productDetails->id}} >
-                                    <label for="{{$attribute->size}}">{{$attribute->size}}</label>
+                                    <input class="btnsize getPrice" type="radio" id="{{ $attribute->size }}"
+                                        name="size" value="{{ $attribute->size }}"
+                                        product_id={{ $productDetails->id }}>
+                                    <label for="{{ $attribute->size }}" class="btnsizeee">
+                                        <span>{{ $attribute->size }}</span>
+                                    </label>
                                 @endforeach
                             </div>
                         </div>
@@ -151,10 +167,76 @@
         {{-- content tab detail revire video description --}}
         @include('client.products.content_tabDetails')
     </div>
+    {{-- relate product --}}
+    <div class="RelateProdTitle">
+        <span class="youMayAlsolike">YOU MAY ALSO LIKE</span>
+    </div>
+    <div class="MainContainerFirstPage">
+        @foreach ($relatedProducts as $product)
+            <div class="ContainerFirstPage">
+                <a href="{{ url('product/' . $product->id) }}" class="AherfItemProduct">
+                    <div class="ImageFirstPage">
+                        @if (isset($product->images[0]->image) && !empty($product->images[0]->image))
+                            <img src="{{ asset('front/images/products/' . $product->images[0]->image) }}" alt="">
+                        @else
+                            <img src="https://www.designscene.net/wp-content/uploads/2023/11/Fear-of-God-Athletics-2023-14.jpg"
+                                alt="">
+                        @endif
+                        <span class="soldOutItems">SOLD OUT</span>
+                    </div>
+                    <div class="TitleFirstPage">
+                        <span class="NameProFirstPage">{{ $product->product_name }}</span>
+                        <span class="NameProFirstPageColor">{{ $product->product_color }}</span>
+                        <div class="fial_price">
+                            <span class="PriceFirstPage">{{ $product->final_price }}$</span>
+                            @if ($product->discount_type != '')
+                                <span class="PriceFirstPageoG">{{ $product->product_price }}$</span>
+                            @endif
+
+                        </div>
+                    </div>
+                </a>
+            </div>
+        @endforeach
+
+    </div>
+     {{-- customer view product --}}
+     <div class="RelateProdTitle">
+        <span class="youMayAlsolike">CUSTOMERS ALSO VIEW PRODUCTS</span>
+    </div>
+    <div class="MainContainerFirstPage">
+        @foreach ($recentProducts as $product)
+            <div class="ContainerFirstPage">
+                <a href="{{ url('product/' . $product->id) }}" class="AherfItemProduct">
+                    <div class="ImageFirstPage">
+                        @if (isset($product->images[0]->image) && !empty($product->images[0]->image))
+                            <img src="{{ asset('front/images/products/' . $product->images[0]->image) }}" alt="">
+                        @else
+                            <img src="https://www.designscene.net/wp-content/uploads/2023/11/Fear-of-God-Athletics-2023-14.jpg"
+                                alt="">
+                        @endif
+                        <span class="soldOutItems">SOLD OUT</span>
+                    </div>
+                    <div class="TitleFirstPage">
+                        <span class="NameProFirstPage">{{ $product->product_name }}</span>
+                        <span class="NameProFirstPageColor">{{ $product->product_color }}</span>
+                        <div class="fial_price">
+                            <span class="PriceFirstPage">{{ $product->final_price }}$</span>
+                            @if ($product->discount_type != '')
+                                <span class="PriceFirstPageoG">{{ $product->product_price }}$</span>
+                            @endif
+
+                        </div>
+                    </div>
+                </a>
+            </div>
+        @endforeach
+
+    </div>
 @endsection
 @section('scripts')
     <script>
-        function openCity(evt, cityName) {
+        function opanTab(evt, cityName) {
             var i, tabcontent, tablinks;
             tabcontent = document.getElementsByClassName("tabcontent");
             for (i = 0; i < tabcontent.length; i++) {
@@ -167,8 +249,5 @@
             document.getElementById(cityName).style.display = "block";
             evt.currentTarget.className += " active";
         }
-
-        // Get the element with id="defaultOpen" and click on it
-        document.getElementById("defaultOpen").click();
     </script>
 @endsection

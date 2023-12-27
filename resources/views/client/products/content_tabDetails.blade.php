@@ -1,9 +1,9 @@
 <div class="contentTavdetails">
     <div class="tab">
-        <span class="tablinks StyleTab btnStyleTab" onclick="openCity(event, 'Description')"
+        <span class="tablinks StyleTab btnStyleTab" onclick="opanTab(event, 'Description')"
             id="defaultOpen">Description</span>
-        <span class="tablinks StyleTab btnStyleTab" onclick="openCity(event, 'Video')">Video</span>
-        <span class="tablinks StyleTab btnStyleTab" onclick="openCity(event, 'Review')">Review</span>
+        <span class="tablinks StyleTab btnStyleTab" onclick="opanTab(event, 'Video')">Video</span>
+        <span class="tablinks StyleTab btnStyleTab" onclick="opanTab(event, 'Review')">Review</span>
     </div>
 
     <div id="Description" class="tabcontent">
@@ -78,7 +78,7 @@
                 <div class="detailPro">
                     <div class="moreDetail">
                         @if (!empty($productDetails->product_wieght))
-                            <span class="prodt">Shipping  Wieght (Grams )</span>
+                            <span class="prodt">Shipping Wieght (Grams )</span>
                             <span class="prodt1">{{ $productDetails->product_wieght }}</span>
                         @endif
 
@@ -89,8 +89,16 @@
     </div>
 
     <div id="Video" class="tabcontent">
-        <h3>Paris</h3>
-        <p>Paris is the capital of France.</p>
+        <div class="videoDetails">
+            @if ($productDetails['product_video'])
+                <video width="400px" controls>
+                    <source src="{{ url('front/videos/' . $productDetails['product_video']) }}" type="Video/mp4">
+                    Your browser does not support html video
+                </video>
+            @else
+                Product video does not exitsts
+            @endif
+        </div>
     </div>
 
     <div id="Review" class="tabcontent">

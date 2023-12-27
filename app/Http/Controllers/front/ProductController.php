@@ -7,7 +7,9 @@ use App\Models\Category;
 use App\Models\Product;
 use App\Models\ProductsFilter;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\View;
 
 class ProductController extends Controller
@@ -101,20 +103,61 @@ class ProductController extends Controller
     // product detail
     public function detail(Request $request, $id)
     {
-        $productDetails = Product::with('category', 'brand', 'images', 'attributes')->find($id);
+        $productCount = Product::where('status', 1)->where('id', $id)->count();
+        if ($productCount == 0) {
+            abort(404);
+        }
+        $productDetails = Product::with(['category', 'brand', 'images', 'attributes' => function ($query) {
+            $query->where('stock', '>', 0)->where('status', 1);
+        }])->find($id);
         // get category url
         $categoryDetails = Category::categoryDetails($productDetails->category->url);
         // get group code (Product color)
-        $groupProducts = array();
-        if (!empty($groupProducts['group_code'])) {
+        if (!empty($productDetails['group_code'])) {
             $groupProducts = Product::select('id', 'product_color')
                 ->where('id', '!=', $id)
                 ->where('group_code', $productDetails['group_code'])
                 ->where('status', 1)
-                ->get()
-                ->toArray();
+                ->get();
         }
-        return view('client.products.details')->with(compact('productDetails', 'categoryDetails', 'groupProducts'));
+        // get product related
+        $relatedProducts = Product::with('brand', 'images')
+            ->where('category_id', $productDetails['category_id'])
+            ->where('id', '!=', $id)
+            ->limit(4)
+            ->inRandomOrder()
+            ->get();
+
+        // Set session for recently view items
+        if (!Session::has('session_id')) {
+            $session_id = md5(uniqid(rand(), true));
+            Session::put('session_id', $session_id);
+        } else {
+            $session_id = Session::get('session_id');
+        }
+
+        $countRecentlyViewedItems = DB::table('recently_viewed_items')
+            ->where(['product_id' => $id, 'session_id' => $session_id])
+            ->count();
+
+        if ($countRecentlyViewedItems == 0) {
+            DB::table('recently_viewed_items')->insert(['product_id' => $id, 'session_id' => $session_id]);
+        }
+
+        $recentProductIds = DB::table('recently_viewed_items')
+            ->select('product_id')
+            ->where('product_id', '!=', $id)
+            ->where('session_id', $session_id)
+            ->inRandomOrder()
+            ->get()
+            ->take(4)
+            ->pluck('product_id');
+
+        $recentProducts = Product::with('brand', 'images')
+            ->whereIn('id', $recentProductIds)
+            ->get();
+
+        return view('client.products.details')->with(compact('productDetails', 'categoryDetails', 'groupProducts', 'relatedProducts', 'recentProducts'));
     }
     // get attr price
     public function getAttrPrice(Request $request)
