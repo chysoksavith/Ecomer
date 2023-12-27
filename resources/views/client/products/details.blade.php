@@ -34,6 +34,12 @@
             <div class="RightContainerDetail">
                 <ul class="MainRightDetail">
                     <li class="rightDet">
+                        <div class="print-error-msg">
+
+                        </div>
+                        <div class="print-success-msg">
+
+                        </div>
                         <div class="TitleProDT RightD">
                             <span>{{ $productDetails->product_name }}</span>
                         </div>
@@ -78,72 +84,73 @@
                             <span>{{ $productDetails->description }}</span>
                         </div>
                     </li>
-                    {{-- <input type="checkbox" name="" id="">
-                    <label for="" class="LabelNameColor">Black</label> --}}
                     {{-- Color --}}
-                    <li class="rightDet">
-                        @if (count($groupProducts) > 0)
-                            <div class="RightD ColorSelected">
-                                <span class="TtitleColor"> Color : </span>
-                                <div class="selectedColor">
-                                    <div class="checkSelecColor">
-                                        @foreach ($groupProducts as $product)
-                                            <a href="{{ url('product/' . $product->id) }}">
-                                                <div class="clor_radio">
-                                                    <label style="background-color: {{ $product->product_color }}"
-                                                        class="productColor"></label>
-                                                </div>
-                                            </a>
-                                        @endforeach
+                    <form action="j" name="addToCart" id="addToCart">
+                        <input type="hidden" name="product_id" value="{{ $productDetails->id }}">
+                        <li class="rightDet">
+                            @if (count($groupProducts) > 0)
+                                <div class="RightD ColorSelected">
+                                    <span class="TtitleColor"> Color : </span>
+                                    <div class="selectedColor">
+                                        <div class="checkSelecColor">
+                                            @foreach ($groupProducts as $product)
+                                                <a href="{{ url('product/' . $product->id) }}">
+                                                    <div class="clor_radio">
+                                                        <label style="background-color: {{ $product->product_color }}"
+                                                            class="productColor"></label>
+                                                    </div>
+                                                </a>
+                                            @endforeach
 
+                                        </div>
+                                    </div>
+                                </div>
+                            @endif
+
+
+                        </li>
+                        {{-- Size --}}
+                        <li class="rightDet">
+                            <div class=" RightD ColorSelected">
+                                <span class="TtitleColor"> Size : </span>
+                                <div class="selectedSizes">
+                                    @foreach ($productDetails->attributes as $attribute)
+                                        <input class="btnsize getPrice" type="radio" id="{{ $attribute->size }}"
+                                            name="size" value="{{ $attribute->size }}"
+                                            product_id="{{ $productDetails->id }}"  />
+                                        <label for="{{ $attribute->size }}" class="btnsizeee">
+                                            <span>{{ $attribute->size }}</span>
+                                        </label>
+
+                                    @endforeach
+                                </div>
+                            </div>
+                        </li>
+                        {{-- Cart --}}
+                        <li class="rightDet">
+                            <div class=" RightD ColorSelected">
+                                <div class="countInput">
+                                    <div class="Decre"><span class="d-c">-</span></div>
+                                    <div class="Num"> <input type="text" value="1" class="qty" name="qty"
+                                            data-max="1000" data-min="1" readonly> </div>
+                                    <div class="Decre"><span class="i-c">+</span></div>
+
+                                    <div class="btCartDetail">
+                                        <button type="submit" class="CartBtnDetail">ADD TO CART</button>
                                     </div>
                                 </div>
                             </div>
-                        @endif
-
-
-                    </li>
-                    {{-- Size --}}
-                    <li class="rightDet">
-                        <div class=" RightD ColorSelected">
-                            <span class="TtitleColor"> Size : </span>
-                            <div class="selectedSizes">
-                                @foreach ($productDetails->attributes as $attribute)
-                                    <input class="btnsize getPrice" type="radio" id="{{ $attribute->size }}"
-                                        name="size" value="{{ $attribute->size }}"
-                                        product_id={{ $productDetails->id }}>
-                                    <label for="{{ $attribute->size }}" class="btnsizeee">
-                                        <span>{{ $attribute->size }}</span>
-                                    </label>
-                                @endforeach
-                            </div>
-                        </div>
-                    </li>
-                    {{-- Size --}}
-                    <li class="rightDet">
-                        <div class=" RightD ColorSelected">
-                            <div class="countInput">
-                                <div class="Decre"><button class="d-c">-</button></div>
-                                <div class="Num"> <input type="text" value="1" class="qty"
-                                        wire:model="quantityCount" readonly> </div>
-                                <div class="Decre"><button class="i-c" wire:click="incrementQty">+</button></div>
-
-                                {{-- cart --}}
-                                <div class="btCartDetail">
-                                    <button type="button" class="CartBtnDetail">ADD TO CART</button>
+                        </li>
+                        {{-- wishlist --}}
+                        <li class="rightDet">
+                            <div class=" RightD ColorSelected">
+                                <div class="wishLis">
+                                    <span><i class="fa-regular   fa-heart  icoHead"></i></span>
+                                    <span class="textwis">Add to Wish List</span>
                                 </div>
                             </div>
-                        </div>
-                    </li>
-                    {{-- wishlist --}}
-                    <li class="rightDet">
-                        <div class=" RightD ColorSelected">
-                            <div class="wishLis">
-                                <span><i class="fa-regular   fa-heart  icoHead"></i></span>
-                                <span class="textwis">Add to Wish List</span>
-                            </div>
-                        </div>
-                    </li>
+                        </li>
+                    </form>
                     {{-- policy --}}
                     <li class="rightDet">
                         <div class=" RightD ColorSelected">
@@ -200,8 +207,8 @@
         @endforeach
 
     </div>
-     {{-- customer view product --}}
-     <div class="RelateProdTitle">
+    {{-- customer view product --}}
+    <div class="RelateProdTitle">
         <span class="youMayAlsolike">CUSTOMERS ALSO VIEW PRODUCTS</span>
     </div>
     <div class="MainContainerFirstPage">

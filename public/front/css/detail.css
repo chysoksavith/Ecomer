@@ -142,12 +142,18 @@ span {
 }
 .d-c,
 .i-c {
-    background-color: #f4f4f4;
     border: none;
     outline: none;
+
+    cursor: pointer;
+}
+.Decre {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     width: 34px;
     height: 54px;
-    cursor: pointer;
+    background-color: #f4f4f4;
 }
 .qty {
     width: 105px;
@@ -222,10 +228,12 @@ span {
     align-items: center;
     justify-content: center;
 }
-/* Style for the selected label */
 .btnsize:checked + label {
     background-color: transparent;
     color: #000000;
+}
+.btnsize:checked + label {
+    border-color: #000000;
 }
 .clor_radio {
     display: flex;
@@ -239,14 +247,37 @@ span {
     margin-right: 10px;
 }
 /* relate product */
-.RelateProdTitle{
+.RelateProdTitle {
     margin-bottom: 30px;
     text-align: center;
     font-size: 20px;
     letter-spacing: 1px;
-
 }
-.youMayAlsolike{
+.youMayAlsolike {
     padding-bottom: 5px;
     border-bottom: 1px solid #cacaca;
+}
+.alert {
+    padding: 20px;
+    background-color: #f44336;
+    color: white;
+}
+.success {
+    padding: 20px;
+    background-color: #35b886;
+    color: white;
+}
+.closebtn {
+    margin-left: 15px;
+    color: white;
+    font-weight: bold;
+    float: right;
+    font-size: 22px;
+    line-height: 20px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.closebtn:hover {
+    color: black;
 }

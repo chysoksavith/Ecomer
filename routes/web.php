@@ -42,6 +42,8 @@ Route::namespace('App\Http\Controllers\front')->group(function () {
         Route::get('product/{id}','detail')->name('front.product.details');
         // get attr price and size
         Route::post('get-attribute-price', 'getAttrPrice');
+        // add to cart
+        Route::post('/add-to-cart', 'AddtoCarts');
     });
 });
 Route::group(['prefix' => '/admin'], function () {

@@ -137,4 +137,9 @@ class Product extends Model
             'discount_percent' => $discount_percent
         ];
     }
+
+    public static function productStatus($product_id){
+        $productStatus = Product::select('status')->where('id', $product_id)->first();
+        return $productStatus->status;
+    }
 }

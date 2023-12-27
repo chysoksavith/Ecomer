@@ -38,10 +38,11 @@
     {{-- ajax  --}}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" crossorigin="anonymous"></script>
     {{-- custom --}}
-    <script src="{{asset('front/js/header.js')}}"></script>
-    <script src="{{asset('front/js/custom.js')}}"></script>
-    <script src="{{asset('front/js/filter.js')}}"></script>
-    <script src="{{asset('front/js/imageZoom.js')}}"></script>
+    <script src="{{ asset('front/js/header.js') }}"></script>
+    <script src="{{ asset('front/js/custom.js') }}"></script>
+    <script src="{{ asset('front/js/filter.js') }}"></script>
+    <script src="{{ asset('front/js/imageZoom.js') }}"></script>
+    <script src="{{ asset('front/js/btnIncreasement.js') }}"></script>
 
 </body>
 
