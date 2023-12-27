@@ -14,7 +14,7 @@
         <div class="MainContainerFirstPage">
             @foreach ($NewProducts as $product)
                 <div class="ContainerFirstPage">
-                    <a href="#" class="AherfItemProduct">
+                    <a href="{{url('product/'.$product->id)}}" class="AherfItemProduct">
                         <div class="ImageFirstPage">
                             @if (isset($product->images[0]->image) && !empty($product->images[0]->image))
                                 <img src="{{ asset('front/images/products/' . $product->images[0]->image) }}" alt="">
@@ -47,7 +47,7 @@
         <div class="MainContainerFirstPage">
             @foreach ($BestSeller as $ProductBestSeller)
                 <div class="ContainerFirstPage">
-                    <a href="#" class="AherfItemProduct">
+                    <a href="{{url('product/'.$product->id)}}" class="AherfItemProduct">
                         <div class="ImageFirstPage">
                             @if (isset($ProductBestSeller->images[0]->image) && !empty($ProductBestSeller->images[0]->image))
                                 <img src="{{ asset('front/images/products/' . $ProductBestSeller->images[0]->image) }}"
@@ -81,7 +81,7 @@
         <div class="MainContainerFirstPage">
             @foreach ($discountProducts as $discountProduct)
                 <div class="ContainerFirstPage">
-                    <a href="#" class="AherfItemProduct">
+                    <a href="{{url('product/'.$product->id)}}" class="AherfItemProduct">
 
                         <div class="ImageFirstPage">
                             @if (isset($discountProduct->images[0]->image) && !empty($discountProduct->images[0]->image))
@@ -116,7 +116,7 @@
         <div class="MainContainerFirstPage">
             @foreach ($IsFeatureProducts as $IsFeatureProduct)
                 <div class="ContainerFirstPage">
-                    <a href="#" class="AherfItemProduct">
+                    <a href="{{url('product/'.$product->id)}}" class="AherfItemProduct">
                         <div class="ImageFirstPage">
                             @if (isset($IsFeatureProduct->images[0]->image) && !empty($IsFeatureProduct->images[0]->image))
                                 <img src="{{ asset('front/images/products/' . $IsFeatureProduct->images[0]->image) }}"

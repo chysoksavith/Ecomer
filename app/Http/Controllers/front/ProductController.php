@@ -80,10 +80,10 @@ class ProductController extends Controller
             }
             // update query fabric dynamic product
             $filterType = ProductsFilter::filterType();
-            foreach($filterType as $Key => $filter){
-                if($request->$filter){
+            foreach ($filterType as $Key => $filter) {
+                if ($request->$filter) {
                     $explodeFilterVals = explode('~', $request->$filter);
-                    $categoryProducts->whereIn($filter,$explodeFilterVals);
+                    $categoryProducts->whereIn($filter, $explodeFilterVals);
                 }
             }
             $categoryProducts = $categoryProducts->paginate(3);
@@ -96,6 +96,33 @@ class ProductController extends Controller
             }
         } else {
             abort(404);
+        }
+    }
+    // product detail
+    public function detail(Request $request, $id)
+    {
+        $productDetails = Product::with('category', 'brand', 'images', 'attributes')->find($id);
+        // get category url
+        $categoryDetails = Category::categoryDetails($productDetails->category->url);
+        // get group code (Product color)
+        $groupProducts = array();
+        if (!empty($groupProducts['group_code'])) {
+            $groupProducts = Product::select('id', 'product_color')
+                ->where('id', '!=', $id)
+                ->where('group_code', $productDetails['group_code'])
+                ->where('status', 1)
+                ->get()
+                ->toArray();
+        }
+        return view('client.products.details')->with(compact('productDetails', 'categoryDetails', 'groupProducts'));
+    }
+    // get attr price
+    public function getAttrPrice(Request $request)
+    {
+        if ($request->ajax()) {
+            $data = $request->all();
+            $getAttributePrice = Product::getAttributePrice($data['product_id'], $data['size']);
+            return $getAttributePrice;
         }
     }
 }

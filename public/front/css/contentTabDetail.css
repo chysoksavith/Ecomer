@@ -1,0 +1,85 @@
+.contentTavdetails {
+    margin-top: 40px;
+    padding: 10px;
+}
+
+.tab {
+    display: flex;
+}
+/* Style the buttons inside the tab */
+.btnStyleTab {
+    letter-spacing: 1px;
+    float: left;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 14px 16px;
+    transition: 0.3s;
+    font-size: 14px;
+    background-color: transparent;
+}
+
+/* Create an active/current tablink class */
+.btnStyleTab.active {
+    background-color: #ccc;
+}
+
+/* Style the tab content */
+.tabcontent {
+    margin-top: 10px;
+    display: none;
+    padding: 6px 12px;
+}
+
+.StyleTab {
+    position: relative;
+    text-decoration: none;
+    color: #000000;
+    font-size: 15px;
+    font-style: normal;
+    cursor: pointer;
+}
+.StyleTab::before {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background-color: #000000;
+    transition: 0.3s;
+}
+.StyleTab:hover::before {
+    width: 100%;
+}
+/* description */
+.titleContent{
+    margin-top: 15px;
+    font-size: 14px;
+    color: #cacaca;
+}
+.productInfo{
+    margin-top: 15px;
+}
+.ProdInfo{
+
+    font-size: 16px;
+}
+.prodt{
+    font-size: 14px;
+}
+.prodt1{
+    font-size: 14px;
+    color: #cacaca;
+}
+.detailPro{
+    margin-top: 15px;
+    width: 50%;
+    padding: 10px;
+}
+.moreDetail{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}

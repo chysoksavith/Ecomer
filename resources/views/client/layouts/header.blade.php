@@ -1,21 +1,7 @@
 <?php
 use App\Models\Category;
 $categories = Category::getCategories();
-// $categoryId = 15; // Replace with the specific category ID you want to retrieve
 
-// $categories = Category::getCategories()->where('id', $categoryId);
-
-// foreach ($categories as $category) {
-//     echo "Category ID: " . $category->id . "<br>";
-//     echo "Category Name: " . $category->name . "<br>";
-//     // Add more fields as needed
-
-//     echo "<hr>";
-// }
-
-// // If you want to convert the filtered categories to an array
-// $filteredCategoriesArray = $categories->toArray();
-// echo "<pre>"; print_r($filteredCategoriesArray); die;
 ?>
 <header>
     <div class="header_nav" id="headerNav">
@@ -76,10 +62,16 @@ $categories = Category::getCategories();
                             class="fa-solid fa-magnifying-glass icoHead"></i></a></li>
                 <li class="NavLiRes"><a href="" class="Ico"><i class="fa-regular fa-user icoHead"> </i></a>
                 </li>
+                <li class="NavLiRes"><a href="" class="Ico"><i class="fa-regular   fa-heart  icoHead"></i>
+                        <span class="bagg">
+                            <p>1</p>
+                        </span> </a>
+                </li>
                 <li class="NavLiRes"><a href="" class="Ico"><i class="fa-solid fa-bag-shopping icoHead"></i>
                         <span class="bagg">
                             <p>1</p>
-                        </span> </a></li>
+                        </span> </a>
+                </li>
             </ul>
         </nav>
     </div>

@@ -1,7 +1,7 @@
     <div class="MainContainerFirstPage">
         @foreach ($categoryProducts as $product)
             <div class="ContainerFirstPage">
-                <a href="#" class="AherfItemProduct">
+                <a href="{{url('product/'.$product->id)}}" class="AherfItemProduct">
                     <div class="ImageFirstPage">
                         @if (isset($product->images[0]->image) && !empty($product->images[0]->image))
                             <img src="{{ asset('front/images/products/' . $product->images[0]->image) }}" alt="">

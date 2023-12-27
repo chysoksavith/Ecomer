@@ -75,14 +75,12 @@
     color: black;
 }
 .bagg{
-    width: 15px;
-    height: 15px;
+
     font-size: 14px;
     left: 80%;
-    color: white;
+    color: black;
     bottom: 80%;
     position: absolute;
-    background-color: black;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -123,8 +121,9 @@ aside {
     width: 50%;
     background-color: #fff;
     padding: 10px 10px;
-    z-index: 114;
+    z-index: 10011;
     height: 100vh;
+    top: 0;
 }
 
 aside.active {
