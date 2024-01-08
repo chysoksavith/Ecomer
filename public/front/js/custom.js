@@ -171,7 +171,9 @@ $(document).ready(function () {
                         }, 3000);
                     });
                 } else if (data.type == "success") {
-                    window.location.href = data.url; // Use data.url
+                    // window.location.href = data.url;
+                    $('#register-success').attr('style', 'color:green');
+                    $('#register-success').html(data.message);
                 }
             },
 

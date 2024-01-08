@@ -52,7 +52,7 @@
         function showToast(message, type = "success") {
             Toastify({
                 text: message,
-                duration: 2000,
+                duration: 4000,
                 gravity: "top",
                 position: "right",
                 backgroundColor: type === "success" ? "green" : "red",
@@ -60,6 +60,16 @@
             }).showToast();
         }
     </script>
+    @if (session('toast'))
+        <script>
+            // Extract toast data from the session
+            var toastData = @json(session('toast'));
+
+            // Call your showToast function
+            showToast(toastData.message, toastData.type);
+        </script>
+    @endif
+
 </body>
 
 </html>

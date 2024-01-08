@@ -10,6 +10,7 @@
                     <span class="notamember">
                         Personal Information
                     </span>
+                    <p id="register-success"></p>
                     <form id="registerForm" action="" method="post">
                         @csrf
                         <div class="inputFiel">
