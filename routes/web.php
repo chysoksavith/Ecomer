@@ -58,6 +58,7 @@ Route::namespace('App\Http\Controllers\front')->group(function () {
     Route::controller(UserController::class)->group(function(){
         Route::match(['get', 'post'], 'user/login', 'loginUser')->name('login.user');
         Route::match(['get', 'post'],'user/register', 'registerUser')->name('user.register');
+        Route::get('user/logout', 'userLogout');
     });
 });
 

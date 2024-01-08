@@ -59,28 +59,67 @@ $totalCartItems = totalCartItems();
 
         <nav class="NavREs">
             <ul>
+                {{-- search --}}
                 <li class="NavLiRes"><a href="" class="Ico"><i
-                            class="fa-solid fa-magnifying-glass icoHead"></i></a></li>
+                            class="fa-solid fa-magnifying-glass icoHead"></i>
+                    </a>
+                </li>
 
-                <li class="NavLiRes"><a href="" class="Ico"><i class="fa-regular   fa-heart  icoHead"></i>
+                {{-- wishList --}}
+                <li class="NavLiRes">
+                    <a href="" class="Ico"><i class="fa-regular   fa-heart  icoHead"></i>
                         <span class="bagg">
                             <p>1</p>
-                        </span> </a>
+                        </span>
+                    </a>
                 </li>
                 {{-- cart --}}
                 <li class="NavLiRes">
-                    <span class="Ico" id="bagIcon"><i class="fa-solid fa-bag-shopping icoHead dropbtnminiCart"  onclick="myFunction()"></i>
+                    <span class="Ico" id="bagIcon"><i class="fa-solid fa-bag-shopping icoHead dropbtnminiCart"
+                            onclick="myFunction()"></i>
                         <span class="bagg totalCartItems">
                             <p>{{ $totalCartItems }}</p>
                         </span>
                     </span>
                     <div class="mini-cart dropdownminiCart" id="appendHeaderCartItems">
-
-
                         @include('client.layouts.Header_smallCart')
                     </div>
                 </li>
-                <li class="NavLiRes"><a href="{{route('login.user')}}" class="Ico"><i class="fa-regular fa-user icoHead"> </i></a>
+                {{-- user --}}
+                <li class="NavLiRes">
+                    <i class="fa-regular fa-user icoHead dropbtnAccount" onclick="FunctionLoginUser()"> </i>
+                    <div class="dropdownAccount">
+                        <div class="dropdown-contentAccount" id="myDropdownAccount">
+                            {{-- if auth login it show account and signout if not it show signup and signin --}}
+                            <div class="contentUserAccount">
+                                <ul>
+                                    @if (Auth::check())
+                                        <li>
+                                            <a href="{{ url('user/account') }}">
+                                                account
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="{{ url('user/logout') }}">
+                                                sign out
+                                            </a>
+                                        </li>
+                                    @else
+                                    <li>
+                                        <a href="{{ url('user/register') }}">
+                                            Sign up
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ url('user/login') }}">
+                                            Sign in
+                                        </a>
+                                    </li>
+                                    @endif
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
                 </li>
 
             </ul>

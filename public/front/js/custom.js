@@ -160,9 +160,22 @@ $(document).ready(function () {
             url: "/user/register",
             type: "post",
             data: formData,
-            success: function (resp) {
-                window.location.href = resp.url;
+            success: function (data) {
+                if (data.type == "validation") {
+                    $.each(data.error, function (field, error) {
+                        $("#register-" + field).attr("style", "color:red; font-size: 14px");                        $("#register-" + field).html(error);
+                        setTimeout(function () {
+                            $("#register-" + field).css({
+                                display: "none",
+                            });
+                        }, 3000);
+                    });
+                } else if (data.type == "success") {
+                    window.location.href = data.url; // Use data.url
+                }
             },
+
+
             error: function () {
                 alert("error");
             },
