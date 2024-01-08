@@ -10,30 +10,35 @@
                     <span class="notamember">
                         Personal Information
                     </span>
-                    <div class="inputFiel">
-                        <label class="tileLabelLogin">Name <span class="redValidation">*</span></label>
-                        <input type="text" class="inputLogin" name="">
-                    </div>
-                    <div class="inputFiel">
-                        <label class="tileLabelLogin">Mobile <span class="redValidation">*</span></label>
-                        <input type="number" class="inputLogin" id="passwordInput">
-                    </div>
-                    <div class="inputFiel">
-                        <label class="tileLabelLogin">Email <span class="redValidation">*</span></label>
-                        <input type="email" class="inputLogin">
-                    </div>
-                    <div class="inputFiel">
-                        <label class="tileLabelLogin">Password <span class="redValidation">*</span></label>
-                        <input type="password" class="inputLogin">
-                    </div>
-                    <div class="inputFiel inputregister">
-                        <a href="{{ route('login.user') }}" style="text-decoration: none;">
-                            <button type="submit" class="SignIntBtnDetail">Back</button>
-                        </a>
-                        <a href="" style="text-decoration: none;">
-                            <button type="submit" class="SignUptBtn">Create an Account</button>
-                        </a>
-                    </div>
+                    <form id="registerForm" action="" method="post">
+                        @csrf
+                        <div class="inputFiel">
+                            <label class="tileLabelLogin">Name <span class="redValidation">*</span></label>
+                            <input type="text" id="reg_name" name="name" class="inputLogin">
+                        </div>
+                        <div class="inputFiel">
+                            <label class="tileLabelLogin">Mobile <span class="redValidation">*</span></label>
+                            <input type="number" class="inputLogin" id="reg_mobile" name="mobile">
+                        </div>
+                        <div class="inputFiel">
+                            <label class="tileLabelLogin">Email <span class="redValidation">*</span></label>
+                            <input type="email" class="inputLogin" id="reg_email" name="email">
+                        </div>
+                        <div class="inputFiel">
+                            <label class="tileLabelLogin">Password <span class="redValidation">*</span></label>
+                            <input type="password" class="inputLogin" id="reg_password" name="password">
+                        </div>
+                        <div class="inputFiel inputregister">
+                            <a href="{{ route('login.user') }}" class="SignIntBtnDetail"
+                                style="text-decoration: none; display: flex; align-items: center; justify-content: center;">
+                                Back
+                            </a>
+
+                            <a href="" style="text-decoration: none;">
+                                <button type="submit" class="SignUptBtn">Create an Account</button>
+                            </a>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>

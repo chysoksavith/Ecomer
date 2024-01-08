@@ -67,89 +67,105 @@ $(document).ready(function () {
             },
         });
     });
-});
-// update qty in cart items
-$(document).on("click", ".updateCartItem", function () {
-    var quantity = $(this).data("qty");
+    // update qty in cart items
+    $(document).on("click", ".updateCartItem", function () {
+        var quantity = $(this).data("qty");
 
-    if ($(this).hasClass("fa-plus")) {
-        new_qty = parseInt(quantity) + 1;
-    }
-
-    if ($(this).hasClass("fa-minus")) {
-        if (quantity <= 1) {
-            showToast("Item quantity must be 1 or greater", "error");
-            return false; // Optionally, prevent further execution if needed
+        if ($(this).hasClass("fa-plus")) {
+            new_qty = parseInt(quantity) + 1;
         }
-        new_qty = parseInt(quantity) - 1;
-    }
-    var cartid = $(this).data("cartid");
-    $.ajax({
-        headers: {
-            "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
-        },
-        data: { cartid: cartid, qty: new_qty },
-        url: "/update-cart-item-qty",
-        type: "post",
-        success: function (resp) {
-            $(".totalCartItems").html(resp.totalCartItems);
-            if (resp.status === false) {
-                showToast(resp.message, "error");
+
+        if ($(this).hasClass("fa-minus")) {
+            if (quantity <= 1) {
+                showToast("Item quantity must be 1 or greater", "error");
+                return false; // Optionally, prevent further execution if needed
             }
-            $("#appendCartItems").html(resp.view);
-            $("#appendHeaderCartItems").html(resp.miniCartview);
-        },
-        error: function () {
-            showToast("error", "error");
-        },
-    });
-
-
-});
-// delete
-$(document).on("click", ".deleteCartItems", function () {
-    var cartid = $(this).data("cartid");
-    $.ajax({
-        headers: {
-            "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
-        },
-        data: { cartid: cartid },
-        url: "/delete-cart-item",
-        type: "post",
-        success: function (resp) {
-            $(".totalCartItems").html(resp.totalCartItems);
-            showToast(resp.message); // Assuming your server response has a 'message' key
-            $("#appendCartItems").html(resp.view);
-            $("#appendHeaderCartItems").html(resp.miniCartview);
-        },
-        error: function () {
-            showToast("An error occurred", "error");
-        },
-    });
-});
-// delete empty
-$(document).on("click", ".emptyCart", function () {
-    $.ajax({
-        headers: {
-            "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
-        },
-        url: "/empty-cart",
-        type: "post",
-        success: function (resp) {
-            $(".totalCartItems").html(resp.totalCartItems);
-
-            // Check if the cart was successfully emptied
-            if (resp.status === true) {
-                showToast(resp.message);
+            new_qty = parseInt(quantity) - 1;
+        }
+        var cartid = $(this).data("cartid");
+        $.ajax({
+            headers: {
+                "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+            },
+            data: { cartid: cartid, qty: new_qty },
+            url: "/update-cart-item-qty",
+            type: "post",
+            success: function (resp) {
+                $(".totalCartItems").html(resp.totalCartItems);
+                if (resp.status === false) {
+                    showToast(resp.message, "error");
+                }
                 $("#appendCartItems").html(resp.view);
                 $("#appendHeaderCartItems").html(resp.miniCartview);
-            } else {
-                // Handle the case where the cart is already empty
-                showToast("No items to delete.", "info");
-            }
-        },
-        error: function () {
-            showToast("An error occurred", "error");
-        },
+            },
+            error: function () {
+                showToast("error", "error");
+            },
+        });
+    });
+    // delete
+    $(document).on("click", ".deleteCartItems", function () {
+        var cartid = $(this).data("cartid");
+        $.ajax({
+            headers: {
+                "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+            },
+            data: { cartid: cartid },
+            url: "/delete-cart-item",
+            type: "post",
+            success: function (resp) {
+                $(".totalCartItems").html(resp.totalCartItems);
+                showToast(resp.message); // Assuming your server response has a 'message' key
+                $("#appendCartItems").html(resp.view);
+                $("#appendHeaderCartItems").html(resp.miniCartview);
+            },
+            error: function () {
+                showToast("An error occurred", "error");
+            },
+        });
+    });
+    // delete empty
+    $(document).on("click", ".emptyCart", function () {
+        $.ajax({
+            headers: {
+                "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+            },
+            url: "/empty-cart",
+            type: "post",
+            success: function (resp) {
+                $(".totalCartItems").html(resp.totalCartItems);
+
+                // Check if the cart was successfully emptied
+                if (resp.status === true) {
+                    showToast(resp.message);
+                    $("#appendCartItems").html(resp.view);
+                    $("#appendHeaderCartItems").html(resp.miniCartview);
+                } else {
+                    // Handle the case where the cart is already empty
+                    showToast("No items to delete.", "info");
+                }
+            },
+            error: function () {
+                showToast("An error occurred", "error");
+            },
+        });
+    });
+    // register form
+    $("#registerForm").submit(function (event) {
+        event.preventDefault(); // Prevent the default form submission
+
+        var formData = $(this).serialize();
+
+        $.ajax({
+            url: "/user/register",
+            type: "post",
+            data: formData,
+            success: function (resp) {
+                window.location.href = resp.url;
+            },
+            error: function () {
+                alert("error");
+            },
+        });
     });
 });
