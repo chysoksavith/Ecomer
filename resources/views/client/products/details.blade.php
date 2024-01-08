@@ -106,7 +106,7 @@
                                     </div>
                                 </div>
                             @endif
-
+                       
 
                         </li>
                         {{-- Size --}}
@@ -117,11 +117,10 @@
                                     @foreach ($productDetails->attributes as $attribute)
                                         <input class="btnsize getPrice" type="radio" id="{{ $attribute->size }}"
                                             name="size" value="{{ $attribute->size }}"
-                                            product_id="{{ $productDetails->id }}"  />
+                                            product_id="{{ $productDetails->id }}" />
                                         <label for="{{ $attribute->size }}" class="btnsizeee">
                                             <span>{{ $attribute->size }}</span>
                                         </label>
-
                                     @endforeach
                                 </div>
                             </div>
@@ -208,38 +207,42 @@
 
     </div>
     {{-- customer view product --}}
-    <div class="RelateProdTitle">
-        <span class="youMayAlsolike">CUSTOMERS ALSO VIEW PRODUCTS</span>
-    </div>
-    <div class="MainContainerFirstPage">
-        @foreach ($recentProducts as $product)
-            <div class="ContainerFirstPage">
-                <a href="{{ url('product/' . $product->id) }}" class="AherfItemProduct">
-                    <div class="ImageFirstPage">
-                        @if (isset($product->images[0]->image) && !empty($product->images[0]->image))
-                            <img src="{{ asset('front/images/products/' . $product->images[0]->image) }}" alt="">
-                        @else
-                            <img src="https://www.designscene.net/wp-content/uploads/2023/11/Fear-of-God-Athletics-2023-14.jpg"
-                                alt="">
-                        @endif
-                        <span class="soldOutItems">SOLD OUT</span>
-                    </div>
-                    <div class="TitleFirstPage">
-                        <span class="NameProFirstPage">{{ $product->product_name }}</span>
-                        <span class="NameProFirstPageColor">{{ $product->product_color }}</span>
-                        <div class="fial_price">
-                            <span class="PriceFirstPage">{{ $product->final_price }}$</span>
-                            @if ($product->discount_type != '')
-                                <span class="PriceFirstPageoG">{{ $product->product_price }}$</span>
+    @if (count($recentProducts) > 0)
+        <div class="RelateProdTitle">
+            <span class="youMayAlsolike">CUSTOMERS ALSO VIEW PRODUCTS</span>
+        </div>
+        <div class="MainContainerFirstPage">
+            @foreach ($recentProducts as $product)
+                <div class="ContainerFirstPage">
+                    <a href="{{ url('product/' . $product->id) }}" class="AherfItemProduct">
+                        <div class="ImageFirstPage">
+                            @if (isset($product->images[0]->image) && !empty($product->images[0]->image))
+                                <img src="{{ asset('front/images/products/' . $product->images[0]->image) }}"
+                                    alt="">
+                            @else
+                                <img src="https://www.designscene.net/wp-content/uploads/2023/11/Fear-of-God-Athletics-2023-14.jpg"
+                                    alt="">
                             @endif
-
+                            <span class="soldOutItems">SOLD OUT</span>
                         </div>
-                    </div>
-                </a>
-            </div>
-        @endforeach
+                        <div class="TitleFirstPage">
+                            <span class="NameProFirstPage">{{ $product->product_name }}</span>
+                            <span class="NameProFirstPageColor">{{ $product->product_color }}</span>
+                            <div class="fial_price">
+                                <span class="PriceFirstPage">{{ $product->final_price }}$</span>
+                                @if ($product->discount_type != '')
+                                    <span class="PriceFirstPageoG">{{ $product->product_price }}$</span>
+                                @endif
 
-    </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            @endforeach
+
+        </div>
+    @endif
+
 @endsection
 @section('scripts')
     <script>

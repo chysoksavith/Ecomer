@@ -1,6 +1,7 @@
 <?php
 use App\Models\Category;
 $categories = Category::getCategories();
+$totalCartItems = totalCartItems();
 
 ?>
 <header>
@@ -60,21 +61,34 @@ $categories = Category::getCategories();
             <ul>
                 <li class="NavLiRes"><a href="" class="Ico"><i
                             class="fa-solid fa-magnifying-glass icoHead"></i></a></li>
-                <li class="NavLiRes"><a href="" class="Ico"><i class="fa-regular fa-user icoHead"> </i></a>
-                </li>
+
                 <li class="NavLiRes"><a href="" class="Ico"><i class="fa-regular   fa-heart  icoHead"></i>
                         <span class="bagg">
                             <p>1</p>
                         </span> </a>
                 </li>
-                <li class="NavLiRes"><a href="" class="Ico"><i class="fa-solid fa-bag-shopping icoHead"></i>
-                        <span class="bagg">
-                            <p>1</p>
-                        </span> </a>
+                {{-- cart --}}
+                <li class="NavLiRes">
+                    <span class="Ico" id="bagIcon"><i class="fa-solid fa-bag-shopping icoHead dropbtnminiCart"  onclick="myFunction()"></i>
+                        <span class="bagg totalCartItems">
+                            <p>{{ $totalCartItems }}</p>
+                        </span>
+                    </span>
+                    <div class="mini-cart dropdownminiCart" id="appendHeaderCartItems">
+
+
+                        @include('client.layouts.Header_smallCart')
+                    </div>
                 </li>
+                <li class="NavLiRes"><a href="{{route('login.user')}}" class="Ico"><i class="fa-regular fa-user icoHead"> </i></a>
+                </li>
+
             </ul>
         </nav>
     </div>
+    {{-- side bar add to cart --}}
+
+    {{-- aside menu --}}
     @include('client.layouts.aside')
 </header>
 @section('scripts')

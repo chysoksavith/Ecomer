@@ -8,6 +8,7 @@ use App\Http\Controllers\admin\CmsController;
 use App\Http\Controllers\admin\ProductsController;
 use App\Http\Controllers\front\IndexController;
 use App\Http\Controllers\front\ProductController;
+use App\Http\Controllers\front\UserController;
 use App\Models\Category;
 use Illuminate\Support\Facades\Route;
 
@@ -38,14 +39,30 @@ Route::namespace('App\Http\Controllers\front')->group(function () {
         Route::get($url, [ProductController::class, 'listing']);
     }
     // product details
-    Route::controller(ProductController::class)->group(function(){
-        Route::get('product/{id}','detail')->name('front.product.details');
+    Route::controller(ProductController::class)->group(function () {
+        Route::get('product/{id}', 'detail')->name('front.product.details');
         // get attr price and size
         Route::post('get-attribute-price', 'getAttrPrice');
         // add to cart
         Route::post('/add-to-cart', 'AddtoCarts');
+        // Shopping cart
+        Route::get('cart', 'cart');
+        // update cart
+        Route::post('/update-cart-item-qty', 'updateCartQty');
+
+        // delete cart
+        Route::post('/delete-cart-item', 'deleteCart');
+        // empty cart
+        Route::post('/empty-cart', 'emptyCart');
+    });
+    Route::controller(UserController::class)->group(function(){
+        Route::match(['get', 'post'], 'user/login', 'loginUser')->name('login.user');
+        Route::match(['get', 'post'],'user/register', 'registerUser')->name('user.register');
     });
 });
+
+
+//
 Route::group(['prefix' => '/admin'], function () {
 
     Route::group(['middleware' => ['admin']], function () {

@@ -49,25 +49,13 @@ $(document).ready(function () {
             data: formData,
             success: function (resp) {
                 console.log(resp); // Log the response for debugging
-
-                if (resp["status"] == true) {
-                    $(".print-success-msg").show();
-                    $(".print-success-msg").delay(3000).fadeOut("slow");
-                    $(".print-success-msg").html(
-                        "<div class='success'>" +
-                            "<span class='closebtn' onclick=\"this.parentElement.style.display='none';\">&times;</span>" +
-                            resp["message"] +
-                            "</div>"
-                    );
+                $(".totalCartItems").html(resp["totalCartItems"]);
+                $("#appendCartItems").html(resp.view);
+                $("#appendHeaderCartItems").html(resp.miniCartview);
+                if (resp.status === true) {
+                    showToast(resp.message);
                 } else {
-                    $(".print-error-msg").show();
-                    $(".print-error-msg").delay(3000).fadeOut("slow");
-                    $(".print-error-msg").html(
-                        "<div class='alert'>" +
-                            "<span class='closebtn' onclick=\"this.parentElement.style.display='none';\">&times;</span>" +
-                            resp["message"] +
-                            "</div>"
-                    );
+                    showToast(resp.message, "error");
                 }
             },
             error: function (xhr, status, error) {
@@ -78,5 +66,90 @@ $(document).ready(function () {
                 console.log(xhr.responseText); // Log the response text for additional details
             },
         });
+    });
+});
+// update qty in cart items
+$(document).on("click", ".updateCartItem", function () {
+    var quantity = $(this).data("qty");
+
+    if ($(this).hasClass("fa-plus")) {
+        new_qty = parseInt(quantity) + 1;
+    }
+
+    if ($(this).hasClass("fa-minus")) {
+        if (quantity <= 1) {
+            showToast("Item quantity must be 1 or greater", "error");
+            return false; // Optionally, prevent further execution if needed
+        }
+        new_qty = parseInt(quantity) - 1;
+    }
+    var cartid = $(this).data("cartid");
+    $.ajax({
+        headers: {
+            "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+        },
+        data: { cartid: cartid, qty: new_qty },
+        url: "/update-cart-item-qty",
+        type: "post",
+        success: function (resp) {
+            $(".totalCartItems").html(resp.totalCartItems);
+            if (resp.status === false) {
+                showToast(resp.message, "error");
+            }
+            $("#appendCartItems").html(resp.view);
+            $("#appendHeaderCartItems").html(resp.miniCartview);
+        },
+        error: function () {
+            showToast("error", "error");
+        },
+    });
+
+
+});
+// delete
+$(document).on("click", ".deleteCartItems", function () {
+    var cartid = $(this).data("cartid");
+    $.ajax({
+        headers: {
+            "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+        },
+        data: { cartid: cartid },
+        url: "/delete-cart-item",
+        type: "post",
+        success: function (resp) {
+            $(".totalCartItems").html(resp.totalCartItems);
+            showToast(resp.message); // Assuming your server response has a 'message' key
+            $("#appendCartItems").html(resp.view);
+            $("#appendHeaderCartItems").html(resp.miniCartview);
+        },
+        error: function () {
+            showToast("An error occurred", "error");
+        },
+    });
+});
+// delete empty
+$(document).on("click", ".emptyCart", function () {
+    $.ajax({
+        headers: {
+            "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+        },
+        url: "/empty-cart",
+        type: "post",
+        success: function (resp) {
+            $(".totalCartItems").html(resp.totalCartItems);
+
+            // Check if the cart was successfully emptied
+            if (resp.status === true) {
+                showToast(resp.message);
+                $("#appendCartItems").html(resp.view);
+                $("#appendHeaderCartItems").html(resp.miniCartview);
+            } else {
+                // Handle the case where the cart is already empty
+                showToast("No items to delete.", "info");
+            }
+        },
+        error: function () {
+            showToast("An error occurred", "error");
+        },
     });
 });

@@ -179,7 +179,7 @@ class ProductController extends Controller
     {
         if ($request->isMethod('post')) {
             $data = $request->all();
-          
+
             // check product stock
             $productStock = ProductsAttribure::productStock($data['product_id'], $data['size']);
             if ($data['qty'] > $productStock) {
@@ -211,7 +211,7 @@ class ProductController extends Controller
                 // User is login
                 $user_id = Auth::user()->id;
                 $countProducts = Cart::where(['product_id' => $data['product_id'], 'product_size' => $data['size'], 'user_id' =>  $user_id])
-                ->count();
+                    ->count();
             } else {
                 // user is not login
                 $user_id = 0;
@@ -237,11 +237,116 @@ class ProductController extends Controller
             $item->product_size = $data['size'];
             $item->product_qty = $data['qty'];
             $item->save();
+
+            // get total cart item
+            $totalCartItems = totalCartItems();
+            $getCartItems = getCartItems();
             $message = "Product Added successfully in Cart!";
             return response()->json([
                 'status' => true,
-                'message' => $message
+                'message' => $message,
+                'totalCartItems' => $totalCartItems,
+                'miniCartview' => (string) View::make('client.layouts.Header_smallCart')->with(compact('getCartItems'))
             ]);
         }
+    }
+    // shopping cart
+
+    public function cart()
+    {
+        $getCartItems = getCartItems();
+
+        return view('client.products.cart')->with(compact('getCartItems'));
+    }
+    public function updateCartQty(Request $request)
+    {
+        if ($request->ajax()) {
+            $data = $request->all();
+
+            $cartDetails = Cart::find($data['cartid']);
+            $availableStock = ProductsAttribure::select('stock')->where(['product_id' => $cartDetails['product_id'], 'size' => $cartDetails['product_size']])->first()->toArray();
+
+
+
+            // check if desize stock item from user is available
+            if ($data['qty'] > $availableStock['stock']) {
+                $getCartItems = getCartItems();
+                return response()->json([
+                    'status' => false,
+                    'message' => 'Quantity exceeds available stock',
+                    'view' => (string) View::make('client.products.cart_item')->with(compact('getCartItems')),
+                    'miniCartview' => (string) View::make('client.layouts.Header_smallCart')->with(compact('getCartItems'))
+                ]);
+            }
+            // check product size
+            $availableSize = ProductsAttribure::where(['product_id' => $cartDetails['product_id'], 'size' => $cartDetails['product_size'], 'status' => 1])->count();
+            if ($availableSize == 0) {
+                $getCartItems = getCartItems();
+                return response()->json([
+                    'status' => false,
+                    'message' => 'Product size not available. please the remove and choese another one',
+                    'view' => (string) View::make('client.products.cart_item')->with(compact('getCartItems')),
+                    'miniCartview' => (string) View::make('client.layouts.Header_smallCart')->with(compact('getCartItems'))
+                ]);
+            }
+
+            // update the cart item qty
+            Cart::where('id', $data['cartid'])->update(['product_qty' => $data['qty']]);
+
+            $getCartItems = getCartItems();
+            // get total cart item
+            $totalCartItems = totalCartItems();
+            return response()->json([
+                'status' => true,
+                'totalCartItems' => $totalCartItems,
+                'view' => (string) View::make('client.products.cart_item')->with(compact('getCartItems')),
+                'miniCartview' => (string) View::make('client.layouts.Header_smallCart')->with(compact('getCartItems'))
+            ]);
+        }
+    }
+
+    // delete cart
+    public function deleteCart(Request $request)
+    {
+        if ($request->ajax()) {
+
+            $data = $request->all();
+            Cart::where('id', $data['cartid'])->delete();
+            $getCartItems = getCartItems();
+
+            $totalCartItems = totalCartItems();
+            return response()->json([
+                'status' => true,
+                'message' =>  'delete success',
+                'totalCartItems' => $totalCartItems,
+                'view' => (string) View::make('client.products.cart_item')->with(compact('getCartItems')),
+                'miniCartview' => (string) View::make('client.layouts.Header_smallCart')->with(compact('getCartItems'))
+            ]);
+        }
+    }
+    // delete cart
+    public function emptyCart(Request $request)
+    {
+        if ($request->ajax()) {
+            // Call the function to empty the cart
+            emptyCart();
+
+            // Retrieve updated cart items and total items count
+            $getCartItems = getCartItems();
+            $totalCartItems = totalCartItems();
+
+            return response()->json([
+                'status' => true,
+                'message' => 'Cart emptied successfully',
+                'totalCartItems' => $totalCartItems,
+                'view' => (string) View::make('client.products.cart_item')->with(compact('getCartItems')),
+                'miniCartview' => (string) View::make('client.layouts.Header_smallCart')->with(compact('getCartItems'))
+            ]);
+        }
+        return response()->json([
+            'status' => false,
+            'emptied' => false,
+            'message' => 'No items to Empty.',
+        ]);
     }
 }

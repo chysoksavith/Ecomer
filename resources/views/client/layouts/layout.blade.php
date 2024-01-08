@@ -18,6 +18,10 @@
     <link rel="stylesheet" href="{{ asset('front/css/sortNewstListing.css') }}">
     <link rel="stylesheet" href="{{ asset('front/css/detail.css') }}">
     <link rel="stylesheet" href="{{ asset('front/css/contentTabDetail.css') }}">
+    <link rel="stylesheet" href="{{ asset('front/css/cart.css') }}">
+    <link rel="stylesheet" href="{{ asset('front/css/login.css') }}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+
     <title>EcoStore</title>
 </head>
 
@@ -33,17 +37,29 @@
 
     @yield('scripts')
 
-    {{-- jquery --}}
     <script src="https://code.jquery.com/jquery-3.7.1.js" crossorigin="anonymous"></script>
     {{-- ajax  --}}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" crossorigin="anonymous"></script>
     {{-- custom --}}
+    <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
     <script src="{{ asset('front/js/header.js') }}"></script>
     <script src="{{ asset('front/js/custom.js') }}"></script>
     <script src="{{ asset('front/js/filter.js') }}"></script>
     <script src="{{ asset('front/js/imageZoom.js') }}"></script>
     <script src="{{ asset('front/js/btnIncreasement.js') }}"></script>
-
+    <script src="{{ asset('front/js/cart.js') }}"></script>
+    <script>
+        function showToast(message, type = "success") {
+            Toastify({
+                text: message,
+                duration: 2000,
+                gravity: "top",
+                position: "right",
+                backgroundColor: type === "success" ? "green" : "red",
+                stopOnFocus: true,
+            }).showToast();
+        }
+    </script>
 </body>
 
 </html>

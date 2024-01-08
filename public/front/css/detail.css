@@ -142,12 +142,13 @@ span {
 }
 .d-c,
 .i-c {
+    font-weight: 300;
+    font-size: 26px;
     border: none;
     outline: none;
-
     cursor: pointer;
 }
-.Decre {
+.Decre, .Incre {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -167,7 +168,9 @@ span {
     display: block;
     width: 200px;
     height: 50px;
-    background-color: black;
+    font-size: 15px;
+    font-weight: 600;
+    background-color: #2c2930;
     height: 54px;
     color: white;
     font-size: 14px;
