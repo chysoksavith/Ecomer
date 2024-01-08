@@ -5,6 +5,7 @@ namespace App\Http\Controllers\front;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
@@ -46,6 +47,20 @@ class UserController extends Controller
 
                 // user can login after data go to table
                 if (Auth::attempt(['email' => $data['email'], 'password' => $data['password']])) {
+                    // send mail to user after login
+                    $email = $data['email'];
+                    $messageData = [
+                        'name' => $data['name'],
+                        'mobile' => $data['mobile'],
+                        'email' => $data['email']
+                    ];
+
+                    Mail::send('email.registerEmail', $messageData, function ($message) use ($email) {
+                        $message->to($email)->subject('Welcome to Our Website');
+                    });
+
+
+
                     $redirectUrl = url('cart');
                     return response()->json([
                         'status' => true,
@@ -53,7 +68,7 @@ class UserController extends Controller
                         'url' => $redirectUrl,
                     ]);
                 }
-            }else{
+            } else {
                 return response()->json([
                     'status' => false,
                     'type' => 'validation',
