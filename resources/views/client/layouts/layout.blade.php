@@ -48,6 +48,8 @@
     <script src="{{ asset('front/js/imageZoom.js') }}"></script>
     <script src="{{ asset('front/js/btnIncreasement.js') }}"></script>
     <script src="{{ asset('front/js/cart.js') }}"></script>
+    <script src="{{ asset('front/js/Login_RegisterForm.js') }}"></script>
+
     <script>
         function showToast(message, type = "success") {
             Toastify({

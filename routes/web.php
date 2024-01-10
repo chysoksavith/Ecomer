@@ -60,6 +60,9 @@ Route::namespace('App\Http\Controllers\front')->group(function () {
         Route::match(['get', 'post'],'user/register', 'registerUser')->name('user.register');
         Route::get('user/logout', 'userLogout');
         Route::match(['get', 'post'],'user/confirm/{code}', 'confirmAccount');
+        Route::match(['get', 'post'], 'user/forgot-password', 'forgotPassword');
+        Route::match(['get', 'post'],'user/reset-password/{code?}', 'resetPassword');
+
     });
 });
 

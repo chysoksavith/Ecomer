@@ -11,10 +11,64 @@ use Illuminate\Support\Facades\Validator;
 
 class UserController extends Controller
 {
-    public function loginUser()
+    public function loginUser(Request $request)
     {
+        if ($request->ajax()) {
+            $data = $request->all();
+
+            $validator = Validator::make(
+                $request->all(),
+                [
+                    'email' => 'required|email|max:250|exists:users',
+                    'password' => 'required|min:6'
+                ],
+                [
+                    'email.required' => 'Please enter your email address.',
+                    'email.email' => 'Please enter a valid email address.',
+                    'email.max' => 'The email address must not exceed 250 characters.',
+                    'email.exists' => 'The provided email does not exist in our records.',
+                    'password.required' => 'Please enter your password.',
+                    'password.min' => 'The password must be at least 6 characters long.'
+                ]
+            );
+
+            if ($validator->passes()) {
+                // user can log in after data go to table
+                if (Auth::attempt(['email' => $data['email'], 'password' => $data['password']])) {
+                    // if status 0 then it logout
+                    if (Auth::user()->status == 0) {
+                        Auth::logout();
+                        return response()->json([
+                            'status' => false,
+                            'type' => 'inactive',
+                            'message' => 'Your account is not activated yet',
+                        ]);
+                    } else {
+                        $redirectUrl = url('cart');
+                        return response()->json([
+                            'status' => true,
+                            'type' => 'success',
+                            'url' => $redirectUrl,
+                        ]);
+                    }
+                } else {
+                    return response()->json([
+                        'status' => false,
+                        'type' => 'incorrect',
+                        'message' => 'You have entered an incorrect email or password!'
+                    ]);
+                }
+            } else {
+                return response()->json([
+                    'status' => false,
+                    'type' => 'error',
+                    'error' => $validator->messages()
+                ]);
+            }
+        }
         return view('client.User.UserLogin');
     }
+    // ------------------------------------------------------------------------------------------------
 
     // register
     public function registerUser(Request $request)
@@ -64,31 +118,6 @@ class UserController extends Controller
                     'url' => $redirectUrl,
                     'message' => 'Please confirm your email to activate your Account!'
                 ]);
-
-
-                // user can login after data go to table
-                // if (Auth::attempt(['email' => $data['email'], 'password' => $data['password']])) {
-                //     // send mail to user after login
-                //     $email = $data['email'];
-                //     $messageData = [
-                //         'name' => $data['name'],
-                //         'mobile' => $data['mobile'],
-                //         'email' => $data['email']
-                //     ];
-
-                //     Mail::send('email.registerEmail', $messageData, function ($message) use ($email) {
-                //         $message->to($email)->subject('Welcome to Our Website');
-                //     });
-
-
-
-                //     $redirectUrl = url('cart');
-                //     return response()->json([
-                //         'status' => true,
-                //         'type' => 'success',
-                //         'url' => $redirectUrl,
-                //     ]);
-                // }
             } else {
                 return response()->json([
                     'status' => false,
@@ -98,13 +127,6 @@ class UserController extends Controller
             }
         }
         return view('client.User.UserRegister');
-    }
-
-    // logout
-    public function userLogout()
-    {
-        Auth::logout();
-        return redirect('user/login');
     }
     // confrim acc
     public function confirmAccount($code)
@@ -144,5 +166,79 @@ class UserController extends Controller
         } else {
             abort(404);
         }
+    }
+    // ------------------------------------------------------------------------------------------------
+    // forgot password
+    public function forgotPassword(Request $request)
+    {
+        if ($request->ajax()) {
+            $data = $request->all();
+            $validator = Validator::make(
+                $request->all(),
+                [
+                    'email' => 'required|email|max:250|exists:users'
+                ],
+                [
+                    'email.email' => 'Email does not Exists'
+                ]
+            );
+
+            if ($validator->passes()) {
+                // send email to user with reset password link
+                $email = $data['email'];
+                $messageData = ['email' => $data['email'], 'code' => base64_encode($data['email'])];
+                Mail::send('email.reset_password', $messageData, function ($message) use ($email) {
+                    $message->to($email)->subject('Reset your Password');
+                });
+                return response()->json([
+                    'type' => 'success',
+                    'message' => 'Reset Password Link sent to you register email'
+                ]);
+            } else {
+                return response()->json([
+                    'status' => false,
+                    'type' => 'error',
+                    'errors' => $validator->messages()
+                ]);
+            }
+        } else {
+            return view('client.User.ForgotPass');
+        }
+    }
+    // confirm forgot password
+    public function resetPassword(Request $request, $code = null)
+    {
+        if ($request->ajax()) {
+            $data = $request->all();
+            $email = base64_decode($data['code']);
+            $userCount = User::where('email', $email)->count();
+            if($userCount > 0){
+                // update new password for new users
+                User::where('email', $email)->update(['password' => bcrypt($data['password'])]);
+
+                // send confirm email to user
+                $messageData = ['email' => $email];
+                Mail::send('email.new_password_confirmation', $messageData, function($message) use($email){
+                    $message->to($email)->subject('Password Updated');
+                });
+                return response()->json([
+                    'type' => 'success',
+                    'message' => 'Password reset for your account Check you Email You can login now'
+                ]);
+
+            }else{
+                abort(404);
+            }
+        } else {
+            return view('client.User.reset_password')->with(compact('code'));
+        }
+    }
+    // ------------------------------------------------------------------------------------------------
+
+    // logout
+    public function userLogout()
+    {
+        Auth::logout();
+        return redirect('user/login');
     }
 }

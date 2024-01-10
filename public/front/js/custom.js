@@ -150,37 +150,81 @@ $(document).ready(function () {
             },
         });
     });
-    // register form
-    $("#registerForm").submit(function (event) {
-        event.preventDefault(); // Prevent the default form submission
+    // register form validation
+    // $("#registerForm").submit(function (event) {
+    //     event.preventDefault(); // Prevent the default form submission
 
-        var formData = $(this).serialize();
+    //     var formData = $(this).serialize();
 
-        $.ajax({
-            url: "/user/register",
-            type: "post",
-            data: formData,
-            success: function (data) {
-                if (data.type == "validation") {
-                    $.each(data.error, function (field, error) {
-                        $("#register-" + field).attr("style", "color:red; font-size: 14px");                        $("#register-" + field).html(error);
-                        setTimeout(function () {
-                            $("#register-" + field).css({
-                                display: "none",
-                            });
-                        }, 3000);
-                    });
-                } else if (data.type == "success") {
-                    // window.location.href = data.url;
-                    $('#register-success').attr('style', 'color:green');
-                    $('#register-success').html(data.message);
-                }
-            },
+    //     $.ajax({
+    //         headers: {
+    //             "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+    //         },
+    //         url: "/user/register",
+    //         type: "post",
+    //         data: formData,
+    //         success: function (data) {
+    //             if (data.type == "validation") {
+    //                 $.each(data.error, function (field, error) {
+    //                     $("#register-" + field).attr(
+    //                         "style",
+    //                         "color:red; font-size: 14px"
+    //                     );
+    //                     $("#register-" + field).html(error);
+    //                     setTimeout(function () {
+    //                         $("#register-" + field).css({
+    //                             display: "none",
+    //                         });
+    //                     }, 3000);
+    //                 });
+    //             } else if (data.type == "success") {
+    //                 // window.location.href = data.url;
+    //                 $("#register-success").attr("style", "color:green");
+    //                 $("#register-success").html(data.message);
+    //             }
+    //         },
 
+    //         error: function () {
+    //             alert("error");
+    //         },
+    //     });
+    // });
+    // login from validation
+    // $("#loginForm").submit(function () {
+    //     var formData = $(this).serialize();
+    //     $.ajax({
+    //         headers: {
+    //             "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+    //         },
+    //         url: "/user/login",
+    //         type: "post",
+    //         data: formData,
+    //         success: function (resp) {
+    //             if (resp.type === "error") {
+    //                 $.each(resp.error, function (field, error) {
+    //                     $("#" + field + "-error").html(error);
+    //                     $("#" + field + "-error")
+    //                         .css({
+    //                             color: "red",
+    //                             "font-size": "14px",
+    //                         })
+    //                         .show();
+    //                     setTimeout(function () {
+    //                         $("#" + field + "-error").hide();
+    //                     }, 3000);
+    //                 });
+    //             } else if (resp.type === "inactive") {
+    //                 $("#login-error").css("color", "red").html(resp.message);
+    //             } else if (resp.type === "incorrect") {
+    //                 $("#login-error").css("color", "red").html(resp.message);
+    //             } else if (resp.type === "success") {
+    //                 window.location.href = resp.url;
+    //             }
+    //         },
 
-            error: function () {
-                alert("error");
-            },
-        });
-    });
+    //         error: function () {
+    //             alert("error");
+    //         },
+    //     });
+    // });
 });
