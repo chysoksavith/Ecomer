@@ -20,13 +20,16 @@
     <link rel="stylesheet" href="{{ asset('front/css/contentTabDetail.css') }}">
     <link rel="stylesheet" href="{{ asset('front/css/cart.css') }}">
     <link rel="stylesheet" href="{{ asset('front/css/login.css') }}">
+    <link rel="stylesheet" href="{{ asset('front/css/loader.css') }}">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
 
     <title>EcoStore</title>
 </head>
 
 <body>
-
+    <div class="loader">
+        <img src="{{ asset('front/images/loader.webp') }}" alt="loading...">
+    </div>
     @include('client.layouts.header')
 
     @yield('content')
@@ -62,6 +65,36 @@
             }).showToast();
         }
     </script>
+    <script>
+        // Execute the following script after the page has loaded
+        $(document).ready(function() {
+            // Select all elements with the 'capitalize' class and apply custom capitalization
+            $('.capitalize').each(function() {
+                var text = $(this).text();
+                // Convert the entire word to lowercase and then capitalize the first letter
+                $(this).text(text.toLowerCase().replace(/^(.)|\s(.)/g, function($1) {
+                    return $1.toUpperCase();
+                }));
+            });
+        });
+
+    </script>
+<!-- Add this script at the end of your HTML file -->
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var mainCategories = document.querySelectorAll('.MainCategory');
+
+        mainCategories.forEach(function(mainCategory) {
+            var subcategories = mainCategory.nextElementSibling;
+
+            if (subcategories && subcategories.querySelector('.subcategory') === null) {
+                mainCategory.removeAttribute('data-dropdown-button');
+                mainCategory.style.cursor = 'default';
+            }
+        });
+    });
+</script>
+
     @if (session('toast'))
         <script>
             // Extract toast data from the session

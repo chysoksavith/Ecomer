@@ -23,31 +23,35 @@ $totalCartItems = totalCartItems();
                 @foreach ($categories as $category)
                     <li>
                         <div class="dropdown" data-dropdown>
-                            <span class="link StyleSmall" data-dropdown-button>{{ $category->category_name }}</span>
-                            <div class="dropdown-memu infomation-grid">
+                            <span class="link StyleSmall MainCategory capitalize" data-dropdown-button>
+                                {{ $category->category_name }}
+                            </span>
+                            <div class="dropdown-memu">
                                 @if (count($category->subCategories))
-                                    <div class="subcategory">
+                                    <div class="mainsubcategory">
                                         @foreach ($category->subCategories as $subcategory)
-                                            <div class="dropdown-heading">
-                                                <a href="{{ url($subcategory->url) }}">
-                                                    {{ $subcategory->category_name }}
-                                                </a>
-                                            </div>
-                                            @if (count($subcategory->subCategories))
-                                                <div class="dropdown-links">
-                                                    @foreach ($subcategory->subCategories as $subsubcategory)
-                                                        <a href="{{ url($subsubcategory->url) }}">
-                                                            {{ $subsubcategory->category_name }}
-                                                        </a>
-                                                    @endforeach
+                                            <div class="subcategory">
+                                                <div class="dropdown-heading">
+                                                    <a href="{{ url($subcategory->url) }}" class="subtxt capitalize">
+                                                        {{ $subcategory->category_name }}
+                                                    </a>
                                                 </div>
-                                            @endif
+                                                @if (count($subcategory->subCategories))
+                                                    <div class="dropdown-links">
+                                                        @foreach ($subcategory->subCategories as $subsubcategory)
+                                                            <a href="{{ url($subsubcategory->url) }}" class="subsubtxt capitalize">
+                                                                {{ $subsubcategory->category_name }}
+                                                            </a>
+                                                        @endforeach
+                                                    </div>
+                                                @endif
+                                            </div>
                                         @endforeach
-
                                     </div>
                                 @endif
                             </div>
                         </div>
+
                     </li>
                 @endforeach
 
@@ -75,8 +79,7 @@ $totalCartItems = totalCartItems();
                 </li>
                 {{-- cart --}}
                 <li class="NavLiRes">
-                    <span class="Ico" id="bagIcon"><i class="fa-solid fa-bag-shopping icoHead dropbtnminiCart"
-                            onclick="myFunction()"></i>
+                    <span class="Ico" id="bagIcon"><i class="fa-solid fa-bag-shopping icoHead dropbtnminiCart"></i>
                         <span class="bagg totalCartItems">
                             <p>{{ $totalCartItems }}</p>
                         </span>
@@ -85,9 +88,10 @@ $totalCartItems = totalCartItems();
                         @include('client.layouts.Header_smallCart')
                     </div>
                 </li>
+
                 {{-- user --}}
                 <li class="NavLiRes">
-                    <i class="fa-regular fa-user icoHead dropbtnAccount" onclick="FunctionLoginUser()"> </i>
+                    <i class="fa-regular fa-user icoHead dropbtnAccount"> </i>
                     <div class="dropdownAccount">
                         <div class="dropdown-contentAccount" id="myDropdownAccount">
                             {{-- if auth login it show account and signout if not it show signup and signin --}}
@@ -105,16 +109,16 @@ $totalCartItems = totalCartItems();
                                             </a>
                                         </li>
                                     @else
-                                    <li>
-                                        <a href="{{ url('user/register') }}">
-                                            Sign up
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="{{ url('user/login') }}">
-                                            Sign in
-                                        </a>
-                                    </li>
+                                        <li>
+                                            <a href="{{ url('user/register') }}">
+                                                Sign up
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="{{ url('user/login') }}">
+                                                Sign in
+                                            </a>
+                                        </li>
                                     @endif
                                 </ul>
                             </div>
@@ -131,4 +135,5 @@ $totalCartItems = totalCartItems();
     @include('client.layouts.aside')
 </header>
 @section('scripts')
+
 @endsection

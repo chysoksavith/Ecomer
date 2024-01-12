@@ -55,14 +55,20 @@ Route::namespace('App\Http\Controllers\front')->group(function () {
         // empty cart
         Route::post('/empty-cart', 'emptyCart');
     });
-    Route::controller(UserController::class)->group(function(){
-        Route::match(['get', 'post'], 'user/login', 'loginUser')->name('login.user');
-        Route::match(['get', 'post'],'user/register', 'registerUser')->name('user.register');
-        Route::get('user/logout', 'userLogout');
-        Route::match(['get', 'post'],'user/confirm/{code}', 'confirmAccount');
-        Route::match(['get', 'post'], 'user/forgot-password', 'forgotPassword');
-        Route::match(['get', 'post'],'user/reset-password/{code?}', 'resetPassword');
 
+    Route::group(['middleware' => ['auth']], function () {
+        Route::controller(UserController::class)->group(function () {
+            Route::get('user/logout', 'userLogout');
+            Route::get('user/account', 'userAccount')->name('user.account');
+        });
+    });
+
+    Route::controller(UserController::class)->group(function () {
+        Route::match(['get', 'post'], 'user/login', 'loginUser')->name('login');
+        Route::match(['get', 'post'], 'user/register', 'registerUser')->name('user.register');
+        Route::match(['get', 'post'], 'user/confirm/{code}', 'confirmAccount');
+        Route::match(['get', 'post'], 'user/forgot-password', 'forgotPassword');
+        Route::match(['get', 'post'], 'user/reset-password/{code?}', 'resetPassword');
     });
 });
 

@@ -10,6 +10,8 @@
             <li><a href="">Client Services</a></li>
             <li><a href="">Legal Notics</a></li>
             <li><a href="">Social</a></li>
+
         </ul>
     </div>
+
 </footer>

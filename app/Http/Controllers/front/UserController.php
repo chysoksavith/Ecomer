@@ -234,7 +234,10 @@ class UserController extends Controller
         }
     }
     // ------------------------------------------------------------------------------------------------
-
+    // user acount
+    public function userAccount(){
+       echo "hello account";
+    }
     // logout
     public function userLogout()
     {

@@ -2,7 +2,7 @@ $(document).ready(function () {
     // register form validation
     $("#registerForm").submit(function (event) {
         event.preventDefault(); // Prevent the default form submission
-
+        $(".loader").show();
         var formData = $(this).serialize();
 
         $.ajax({
@@ -14,6 +14,7 @@ $(document).ready(function () {
             data: formData,
             success: function (data) {
                 if (data.type == "validation") {
+                    $(".loader").hide();
                     $.each(data.error, function (field, error) {
                         $("#register-" + field).attr(
                             "style",
@@ -24,17 +25,18 @@ $(document).ready(function () {
                             $("#register-" + field).css({
                                 display: "none",
                             });
-                        }, 3000);
+                        }, 4000);
                     });
                 } else if (data.type == "success") {
-                    // window.location.href = data.url;
+                    $(".loader").hide();
                     $("#register-success").attr("style", "color:green");
                     $("#register-success").html(data.message);
                 }
             },
 
             error: function () {
-                alert("error");
+                $(".loader").hide();
+                showToast("something went wrong", "error");
             },
         });
     });
@@ -60,7 +62,7 @@ $(document).ready(function () {
                             .show();
                         setTimeout(function () {
                             $("#" + field + "-error").hide();
-                        }, 3000);
+                        }, 4000);
                     });
                 } else if (resp.type === "inactive") {
                     showToast(resp.message, "error", "Account Inactive");
@@ -72,13 +74,15 @@ $(document).ready(function () {
             },
 
             error: function () {
-                alert("error");
+                $(".loader").hide();
+                showToast("something went wrong", "error");
             },
         });
     });
     // ----------------------------------------------------------------------------------------
     //forgot password
     $("#forgotForm").submit(function () {
+        $(".loader").show();
         var formData = $(this).serialize();
         $.ajax({
             headers: {
@@ -88,6 +92,7 @@ $(document).ready(function () {
             type: "post",
             data: formData,
             success: function (resp) {
+                $(".loader").hide();
                 if (resp.type === "error") {
                     $.each(resp.errors, function (i, error) {
                         showToast(error, "error", "Error");
@@ -97,12 +102,14 @@ $(document).ready(function () {
                 }
             },
             error: function () {
-                alert("error");
+                $(".loader").hide();
+                showToast("something went wrong", "error");
             },
         });
     });
     // reset password
     $("#resetFormPwd").submit(function () {
+        $(".loader").show();
         var formData = $(this).serialize();
         $.ajax({
             headers: {
@@ -112,6 +119,7 @@ $(document).ready(function () {
             type: "post",
             data: formData,
             success: function (resp) {
+                $(".loader").hide();
                 if (resp.type === "error") {
                     $.each(resp.errors, function (i, error) {
                         showToast(error, "error", "Error");
@@ -121,7 +129,8 @@ $(document).ready(function () {
                 }
             },
             error: function () {
-                alert("error");
+                $(".loader").hide();
+                showToast("something went wrong", "error");
             },
         });
     });
