@@ -21,6 +21,8 @@
     <link rel="stylesheet" href="{{ asset('front/css/cart.css') }}">
     <link rel="stylesheet" href="{{ asset('front/css/login.css') }}">
     <link rel="stylesheet" href="{{ asset('front/css/loader.css') }}">
+    <link rel="stylesheet" href="{{ asset('front/css/account.css') }}">
+
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
 
     <title>EcoStore</title>
@@ -52,7 +54,7 @@
     <script src="{{ asset('front/js/btnIncreasement.js') }}"></script>
     <script src="{{ asset('front/js/cart.js') }}"></script>
     <script src="{{ asset('front/js/Login_RegisterForm.js') }}"></script>
-
+    <script src="{{ asset('front/js/accountForm.js') }}"></script>
     <script>
         function showToast(message, type = "success") {
             Toastify({
@@ -77,23 +79,22 @@
                 }));
             });
         });
-
     </script>
-<!-- Add this script at the end of your HTML file -->
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        var mainCategories = document.querySelectorAll('.MainCategory');
+    <!-- Add this script at the end of your HTML file -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var mainCategories = document.querySelectorAll('.MainCategory');
 
-        mainCategories.forEach(function(mainCategory) {
-            var subcategories = mainCategory.nextElementSibling;
+            mainCategories.forEach(function(mainCategory) {
+                var subcategories = mainCategory.nextElementSibling;
 
-            if (subcategories && subcategories.querySelector('.subcategory') === null) {
-                mainCategory.removeAttribute('data-dropdown-button');
-                mainCategory.style.cursor = 'default';
-            }
+                if (subcategories && subcategories.querySelector('.subcategory') === null) {
+                    mainCategory.removeAttribute('data-dropdown-button');
+                    mainCategory.style.cursor = 'default';
+                }
+            });
         });
-    });
-</script>
+    </script>
 
     @if (session('toast'))
         <script>

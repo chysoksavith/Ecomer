@@ -212,21 +212,20 @@ class UserController extends Controller
             $data = $request->all();
             $email = base64_decode($data['code']);
             $userCount = User::where('email', $email)->count();
-            if($userCount > 0){
+            if ($userCount > 0) {
                 // update new password for new users
                 User::where('email', $email)->update(['password' => bcrypt($data['password'])]);
 
                 // send confirm email to user
                 $messageData = ['email' => $email];
-                Mail::send('email.new_password_confirmation', $messageData, function($message) use($email){
+                Mail::send('email.new_password_confirmation', $messageData, function ($message) use ($email) {
                     $message->to($email)->subject('Password Updated');
                 });
                 return response()->json([
                     'type' => 'success',
                     'message' => 'Password reset for your account Check you Email You can login now'
                 ]);
-
-            }else{
+            } else {
                 abort(404);
             }
         } else {
@@ -235,8 +234,46 @@ class UserController extends Controller
     }
     // ------------------------------------------------------------------------------------------------
     // user acount
-    public function userAccount(){
-       echo "hello account";
+    public function userAccount(Request $request)
+    {
+
+        if ($request->ajax()) {
+            $data = $request->all();
+            $validator = Validator::make($request->all(), [
+                'name' => 'required|string|max:150',
+                'city' => 'required|string|max:150',
+                'state' => 'required|string|max:150',
+                'address' => 'required|string|max:150',
+                'pincode' => 'required|string|max:150',
+                'mobile' => 'required|numeric|digits:9',
+            ]);
+            if ($validator->passes()) {
+                // update user account
+                User::where('id', Auth::user()->id)->update([
+                    'name' => $data['name'],
+                    'address' => $data['address'],
+                    'city' => $data['city'],
+                    'state' => $data['state'],
+                    'country' => $data['country'],
+                    'pincode' => $data['pincode'],
+                    'mobile' => $data['mobile'],
+                ]);
+                // redirect back when success update
+                return response()->json([
+                    'status' => true,
+                    'type' => "success",
+                    'message' => 'User Details Successfully'
+                ]);
+            } else {
+                return response()->json([
+                    'status' => false,
+                    'type' => 'validation',
+                    'errors' => $validator->errors()->messages()
+                ]);
+            }
+        } else {
+            return view('client.User.Account');
+        }
     }
     // logout
     public function userLogout()

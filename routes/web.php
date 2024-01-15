@@ -54,12 +54,14 @@ Route::namespace('App\Http\Controllers\front')->group(function () {
         Route::post('/delete-cart-item', 'deleteCart');
         // empty cart
         Route::post('/empty-cart', 'emptyCart');
+        // Search
+        Route::get('/search', 'search')->name('search');
     });
 
     Route::group(['middleware' => ['auth']], function () {
         Route::controller(UserController::class)->group(function () {
             Route::get('user/logout', 'userLogout');
-            Route::get('user/account', 'userAccount')->name('user.account');
+            Route::match(['get', 'post'], 'user/account', 'userAccount')->name('user.account');
         });
     });
 

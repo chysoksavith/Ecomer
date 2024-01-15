@@ -135,3 +135,48 @@ input[type="radio"] {
 .radio-wrapper input[type="checkbox"]:checked + .label {
     background-color: green; /* Set the color you want for the checked state */
 }
+/* select */
+.SortByNewstItem {
+    margin-top: 20px;
+}
+
+.container {
+    margin-right: 0;
+    padding: 0px 20px;
+    text-align: right;
+}
+
+.select {
+    text-transform: capitalize;
+    border: 1px solid #ced4da; /* Add border for better visibility */
+    padding: 6px 12px; /* Adjust padding for better appearance */
+    display: inline-block; /* Ensure the select is inline */
+    vertical-align: middle; /* Align vertically with other elements */
+    font-size: 15px;
+}
+
+/* Style to handle Firefox rendering of select */
+.select::-moz-focus-inner {
+    border: none;
+}
+
+/* Style to handle Internet Explorer rendering of select */
+.select {
+    -ms-appearance: none;
+}
+
+.select::-ms-expand {
+    display: none;
+}
+/* Style options */
+.select option {
+    
+    background-color: #fff; /* Background color of options */
+    color: #333; /* Text color of options */
+}
+
+/* Hover effect for options */
+.select option:hover {
+    background-color: red; /* Hover background color of options */
+    color: #333; /* Hover text color of options */
+}

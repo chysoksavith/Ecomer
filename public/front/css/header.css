@@ -91,13 +91,16 @@
     position: absolute;
     left: 0;
     top: calc(100% + 0rem);
-    background-color: antiquewhite;
+    background-color: white;
     padding: 0.75rem;
     opacity: 0;
     display: flex;
     pointer-events: none;
     transition: opacity 150ms ease-in-out;
     z-index: 111;
+    box-shadow: rgba(0, 0, 0, 0.45) 0px 25px 20px -20px;
+
+
 }
 
 .dropdown.active > .link + .dropdown-memu {
@@ -106,6 +109,7 @@
 }
 
 .mainsubcategory {
+    padding: 20px;
     display: flex;
     flex-wrap: wrap;
 }

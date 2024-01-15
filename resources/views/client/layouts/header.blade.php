@@ -39,7 +39,8 @@ $totalCartItems = totalCartItems();
                                                 @if (count($subcategory->subCategories))
                                                     <div class="dropdown-links">
                                                         @foreach ($subcategory->subCategories as $subsubcategory)
-                                                            <a href="{{ url($subsubcategory->url) }}" class="subsubtxt capitalize">
+                                                            <a href="{{ url($subsubcategory->url) }}"
+                                                                class="subsubtxt capitalize">
                                                                 {{ $subsubcategory->category_name }}
                                                             </a>
                                                         @endforeach
@@ -55,6 +56,7 @@ $totalCartItems = totalCartItems();
                     </li>
                 @endforeach
 
+
             </ul>
         </nav>
         <a class="LogoHeader" href="{{ route('HomePage') }}">
@@ -64,11 +66,23 @@ $totalCartItems = totalCartItems();
         <nav class="NavREs">
             <ul>
                 {{-- search --}}
-                <li class="NavLiRes"><a href="" class="Ico"><i
-                            class="fa-solid fa-magnifying-glass icoHead"></i>
+                <li class="NavLiRes"><a href="" class="Ico">
                     </a>
                 </li>
+                <li>
+                    <div class="dropdown" data-dropdown>
+                        <span class="fa-solid fa-magnifying-glass icoHead link  " data-dropdown-button></span>
+                        <div class="dropdown-memu">
+                            <div class=" divSearchdiv">
+                                <input type="search" class="searchHeader" id="searchHeader" placeholder="Search for produts">
+                                <button class="btnSearch">
+                                    <i class="fa-solid fa-magnifying-glass icoHead"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
 
+                </li>
                 {{-- wishList --}}
                 <li class="NavLiRes">
                     <a href="" class="Ico"><i class="fa-regular   fa-heart  icoHead"></i>
@@ -135,5 +149,4 @@ $totalCartItems = totalCartItems();
     @include('client.layouts.aside')
 </header>
 @section('scripts')
-
 @endsection

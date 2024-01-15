@@ -105,6 +105,12 @@ class ProductController extends Controller
             abort(404);
         }
     }
+    // search header
+    public function search(Request $request){
+        $query = $request->input('query');
+        $products = Product::where('product_name', 'like', '%'. $query .'%')->get();
+        return response()->json($products);
+    }
     // product detail
     public function detail(Request $request, $id)
     {

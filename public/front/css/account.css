@@ -1,0 +1,85 @@
+.containerAccount {
+    margin-top: 50px;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+.hoverunderLine {
+    position: relative;
+    text-decoration: none;
+    color: #000; /* Set the default text color */
+    overflow: hidden;
+}
+
+.hoverunderLine::after {
+    content: "";
+    display: block;
+    position: absolute;
+    width: 0;
+    height: 1px; /* Set the height of the line */
+    background-color: #000; /* Set the color of the line */
+    bottom: -5px; /* Adjust the distance from the text */
+    transition: width 0.3s ease; /* Add the transition property */
+}
+
+.hoverunderLine:hover::after {
+    width: 100%;
+}
+.leftContainAcc {
+    width: 300px;
+    padding: 15px;
+    height: 637px;
+    box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px 0px;
+}
+.leftAcc {
+    margin-top: 30px;
+}
+.accSpan {
+    font-style: 15px;
+    color: #b3b3b3;
+}
+.acc {
+    margin-top: 30px;
+}
+.acc li {
+    margin-top: 10px;
+    list-style: none;
+}
+.acc li a {
+    font-size: 14px;
+    text-decoration: none;
+    color: black;
+}
+/* --------------------------Form account------------------------------------------- */
+.rightContainAcc {
+    width: 920px;
+    height: auto;
+    padding: 55px;
+    display: flex;
+    justify-content: space-between;
+    box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px 0px;
+}
+.coverFromBill {
+    margin-top: 10px;
+    display: flex;
+    justify-content: space-between;
+}
+.leftform {
+    width: 810px;
+    height: auto;
+}
+.inputbilling {
+    display: block;
+    width: 380px;
+    height: 38px;
+    border: none;
+    background-color: transparent;
+    outline: none;
+    border-bottom: 1px solid black;
+    transition: border-bottom 0.5s ease;
+}
+.btncoverformbill {
+    margin-top: 30px;
+}
