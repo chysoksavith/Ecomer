@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\front;
 
 use App\Http\Controllers\Controller;
+use App\Models\Country;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
@@ -245,6 +246,7 @@ class UserController extends Controller
                 'state' => 'required|string|max:150',
                 'address' => 'required|string|max:150',
                 'pincode' => 'required|string|max:150',
+                'country' => 'required|string|max:150',
                 'mobile' => 'required|numeric|digits:9',
             ]);
             if ($validator->passes()) {
@@ -272,7 +274,8 @@ class UserController extends Controller
                 ]);
             }
         } else {
-            return view('client.User.Account');
+            $countries = Country::where('status', 1)->get()->toArray();
+            return view('client.User.Account')->with(compact('countries'));
         }
     }
     // logout

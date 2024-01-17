@@ -74,17 +74,17 @@
                         </div>
                         {{-- country pincode --}}
                         <div class="coverFromBill">
-                            {{-- <div class="inputFiel">
-                                <label class="tileLabelLogin">Country <span class="redValidation">*</span></label>
-                                <select name="" id="" class="inputbilling">
-                                    <option value="">Select Your Country</option>
-                                </select>
-                                <p id="account-country"></p>
-                            </div> --}}
                             <div class="inputFiel">
                                 <label class="tileLabelLogin">Country <span class="redValidation">*</span></label>
-                                <input type="text" class="inputbilling" id="billing-country" name="country"
-                                    value="{{ Auth::user()->country }}">
+                                <select name="country" id="" class="inputbilling" required>
+                                    <option value="" selected>Select Your Country</option>
+                                    @foreach ($countries as $country)
+                                        <option value="{{ $country['country_name'] }}"
+                                            @if ($country['country_name'] == Auth::user()->country) selected @endif>
+                                            {{ $country['country_name'] }}
+                                        </option>
+                                    @endforeach
+                                </select>
                                 <p id="account-country"></p>
                             </div>
                             <div class="inputFiel">
