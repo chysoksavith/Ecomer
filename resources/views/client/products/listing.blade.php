@@ -13,26 +13,29 @@
                         {{-- <a href="">Shirt</a> --}}
                     </div>
                 </div>
+                @if ($categoryProducts && count($categoryProducts) > 0)
                 <div class="SortByNewstItem">
-                        <div class="container">
-                            <form action="" name="sortProducts" id="sortProducts">
-                                @csrf
-                                <input type="hidden" name="url" id="url" value="{{{$url}}}">
-                                <select name="sort" id="sort" class="getsort select ">
-                                    <option class="capitalize" value="">Sort Items</option>
-                                    <option class="capitalize" value="product_latest" {{ isset($_GET['sort']) && !empty($_GET['sort']) && $_GET['sort'] == "product_latest" ? 'selected' : '' }}>
-                                        Sort By: Latest Items
-                                    </option>
-                                    <option class="capitalize" value="best_selling" {{ isset($_GET['sort']) && !empty($_GET['sort']) && $_GET['sort'] == "best_selling" ? 'selected' : '' }}>Best Selling</option>
-                                    <option class="capitalize" value="best_rating" {{ isset($_GET['sort']) && !empty($_GET['sort']) && $_GET['sort'] == "best_rating" ? 'selected' : '' }}>Best Rating</option>
-                                    <option class="capitalize" value="lowest_price" {{ isset($_GET['sort']) && !empty($_GET['sort']) && $_GET['sort'] == "lowest_price" ? 'selected' : '' }}>Lowest Price</option>
-                                    <option class="capitalize" value="highest_price" {{ isset($_GET['sort']) && !empty($_GET['sort']) && $_GET['sort'] == "highest_price" ? 'selected' : '' }}>Highesh Price</option>
-                                    <option class="capitalize" value="featired_items" {{ isset($_GET['sort']) && !empty($_GET['sort']) && $_GET['sort'] == "featired_items" ? 'selected' : '' }}>Featured Items</option>
-                                    <option class="capitalize" value="discount_items" {{ isset($_GET['sort']) && !empty($_GET['sort']) && $_GET['sort'] == "discount_items" ? 'selected' : '' }}>Discoutn iTEMS</option>
-                                </select>
-                            </form>
-                        </div>
-                </div>
+                    <div class="container">
+                        <form action="" name="sortProducts" id="sortProducts">
+                            @csrf
+                            <input type="hidden" name="url" id="url" value="{{{$url}}}">
+                            <select name="sort" id="sort" class="getsort select ">
+                                <option class="capitalize" value="">Sort Items</option>
+                                <option class="capitalize" value="product_latest" {{ isset($_GET['sort']) && !empty($_GET['sort']) && $_GET['sort'] == "product_latest" ? 'selected' : '' }}>
+                                    Sort By: Latest Items
+                                </option>
+                                <option class="capitalize" value="best_selling" {{ isset($_GET['sort']) && !empty($_GET['sort']) && $_GET['sort'] == "best_selling" ? 'selected' : '' }}>Best Selling</option>
+                                <option class="capitalize" value="best_rating" {{ isset($_GET['sort']) && !empty($_GET['sort']) && $_GET['sort'] == "best_rating" ? 'selected' : '' }}>Best Rating</option>
+                                <option class="capitalize" value="lowest_price" {{ isset($_GET['sort']) && !empty($_GET['sort']) && $_GET['sort'] == "lowest_price" ? 'selected' : '' }}>Lowest Price</option>
+                                <option class="capitalize" value="highest_price" {{ isset($_GET['sort']) && !empty($_GET['sort']) && $_GET['sort'] == "highest_price" ? 'selected' : '' }}>Highesh Price</option>
+                                <option class="capitalize" value="featired_items" {{ isset($_GET['sort']) && !empty($_GET['sort']) && $_GET['sort'] == "featired_items" ? 'selected' : '' }}>Featured Items</option>
+                                <option class="capitalize" value="discount_items" {{ isset($_GET['sort']) && !empty($_GET['sort']) && $_GET['sort'] == "discount_items" ? 'selected' : '' }}>Discoutn iTEMS</option>
+                            </select>
+                        </form>
+                    </div>
+            </div>
+                @endif
+
                 {{-- product --}}
                 <div class="MainMainContanerFirstPage" id="appendProducts" >
                     @include('client.products.ajax_products_list')

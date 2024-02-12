@@ -118,12 +118,12 @@
     font-size: 24px;
     font-weight: 600;
 }
-.forgotpasscontain{
+.forgotpasscontain {
     display: flex;
     align-items: center;
     justify-content: center;
 }
-.detailResetpASS{
+.detailResetpASS {
     margin-top: 25px;
     font-size: 14px;
     display: block;
@@ -197,7 +197,7 @@
     display: inline-block;
 }
 
-.dropdown-contentAccount{
+.dropdown-contentAccount {
     display: none;
     position: absolute;
     background-color: #f9f9f9;

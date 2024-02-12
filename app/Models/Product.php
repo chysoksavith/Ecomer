@@ -36,40 +36,6 @@ class Product extends Model
         return $this->belongsTo(Brand::class, 'brand_id');
     }
 
-    // public static function getAttributePrice($product_id, $size)
-    // {
-    //     $attributePrice = ProductsAttribure::where(['product_id' => $product_id, 'size' => $size])->first()->toArray();
-
-    //     // Get product discount
-    //     $productDetails = Product::select(['product_discount', 'category_id', 'brand_id'])->where('id', $product_id)->first()->toArray();
-
-    //     // Get category discount
-    //     $categoryDetails = Category::select(['category_discount'])->where('id', $productDetails['category_id'])->first()->toArray();
-
-    //     // Get brand discount
-    //     $brandDetails = Brand::select(['brand_discount'])->where('id', $productDetails['brand_id'])->first()->toArray();
-
-    //     if ($productDetails['product_discount'] > 0) {
-    //         $discount = $attributePrice['price'] * $productDetails['product_discount'] / 100;
-    //         $discount_percent = $productDetails['product_discount'];
-    //         $final_price = $attributePrice['price'] - $discount;
-    //     } elseif ($categoryDetails['category_discount'] > 0) {
-    //         $discount = $attributePrice['price'] * $categoryDetails['category_discount'] / 100;
-    //         $discount_percent = $categoryDetails['category_discount'];
-    //         $final_price = $attributePrice['price'] - $discount;
-    //     } elseif ($brandDetails['brand_discount'] > 0) {
-    //         $discount = $attributePrice['price'] * $brandDetails['brand_discount'] / 100;
-    //         $discount_percent = $brandDetails['brand_discount']; // Corrected variable
-    //         $final_price = $attributePrice['price'] - $discount;
-    //     } else {
-    //         $discount = 0;
-    //         $discount_percent = 0;
-    //         $final_price = $attributePrice['price'];
-    //     }
-
-
-    //     return array('product_price' => $attributePrice['price'], 'final_price' => $final_price, 'discount' => $discount, 'discount_percent' => $discount_percent);
-    // }
 
     public static function getAttributePrice($product_id, $size)
     {

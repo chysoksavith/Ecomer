@@ -1,6 +1,42 @@
 .DivTitle {
-    margin-top: 20px;
+    text-align: center;
 }
+.borderButtonSpan {
+    color: #2c2c2c;
+    font-size: 25px;
+    position: relative;
+    overflow: hidden; /* Ensure overflow is hidden to clip the pseudo-element animation */
+}
+
+.borderButtonSpan:after {
+    content: "";
+    background: linear-gradient(
+        to right,
+        white,
+        #2c2c2c,
+        white
+    ); /* Use linear gradient for color animation */
+    background-size: 200% 100%; /* Set background size to cover the entire animation range */
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 3px;
+    width: 50%;
+    animation: wavingColor 4s infinite; /* Add animation for color transition effect */
+}
+
+@keyframes wavingColor {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
 .MainContainerFirstPage {
     display: flex;
     align-items: center;
@@ -51,14 +87,12 @@
 }
 .TitleFirstPage span {
     font-size: 14px;
-    font-weight: 300;
     color: #000000;
     margin-top: 8px;
     display: block;
 }
 .fial_price {
     display: flex;
-    justify-content: center;
     gap: 30px;
 }
 .PriceFirstPageoG {
@@ -71,35 +105,54 @@
 /* --------banner------- */
 .bannerIndex {
     width: 100%;
-    height: 100vh;
-    background-color: red;
+    height: 850px;
 }
+
 .BannerImage {
     position: relative;
+    opacity: 0;
+    animation: fadeIn 1s forwards;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
 }
 .divInfBanner {
-    text-align: center;
     position: absolute;
-    top: 90%;
-    left: 50%;
+    top: 80%;
+    right: 60%;
     color: white;
     transform: translate(-50%, -50%);
 }
+
+#textContainer {
+    font-size: 24px;
+    font-family: Arial, sans-serif;
+    overflow: hidden;
+}
+
 .BannerImage img {
     width: 100%;
-    height: 100vh;
+    height: 850px;
 }
+
 .titleInfo {
     font-size: 15px;
     color: #ffffff;
 }
+
 .middletextBanner {
-    text-align: center;
     margin-top: 15px;
     display: block;
     font-size: 30px;
     font-weight: 600;
 }
+
 .bannerBtn {
     margin: 15px auto;
     font-size: 15px;
@@ -107,20 +160,27 @@
     display: block;
     width: 380px;
     height: 50px;
-    background-color: transparent;
-    height: 54px;
-    color: white;
+    background-color: white; /* Set background color to white */
+    color: black; /* Set text color to black */
     font-size: 14px;
     letter-spacing: 3px;
-    border: 1px solid #2c2930;
+    border: none;
     transition: all 0.3s;
     cursor: pointer;
 }
+
 .bannerBtn:hover {
-    background: transparent;
-    color: white;
-    border: 1px solid white;
+    background: transparent; /* Set background to transparent on hover */
+    color: white; /* Set text color to white on hover */
+    border: 1px solid white; /* Set border color to white on hover */
 }
+
+@keyframes fadeIn {
+    to {
+        opacity: 1;
+    }
+}
+
 .divSearchdiv {
     display: flex;
     align-items: center;
@@ -138,7 +198,7 @@
 .icoHead {
     cursor: pointer;
 }
-.btnSearch{
+.btnSearch {
     height: 30px;
     margin-left: 20px;
     outline: none;

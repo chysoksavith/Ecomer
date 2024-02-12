@@ -3,31 +3,7 @@
     <div class="containerAccount">
         <div class="leftContainAcc">
             <div class="leftAcc">
-                <span class="accSpan">
-                    Hello {{ Auth::user()->name }}
-                </span>
-                <ul class="acc">
-                    <li>
-                        <a href="" class="hoverunderLine">
-                            My Billing Contact Address
-                        </a>
-                    </li>
-                    <li>
-                        <a href="" class="hoverunderLine">
-                            My Orders
-                        </a>
-                    </li>
-                    <li>
-                        <a href=""class="hoverunderLine">
-                            My WishList
-                        </a>
-                    </li>
-                    <li>
-                        <a href=""class="hoverunderLine">
-                            Update Password
-                        </a>
-                    </li>
-                </ul>
+                @include("client.User.sidebarAccount")
             </div>
         </div>
         <div class="rightContainAcc">

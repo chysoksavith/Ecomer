@@ -18,7 +18,14 @@ $totalCartItems = totalCartItems();
         </nav>
         <nav class="CollectionNav">
             <ul class="nav-links">
-                <li><span class="NavHead StyleSmall">Collection</span></li>
+                <li>
+                    <span class="NavHead StyleSmall">
+                        <a href="{{ url('/') }}" style="text-decoration: none; color: black;">
+                            Home
+                        </a>
+                    </span>
+                </li>
+
                 {{-- mega dropdown --}}
                 @foreach ($categories as $category)
                     <li>
@@ -74,7 +81,8 @@ $totalCartItems = totalCartItems();
                         <span class="fa-solid fa-magnifying-glass icoHead link  " data-dropdown-button></span>
                         <div class="dropdown-memu">
                             <div class=" divSearchdiv">
-                                <input type="search" class="searchHeader" id="searchHeader" placeholder="Search for produts">
+                                <input type="search" class="searchHeader" id="searchHeader"
+                                    placeholder="Search for produts">
                                 <button class="btnSearch">
                                     <i class="fa-solid fa-magnifying-glass icoHead"></i>
                                 </button>

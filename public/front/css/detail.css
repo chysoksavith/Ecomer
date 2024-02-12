@@ -63,8 +63,8 @@
     list-style-type: none;
 }
 .TitleProDT span {
-    font-size: 25px;
-    font-weight: 300;
+    font-size: 36px;
+    font-weight: 700;
 }
 .RightD {
     margin-top: 25px;
@@ -75,16 +75,15 @@
     align-items: center;
     gap: 20px;
 }
-.OfferPrice,
+
 .FinalPrice {
-    font-size: 20px;
+    font-weight: 700;
+    font-size: 36px;
 }
 .DiscoAFinal,
 .offerPercentage,
-.dicPrice,
-.TotalReview {
+.dicPrice {
     font-size: 14px;
-    font-weight: 300;
 }
 .dicPrice {
     text-decoration: line-through;
@@ -142,13 +141,13 @@ span {
 }
 .d-c,
 .i-c {
-    font-weight: 300;
     font-size: 26px;
     border: none;
     outline: none;
     cursor: pointer;
 }
-.Decre, .Incre {
+.Decre,
+.Incre {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -190,11 +189,9 @@ span {
 }
 .textwis {
     font-size: 14px;
-    font-weight: 300;
 }
 .txtPilicy {
     font-size: 14px;
-    font-weight: 300;
 }
 .LiPolicy {
     display: flex;
@@ -224,7 +221,6 @@ span {
     margin-right: 5px;
     cursor: pointer;
     font-size: 14px;
-    font-weight: 300;
 }
 .btnsizeee {
     display: flex;
@@ -252,13 +248,13 @@ span {
 /* relate product */
 .RelateProdTitle {
     margin-bottom: 30px;
-    text-align: center;
-    font-size: 20px;
-    letter-spacing: 1px;
+    font-weight: bold;
+    letter-spacing: 0px;
+    padding: 0px 20px;
 }
 .youMayAlsolike {
-    padding-bottom: 5px;
-    border-bottom: 1px solid #cacaca;
+    color: #333333;
+    font-size: 30px;
 }
 .alert {
     padding: 20px;
@@ -283,4 +279,27 @@ span {
 
 .closebtn:hover {
     color: black;
+}
+/* info */
+.info_detail_prod {
+    margin-top: 30px;
+}
+.info_detail {
+    width: 100%;
+    height: 88px;
+    background-color: #f8f8f8;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+}
+.leftinFo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 293px;
+}
+
+.detail_warp {
+    font-size: 14px;
 }

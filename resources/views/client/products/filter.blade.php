@@ -2,7 +2,7 @@
 use App\Models\Category;
 $categories = Category::getCategories();
 $categoryDeails = Category::categoryDetails($url);
- ?>
+?>
 <div class="FilterContainer">
     <div class="TitleFilter">
         <i class="fa-solid fa-filter"></i>
@@ -41,60 +41,69 @@ $categoryDeails = Category::categoryDetails($url);
         </div>
     </div>
     {{-- Size --}}
-    <div class="categoryList">
-        <span class="MainMainCate">Size</span>
-        <div class="coverCategory Colors">
-            <?php $getSizes = ProductsFilter::getSizes($categoryDetails->catIds); ?>
-            @foreach ($getSizes as $key => $size)
-                <?php
-                if (isset($_GET['size']) && !empty($_GET['size'])) {
-                    $sizes = explode('~', $_GET['size']);
+    <?php $getSizes = ProductsFilter::getSizes($categoryDetails->catIds); ?>
+    @if ($getSizes && count($getSizes) > 0)
+        <div class="categoryList">
+            <span class="MainMainCate">Size</span>
+            <div class="coverCategory Colors">
 
-                    if (!empty($sizes) && in_array($size, $sizes)) {
-                        $sizechecked = 'checked';
+                @foreach ($getSizes as $key => $size)
+                    <?php
+                    if (isset($_GET['size']) && !empty($_GET['size'])) {
+                        $sizes = explode('~', $_GET['size']);
+
+                        if (!empty($sizes) && in_array($size, $sizes)) {
+                            $sizechecked = 'checked';
+                        } else {
+                            $sizechecked = '';
+                        }
                     } else {
                         $sizechecked = '';
                     }
-                } else {
-                    $sizechecked = '';
-                }
-                ?>
-                <div class="checkbox-wrapper-1">
-                    <input id="size{{ $key }}" class="substituted filterAjax" name="size"
-                        value="{{ $size }}" type="checkbox" {{ $sizechecked }} />
-                    <label class="labelBrandandSize" for="size{{ $key }}">{{ $size }}</label>
-                </div>
-            @endforeach
+                    ?>
+                    <div class="checkbox-wrapper-1">
+                        <input id="size{{ $key }}" class="substituted filterAjax" name="size"
+                            value="{{ $size }}" type="checkbox" {{ $sizechecked }} />
+                        <label class="labelBrandandSize" for="size{{ $key }}">{{ $size }}</label>
+                    </div>
+                @endforeach
+            </div>
         </div>
-    </div>
-    {{-- Brand --}}
-    <div class="categoryList">
-        <span class="MainMainCate">Brands</span>
-        <div class="coverCategory Colors">
-            <?php $getBrands = ProductsFilter::getBrands($categoryDetails->catIds); ?>
-            @foreach ($getBrands as $key => $brand)
-                <?php
-                if (isset($_GET['brand']) && !empty($_GET['brand'])) {
-                    $brands = explode('~', $_GET['brand']);
+    @endif
 
-                    if (!empty($brands) && in_array($brand->id, $brands)) {
-                        $brandchecked = 'checked';
+    {{-- Brand --}}
+    <?php $getBrands = ProductsFilter::getBrands($categoryDetails->catIds); ?>
+    @if ($getBrands && count($getBrands) > 0)
+        <div class="categoryList">
+            <span class="MainMainCate">Brands</span>
+            <div class="coverCategory Colors">
+                @foreach ($getBrands as $key => $brand)
+                    <?php
+                    if (isset($_GET['brand']) && !empty($_GET['brand'])) {
+                        $brands = explode('~', $_GET['brand']);
+
+                        if (!empty($brands) && in_array($brand->id, $brands)) {
+                            $brandchecked = 'checked';
+                        } else {
+                            $brandchecked = '';
+                        }
                     } else {
                         $brandchecked = '';
                     }
-                } else {
-                    $brandchecked = '';
-                }
-                ?>
-                <div class="checkbox-wrapper-1">
-                    <input id="brand{{ $key }}" class="substituted filterAjax" name="brand"
-                        value="{{ $brand->id }}" type="checkbox" {{ $brandchecked }} />
-                    <label class=" labelBrandandSize" for="brand{{ $key }}">{{ $brand->brand_name }}</label>
-                </div>
-            @endforeach
+                    ?>
+                    <div class="checkbox-wrapper-1">
+                        <input id="brand{{ $key }}" class="substituted filterAjax" name="brand"
+                            value="{{ $brand->id }}" type="checkbox" {{ $brandchecked }} />
+                        <label class="labelBrandandSize"
+                            for="brand{{ $key }}">{{ $brand->brand_name }}</label>
+                    </div>
+                @endforeach
+            </div>
         </div>
-    </div>
-    {{-- Brand --}}
+    @endif
+
+
+    {{-- Price --}}
     <div class="categoryList">
         <span class="MainMainCate">Price</span>
         <div class="coverCategory Colors">
@@ -123,35 +132,39 @@ $categoryDeails = Category::categoryDetails($url);
         </div>
     </div>
     {{-- color --}}
-    <div class="categoryList">
-        <span class="MainMainCate">Color</span>
-        <div class="coverCategory Colors">
-            <?php $getColors = ProductsFilter::getColors($categoryDetails->catIds); ?>
-            @foreach ($getColors as $key => $color)
-                <?php
-                if (isset($_GET['color']) && !empty($_GET['color'])) {
-                    $colors = explode('~', $_GET['color']);
+    <?php $getColors = ProductsFilter::getColors($categoryDetails->catIds); ?>
+    @if ($getColors && count($getColors) > 0)
+        <div class="categoryList">
+            <span class="MainMainCate">Color</span>
+            <div class="coverCategory Colors">
 
-                    if (!empty($colors) && in_array($color, $colors)) {
-                        $colorchecked = 'checked';
+                @foreach ($getColors as $key => $color)
+                    <?php
+                    if (isset($_GET['color']) && !empty($_GET['color'])) {
+                        $colors = explode('~', $_GET['color']);
+
+                        if (!empty($colors) && in_array($color, $colors)) {
+                            $colorchecked = 'checked';
+                        } else {
+                            $colorchecked = '';
+                        }
                     } else {
                         $colorchecked = '';
                     }
-                } else {
-                    $colorchecked = '';
-                }
-                ?>
-                <div class="checkbox-wrapper-1">
-                    <input id="color{{ $key }}" class="substituted filterAjax" name="color"
-                        value="{{ $color }}" type="checkbox" {{ $colorchecked }} />
-                    <label class="label" for="color{{ $key }}" style="background-color: {{ $color }}"
-                        title="{{ $color }}"></label>
-                </div>
-            @endforeach
+                    ?>
+                    <div class="checkbox-wrapper-1">
+                        <input id="color{{ $key }}" class="substituted filterAjax" name="color"
+                            value="{{ $color }}" type="checkbox" {{ $colorchecked }} />
+                        <label class="label" for="color{{ $key }}"
+                            style="background-color: {{ $color }}" title="{{ $color }}"></label>
+                    </div>
+                @endforeach
 
 
+            </div>
         </div>
-    </div>
+    @endif
+
     {{-- Fabric --}}
 
     <div>

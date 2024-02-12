@@ -5,7 +5,9 @@ use App\Http\Controllers\admin\BannersController;
 use App\Http\Controllers\admin\BrandsController;
 use App\Http\Controllers\admin\CategoryController;
 use App\Http\Controllers\admin\CmsController;
+use App\Http\Controllers\admin\CouponController;
 use App\Http\Controllers\admin\ProductsController;
+use App\Http\Controllers\front\ContactUsController;
 use App\Http\Controllers\front\IndexController;
 use App\Http\Controllers\front\ProductController;
 use App\Http\Controllers\front\UserController;
@@ -54,14 +56,21 @@ Route::namespace('App\Http\Controllers\front')->group(function () {
         Route::post('/delete-cart-item', 'deleteCart');
         // empty cart
         Route::post('/empty-cart', 'emptyCart');
+        Route::get('/check-login-status', 'checkLoginStatus');
+
         // Search
         Route::get('/search', 'search')->name('search');
     });
-
+    // contact us
+    Route::controller(ContactUsController::class)->group(function () {
+        Route::get('contact-us', 'contactUs')->name('front.contact-us');
+    });
     Route::group(['middleware' => ['auth']], function () {
         Route::controller(UserController::class)->group(function () {
             Route::get('user/logout', 'userLogout');
             Route::match(['get', 'post'], 'user/account', 'userAccount')->name('user.account');
+            Route::match(['get', 'post'], 'user/update-password', 'updatePassword');
+            Route::post('/apply-coupon', [ProductController::class, 'applyCoupon']);
         });
     });
 
@@ -135,6 +144,13 @@ Route::group(['prefix' => '/admin'], function () {
             Route::post('update-banner-status', 'updatebannerstatus')->name('admin.update.banner.status');
             Route::get('delete-banner/{id?}', 'deleteBanner');
             Route::get('delete-banner-image/{id?}', 'deleteBannerImage');
+        });
+        // coupon
+        Route::controller(CouponController::class)->group(function () {
+            Route::get('coupons', 'coupon');
+            Route::post('update-coupon-status', 'updateCouponStatus');
+            Route::get('delete-coupon/{id}',  'deleteCoupon');
+            Route::match(['get', 'post'], 'add-edit-coupon/{id?}',  'AddEditCoupon');
         });
     });
 

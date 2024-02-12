@@ -1,33 +1,129 @@
-footer{
-    margin-top: 10vh;
+.Block_content_footer {
+    background-color: #24262b;
+    width: 100%;
+    height: 590px;
+    padding: 10px;
+    border: 1px solid red;
+}
+.containerFoot {
+    border: 1px solid red;
+    display: flex;
+    justify-content: center;
+    margin-top: 50px;
+}
+.row_contentFoot {
+    text-align: center;
+    width: 417px;
+    height: auto;
+}
+.FooterTxt {
+    color: white;
+    font-size: 16px;
     position: relative;
+}
+.row_contentFoot ul {
+    margin-top: 20px;
+    list-style-type: none;
+}
+
+.row_contentFoot li a {
+    text-decoration: none;
+    font-size: 14px;
+    color: #a8a8a8a8;
+}
+
+.FooterTxt:after {
+    content: "";
+    background-color: white;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 1px;
+    width: 40%;
+}
+.title_footer {
+    text-align: center;
+    font-size: 14px;
+    color: #a8a8a8a8;
+}
+.spacer_regular {
+    width: 100%;
+    height: 60px;
+}
+/* top btn */
+.menu-float .bt-nav {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    pointer-events: auto;
+    z-index: 9999;
+    transition: opacity 0.3s; /* Add transition for smoother visibility change */
+    opacity: 1; /* Initially visible */
+}
+
+.bt-nav {
+    width: 60px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+/* above content footer */
+.above_footer_content {
+    margin-top: 30px;
+}
+.container_above_footer {
     display: flex;
     justify-content: space-between;
-    padding: 20px;
+    flex-wrap: wrap;
 }
-.Footer{
+.professionalSpp {
+    margin: auto;
+    gap: 10px;
     display: flex;
     align-items: center;
-    list-style: none;
+    justify-content: center;
+    width: 420px;
+    height: 134px;
+    border-right: 1px solid #d1d1d1;
 }
-.Footer li{
-    padding: 5px 15px;
-}
-.Footer a{
-    letter-spacing: 2px;
-    font-size: 14px;
-    font-weight: 400;
-    text-decoration: none;
-    color: black;
-}
-.leftfooter ul{
+.icon-wrapper {
     display: flex;
     align-items: center;
-    list-style: none;
+    justify-content: center;
 }
-.leftfooter li{
-    letter-spacing: 2px;
-    padding: 5px 15px;
-    font-size: 15px;
-    font-weight: 300;
+.content-wrapper {
+    font-weight: 600;
+    font-size: 16px;
+}
+/* Small Devices (Mobile Portrait) */
+@media (max-width: 575.98px) {
+    .professionalSpp {
+        border-right: none;
+
+        border-bottom: 1px solid #d1d1d1;
+    }
+}
+
+/* Medium Devices (Tablet Landscape) */
+@media (min-width: 576px) and (max-width: 767.98px) {
+    .professionalSpp {
+        border-right: none;
+
+        border-bottom: 1px solid #d1d1d1;
+    }
+}
+
+/* Large Devices (Tablet Landscape) */
+@media (min-width: 768px) and (max-width: 991.98px) {
+}
+
+/* Large Devices (Desktops) */
+@media (min-width: 992px) and (max-width: 1199.98px) {
+}
+/* Extra Large Devices (Large Desktops) */
+@media (min-width: 1200px) {
+    /* Your styles for extra large devices go here */
 }

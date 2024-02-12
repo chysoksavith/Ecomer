@@ -18,7 +18,7 @@
     <!-- Theme style -->
     <link rel="stylesheet" href="{{ asset('admin/css/adminlte.min.css') }}">
     <!-- Select2 -->
-    <link rel="stylesheet" href="{{asset('admin/customCss/custome.css')}}">
+    <link rel="stylesheet" href="{{ asset('admin/customCss/custome.css') }}">
     <link rel="stylesheet" href="{{ asset('admin/plugins/select2/css/select2.min.css') }}">
     <link rel="stylesheet" href="{{ asset('admin/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css') }}">
 </head>
@@ -75,6 +75,8 @@
     {{-- custome js --}}
     <script src="{{ asset('admin/plugins/select2/js/select2.full.min.js') }}"></script>
     <script src="{{ asset('admin/js/custome.js') }}"></script>
+    <script src="{{ asset('admin/js/updateStatusAdmin.js') }}"></script>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
     </script>

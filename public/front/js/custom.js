@@ -95,6 +95,7 @@ $(document).ready(function () {
                 if (resp.status === false) {
                     showToast(resp.message, "error");
                 }
+                
                 $("#appendCartItems").html(resp.view);
                 $("#appendHeaderCartItems").html(resp.miniCartview);
             },
@@ -150,6 +151,47 @@ $(document).ready(function () {
             },
         });
     });
-    // search
+    // apply Coupon
+    $(document).on("click", "#ApplyCoupon", function (event) {
+        event.preventDefault(); // Prevent the default form submission behavior
 
+        var user = $(this).attr("user");
+        var message = "Please login first before you can apply.";
+        if (user == 1) {
+        } else {
+            showToast(message);
+        }
+
+        var code = $("#code").val();
+        $.ajax({
+            headers: {
+                "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+            },
+            type: "post",
+            data: { code: code },
+            url: "/apply-coupon",
+            success: function (resp) {
+                if (resp.status == false) {
+                    showToast(resp.message, "error");
+                } else if (resp.status == true) {
+                    if (resp.couponAmount > 0) {
+                        $(".couponAmount").text(resp.couponAmount + "$");
+                    } else {
+                        $(".couponAmount").text("0$");
+                    }
+                    if (resp.grand_total > 0) {
+                        $(".grandTotal").text(resp.grandTotal + "$");
+                        $(".miniCartTotalPrice").text(resp.grandTotal + "$");
+                    }
+                    showToast(resp.message);
+                    $(".totalCartItems").html(resp["totalCartItems"]);
+                    $("#appendCartItems").html(resp.view);
+                    $("#appendHeaderCartItems").html(resp.miniCartview);
+                }
+            },
+            error: function () {
+                showToast("An error occurred", "error");
+            },
+        });
+    });
 });

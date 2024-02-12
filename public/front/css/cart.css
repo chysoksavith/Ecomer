@@ -6,25 +6,45 @@
     font-size: 14px;
     color: #cacaca;
 }
-.CartTtitle,
+.CartTtitle {
+    width: 1640px;
+    margin: 30px auto;
+    padding: 20px 0px 50px;
+}
 .cartTtispan {
     margin-top: 20px;
-    text-align: center;
-    font-size: 25px;
+    font-size: 48px;
+    font-weight: 600;
+}
+.deleteCartItems {
+    cursor: pointer;
 }
 .MainCartItems {
+    width: 1640px;
+    margin: 30px auto;
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
+}
+.coverItemCartAndClearAll {
+    width: 1000px;
+}
+
+.BtnContinueS {
+    text-decoration: none;
+}
+.mainCartContion {
+    margin-top: 15px;
+    display: flex;
+    justify-content: space-between;
 }
 .cartItem {
-    width: 60%;
     padding: 20px;
-    margin-top: 20px;
     display: flex;
     align-items: center;
     justify-content: space-between;
     border: 1px solid #cacaca;
 }
+
 .CoverImageAll {
     align-items: center;
     display: flex;
@@ -57,7 +77,7 @@
 .ContinueShopping {
     margin-top: 90px;
     padding: 15px;
-    background-color: #cacacac4;
+    background-color: #cacaca52;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -69,10 +89,11 @@
 /* btn apply */
 
 .CartDetail {
+    cursor: pointer;
     display: block;
     width: 250px;
     height: 50px;
-    background-color: black;
+    background-color: #2c2930;
     height: 54px;
     color: white;
     font-size: 15px;
@@ -87,13 +108,68 @@
     color: black;
     border: 1px solid black;
 }
-.checkOutSection {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-top: 40px;
+/* ---------------------checkout-------------------------- */
+.process_checkot {
+    padding: 35px;
+    width: 500px;
+    background-color: #f8f8f8;
 }
-.couponCode {
+.processTxt {
+    text-align: center;
+    font-size: 38px;
+    font-weight: 600;
+    display: block; /* or display: inline-block; */
+    margin: auto;
+    padding: 10px 0px 30px;
+    border-bottom: 1px solid #d1d1d1;
+}
+.subPrice {
+    font-size: 14px;
+    font-weight: 600;
+}
+.orderTotal {
+    margin-top: 10px;
+    display: block;
+    color: #2c2930;
+    font-size: 38px;
+    font-weight: 600;
+}
+.summaryCart {
+    border: none;
+    width: 100%;
+}
+.dfapply {
+    margin-top: 30px;
+    border-top: 1px solid #d1d1d1;
+    /* padding: 30px 30px 30px 0px; */
+}
+
+.applyCou {
+    font-size: 18px;
+    font-weight: 600;
+}
+.applyCodebtn {
+    margin-top: 15px;
+}
+.BtnApplyDiscount {
+    cursor: pointer;
+    display: block;
+    width: 100%;
+    height: 50px;
+    background-color: #2c2930;
+    height: 54px;
+    color: white;
+    font-size: 15px;
+    font-weight: 600;
+    font-size: 14px;
+    letter-spacing: 3px;
+    border: none;
+    transition: all 0.3s;
+}
+.BtnApplyDiscount:hover {
+    background: transparent;
+    color: black;
+    border: 1px solid black;
 }
 .AplyCoupons li {
     list-style: none;
@@ -107,22 +183,6 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-}
-.inputCouopn {
-    width: 250px;
-    padding: 10px;
-    outline: none;
-    border: 0.5px solid #cacaca;
-}
-.subminital {
-    margin-top: 30px;
-}
-.cartsubtotal {
-    font-size: 15px;
-}
-.Pricesubtotal {
-    display: block;
-    font-size: 48px;
 }
 
 /* dropdwon menu mini cart */
@@ -181,11 +241,10 @@
     display: block;
 }
 /* cart checkout and process in mini cart */
-.aCartmini{
+.aCartmini {
     text-decoration: none;
-
 }
-.cartButtonCheckoutmini{
+.cartButtonCheckoutmini {
     margin-top: 30px;
     display: flex;
     justify-content: space-between;
@@ -210,7 +269,7 @@
     border: none;
 }
 /* if i tem is empty */
-.empty-cart-message{
+.empty-cart-message {
     align-items: center;
     justify-content: center;
 }
@@ -234,7 +293,7 @@
     color: black;
     border: 1px solid black;
 }
-.emptyP{
+.emptyP {
     font-size: 15px;
     padding: 10px;
 }
@@ -244,4 +303,29 @@
     align-items: center;
     justify-content: center;
     height: 100%;
+}
+/* ----------------------cart empty ----------------------- */
+.cart_Empty {
+    max-width: 760px;
+    margin: 30px auto;
+    text-align: center;
+    padding: 60px 20px;
+    min-height: 70vh;
+    display: flex;
+    align-items: center;
+    flex-flow: column;
+    align-content: center;
+    justify-content: center;
+}
+.emptybtn {
+    margin-top: 20px;
+}
+.txtEmptyCart {
+    margin-top: 20px;
+    font-size: 48px;
+    font-weight: 600;
+    text-transform: initial;
+    letter-spacing: 0;
+    text-align: center;
+    line-height: 1.2; /* Adjust the line-height as needed */
 }

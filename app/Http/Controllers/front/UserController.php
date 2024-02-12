@@ -3,11 +3,14 @@
 namespace App\Http\Controllers\front;
 
 use App\Http\Controllers\Controller;
+use App\Models\Cart;
 use App\Models\Country;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 
 class UserController extends Controller
@@ -45,7 +48,7 @@ class UserController extends Controller
                             'message' => 'Your account is not activated yet',
                         ]);
                     } else {
-                        $redirectUrl = url('cart');
+                        $redirectUrl = url('/');
                         return response()->json([
                             'status' => true,
                             'type' => 'success',
@@ -69,6 +72,9 @@ class UserController extends Controller
         }
         return view('client.User.UserLogin');
     }
+
+
+
     // ------------------------------------------------------------------------------------------------
 
     // register
@@ -278,10 +284,60 @@ class UserController extends Controller
             return view('client.User.Account')->with(compact('countries'));
         }
     }
+    // reset password
+    public function updatePassword(Request $request)
+    {
+        if ($request->ajax()) {
+            $data  = $request->all();
+            // echo "<pre>"; print_r($data); die;
+            $validator = Validator::make($request->all(), [
+                'current_password' => 'required',
+                'new_password' => 'required|min:6',
+                'confirm_password' => 'required|same:new_password'
+            ]);
+
+            if ($validator->passes()) {
+                // added by the user in update password form
+                $current_password = $data['current_password'];
+
+                // get current password from user table
+                $checkPassword = User::where('id', Auth::user()->id)->first();
+
+                // compare password
+                if (Hash::check($current_password, $checkPassword->password)) {
+                    // update user current password
+                    $user = User::find(Auth::user()->id);
+                    $user->password = bcrypt($data['new_password']);
+                    $user->save();
+
+                    return response()->json([
+                        'type' => 'success',
+                        'message' => 'Your  password is successfully updated!'
+                    ]);
+                } else {
+                    // Redirect back user with error msg
+                    return response()->json([
+                        'type' => 'incorrect',
+                        'message' => 'Your Current Password is incorrect'
+                    ]);
+                }
+            } else {
+                return response()->json([
+                    'type' => 'error',
+                    'errors' => $validator->messages()
+                ]);
+            }
+        } else {
+            return view('client.User.update_password');
+        }
+    }
+
+
     // logout
     public function userLogout()
     {
         Auth::logout();
+        Session::flush();
         return redirect('user/login');
     }
 }

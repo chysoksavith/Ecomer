@@ -7,6 +7,7 @@ $getCartItems = getCartItems();
     @php
         $total_price = 0;
     @endphp
+
     @if (count($getCartItems) > 0)
         @foreach ($getCartItems as $item)
             <?php
@@ -64,7 +65,14 @@ $getCartItems = getCartItems();
         {{-- sub minitotal --}}
         <div class="subminital">
             <span class="cartsubtotal">Cart Subtotal</span>
-            <span class="Pricesubtotal">{{ $total_price }}$</span>
+
+            @php
+                $couponAmount = Session::has('couponAmount') ? Session::get('couponAmount') : 0;
+                $grand_total = $total_price - $couponAmount;
+            @endphp
+            <span class="subPrice orderTotal grandTotal miniCartTotalPrice">
+                {{ $grand_total }}$
+            </span>
         </div>
         {{-- cart checkout and process --}}
         <div class="cartButtonCheckoutmini">

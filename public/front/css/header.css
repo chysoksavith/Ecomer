@@ -99,8 +99,6 @@
     transition: opacity 150ms ease-in-out;
     z-index: 111;
     box-shadow: rgba(0, 0, 0, 0.45) 0px 25px 20px -20px;
-
-
 }
 
 .dropdown.active > .link + .dropdown-memu {
@@ -210,14 +208,15 @@ details summary::-webkit-details-marker {
 }
 
 details summary {
-    margin-top: 10px;
     width: 100%;
-    padding: 0.5rem 0;
+    margin-top: 10px;
+    padding: 12px 20px 12px 30px;
     position: relative;
     cursor: pointer;
     font-size: 16px;
     font-weight: 400;
     list-style: none;
+    border-top: 0.5px solid #d1d1d1;
 }
 
 details summary:after {
@@ -225,16 +224,17 @@ details summary:after {
     color: black;
     position: absolute;
     font-size: 1.75rem;
-    line-height: 0;
-    margin-top: 0.75rem;
+    line-height: 1;
+    top: 50%;
     right: 0;
+    transform: translateY(-50%);
     font-weight: 200;
-    transform-origin: center;
     transition: 200ms linear;
 }
 
 details[open] summary:after {
-    transform: rotate(45deg);
+    content: "-";
+    transform: rotate(0deg) translateY(-50%);
     font-size: 2rem;
 }
 
@@ -247,6 +247,10 @@ details p {
     margin: 0 0 1rem;
     padding-top: 1rem;
 }
+.summary-detail {
+    margin-top: 45px;
+}
+
 /* loading */
 .video-container {
     position: relative;

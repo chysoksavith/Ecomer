@@ -84,7 +84,6 @@
                                         @endforeach
                                     </select>
                                 </div>
-                                {{-- @if (!empty($product['product_name'])) value="{{ $product['product_name'] }}"  @else value="{{ old('product_name') }}" @endif --}}
                                 <div class="form-group">
                                     <label for="product_name">Product Name</label>
                                     <input type="text" class="form-control" id="product_name" name="product_name"

@@ -1,4 +1,4 @@
-<div class="contentTavdetails">
+{{-- <div class="contentTavdetails">
     <div class="tab">
         <span class="tablinks StyleTab btnStyleTab" onclick="opanTab(event, 'Description')"
             id="defaultOpen">Description</span>
@@ -106,4 +106,4 @@
         <p>Tokyo is the capital of Japan.</p>
     </div>
 
-</div>
+</div> --}}

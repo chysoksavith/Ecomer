@@ -358,4 +358,5 @@ class ProductsController extends Controller
         ProductsAttribure::where('id', $id)->delete();
         return redirect()->back()->with('success_message', 'Product Attr Successfully');
     }
+    
 }
