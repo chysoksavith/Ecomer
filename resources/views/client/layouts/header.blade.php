@@ -28,7 +28,7 @@ $totalCartItems = totalCartItems();
 
                 {{-- mega dropdown --}}
                 @foreach ($categories as $category)
-                    <li>
+                    <li class="headerLi">
                         <div class="dropdown" data-dropdown>
                             <span class="link StyleSmall MainCategory capitalize" data-dropdown-button>
                                 {{ $category->category_name }}
@@ -117,7 +117,7 @@ $totalCartItems = totalCartItems();
                     <div class="dropdownAccount">
                         <div class="dropdown-contentAccount" id="myDropdownAccount">
                             {{-- if auth login it show account and signout if not it show signup and signin --}}
-                            <div class="contentUserAccount">
+                            {{-- <div class="contentUserAccount">
                                 <ul>
                                     @if (Auth::check())
                                         <li>
@@ -143,6 +143,59 @@ $totalCartItems = totalCartItems();
                                         </li>
                                     @endif
                                 </ul>
+                            </div> --}}
+                            <div class="accSudeBar">
+                                @if (Auth::check())
+                                    <ul class="ulAccSidebar ">
+                                        <li class="liAccSidebar">
+                                            <span class="spantxt">
+                                                Welcone, {{ Auth::user()->name }}!
+                                            </span>
+                                        </li>
+                                        <li class="liAccSidebar">
+                                            <a href="{{ url('user/account') }}">
+                                                My account
+                                            </a>
+                                        </li>
+
+                                        <li class="liAccSidebar">
+                                            <a href=""class="hoverunderLine">
+                                                My Orders
+                                            </a>
+                                        </li>
+                                        <li class="liAccSidebar">
+                                            <a href=""class="hoverunderLine">
+                                                My WishList
+                                            </a>
+                                        </li>
+                                        <li class="liAccSidebar">
+                                            <a href=""class="hoverunderLine">
+                                                Checkout
+                                            </a>
+                                        </li>
+                                    </ul>
+
+                                    <ul class="ulAccSidebar ulLogout">
+                                        <li>
+                                            <a href="{{ url('user/logout') }}">
+                                                sign out
+                                            </a>
+                                        </li>
+                                    </ul>
+                                @else
+                                    <ul class="ulAccSidebar ">
+                                        <li class="liAccSidebar">
+                                           <span class="spanPleaselOGIN">Please Login</span>
+                                        </li>
+                                        <li class="liAccSidebar">
+                                            <a href="{{url('user/login')}}"class="hoverunderLine">
+                                                Sign in
+                                            </a>
+                                        </li>
+                                    </ul>
+                                @endif
+
+
                             </div>
                         </div>
                     </div>
@@ -151,6 +204,7 @@ $totalCartItems = totalCartItems();
             </ul>
         </nav>
     </div>
+
     {{-- side bar add to cart --}}
 
     {{-- aside menu --}}

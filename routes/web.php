@@ -6,28 +6,20 @@ use App\Http\Controllers\admin\BrandsController;
 use App\Http\Controllers\admin\CategoryController;
 use App\Http\Controllers\admin\CmsController;
 use App\Http\Controllers\admin\CouponController;
+use App\Http\Controllers\admin\NewseltterController;
 use App\Http\Controllers\admin\ProductsController;
+use App\Http\Controllers\admin\UserController as AdminUserController;
+use App\Http\Controllers\front\CmsPagesController;
 use App\Http\Controllers\front\ContactUsController;
 use App\Http\Controllers\front\IndexController;
+use App\Http\Controllers\front\NewseletterController;
 use App\Http\Controllers\front\ProductController;
 use App\Http\Controllers\front\UserController;
 use App\Models\Category;
+use App\Models\CmsPage;
 use Illuminate\Support\Facades\Route;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "web" middleware group. Make something great!
-|
-*/
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
 Route::namespace('App\Http\Controllers\front')->group(function () {
 
     Route::controller(IndexController::class)->group(function () {
@@ -39,6 +31,12 @@ Route::namespace('App\Http\Controllers\front')->group(function () {
 
     foreach ($catUrls as $url) {
         Route::get($url, [ProductController::class, 'listing']);
+    }
+
+    // Listing Cms Routes
+    $cmsUrls = CmsPage::select('url')->where('status', 1)->get()->pluck('url')->toArray();
+    foreach ($cmsUrls as $url){
+        Route::get('/'.$url, [CmsPagesController::class, 'CmsPage']);
     }
     // product details
     Route::controller(ProductController::class)->group(function () {
@@ -65,6 +63,7 @@ Route::namespace('App\Http\Controllers\front')->group(function () {
     Route::controller(ContactUsController::class)->group(function () {
         Route::get('contact-us', 'contactUs')->name('front.contact-us');
     });
+    // middleware
     Route::group(['middleware' => ['auth']], function () {
         Route::controller(UserController::class)->group(function () {
             Route::get('user/logout', 'userLogout');
@@ -73,7 +72,7 @@ Route::namespace('App\Http\Controllers\front')->group(function () {
             Route::post('/apply-coupon', [ProductController::class, 'applyCoupon']);
         });
     });
-
+    // login
     Route::controller(UserController::class)->group(function () {
         Route::match(['get', 'post'], 'user/login', 'loginUser')->name('login');
         Route::match(['get', 'post'], 'user/register', 'registerUser')->name('user.register');
@@ -81,10 +80,14 @@ Route::namespace('App\Http\Controllers\front')->group(function () {
         Route::match(['get', 'post'], 'user/forgot-password', 'forgotPassword');
         Route::match(['get', 'post'], 'user/reset-password/{code?}', 'resetPassword');
     });
+    // subscribers
+    Route::controller(NewseletterController::class)->group(function(){
+        Route::post('add-subscriber-email', 'addSubscriber');
+    });
 });
 
 
-//
+// --------------------------- Admin Route ------------------------------------------
 Route::group(['prefix' => '/admin'], function () {
 
     Route::group(['middleware' => ['admin']], function () {
@@ -151,6 +154,17 @@ Route::group(['prefix' => '/admin'], function () {
             Route::post('update-coupon-status', 'updateCouponStatus');
             Route::get('delete-coupon/{id}',  'deleteCoupon');
             Route::match(['get', 'post'], 'add-edit-coupon/{id?}',  'AddEditCoupon');
+        });
+        // users register
+        Route::controller(AdminUserController::class)->group(function () {
+            Route::get('users', 'users');
+            Route::post('update-user-status', 'updateUserStatus');
+        });
+        // for Newsletter
+        Route::controller(NewseltterController::class)->group(function(){
+            Route::get('subscriber','subscribers');
+            Route::post('update-user-subscriber', 'updateUserSubscriber');
+            Route::get('delete-subscriber/{id}',  'deleteSubscriber');
         });
     });
 

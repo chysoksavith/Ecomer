@@ -15,7 +15,7 @@
                                 <span class="middletextBanner">
                                     {{ $sliderBanner->title }}
                                 </span>
-                                <a href="#" class="popup-btn" style="text-decoration: none;">
+                                <a href="{{$sliderBanner->url}}" class="popup-btn" style="text-decoration: none;">
                                     <button type="submit" class="bannerBtn">Discover</button>
                                 </a>
                             </div>

@@ -192,4 +192,52 @@ $(document).ready(function () {
             },
         });
     });
+    // update status Users
+    $(document).on("click", ".updateuserstatus", function () {
+        var status = $(this).find("i").attr("status");
+        var user_id = $(this).attr("user_id");
+        $.ajax({
+            headers: {
+                "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+            },
+            type: "post",
+            url: "/admin/update-user-status",
+            data: { status: status, user_id: user_id },
+            success: function (resp) {
+                if (resp["status"] == 0) {
+                    $("#user-" + user_id).html(
+                        "<i class='fas fa-toggle-off' style='color:grey;' status='Inactive'></i>"
+                    );
+                } else if (resp["status"] == 1) {
+                    $("#user-" + user_id).html(
+                        "<i class='fas fa-toggle-on' style='color:blue;' status='Active'></i>"
+                    );
+                }
+            },
+        });
+    });
+    // update status Users
+    $(document).on("click", ".updatesubscriberstatus", function () {
+        var status = $(this).find("i").attr("status");
+        var subscriber_id = $(this).attr("subscriber_id");
+        $.ajax({
+            headers: {
+                "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+            },
+            type: "post",
+            url: "/admin/update-user-subscriber",
+            data: { status: status, subscriber_id: subscriber_id },
+            success: function (resp) {
+                if (resp["status"] == 0) {
+                    $("#subscriber-" + subscriber_id).html(
+                        "<i class='fas fa-toggle-off' style='color:grey;' status='Inactive'></i>"
+                    );
+                } else if (resp["status"] == 1) {
+                    $("#subscriber-" + subscriber_id).html(
+                        "<i class='fas fa-toggle-on' style='color:blue;' status='Active'></i>"
+                    );
+                }
+            },
+        });
+    });
 });

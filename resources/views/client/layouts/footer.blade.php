@@ -56,53 +56,85 @@
     </div>
 </div>
 
-<footer>
-    <div class="Block_content_footer">
-        <div class="containerFoot">
-            <div class="row_contentFoot">
-                <span class="FooterTxt">About Us</span>
-                <ul>
-                    <li>
-                        <a href="">Contact Us</a>
-                    </li>
-                    <li>
-                        <a href="">Contact Us</a>
-                    </li>
+<footer class="footer">
+    <div class="container_footer">
+        <div class="row_footer">
+            <div class="footer_col">
+                <h4>Information</h4>
+                <ul class="footer_ul">
+                    <li><a href="{{url('about-us')}}">About Us</a></li>
+                    <li><a href="">b</a></li>
+                    <li><a href="">c</a></li>
+                    <li><a href="">d</a></li>
                 </ul>
             </div>
-            <div class="row_contentFoot">
-                <span class="FooterTxt">About Us</span>
-                <ul>
-                    <li>
-                        <a href="">Contact Us</a>
-                    </li>
+            <div class="footer_col">
+                <h4>About</h4>
+                <ul class="footer_ul">
+                    <li><a href="">a</a></li>
+                    <li><a href="">b</a></li>
+                    <li><a href="">c</a></li>
+                    <li><a href="">d</a></li>
                 </ul>
             </div>
-            <div class="row_contentFoot">
-                <span class="FooterTxt">About Us</span>
-                <ul>
-                    <li>
-                        <a href="">Contact Us</a>
-                    </li>
+            <div class="footer_col">
+                <h4>About</h4>
+                <ul class="footer_ul">
+                    <li><a href="">a</a></li>
+                    <li><a href="">b</a></li>
+                    <li><a href="">c</a></li>
+                    <li><a href="">d</a></li>
                 </ul>
             </div>
-            <div class="row_contentFoot">
-                <span class="FooterTxt">About Us</span>
-                <ul>
-                    <li>
-                        <a href="">Contact Us</a>
-                    </li>
-                </ul>
+            <div class="footer_col">
+                <h4>Newsletter</h4>
+                <p class="pSubscribe ">
+                    Subscribe to the mailing list to recive update promotios and Coupon
+                </p>
+                <div class="div_input">
+                    <form action="">
+                        <input type="text" class="input_subscribe" placeholder="Please Enter Your Email" name="subscriber" id="subscriber_email" required>
+                        <button type="submit" id="AddSubscriber" class="btn_subc">Subscribe</button>
+                    </form>
+                </div>
             </div>
         </div>
-        <div class="spacer_regular">
+        {{-- spacing --}}
+        <div class="spacingRegular"></div>
+        <div class="spacingRegular"></div>
+        {{-- Icon Platform --}}
+        <div class="containIcon">
+            <ul>
+                <li>
+                    <a href="">
+                        <i class="fa-brands fa-facebook-f"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="">
+                        <i class="fa-brands fa-youtube"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="">
+                        <i class="fa-brands fa-instagram"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="">
+                        <i class="fa-brands fa-x-twitter"></i>
+                    </a>
+                </li>
+            </ul>
         </div>
-
-        <div class="spacer_regular">
-
-        </div>
-        <div class="title_footer">
-            ©2023 Green Aqua LLC - Aquascaping Shop and Gallery
-        </div>
+        {{-- spacing --}}
+        <div class="spacingRegular"></div>
+        <p class=" txtModer">
+            ©2023 Modern Shop LLC - Aquascaping Shop and Gallery
+        </p>
+        {{-- spacing --}}
+        <div class="spacingRegular"></div>
+        {{-- spacing --}}
+        <div class="spacingRegular borderBt"></div>
     </div>
 </footer>

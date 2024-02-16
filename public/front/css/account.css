@@ -48,7 +48,8 @@
     list-style: none;
 }
 .acc li a {
-    font-size: 14px;
+    font-size: 16px;
+    font-weight: 600;
     text-decoration: none;
     color: black;
 }
@@ -82,4 +83,29 @@
 }
 .btncoverformbill {
     margin-top: 30px;
+}
+/* side bar account */
+.accSudeBar {
+    padding: 10px;
+}
+.ulAccSidebar {
+    display: block !important;
+    border-bottom: 1px solid #b3b3b3;
+}
+.ulAccSidebar li a,
+.spantxt {
+    text-decoration: none;
+    color: black;
+    font-size: 14px;
+    font-weight: 600;
+}
+.ulLogout {
+    border: none;
+    margin-top: 40px;
+}
+.spanPleaselOGIN {
+    font-size: 24px;
+    margin: auto;
+    font-weight: 600;
+    padding: 15px;
 }

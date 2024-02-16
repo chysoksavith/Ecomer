@@ -212,8 +212,12 @@
                       </ul>
                   </li>
                   {{-- Banner manger --}}
+                  {{-- Banner manager --}}
                   <li class="nav-item">
-                      <a href="#" class="nav-link {{ $active }}">
+                      @php
+                          $bannerActive = Session::get('page') == 'banners' ? 'active' : '';
+                      @endphp
+                      <a href="#" class="nav-link {{ $bannerActive }}">
                           <i class="nav-icon fas fa-image"></i>
                           <p>
                               Banner
@@ -222,7 +226,6 @@
                       </a>
                       <ul class="nav nav-treeview">
                           <li class="nav-item">
-                              {{-- banner --}}
                               @if (Session::get('page') == 'banners')
                                   @php
                                       $active = 'active';
@@ -232,16 +235,23 @@
                                       $active = '';
                                   @endphp
                               @endif
-                              <a href="{{ route('admin.banners') }}" class="nav-link {{ $active }}">
+                              <a href="{{ url('admin/banners') }}" class="nav-link {{ $active }}">
                                   <i class="far fa-circle nav-icon"></i>
                                   <p>Banners</p>
                               </a>
                           </li>
                       </ul>
                   </li>
-                  {{-- Coupon manger --}}
+
+
+
+
+                  {{-- Coupon manager --}}
                   <li class="nav-item">
-                      <a href="#" class="nav-link {{ $active }}">
+                      @php
+                          $couponActive = Session::get('page') == 'coupons' ? 'active' : '';
+                      @endphp
+                      <a href="#" class="nav-link {{ $couponActive }}">
                           <i class="nav-icon fas fa-dollar-sign"></i>
                           <p>
                               Coupon
@@ -250,7 +260,6 @@
                       </a>
                       <ul class="nav nav-treeview">
                           <li class="nav-item">
-                              {{-- Coupon --}}
                               @if (Session::get('page') == 'coupons')
                                   @php
                                       $active = 'active';
@@ -260,9 +269,37 @@
                                       $active = '';
                                   @endphp
                               @endif
-                              <a href="{{ url('admin/coupons') }}" class="nav-link {{ $active }}">
+                              <a href="{{ url('admin/coupons') }}" class="nav-link {{$active}}">
                                   <i class="far fa-circle nav-icon"></i>
                                   <p>Coupons</p>
+                              </a>
+                          </li>
+                      </ul>
+                  </li>
+
+                  {{-- User Registered manager --}}
+                  <li class="nav-item">
+                      @php
+                          $userActive = in_array(Session::get('page'), ['users', 'subscriber']) ? 'active' : '';
+                      @endphp
+                      <a href="#" class="nav-link {{ $userActive }}">
+                          <i class="nav-icon fas fa-users"></i>
+                          <p>
+                              Users
+                              <i class="right fas fa-angle-left"></i>
+                          </p>
+                      </a>
+                      <ul class="nav nav-treeview">
+                          <li class="nav-item">
+                              <a href="{{ url('admin/users') }}" class="nav-link">
+                                  <i class="far fa-circle nav-icon"></i>
+                                  <p>Users</p>
+                              </a>
+                          </li>
+                          <li class="nav-item">
+                              <a href="{{ url('admin/subscriber') }}" class="nav-link">
+                                  <i class="far fa-circle nav-icon"></i>
+                                  <p>Subscribers</p>
                               </a>
                           </li>
                       </ul>

@@ -95,7 +95,7 @@ $(document).ready(function () {
                 if (resp.status === false) {
                     showToast(resp.message, "error");
                 }
-                
+
                 $("#appendCartItems").html(resp.view);
                 $("#appendHeaderCartItems").html(resp.miniCartview);
             },
@@ -143,7 +143,7 @@ $(document).ready(function () {
                     $("#appendHeaderCartItems").html(resp.miniCartview);
                 } else {
                     // Handle the case where the cart is already empty
-                    showToast("No items to delete.", "info");
+                    showToast("No items to delete.", "error");
                 }
             },
             error: function () {
@@ -186,11 +186,44 @@ $(document).ready(function () {
                     showToast(resp.message);
                     $(".totalCartItems").html(resp["totalCartItems"]);
                     $("#appendCartItems").html(resp.view);
-                    $("#appendHeaderCartItems").html(resp.miniCartview);
+                    $("#appendHeaderCartItems").html(resp.miniCartView);
                 }
             },
             error: function () {
                 showToast("An error occurred", "error");
+            },
+        });
+    });
+    // Submit NewSeller
+    $(document).on("click", "#AddSubscriber", function (e) {
+        e.preventDefault();
+        var subscriber_email = $("#subscriber_email").val();
+        var mailFormat = /\S+@\S+\.\S+/;
+        if (subscriber_email.match(mailFormat)) {
+        } else {
+            showToast("Please enter valid Email.", "error");
+            return false;
+        }
+
+        $.ajax({
+            headers: {
+                "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+            },
+            url: "/add-subscriber-email",
+            type: "post",
+            data: { subscriber_email: subscriber_email },
+            success: function (resp) {
+                if (resp == "exists") {
+                    showToast("You already subscribe", "error");
+                } else if (resp == "saved") {
+                    showToast("Thanks for subscribe");
+                }
+            },
+            error() {
+                showToast(
+                    "Something went wrong please check your email",
+                    "error"
+                );
             },
         });
     });
