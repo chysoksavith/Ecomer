@@ -24,7 +24,7 @@
     <link rel="stylesheet" href="{{ asset('front/css/account.css') }}">
     <link rel="stylesheet" href="{{ asset('front/css/animationBtn.css') }}">
     <link rel="stylesheet" href="{{ asset('front/css/contact_us.css') }}">
-
+    <link rel="stylesheet" href="{{ asset('front/css/checkout.css') }}">
     {{-- AOS plugin --}}
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" />
     <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
@@ -97,14 +97,24 @@
     <script>
         function showToast(message, type = "success") {
             Toastify({
-                text: message,
-                duration: 4000,
+                text: message.replace(/<br\s*\/?>/gi, "\n"),
+                duration: 3000,
                 gravity: "top",
                 position: "right",
-                backgroundColor: type === "success" ? "green" : "red",
+                backgroundColor: type === "success" ? "#c3e235" : "red",
                 stopOnFocus: true,
+                offset: {
+                    y: 40 // Set the offset from the top
+                }
             }).showToast();
         }
+
+        @if (session('error_message'))
+            showToast("{{ session('error_message') }} ", "error");
+        @endif
+        @if (session('success_message'))
+            showToast("{{ session('success_message') }}", "success");
+        @endif
     </script>
     <script>
         // Execute the following script after the page has loaded

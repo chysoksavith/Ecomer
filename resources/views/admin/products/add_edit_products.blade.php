@@ -32,6 +32,12 @@
                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
             @endif
+            @if (Session::has('error_message'))
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <strong>Error:</strong>{{ Session::get('error_message') }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            @endif
             <div class="row">
                 <!-- left column -->
                 <div class="col-md-12">
@@ -214,12 +220,13 @@
                                                         <td>{{ $attribute['sku'] }}</td>
                                                         <td>
                                                             <input type="number" style="width: 100px" name="price[]"
-                                                                value="{{ $attribute['price'] }}">
+                                                                   value="{{ $attribute['price'] }}">
                                                         </td>
                                                         <td>
                                                             <input type="number" style="width: 100px" name="stock[]"
                                                                 value="{{ $attribute['stock'] }}">
                                                         </td>
+
                                                         <td>
                                                             <a class="updateAttributeStatus"
                                                                 id="attribute-{{ $attribute['id'] }}"

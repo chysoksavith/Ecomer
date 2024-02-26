@@ -220,48 +220,84 @@ class ProductsController extends Controller
                 }
             }
             // add product attr
-            foreach ($data['sku'] as $key => $value) {
-                if (!empty($value)) {
-                    // Check if SKU already exists
-                    $existingAttribute = ProductsAttribure::where('sku', $value)->first();
+            // foreach ($data['sku'] as $key => $value) {
+            //     if (!empty($value)) {
+            //         // Check if SKU already exists
+            //         $existingAttribute = ProductsAttribure::where('sku', $value)->first();
 
-                    if ($existingAttribute) {
-                        // SKU already exists, update the existing record
-                        $existingAttribute->update([
-                            'size' => $data['size'][$key],
-                            'price' => $data['price'][$key],
-                            'stock' => $data['stock'][$key],
-                        ]);
-                    } else {
-                        // SKU doesn't exist, create a new record
-                        $attributes = new ProductsAttribure;
-                        $attributes->product_id = $product_id;
-                        $attributes->sku = $value;
-                        $attributes->size = $data['size'][$key];
-                        $attributes->price = $data['price'][$key];
-                        $attributes->stock = $data['stock'][$key];
-                        $attributes->status = 1;
-                        $attributes->save();
+            //         if ($existingAttribute) {
+            //             // SKU already exists, update the existing record
+            //             $existingAttribute->update([
+            //                 'size' => $data['size'][$key],
+            //                 'price' => $data['price'][$key],
+            //                 'stock' => $data['stock'][$key],
+            //             ]);
+            //         } else {
+            //             // SKU doesn't exist, create a new record
+            //             $attributes = new ProductsAttribure;
+            //             $attributes->product_id = $product_id;
+            //             $attributes->sku = $value;
+            //             $attributes->size = $data['size'][$key];
+            //             $attributes->price = $data['price'][$key];
+            //             $attributes->stock = $data['stock'][$key];
+            //             $attributes->status = 1;
+            //             $attributes->save();
+            //         }
+            //     }
+            // }
+
+            // edit product attr
+            // if (isset($data['attributeId'])) {
+            //     foreach ($data['attributeId'] as $akey => $attributeId) {
+            //         $attributeId = (int) $attributeId;
+
+            //         if (!empty($attributeId)) {
+            //             $attribute = ProductsAttribure::find($attributeId);
+
+            //             if ($attribute) {
+            //                 // Update existing attributes
+            //                 $attribute->update([
+            //                     'price' => $data['price'][$akey] ?? null,
+            //                     'stock' => $data['stock'][$akey] ?? null,
+            //                 ]);
+            //             }
+            //         }
+            //     }
+            // }
+            // add attr
+            // Add new attributes
+            foreach ($data['size'] as $key => $size) {
+                if (!empty($size) && !empty($data['sku'][$key]) && !empty($data['price'][$key]) && !empty($data['stock'][$key])) {
+                    $countSKU = ProductsAttribure::where('sku', $data['sku'][$key])->count();
+                    if ($countSKU > 0) {
+                        $message = "SKU already exists";
+                        return redirect()->back()->with('error_message', $message);
                     }
+
+                    $countSize = ProductsAttribure::where(['product_id' => $product_id, 'size' => $size])->count();
+                    if ($countSize > 0) {
+                        $message = "Size already exists";
+                        return redirect()->back()->with('error_message', $message);
+                    }
+
+                    $attribute = new ProductsAttribure;
+                    $attribute->product_id = $product_id;
+                    $attribute->sku = $data['sku'][$key];
+                    $attribute->size = $size;
+                    $attribute->price = (int)$data['price'][$key]; // Convert to integer
+                    $attribute->stock = (int)$data['stock'][$key]; // Convert to integer
+                    $attribute->status = 1;
+                    $attribute->save();
                 }
             }
 
-            // edit product attr
-            if (isset($data['attributeId'])) {
-                foreach ($data['attributeId'] as $akey => $attributeId) {
-                    $attributeId = (int) $attributeId;
-
-                    if (!empty($attributeId)) {
-                        $attribute = ProductsAttribure::find($attributeId);
-
-                        if ($attribute) {
-                            // Update existing attributes
-                            $attribute->update([
-                                'price' => $data['price'][$akey] ?? null,
-                                'stock' => $data['stock'][$akey] ?? null,
-                            ]);
-                        }
-                    }
+            // Update existing attributes
+            foreach ($data['attributeId'] as $key => $attributeId) {
+                if (!empty($attributeId)) {
+                    ProductsAttribure::where('id', $attributeId)->update([
+                        'price' => (int)$data['price'][$key], // Convert to integer
+                        'stock' => (int)$data['stock'][$key]  // Convert to integer
+                    ]);
                 }
             }
 
@@ -358,5 +394,4 @@ class ProductsController extends Controller
         ProductsAttribure::where('id', $id)->delete();
         return redirect()->back()->with('success_message', 'Product Attr Successfully');
     }
-    
 }

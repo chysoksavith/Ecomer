@@ -32,13 +32,22 @@
     color: #000000;
     text-decoration: none;
     font-size: 14px;
-    font-weight: 300;
+    font-weight: 600;
+}
+.subsubCategoryTtile {
+    padding: 12px 20px 12px 30px;
+}
+.textDecorAb {
+    color: #000000;
+    text-decoration: none;
+    font-size: 14px;
 }
 .coverCategory {
     margin-top: 20px;
 }
 
-.labelBrandandSize, .priceFil {
+.labelBrandandSize,
+.priceFil {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -153,30 +162,4 @@ input[type="radio"] {
     display: inline-block; /* Ensure the select is inline */
     vertical-align: middle; /* Align vertically with other elements */
     font-size: 15px;
-}
-
-/* Style to handle Firefox rendering of select */
-.select::-moz-focus-inner {
-    border: none;
-}
-
-/* Style to handle Internet Explorer rendering of select */
-.select {
-    -ms-appearance: none;
-}
-
-.select::-ms-expand {
-    display: none;
-}
-/* Style options */
-.select option {
-    
-    background-color: #fff; /* Background color of options */
-    color: #333; /* Text color of options */
-}
-
-/* Hover effect for options */
-.select option:hover {
-    background-color: red; /* Hover background color of options */
-    color: #333; /* Hover text color of options */
 }

@@ -129,7 +129,7 @@
 
                   @endif
                   {{-- Cms page --}}
-                  @if (Session::get('page') == 'cms pages')
+                  @if (Session::get('page') == 'cms-pages')
                       @php
                           $active = 'active';
                       @endphp
@@ -269,7 +269,7 @@
                                       $active = '';
                                   @endphp
                               @endif
-                              <a href="{{ url('admin/coupons') }}" class="nav-link {{$active}}">
+                              <a href="{{ url('admin/coupons') }}" class="nav-link {{ $active }}">
                                   <i class="far fa-circle nav-icon"></i>
                                   <p>Coupons</p>
                               </a>
@@ -304,7 +304,24 @@
                           </li>
                       </ul>
                   </li>
-
+                  {{-- Rating --}}
+                  @if (Session::get('page') == 'rating')
+                      @php
+                          $active = 'active';
+                      @endphp
+                  @else
+                      @php
+                          $active = '';
+                      @endphp
+                  @endif
+                  <li class="nav-item">
+                      <a href="{{url('admin/rating')}}" class="nav-link {{ $active }}">
+                          <i class="nav-icon fas fa-star"></i>
+                          <p>
+                              Rating & Review
+                          </p>
+                      </a>
+                  </li>
               </ul>
           </nav>
           <!-- /.sidebar-menu -->

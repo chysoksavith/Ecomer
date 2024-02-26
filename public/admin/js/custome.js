@@ -76,7 +76,6 @@ $(document).ready(function () {
     });
 
     // ---------------------------- Add Attr Script --------------------------------
-    $(document).ready(function () {
         var maxField = 10; //Input fields increment limitation
         var addButton = $(".add_button"); //Add button selector
         var wrapper = $(".field_wrapper"); //Input field wrapper
@@ -105,7 +104,7 @@ $(document).ready(function () {
             $(this).parent("div").remove(); //Remove field html
             x--; //Decrease field counter
         });
-    });
+
 
     // show/hide coupon field for manual/automatic
     $("#ManualCoupon").click(function(){

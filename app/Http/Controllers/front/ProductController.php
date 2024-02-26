@@ -9,6 +9,7 @@ use App\Models\Coupon;
 use App\Models\Product;
 use App\Models\ProductsAttribure;
 use App\Models\ProductsFilter;
+use App\Models\Ratings;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -125,11 +126,13 @@ class ProductController extends Controller
         $productDetails = Product::with(['category', 'brand', 'images', 'attributes' => function ($query) {
             $query->where('stock', '>', 0)->where('status', 1);
         }])->find($id);
+        // totalStock
+        $totalStock = ProductsAttribure::where('product_id', $id)->sum('stock');
         // get category url
         $categoryDetails = Category::categoryDetails($productDetails->category->url);
         // get group code (Product color)
         if (!empty($productDetails['group_code'])) {
-            $groupProducts = Product::select('id', 'product_color')
+            $groupProducts = Product::with('images')->select('id',  'product_color')
                 ->where('id', '!=', $id)
                 ->where('group_code', $productDetails['group_code'])
                 ->where('status', 1)
@@ -143,6 +146,20 @@ class ProductController extends Controller
             ->inRandomOrder()
             ->get();
 
+        // get Rating
+
+        $rating = Ratings::with('user', 'product')->where(['product_id' => $id, 'status' => 1])->paginate();
+
+        // get average rating of product
+        $ratingSum = Ratings::where(['product_id' => $id, 'status' => 1])->sum('rating');
+        $ratingCount = Ratings::where(['product_id' => $id, 'status' => 1])->count();
+        $avgRating = null; // Initialize $avgRating to null
+        $avgStartRating = null; // Initialize $avgStartRating to null
+
+        if ($ratingCount > 0) {
+            $avgRating = round($ratingSum / $ratingCount, 2);
+            $avgStartRating = round($ratingSum / $ratingCount);
+        }
         // Set session for recently view items
         if (!Session::has('session_id')) {
             $session_id = md5(uniqid(rand(), true));
@@ -172,7 +189,7 @@ class ProductController extends Controller
             ->whereIn('id', $recentProductIds)
             ->get();
 
-        return view('client.products.details')->with(compact('productDetails', 'categoryDetails', 'groupProducts', 'relatedProducts', 'recentProducts'));
+        return view('client.products.details')->with(compact('productDetails', 'categoryDetails', 'groupProducts', 'relatedProducts', 'recentProducts', 'rating', 'avgRating', 'avgStartRating', 'totalStock'));
     }
     // get attr price
     public function getAttrPrice(Request $request)
@@ -424,7 +441,7 @@ class ProductController extends Controller
         if ($request->ajax()) {
             // Call the function to empty the cart
             emptyCart();
-        
+
             // Retrieve updated cart items and total items count
             $getCartItems = getCartItems();
             $totalCartItems = totalCartItems();

@@ -47,14 +47,21 @@ class UserController extends Controller
                             'type' => 'inactive',
                             'message' => 'Your account is not activated yet',
                         ]);
-                    } else {
-                        $redirectUrl = url('/');
-                        return response()->json([
-                            'status' => true,
-                            'type' => 'success',
-                            'url' => $redirectUrl,
-                        ]);
                     }
+
+                    // Update User Cart with user_id
+                    if (!empty(Session::get('session_id'))) {
+                        $user_id = Auth::user()->id;
+                        $session_id = Session::get('session_id');
+                        Cart::where('session_id', $session_id)->update(['user_id' => $user_id]);
+                    }
+
+                    $redirectUrl = url('/');
+                    return response()->json([
+                        'status' => true,
+                        'type' => 'success',
+                        'url' => $redirectUrl,
+                    ]);
                 } else {
                     return response()->json([
                         'status' => false,
@@ -102,6 +109,7 @@ class UserController extends Controller
                 $user = new User;
                 $user->name = $data['name'];
                 $user->email = $data['email'];
+                $user->mobile = $data['mobile'];
                 $user->password = bcrypt($data['password']);
                 $user->status = 0;
                 $user->save();
@@ -112,8 +120,6 @@ class UserController extends Controller
                     'email' => $data['email'],
                     'code' => base64_encode($data['email'])
                 ];
-
-
                 Mail::send('email.confirmation', $messageData, function ($message) use ($email) {
                     $message->to($email)->subject('Confirm you Your Accounts');
                 });
@@ -163,7 +169,6 @@ class UserController extends Controller
                 Mail::send('email.registerEmail', $messageData, function ($message) use ($email) {
                     $message->to($email)->subject('Welcome to Our Website');
                 });
-
                 // go to cart page
                 return redirect('user/login')->with('toast', [
                     'message' => 'Your account is activated. You can login now!',

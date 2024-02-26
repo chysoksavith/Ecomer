@@ -47,7 +47,19 @@
                     {{-- price and offer --}}
                     <li class="rightDet">
                         <div class="OfferPrice RightD getAttributePrice">
-                            <span class="FinalPrice ">{{ $productDetails->final_price }}$</span>
+                            <div class="divPricedetail">
+                                <span class="FinalPrice ">{{ $productDetails->final_price }}$</span>
+                                <div class="sKUsTOCK">
+                                    @if ($totalStock > 0)
+                                        <span class="ins">In Stock</span>
+                                    @else
+                                        <span class="ins">Out of Stock</span>
+                                    @endif
+
+                                    <span class="sk">Code {{ $productDetails->product_code }}</span>
+                                </div>
+                            </div>
+
                             {{-- <div class="DiscoAFinal"> --}}
                             @if ($productDetails->discount_type != '')
                                 <span class="offerPercentage">( {{ $productDetails->product_discount }}% )</span>
@@ -59,14 +71,25 @@
                     {{-- Rateing --}}
                     <li class="rightDet">
                         <div class="OfferPrice RightD">
-                            <div class="DiscoAFinal">
-                                <span class="RatingIMg">( 100% )</span>
-                                <span class="TotalReview">25 review</span>
+                            <div class="">
+                                <div class="starings DiscoAFinal">
+                                    @if ($avgStartRating > 0)
+                                        @php
+                                            $star = 1;
+                                            while ($star <= $avgStartRating) {
+                                                echo '<div class="clip-star"></div>';
+                                                $star++;
+                                            }
+                                        @endphp
+                                    @endif
+                                    <span class="TotalReview"> {{ $rating->total() }} review</span>
+
+                                </div>
                             </div>
                         </div>
                     </li>
                     {{-- Instock and left --}}
-                    <li class="rightDet">
+                    {{-- <li class="rightDet">
                         <div class="OfferPrice RightD InsOferr">
                             <div class="DiscoAFinal sf">
                                 <div class="btnStock">
@@ -77,7 +100,7 @@
                                 </div>
                             </div>
                         </div>
-                    </li>
+                    </li> --}}
                     {{-- Description --}}
                     <li class="rightDet">
                         <div class=" RightD Description">
@@ -106,7 +129,14 @@
                                     </div>
                                 </div>
                             @endif
-
+                            {{-- @if (count($groupProducts) > 0)
+                                @foreach ($groupProducts as $products)
+                                    <a href="{{ url('product/' . $products->id) }}">
+                                        <img src="{{ asset('front/images/products/' . $products->images[0]->image) }}"
+                                            alt="">
+                                    </a>
+                                @endforeach
+                            @endif --}}
 
                         </li>
                         {{-- Size --}}
@@ -161,17 +191,22 @@
                                             <div class="wrapper_basestar">
                                                 <div class="rating_star">
                                                     <div>
-                                                        <span class="base_reviewTotal">4.85</span>
+                                                        <span class="base_reviewTotal">{{ $avgRating }}</span>
                                                     </div>
                                                     <div class="starings">
-                                                        <div class="clip-star"></div>
-                                                        <div class="clip-star"></div>
-                                                        <div class="clip-star"></div>
-                                                        <div class="clip-star"></div>
-                                                        <div class="clip-star"></div>
+                                                        @if ($avgStartRating > 0)
+                                                            @php
+                                                                $star = 1;
+                                                                while ($star <= $avgStartRating) {
+                                                                    echo '<div class="clip-star"></div>';
+                                                                    $star++;
+                                                                }
+                                                            @endphp
+                                                        @endif
                                                     </div>
                                                 </div>
-                                                <span style="font-size: 14px">based on 13 reviews</span>
+                                                <span style="font-size: 14px">based on {{ $rating->total() }}
+                                                    reviews</span>
                                             </div>
                                             <div class="btnReview">
                                                 <button type="button" class="CartBtnDetail" id="writeReviewBtn">Write
@@ -182,35 +217,47 @@
 
                                     </div>
                                 </div>
-                                <div class="ratingStartBox" id="reviewSection" style="display: none;">
-                                    <span class="ProdInfo"> What would you rate this product?</span>
-                                    <div class="rate">
-                                        <input type="radio" id="star5" name="rate" value="5" />
-                                        <label for="star5" title="text">5 stars</label>
-                                        <input type="radio" id="star4" name="rate" value="4" />
-                                        <label for="star4" title="text">4 stars</label>
-                                        <input type="radio" id="star3" name="rate" value="3" />
-                                        <label for="star3" title="text">3 stars</label>
-                                        <input type="radio" id="star2" name="rate" value="2" />
-                                        <label for="star2" title="text">2 stars</label>
-                                        <input type="radio" id="star1" name="rate" value="1" />
-                                        <label for="star1" title="text">1 star</label>
-                                    </div>
-                                    {{-- from rating --}}
-                                    <div class="formRating">
-                                        <div class="inputRating">
-                                            <span class="ProdInfo">
-                                                Tell us your feedback about the product
-                                            </span>
-                                            <textarea name="" rows="4"></textarea>
+                                {{-- rating star --}}
+                                <form name="formRating" id="formRating">
+                                    @csrf
+                                    <input type="hidden" name="product_id" value="{{ $productDetails->id }}">
+                                    <div class="ratingStartBox" id="reviewSection" style="display: none;">
+                                        <span class="ProdInfo"> What would you rate this product?</span>
+                                        <div class="rate">
+                                            <input style="display: none;" type="radio" id="star5" name="rating"
+                                                value="5" />
+                                            <label for="star5" title="text">5 stars</label>
+                                            <input style="display: none;" type="radio" id="star4" name="rating"
+                                                value="4" />
+                                            <label for="star4" title="text">4 stars</label>
+                                            <input style="display: none;" type="radio" id="star3" name="rating"
+                                                value="3" />
+                                            <label for="star3" title="text">3 stars</label>
+                                            <input style="display: none;" type="radio" id="star2" name="rating"
+                                                value="2" />
+                                            <label for="star2" title="text">2 stars</label>
+                                            <input style="display: none;" type="radio" id="star1" name="rating"
+                                                value="1" />
+                                            <label for="star1" title="text">1 star</label>
                                         </div>
-                                        <div class="btnReview-Wrapper">
-                                            <button type="button" class="ReviewBtn" id="cancelReviewBtn">Cancel</button>
-                                            <button type="button" class="SubmitReviewBtn"
-                                                id="cancelReviewBtn">Submit</button>
+                                        {{-- from rating --}}
+                                        <div class="formRating">
+                                            <div class="inputRating">
+                                                <span class="ProdInfo">
+                                                    Tell us your feedback about the product
+                                                </span>
+                                                <textarea name="review" rows="4"></textarea>
+                                            </div>
+                                            <div class="btnReview-Wrapper">
+                                                <button type="button" class="ReviewBtn"
+                                                    id="cancelReviewBtn">Cancel</button>
+                                                <button type="submit" class="SubmitReviewBtn"
+                                                    id="submitReviewBtn">Submit</button>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
+                                </form>
+
                                 {{-- comment feedback user --}}
                                 <div class="commentUser-wrapper ">
                                     <div class="DivTitle title_proReview">
@@ -220,59 +267,69 @@
                                     </div>
 
                                     <div class="container_Cmt">
-                                        <div class="box_comment">
-                                            <div class="name_iconUser">
-                                                {{-- icon --}}
-                                                <div class="iconUserProf">
-                                                    <img src="https://imgs.search.brave.com/vwimYLUDcAbT_ZWKjz9DlBVRoovzdUlB7dl-L8ZFB78/rs:fit:500:0:0/g:ce/aHR0cHM6Ly9pbWcu/ZnJlZXBpay5jb20v/ZnJlZS1waG90by91/c2VyLXByb2ZpbGUt/ZnJvbnQtc2lkZV8x/ODcyOTktMzk1OTUu/anBnP3NpemU9NjI2/JmV4dD1qcGc"
-                                                        alt="dc">
+                                        @if ($rating && count($rating) > 0)
+                                            @foreach ($rating as $feedBackRating)
+                                                <div class="box_comment">
+                                                    <div class="name_iconUser">
+                                                        {{-- icon --}}
+                                                        <div class="iconUserProf">
+                                                            <img src="https://imgs.search.brave.com/vwimYLUDcAbT_ZWKjz9DlBVRoovzdUlB7dl-L8ZFB78/rs:fit:500:0:0/g:ce/aHR0cHM6Ly9pbWcu/ZnJlZXBpay5jb20v/ZnJlZS1waG90by91/c2VyLXByb2ZpbGUt/ZnJvbnQtc2lkZV8x/ODcyOTktMzk1OTUu/anBnP3NpemU9NjI2/JmV4dD1qcGc"
+                                                                alt="dc">
+                                                        </div>
+                                                        {{-- verify --}}
+                                                        <div class="verifyUser">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" width="24"
+                                                                height="24" viewBox="0 0 24 24">
+                                                                <path fill="currentColor" fill-rule="evenodd"
+                                                                    d="M15.418 5.643a1.25 1.25 0 0 0-1.34-.555l-1.798.413a1.25 1.25 0 0 1-.56 0l-1.798-.413a1.25 1.25 0 0 0-1.34.555l-.98 1.564c-.1.16-.235.295-.395.396l-1.564.98a1.25 1.25 0 0 0-.555 1.338l.413 1.8a1.25 1.25 0 0 1 0 .559l-.413 1.799a1.25 1.25 0 0 0 .555 1.339l1.564.98c.16.1.295.235.396.395l.98 1.564c.282.451.82.674 1.339.555l1.798-.413a1.25 1.25 0 0 1 .56 0l1.799.413a1.25 1.25 0 0 0 1.339-.555l.98-1.564c.1-.16.235-.295.395-.395l1.565-.98a1.25 1.25 0 0 0 .554-1.34L18.5 12.28a1.25 1.25 0 0 1 0-.56l.413-1.799a1.25 1.25 0 0 0-.554-1.339l-1.565-.98a1.25 1.25 0 0 1-.395-.395zm-.503 4.127a.5.5 0 0 0-.86-.509l-2.615 4.426l-1.579-1.512a.5.5 0 1 0-.691.722l2.034 1.949a.5.5 0 0 0 .776-.107z"
+                                                                    clip-rule="evenodd" />
+                                                            </svg>
+                                                            <span class="textverifyUser">Verified Customer</span>
+                                                        </div>
+                                                        <div class="nameUserReview">
+                                                            <span class="textNameReiview">
+                                                                {{ $feedBackRating->user->name }}
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="cmmtingUser">
+                                                        <?php
+                                                        $count = 0;
+                                                        while ($count < $feedBackRating->rating) {
+                                                            echo '<div class="clip-star starCmt"></div>';
+                                                            $count++;
+                                                        }
+                                                        ?>
+
+                                                        {{-- name item review --}}
+                                                        <div class="nameItemUserReview">
+                                                            <span class="textNameiteREview">
+                                                                {{ $feedBackRating->product->product_name }}
+                                                            </span>
+                                                        </div>
+                                                        {{-- descroption user cmt --}}
+                                                        <div class="nameItemUserReview">
+                                                            <p class="textDesiteREview">
+                                                                {{ $feedBackRating->review }}
+                                                            </p>
+                                                        </div>
+                                                        {{-- date --}}
+                                                        <div class="nameItemUserReview dateReview">
+                                                            <span class="date">
+                                                                {{ $feedBackRating->created_at ? $feedBackRating->created_at->diffForHumans() : 'Unknown' }}
+
+                                                            </span>
+                                                        </div>
+                                                    </div>
                                                 </div>
-                                                {{-- verify --}}
-                                                <div class="verifyUser">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                                        viewBox="0 0 24 24">
-                                                        <path fill="currentColor" fill-rule="evenodd"
-                                                            d="M15.418 5.643a1.25 1.25 0 0 0-1.34-.555l-1.798.413a1.25 1.25 0 0 1-.56 0l-1.798-.413a1.25 1.25 0 0 0-1.34.555l-.98 1.564c-.1.16-.235.295-.395.396l-1.564.98a1.25 1.25 0 0 0-.555 1.338l.413 1.8a1.25 1.25 0 0 1 0 .559l-.413 1.799a1.25 1.25 0 0 0 .555 1.339l1.564.98c.16.1.295.235.396.395l.98 1.564c.282.451.82.674 1.339.555l1.798-.413a1.25 1.25 0 0 1 .56 0l1.799.413a1.25 1.25 0 0 0 1.339-.555l.98-1.564c.1-.16.235-.295.395-.395l1.565-.98a1.25 1.25 0 0 0 .554-1.34L18.5 12.28a1.25 1.25 0 0 1 0-.56l.413-1.799a1.25 1.25 0 0 0-.554-1.339l-1.565-.98a1.25 1.25 0 0 1-.395-.395zm-.503 4.127a.5.5 0 0 0-.86-.509l-2.615 4.426l-1.579-1.512a.5.5 0 1 0-.691.722l2.034 1.949a.5.5 0 0 0 .776-.107z"
-                                                            clip-rule="evenodd" />
-                                                    </svg>
-                                                    <span class="textverifyUser">Verified Customer</span>
-                                                </div>
-                                                <div class="nameUserReview">
-                                                    <span class="textNameReiview">
-                                                        Demo
-                                                    </span>
-                                                </div>
-                                            </div>
-                                            <div class="cmmtingUser">
-                                                <div class="starings">
-                                                    <div class="clip-star starCmt"></div>
-                                                    <div class="clip-star starCmt"></div>
-                                                    <div class="clip-star starCmt"></div>
-                                                    <div class="clip-star starCmt"></div>
-                                                    <div class="clip-star starCmt"></div>
-                                                </div>
-                                                {{-- name item review --}}
-                                                <div class="nameItemUserReview">
-                                                    <span class="textNameiteREview">
-                                                        hello
-                                                    </span>
-                                                </div>
-                                                {{-- descroption user cmt --}}
-                                                <div class="nameItemUserReview">
-                                                    <p class="textDesiteREview">
-                                                        hellosssssssssssssssssssssssssssssssssshellosssssssssssssssssssssssssssssssssshellosssssssssssssssssssssssssssssssssshellosssssssssssssssssssssssssssssssssshellosssssssssssssssssssssssssssssssssshellosssssssssssssssssssssssssssssssssshellossssssssssssssssssssssssssssssssss
-                                                    </p>
-                                                </div>
-                                                {{-- date --}}
-                                                <div class="nameItemUserReview dateReview">
-                                                    <span class="date">
-                                                        11 11 11
-                                                    </span>
-                                                </div>
-                                            </div>
-                                        </div>
+                                            @endforeach
+                                        @else
+                                            <span>No feedback</span>
+                                        @endif
+                                        {{ $rating->links() }}
 
                                     </div>
+
                                 </div>
                             </div>
                         </details>
@@ -486,7 +543,6 @@
 
         </div>
     @endif
-
 @endsection
 @section('scripts')
     <script>

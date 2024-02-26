@@ -26,3 +26,15 @@ scrollbar {
 scrollbar-thumb {
     background-color: #888;
 }
+.pagination{
+    margin-top: 30px;
+    display: flex;
+}
+.pagination li{
+    margin-left: 10px;
+}
+.pagination li a{
+    margin-left: 10px;
+    text-decoration: none;
+    color: black;
+}

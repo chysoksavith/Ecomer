@@ -80,7 +80,13 @@
     font-weight: 700;
     font-size: 36px;
 }
-.DiscoAFinal,
+.DiscoAFinal {
+    display: flex;
+    align-items: center;
+}
+.TotalReview {
+    margin-left: 20px;
+}
 .offerPercentage,
 .dicPrice {
     font-size: 14px;
@@ -302,4 +308,23 @@ span {
 
 .detail_warp {
     font-size: 14px;
+}
+/* sku iinstock */
+.divPricedetail {
+    display: flex;
+    align-items: center;
+}
+.sKUsTOCK {
+    margin-left: 15px;
+}
+
+.ins {
+    font-style: 14px;
+    display: block;
+    font-weight: 600;
+    margin-bottom: -10px;
+}
+.sk {
+    font-size: 13px;
+    color: #b3b3b3;
 }

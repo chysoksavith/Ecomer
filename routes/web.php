@@ -8,12 +8,16 @@ use App\Http\Controllers\admin\CmsController;
 use App\Http\Controllers\admin\CouponController;
 use App\Http\Controllers\admin\NewseltterController;
 use App\Http\Controllers\admin\ProductsController;
+use App\Http\Controllers\admin\RatingController;
 use App\Http\Controllers\admin\UserController as AdminUserController;
+use App\Http\Controllers\front\AddressController;
+use App\Http\Controllers\front\CheckoutController;
 use App\Http\Controllers\front\CmsPagesController;
 use App\Http\Controllers\front\ContactUsController;
 use App\Http\Controllers\front\IndexController;
 use App\Http\Controllers\front\NewseletterController;
 use App\Http\Controllers\front\ProductController;
+use App\Http\Controllers\front\RatingFrontController;
 use App\Http\Controllers\front\UserController;
 use App\Models\Category;
 use App\Models\CmsPage;
@@ -35,8 +39,8 @@ Route::namespace('App\Http\Controllers\front')->group(function () {
 
     // Listing Cms Routes
     $cmsUrls = CmsPage::select('url')->where('status', 1)->get()->pluck('url')->toArray();
-    foreach ($cmsUrls as $url){
-        Route::get('/'.$url, [CmsPagesController::class, 'CmsPage']);
+    foreach ($cmsUrls as $url) {
+        Route::get('/' . $url, [CmsPagesController::class, 'CmsPage']);
     }
     // product details
     Route::controller(ProductController::class)->group(function () {
@@ -61,7 +65,7 @@ Route::namespace('App\Http\Controllers\front')->group(function () {
     });
     // contact us
     Route::controller(ContactUsController::class)->group(function () {
-        Route::get('contact-us', 'contactUs')->name('front.contact-us');
+        Route::match(['get', 'post'], 'contact-us', 'contactUs')->name('front.contact-us');
     });
     // middleware
     Route::group(['middleware' => ['auth']], function () {
@@ -70,6 +74,17 @@ Route::namespace('App\Http\Controllers\front')->group(function () {
             Route::match(['get', 'post'], 'user/account', 'userAccount')->name('user.account');
             Route::match(['get', 'post'], 'user/update-password', 'updatePassword');
             Route::post('/apply-coupon', [ProductController::class, 'applyCoupon']);
+        });
+        // checkout
+        Route::controller(CheckoutController::class)->group(function () {
+            Route::match(['post', 'get'], 'checkout', 'checkout');
+        });
+        // get delivery address
+        Route::controller(AddressController::class)->group(function () {
+            Route::post('get-delivery-address', 'GetDeliveryAddress');
+            Route::post('save-delivery-address', 'SaveDeliveryAddress');
+            Route::post('remove-delivery-address', 'delteDeliveryAddress');
+            route::post('set-default-delivery-address', 'SetDefaultDeliveryAddress');
         });
     });
     // login
@@ -81,8 +96,12 @@ Route::namespace('App\Http\Controllers\front')->group(function () {
         Route::match(['get', 'post'], 'user/reset-password/{code?}', 'resetPassword');
     });
     // subscribers
-    Route::controller(NewseletterController::class)->group(function(){
+    Route::controller(NewseletterController::class)->group(function () {
         Route::post('add-subscriber-email', 'addSubscriber');
+    });
+    // add rating/review
+    Route::controller(RatingFrontController::class)->group(function () {
+        Route::post('/add-rating', 'addRating');
     });
 });
 
@@ -161,10 +180,16 @@ Route::group(['prefix' => '/admin'], function () {
             Route::post('update-user-status', 'updateUserStatus');
         });
         // for Newsletter
-        Route::controller(NewseltterController::class)->group(function(){
-            Route::get('subscriber','subscribers');
+        Route::controller(NewseltterController::class)->group(function () {
+            Route::get('subscriber', 'subscribers');
             Route::post('update-user-subscriber', 'updateUserSubscriber');
             Route::get('delete-subscriber/{id}',  'deleteSubscriber');
+        });
+        // Rating
+        Route::controller(RatingController::class)->group(function () {
+            Route::get('rating', 'rating');
+            Route::post('update-user-rating', 'updateUserRating');
+            Route::get('delete-rating/{id}',  'deleteRating');
         });
     });
 

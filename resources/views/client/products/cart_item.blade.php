@@ -6,9 +6,6 @@
         <span>Home - </span>
     </div>
 
-
-
-
     <div class="CartTtitle">
         <span class="cartTtispan">Shopping Cart</span>
     </div>
@@ -164,7 +161,10 @@
                 </div>
                 {{-- checkout btn --}}
                 <div class="applyCodebtn">
-                    <button type="submit" class="BtnApplyDiscount">Process To Checkout</button>
+                    <a href="{{ url('checkout') }}" style="text-decoration: none;">
+                        <button type="submit" class="BtnApplyDiscount">Process To Checkout</button>
+                    </a>
+
                 </div>
             </div>
         </div>

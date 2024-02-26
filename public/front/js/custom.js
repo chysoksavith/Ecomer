@@ -107,6 +107,8 @@ $(document).ready(function () {
     // delete
     $(document).on("click", ".deleteCartItems", function () {
         var cartid = $(this).data("cartid");
+        var page = $(this).data("page");
+
         $.ajax({
             headers: {
                 "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
@@ -119,6 +121,9 @@ $(document).ready(function () {
                 showToast(resp.message); // Assuming your server response has a 'message' key
                 $("#appendCartItems").html(resp.view);
                 $("#appendHeaderCartItems").html(resp.miniCartview);
+                if (page == "Checkout") {
+                    window.location.href = "/checkout";
+                }
             },
             error: function () {
                 showToast("An error occurred", "error");
@@ -223,6 +228,200 @@ $(document).ready(function () {
                 showToast(
                     "Something went wrong please check your email",
                     "error"
+                );
+            },
+        });
+    });
+    // review
+    $(document).ready(function () {
+        $("#formRating").on("submit", function (e) {
+            e.preventDefault();
+            var formData = $(this).serialize();
+            var rating = $('input[name="rating"]:checked').val();
+            var review = $('textarea[name="review"]').val();
+
+            if (!rating || !review) {
+                showToast(
+                    "Please rate and provide feedback before submitting",
+                    "error"
+                );
+                return;
+            }
+            $.ajax({
+                headers: {
+                    "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr(
+                        "content"
+                    ),
+                },
+                url: "/add-rating",
+                type: "POST",
+                data: formData,
+                success: function (response) {
+                    if (response.success) {
+                        showToast(response.message);
+                        $(".loader").hide();
+                        $("#formRating")[0].reset();
+                    } else {
+                        if (response.error) {
+                            showToast(response.message, "error");
+                        } else {
+                            showToast(response.message, "error");
+                        }
+                    }
+                },
+                error: function () {
+                    showToast("An error occurred", "error");
+                },
+            });
+        });
+    });
+    // contact us
+    $("#formContactUs").submit(function (e) {
+        e.preventDefault();
+        var form = $(this);
+
+        $.ajax({
+            headers: {
+                "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+            },
+            url: form.attr("action"),
+            method: form.attr("method"),
+            data: form.serialize(),
+            beforeSend: function () {
+                $(".loader").show(); // Show loader before AJAX request
+            },
+            success: function (response) {
+                if (response.success) {
+                    showToast(response.message);
+                    $("#formContactUs")[0].reset(); // Reset form
+                } else {
+                    var errorMessage = "";
+                    if (response.errors) {
+                        $.each(response.errors, function (key, value) {
+                            errorMessage += value + "<br>";
+                        });
+                    } else {
+                        errorMessage =
+                            "An error occurred. Please try again later.";
+                    }
+                    showToast(errorMessage, "Error");
+                }
+            },
+            error: function () {
+                showToast("An error occurred. Please try again later.");
+            },
+            complete: function () {
+                $(".loader").hide(); // Hide loader after AJAX request completes
+            },
+        });
+    });
+    // Save delivery Address
+    $(document).on("click", "#btnShipping", function () {
+        $(".loader").show();
+        var formData = $("#addressAddEditForm").serialize();
+        $.ajax({
+            headers: {
+                "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+            },
+            url: "/save-delivery-address",
+            type: "post",
+            data: formData,
+            success: function (resp) {
+                if (resp.type == "error") {
+                    $(".loader").hide();
+
+                    $.each(resp.errors, function (field, error) {
+                        $("#" + field + "-error").html(error[0]); // Assuming you have elements with IDs like delivery_name-error, delivery_address-error, etc.
+                        $("#" + field + "-error").show();
+                        setTimeout(function () {
+                            $("#" + field + "-error").hide();
+                        }, 4000);
+                    });
+                } else {
+                    $(".loader").hide();
+                    showToast("success");
+                    $("#deliveryAddress").html(resp.view);
+                    // Reset the form
+                    $("#addressAddEditForm")[0].reset();
+                    $(".deliveryText").text("Add New Delivery Address");
+                }
+            },
+            error: function () {
+                showToast(
+                    "An error occurred. Please try again later.",
+                    "Error"
+                );
+            },
+        });
+    });
+    // edit checkout delivery address
+    $(document).on("click", "#editAddress", function () {
+        var addressid = $(this).data("addressid");
+        $.ajax({
+            headers: {
+                "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+            },
+            data: { addressid: addressid },
+            url: "/get-delivery-address",
+            type: "post",
+            success: function (resp) {
+                $(".deliveryText").text("Edit Delivery Address");
+                $("[name=delivery_id]").val(resp.address["id"]);
+                $("[name=delivery_name]").val(resp.address["name"]);
+                $("[name=delivery_address]").val(resp.address["address"]);
+                $("[name=delivery_city]").val(resp.address["city"]);
+                $("[name=delivery_state]").val(resp.address["state"]);
+                $("[name=delivery_country]").val(resp.address["country"]);
+                $("[name=delivery_pincode]").val(resp.address["pincode"]);
+                $("[name=delivery_mobile]").val(resp.address["mobile"]);
+            },
+            error: function () {
+                showToast(
+                    "An error occurred. Please try again later.",
+                    "Error"
+                );
+            },
+        });
+    });
+    // delete checkout delivery address
+    $(document).on("click", "#deleteaddress", function () {
+        var addressid = $(this).data("addressid");
+        $.ajax({
+            headers: {
+                "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+            },
+            data: { addressid: addressid },
+            url: "/remove-delivery-address",
+            type: "post",
+            success: function (resp) {
+                $("#deliveryAddress").html(resp.view);
+                showToast(resp.message);
+            },
+            error: function () {
+                showToast(
+                    "An error occurred. Please try again later.",
+                    "Error"
+                );
+            },
+        });
+    });
+    // default status delivery address
+    $(document).on("click", ".setDefaultStatus", function () {
+        var addressid = $(this).data("addressid");
+        $.ajax({
+            headers: {
+                "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+            },
+            url: "/set-default-delivery-address",
+            type: "post",
+            data: { addressid: addressid },
+            success: function (resp) {
+                $("#deliveryAddress").html(resp.view);
+            },
+            error: function () {
+                showToast(
+                    "An error occurred. Please try again later.",
+                    "Error"
                 );
             },
         });

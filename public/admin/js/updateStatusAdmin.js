@@ -216,7 +216,7 @@ $(document).ready(function () {
             },
         });
     });
-    // update status Users
+    // update status subscribe
     $(document).on("click", ".updatesubscriberstatus", function () {
         var status = $(this).find("i").attr("status");
         var subscriber_id = $(this).attr("subscriber_id");
@@ -234,6 +234,30 @@ $(document).ready(function () {
                     );
                 } else if (resp["status"] == 1) {
                     $("#subscriber-" + subscriber_id).html(
+                        "<i class='fas fa-toggle-on' style='color:blue;' status='Active'></i>"
+                    );
+                }
+            },
+        });
+    });
+    // update status Rating
+    $(document).on("click", ".updateRatingstatus", function () {
+        var status = $(this).find("i").attr("status");
+        var rating_id = $(this).attr("rating_id");
+        $.ajax({
+            headers: {
+                "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+            },
+            type: "post",
+            url: "/admin/update-user-rating",
+            data: { status: status, rating_id: rating_id },
+            success: function (resp) {
+                if (resp.status == 0) {
+                    $("#rating-" + rating_id).html(
+                        "<i class='fas fa-toggle-off' style='color:grey;' status='Inactive'></i>"
+                    );
+                } else if (resp.status == 1) {
+                    $("#rating-" + rating_id).html(
                         "<i class='fas fa-toggle-on' style='color:blue;' status='Active'></i>"
                     );
                 }

@@ -63,7 +63,7 @@
                 <h4>Information</h4>
                 <ul class="footer_ul">
                     <li><a href="{{url('about-us')}}">About Us</a></li>
-                    <li><a href="">b</a></li>
+                    <li><a href="{{url('contact-us')}}">Contact Us</a></li>
                     <li><a href="">c</a></li>
                     <li><a href="">d</a></li>
                 </ul>
@@ -72,18 +72,14 @@
                 <h4>About</h4>
                 <ul class="footer_ul">
                     <li><a href="">a</a></li>
-                    <li><a href="">b</a></li>
-                    <li><a href="">c</a></li>
-                    <li><a href="">d</a></li>
+
                 </ul>
             </div>
             <div class="footer_col">
                 <h4>About</h4>
                 <ul class="footer_ul">
                     <li><a href="">a</a></li>
-                    <li><a href="">b</a></li>
-                    <li><a href="">c</a></li>
-                    <li><a href="">d</a></li>
+
                 </ul>
             </div>
             <div class="footer_col">

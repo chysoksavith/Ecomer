@@ -111,5 +111,7 @@
                 dropdown.classList.remove("active");
             }
         }
+
+        
     </script>
 @endsection
