@@ -10,47 +10,6 @@ use Illuminate\Support\Facades\View;
 
 class RatingFrontController extends Controller
 {
-    // public function addRating(Request $request)
-    // {
-    //     if (!Auth::check()) {
-    //         $message = "Please Login to rate this product";
-    //         return response()->json([
-    //             'success' => false,
-    //             'message' => $message,
-    //         ]);
-    //     }
-
-    //     if ($request->ajax()) {
-    //         $data = $request->all();
-    //         $user_id = Auth::user()->id;
-
-    //         $ratingCount = Ratings::where(['user_id' => $user_id, 'product_id' => $data['product_id']])
-    //             ->count();
-
-    //         if ($ratingCount > 0) {
-    //             $message = "Your rating already exists";
-    //             return response()->json([
-    //                 'success' => false,
-    //                 'message' => $message,
-    //             ]);
-    //         }
-
-    //         $rating = new Ratings;
-    //         $rating->user_id = $user_id;
-    //         $rating->product_id = $data['product_id'];
-    //         $rating->review = $data['review'];
-    //         $rating->rating = $data['rating'];
-    //         $rating->save();
-
-    //         $message = "Thanks for rating this product!";
-    //         $newFeedback = view('partials.feedback')->render();
-    //         return response()->json([
-    //             'success' => true,
-    //             'message' => $message,
-    //             'html' => $newFeedback,
-    //         ]);
-    //     }
-    // }
 
     public function addRating(Request $request)
     {

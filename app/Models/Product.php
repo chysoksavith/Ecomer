@@ -104,8 +104,23 @@ class Product extends Model
         ];
     }
 
-    public static function productStatus($product_id){
+    public static function productStatus($product_id)
+    {
         $productStatus = Product::select('status')->where('id', $product_id)->first();
         return $productStatus->status;
     }
+
+
+    // get data for order
+    public static function getProductDetails($product_id)
+    {
+        $getProductDetails = Product::where('id', $product_id)->first()->toArray();
+        return $getProductDetails;
+    }
+    public static function getAttributeDetail($product_id, $size){
+        $getAttributeDetail = ProductsAttribure::where(['product_id' => $product_id, 'size' => $size])
+            ->first()->toArray();
+        return $getAttributeDetail;
+    }
+
 }

@@ -1,6 +1,7 @@
 @extends('client.layouts.layout')
 @section('content')
-
+    <?php use App\Models\Product;
+    ?>
     @if (count($homeSliderBanner) > 0)
         <section>
             <div class="popup-overlay">
@@ -15,7 +16,7 @@
                                 <span class="middletextBanner">
                                     {{ $sliderBanner->title }}
                                 </span>
-                                <a href="{{$sliderBanner->url}}" class="popup-btn" style="text-decoration: none;">
+                                <a href="{{ $sliderBanner->url }}" class="popup-btn" style="text-decoration: none;">
                                     <button type="submit" class="bannerBtn">Discover</button>
                                 </a>
                             </div>
@@ -168,5 +169,33 @@
             </div>
         </section>
     @endif
-
+    <section>
+        @include('client.pages.review_comment')
+    </section>
+@endsection
+@section('scripts')
+    <script>
+        var swiper = new Swiper('.swiper-container', {
+            direction: 'horizontal', // Enable horizontal scrolling
+            slidesPerView: 4, // Display 4 pages per view
+            spaceBetween: 30, // Space between pages
+            loop: true, // Enable loop
+            grabCursor: true, // Show grab cursor
+            freeMode: true, // Enable free mode scrolling
+            autoplay: {
+                delay: 2500,
+                disableOnInteraction: false,
+            },
+            on: {
+                touchStart: function() {
+                    // Stop autoplay when user starts grabbing
+                    this.autoplay.stop();
+                },
+                touchEnd: function() {
+                    // Start autoplay when user releases the grab
+                    this.autoplay.start();
+                },
+            },
+        });
+    </script>
 @endsection

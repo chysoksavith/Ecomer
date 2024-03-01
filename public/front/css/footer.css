@@ -132,7 +132,11 @@
     justify-content: center;
     cursor: pointer;
 }
-
+/* Placeholder element for smooth scroll */
+#topPlaceholder {
+    position: absolute;
+    top: 0;
+}
 /* above content footer */
 .above_footer_content {
     margin-top: 30px;

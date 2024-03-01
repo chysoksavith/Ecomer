@@ -11,21 +11,23 @@ $(document).ready(function () {
             data: { size: size, product_id: product_id },
             type: "post",
             success: function (resp) {
+                // Round the final price and discount percent to 2 decimal places
+                var finalPrice = resp["final_price"].toFixed(2);
+                var discountPercent = resp["discount_percent"].toFixed(2);
+
                 if (resp["discount"] > 0) {
                     $(".getAttributePrice").html(
                         "<span class='FinalPrice'>" +
-                            resp["final_price"] +
+                            finalPrice +
                             "$</span> <span class='offerPercentage'>( " +
-                            resp["discount_percent"] +
-                            " /% OFF)</span> <span class='dicPrice'>" +
+                            discountPercent +
+                            " % OFF)</span> <span class='dicPrice'>" +
                             resp["product_price"] +
                             "$</span> "
                     );
                 } else {
                     $(".getAttributePrice").html(
-                        " <span class='FinalPrice'>" +
-                            resp["final_price"] +
-                            "$</span> "
+                        " <span class='FinalPrice'>" + finalPrice + "$</span> "
                     );
                 }
             },
@@ -34,6 +36,56 @@ $(document).ready(function () {
             },
         });
     });
+    // add to wishlist
+    $(".updateWishlist").click(function (e) {
+        e.preventDefault();
+        var product_id = $(this).data("productid");
+        $.ajax({
+            headers: {
+                "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+            },
+            type: "post",
+            url: "/update-wishlist",
+            data: { product_id: product_id },
+            success: function (resp) {
+                if (resp.state == "add") {
+                    showToast(resp.message);
+                    $("span[data-productid=" + product_id + "]").html(
+                        ' <i class="fa-solid fa-heart icoHead"></i>'
+                    );
+                } else if (resp.state == "remove") {
+                    showToast(resp.message);
+                    $("span[data-productid=" + product_id + "]").html(
+                        ' <i class="fa-regular fa-heart icoHead"></i>'
+                    );
+                }
+            },
+            error: function () {
+                showToast("Something went wrong", "error");
+            },
+        });
+    });
+    // delete wishlist item
+    $(".deletewishlistItems").click(function (e) {
+        e.preventDefault();
+        var wishlist_id = $(this).data("wishlistid");
+        $.ajax({
+            headers: {
+                "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+            },
+            type: "post",
+            url: "/delete-wishlist-item",
+            data: { wishlist_id: wishlist_id },
+            success: function (resp) {
+                showToast(resp.message);
+                $("#appendWishlist").html(resp.View);
+            },
+            error: function () {
+                showToast("Something went wrong", "error");
+            },
+        });
+    });
+
     // add to cart
     $("#addToCart").submit(function (event) {
         event.preventDefault();

@@ -19,6 +19,7 @@ use App\Http\Controllers\front\NewseletterController;
 use App\Http\Controllers\front\ProductController;
 use App\Http\Controllers\front\RatingFrontController;
 use App\Http\Controllers\front\UserController;
+use App\Http\Controllers\front\WishListController;
 use App\Models\Category;
 use App\Models\CmsPage;
 use Illuminate\Support\Facades\Route;
@@ -63,6 +64,11 @@ Route::namespace('App\Http\Controllers\front')->group(function () {
         // Search
         Route::get('/search', 'search')->name('search');
     });
+    // add to wishlist
+    Route::post('/update-wishlist', [WishListController::class, 'updateWishList']);
+    Route::get('/wishlist', [WishListController::class, 'WishList']);
+    Route::post('/delete-wishlist-item', [WishListController::class, 'deleteWishList']);
+
     // contact us
     Route::controller(ContactUsController::class)->group(function () {
         Route::match(['get', 'post'], 'contact-us', 'contactUs')->name('front.contact-us');

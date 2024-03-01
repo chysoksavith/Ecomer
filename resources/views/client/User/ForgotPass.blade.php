@@ -8,7 +8,7 @@
             <div class="MainContainerRegister forgotpasscontain">
                 <div class="containerRegister">
                     <span class="notamember">
-                       Password Reset
+                        Password Reset
                     </span>
                     <span class="detailResetpASS">
                         Enter Your Email To Reset Your Password
@@ -23,7 +23,7 @@
                         </div>
 
                         <div class="inputFiel inputregister">
-                            <a href="{{ route('login.user') }}" class="SignIntBtnDetail"
+                            <a href="{{ route('login') }}" class="SignIntBtnDetail"
                                 style="text-decoration: none; display: flex; align-items: center; justify-content: center;">
                                 Back
                             </a>

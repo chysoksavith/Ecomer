@@ -93,10 +93,10 @@ $totalCartItems = totalCartItems();
                 </li>
                 {{-- wishList --}}
                 <li class="NavLiRes">
-                    <a href="" class="Ico"><i class="fa-regular   fa-heart  icoHead"></i>
-                        <span class="bagg">
+                    <a href="{{url('/wishlist')}}" class="Ico"><i class="fa-regular   fa-heart  icoHead"></i>
+                        {{-- <span class="bagg">
                             <p>1</p>
-                        </span>
+                        </span> --}}
                     </a>
                 </li>
                 {{-- cart --}}

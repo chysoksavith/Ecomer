@@ -19,4 +19,5 @@ class ProductsAttribure extends Model
             ->first();
         return $productStock->stock;
     }
+
 }
