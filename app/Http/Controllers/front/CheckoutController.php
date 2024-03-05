@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\front;
 
 use App\Http\Controllers\Controller;
+use App\Models\Cart;
 use App\Models\CmsPage;
 use App\Models\Country;
 use App\Models\DeliveryAddresses;
@@ -122,8 +123,7 @@ class CheckoutController extends Controller
             Session::put('order_id', $order_id);
             DB::commit();
 
-            echo "done";
-            die;
+            return redirect('/thank');
         }
 
         // get country
@@ -132,5 +132,17 @@ class CheckoutController extends Controller
         // Get delivery address of the User
         $deliveryAddress = DeliveryAddresses::deliveryAddresses();
         return view('client.checkout.checkout')->with(compact('getCartItems', 'countries', 'deliveryAddress'));
+    }
+
+    // thanks pages
+    public function thanks()
+    {
+        if (Session::has('order_id')) {
+            // empty order cart after place order
+            Cart::where('user_id', Auth::user()->id)->delete();
+            return view('client.checkout.thank');
+        } else {
+            return redirect('/cart');
+        }
     }
 }

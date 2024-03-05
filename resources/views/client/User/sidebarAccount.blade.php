@@ -8,7 +8,7 @@
         </a>
     </li>
     <li>
-        <a href="" class="hoverunderLine">
+        <a href="{{url('user/orders')}}" class="hoverunderLine">
             My Orders
         </a>
     </li>

@@ -1,0 +1,23 @@
+.container_thanks {
+    width: 100%;
+    height: 500px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 61px;
+}
+.wrapper_thanks {
+    width: 500px;
+    text-align: justify;
+}
+.h4_thanks {
+    margin-top: 15px;
+    font-size: 42px;
+}
+.p_thanks {
+    margin-top: 30px;
+    font-size: 14px;
+}
+.btn_thanks {
+    margin-top: 30px;
+}

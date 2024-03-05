@@ -16,6 +16,7 @@ use App\Http\Controllers\front\CmsPagesController;
 use App\Http\Controllers\front\ContactUsController;
 use App\Http\Controllers\front\IndexController;
 use App\Http\Controllers\front\NewseletterController;
+use App\Http\Controllers\front\OrderController;
 use App\Http\Controllers\front\ProductController;
 use App\Http\Controllers\front\RatingFrontController;
 use App\Http\Controllers\front\UserController;
@@ -84,6 +85,8 @@ Route::namespace('App\Http\Controllers\front')->group(function () {
         // checkout
         Route::controller(CheckoutController::class)->group(function () {
             Route::match(['post', 'get'], 'checkout', 'checkout');
+            // Thanks Pages
+            Route::get('/thank', 'thanks');
         });
         // get delivery address
         Route::controller(AddressController::class)->group(function () {
@@ -91,6 +94,10 @@ Route::namespace('App\Http\Controllers\front')->group(function () {
             Route::post('save-delivery-address', 'SaveDeliveryAddress');
             Route::post('remove-delivery-address', 'delteDeliveryAddress');
             route::post('set-default-delivery-address', 'SetDefaultDeliveryAddress');
+        });
+        // My Orders
+        Route::controller(OrderController::class)->group(function(){
+            Route::get('user/orders', 'Order');
         });
     });
     // login
