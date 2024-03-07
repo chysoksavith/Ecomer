@@ -117,10 +117,21 @@ class Product extends Model
         $getProductDetails = Product::where('id', $product_id)->first()->toArray();
         return $getProductDetails;
     }
-    public static function getAttributeDetail($product_id, $size){
+    public static function getAttributeDetail($product_id, $size)
+    {
         $getAttributeDetail = ProductsAttribure::where(['product_id' => $product_id, 'size' => $size])
             ->first()->toArray();
         return $getAttributeDetail;
     }
-
+    // get image
+    public static function getProductImage($product_id)
+    {
+        $image = "";
+        $productImageCount = ProductImage::where('product_id', $product_id)->count();
+        if ($productImageCount > 0) {
+            $getProductImage = ProductImage::select('image')->where('product_id', $product_id)->first();
+            $image = $getProductImage->image;
+        }
+        return $image;
+    }
 }

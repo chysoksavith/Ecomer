@@ -26,6 +26,8 @@
     <link rel="stylesheet" href="{{ asset('front/css/contact_us.css') }}">
     <link rel="stylesheet" href="{{ asset('front/css/checkout.css') }}">
     <link rel="stylesheet" href="{{ asset('front/css/thank.css') }}">
+    <link rel="stylesheet" href="{{ asset('front/css/order.css') }}">
+
     {{-- AOS plugin --}}
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" />
     <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />

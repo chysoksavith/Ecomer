@@ -97,7 +97,9 @@ Route::namespace('App\Http\Controllers\front')->group(function () {
         });
         // My Orders
         Route::controller(OrderController::class)->group(function(){
-            Route::get('user/orders', 'Order');
+            Route::get('/user/orders', 'Order');
+            // Order details
+            Route::get('/user/orders/{id}', 'OrderDetails');
         });
     });
     // login

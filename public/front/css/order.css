@@ -1,0 +1,159 @@
+.orderDetailContainer {
+    display: block;
+    width: 920px;
+    height: auto;
+}
+.orderDetailContainerBody {
+    display: block;
+    width: 920px;
+    height: auto;
+}
+.bdnone {
+    border-bottom: none;
+}
+.orderDetailContainerBody {
+    margin-top: 30px;
+    padding: 10px;
+    box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px 0px;
+}
+.wrapper_iteminOrderdetail {
+    margin-top: 20px;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+}
+.txt_orderdetak {
+    gap: 10px;
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+    font-weight: 600;
+}
+.icon-head {
+    font-size: 15px;
+}
+/* progress bar */
+.progressbar_ {
+    margin-top: 20px;
+}
+#bar-progress {
+    width: 100%;
+    display: inline-flex;
+    justify-content: center;
+}
+
+#bar-progress .step {
+    display: inline-block;
+}
+
+#bar-progress .step .number-container {
+    display: inline-block;
+    border: solid 1px #000;
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+}
+
+#bar-progress .step.step-active .number-container {
+    background-color: #000;
+}
+
+#bar-progress .step .number-container .number {
+    font-weight: 700;
+    font-size: 0.8em;
+    line-height: 1.75em;
+    display: block;
+    text-align: center;
+    margin-top: 2px;
+}
+
+#bar-progress .step.step-active .number-container .number {
+    color: white;
+}
+
+#bar-progress .step h5 {
+    display: inline;
+    font-weight: 300;
+    font-size: 0.8em;
+    margin-left: 10px;
+    text-transform: uppercase;
+}
+
+#bar-progress .seperator {
+    display: block;
+    width: 20px;
+    height: 1px;
+    background-color: rgba(0, 0, 0, 0.2);
+    margin: auto 20px;
+}
+/* item */
+.itemOrder_detail {
+    margin-top: 20px;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.wrapper_imgDetail {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.image_detail {
+    object-fit: cover;
+    border: 1px solid black;
+    width: 80px;
+    height: 80px;
+}
+.Name_itemDetaik {
+    font-size: 14px;
+}
+.total_wrappDetail span {
+    font-size: 14px;
+    color: #b3b3b3;
+}
+.db {
+    display: block;
+}
+.total_wrappDetail {
+}
+.quant {
+    color: black !important;
+    font-weight: 600;
+}
+/* information */
+.inforcontainer {
+    margin-top: 30px;
+}
+.information_wrap {
+    display: flex;
+    justify-content: space-between;
+}
+.textinfo li {
+    list-style: none;
+}
+.wrapper_leftInfo {
+    width: 49%;
+}
+.left_infor {
+    padding: 10px;
+    height: 120px;
+    width: 100%;
+    box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px 0px;
+}
+.right_infor {
+    height: 250px;
+    padding: 10px;
+    width: 49%;
+    box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px 0px;
+}
+.suprateDiv {
+    display: flex;
+    justify-content: space-between;
+}
+.boldTextspan {
+    font-weight: 600;
+}
+.topleft_info {
+    margin-top: 10px;
+}

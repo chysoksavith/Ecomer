@@ -25,11 +25,11 @@
                                     Order # {{ $order->id }}
                                 </span>
                                 <span class="date_order">
-                                   Place on {{ \Carbon\Carbon::parse($order['created_at'])->format('h:i a d F Y') }}
+                                    Place on {{ \Carbon\Carbon::parse($order['created_at'])->format('h:i a d F Y') }}
                                 </span>
                             </div>
                             <div class="viewDetail_cartOrder">
-                                <a href="" class="detail_cartOrder">
+                                <a href="{{ url('user/orders/' . $order->id) }}" class="detail_cartOrder">
                                     View Details
                                 </a>
                             </div>
