@@ -291,13 +291,31 @@
                       </a>
                       <ul class="nav nav-treeview">
                           <li class="nav-item">
-                              <a href="{{ url('admin/users') }}" class="nav-link">
+                              @if (Session::get('page') == 'users')
+                                  @php
+                                      $active = 'active';
+                                  @endphp
+                              @else
+                                  @php
+                                      $active = '';
+                                  @endphp
+                              @endif
+                              <a href="{{ url('admin/users') }}" class="nav-link {{ $active }}">
                                   <i class="far fa-circle nav-icon"></i>
                                   <p>Users</p>
                               </a>
                           </li>
                           <li class="nav-item">
-                              <a href="{{ url('admin/subscriber') }}" class="nav-link">
+                              @if (Session::get('page') == 'subscriber')
+                                  @php
+                                      $active = 'active';
+                                  @endphp
+                              @else
+                                  @php
+                                      $active = '';
+                                  @endphp
+                              @endif
+                              <a href="{{ url('admin/subscriber') }}" class="nav-link {{ $active }}">
                                   <i class="far fa-circle nav-icon"></i>
                                   <p>Subscribers</p>
                               </a>
@@ -315,12 +333,42 @@
                       @endphp
                   @endif
                   <li class="nav-item">
-                      <a href="{{url('admin/rating')}}" class="nav-link {{ $active }}">
+                      <a href="{{ url('admin/rating') }}" class="nav-link {{ $active }}">
                           <i class="nav-icon fas fa-star"></i>
                           <p>
                               Rating & Review
                           </p>
                       </a>
+                  </li>
+                  {{-- order management --}}
+                  <li class="nav-item">
+                      @php
+                          $userActive = in_array(Session::get('page'), ['order']) ? 'active' : '';
+                      @endphp
+                      <a href="#" class="nav-link {{ $userActive }}">
+                          <i class="nav-icon fas fa-th"></i>
+                          <p>
+                              Orders
+                              <i class="right fas fa-angle-left"></i>
+                          </p>
+                      </a>
+                      <ul class="nav nav-treeview">
+                          <li class="nav-item">
+                              @if (Session::get('page') == 'order')
+                                  @php
+                                      $active = 'active';
+                                  @endphp
+                              @else
+                                  @php
+                                      $active = '';
+                                  @endphp
+                              @endif
+                              <a href="{{ url('admin/order') }}" class="nav-link {{ $active }}">
+                                  <i class="far fa-circle nav-icon"></i>
+                                  <p>Order</p>
+                              </a>
+                          </li>
+                      </ul>
                   </li>
               </ul>
           </nav>

@@ -5,11 +5,13 @@ namespace App\Http\Controllers\admin;
 use App\Http\Controllers\Controller;
 use App\Models\Ratings;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 
 class RatingController extends Controller
 {
     public function rating()
     {
+        Session::put('page','rating');
         $ratings = Ratings::with(['user', 'product'])->paginate(10);
         return view('admin.ratings.rating')->with(compact('ratings'));
     }

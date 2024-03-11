@@ -7,6 +7,7 @@ use App\Http\Controllers\admin\CategoryController;
 use App\Http\Controllers\admin\CmsController;
 use App\Http\Controllers\admin\CouponController;
 use App\Http\Controllers\admin\NewseltterController;
+use App\Http\Controllers\admin\OrderController as AdminOrderController;
 use App\Http\Controllers\admin\ProductsController;
 use App\Http\Controllers\admin\RatingController;
 use App\Http\Controllers\admin\UserController as AdminUserController;
@@ -205,6 +206,11 @@ Route::group(['prefix' => '/admin'], function () {
             Route::get('rating', 'rating');
             Route::post('update-user-rating', 'updateUserRating');
             Route::get('delete-rating/{id}',  'deleteRating');
+        });
+        // Order
+        Route::controller(AdminOrderController::class)->group(function(){
+            Route::get('order', 'Order');
+            Route::get('orders/{id}', 'DetailOrder');
         });
     });
 
