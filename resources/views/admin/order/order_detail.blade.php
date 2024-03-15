@@ -29,6 +29,12 @@
                     </ul>
                 </div>
             @endif
+            @if (Session::has('success_message'))
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    <strong>Sucess:</strong>{{ Session::get('success_message') }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            @endif
             <div class="row">
                 <section class="content">
                     <div class="container-fluid">
@@ -190,7 +196,7 @@
                         {{-- row --}}
                         <div class="row">
                             {{-- order detail --}}
-                            <div class="col-md-6">
+                            <div class="col-md-12">
                                 <div class="card">
                                     <div class="card-header">
                                         <h3 class="card-title">Update Order Status</h3>
@@ -200,13 +206,58 @@
                                         <table class="table table-bordered">
                                             <tbody>
                                                 <tr>
-                                                    <td>Select Status</td>
-                                                    <td>
-                                                        <button class="btn btn-primary">Update</button>
-                                                    </td>
+                                                    <form action="{{ url('admin/update-order-status') }}" method="post">
+                                                        <td colspan="2">
+                                                            @csrf
+                                                            <input type="hidden" name="order_id"
+                                                                value="{{ $orderDetails['id'] }}">
+                                                            <select name="order_status" class="form-select"
+                                                                id="order_status">
+                                                                <option selected>Selected</option>
+                                                                @foreach ($orderStatues as $status)
+                                                                    <option value="{{ $status['name'] }}">
+                                                                        {{ $status['name'] }}
+                                                                    </option>
+                                                                @endforeach
+                                                            </select>
+                                                        </td>
+                                                        <td>
+                                                            <input type="text" name="courier_name" id="courier_name"
+                                                                placeholder="courier name">
+                                                            <input type="text" name="tracking_number"id="tracking_number"
+                                                                placeholder="tracking number">
+                                                            <button type="submit" class="btn btn-primary">Update</button>
+                                                        </td>
+                                                    </form>
                                                 </tr>
-
                                             </tbody>
+                                            <tfoot>
+                                                <td colspan="3">
+                                                    <strong>
+                                                        History Order log
+                                                    </strong>
+                                                </td>
+                                                @foreach ($orderLog as $log)
+                                                    <tr>
+                                                        <td colspan="3">
+                                                            <strong class="badge badge-info">{{ $log['order_status'] }}</strong> <br>
+                                                            @if ($log['order_status'] == 'Shipped')
+                                                                @if (!empty($orderDetails['courier_name']))
+                                                                    Courier Name :
+                                                                    <strong>{{ $orderDetails['courier_name'] }}</strong>
+                                                                    <br>
+                                                                @endif
+                                                                @if (!empty($orderDetails['tracking_number']))
+                                                                    Tracking Number :
+                                                                    <strong>{{ $orderDetails['tracking_number'] }}</strong>
+                                                                    <br>
+                                                                @endif
+                                                            @endif
+                                                            {{ date('F j, Y, g:i a', strtotime($log['created_at'])) }}
+                                                        </td>
+                                                    </tr>
+                                                @endforeach
+                                            </tfoot>
                                         </table>
                                     </div>
                                 </div>

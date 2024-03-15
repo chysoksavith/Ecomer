@@ -211,6 +211,7 @@ Route::group(['prefix' => '/admin'], function () {
         Route::controller(AdminOrderController::class)->group(function(){
             Route::get('order', 'Order');
             Route::get('orders/{id}', 'DetailOrder');
+            Route::post('update-order-status', 'updateOrderStatus');
         });
     });
 

@@ -8,6 +8,7 @@ use App\Models\Product;
 use App\Models\Category;
 use Illuminate\Database\Seeder;
 use Database\Seeders\couponTableSeeder;
+use Database\Seeders\OrderStatusTableSeeder;
 
 class DatabaseSeeder extends Seeder
 {
@@ -22,6 +23,6 @@ class DatabaseSeeder extends Seeder
         //     'name' => 'Test User',
         //     'email' => 'test@example.com',
         // ]);
-        $this->call(couponTableSeeder::class);
+        $this->call(OrderStatusTableSeeder::class);
     }
 }

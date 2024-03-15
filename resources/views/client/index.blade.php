@@ -97,6 +97,22 @@
             </div>
         </section>
     @endif
+    {{-- banner 2 --}}
+    <section class="banner_two p-5 bg-black">
+        <div class="banner_wrapper d-flex justify-content-between">
+            <div class="banner_left_two">
+                <div class="child_banner_two">
+                    a
+                </div>
+                <div class="child_banner_two">
+                    b
+                </div>
+            </div>
+            <div class="banner_right_two">
+                c
+            </div>
+        </div>
+    </section>
     {{-- duscount Product --}}
     @if (count($discountProducts) > 0)
         <section>

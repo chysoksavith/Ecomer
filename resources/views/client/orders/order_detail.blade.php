@@ -48,27 +48,28 @@
                     </div>
                     {{-- progress bar --}}
                     <div id="bar-progress" class="mt-5 mt-lg-0">
-                        <div class="step @if ($orderDetails['order_status'] == 'Placed') step-active @endif ">
+                        <div class="step step-active">
                             <span class="number-container">
                                 <span class="number">1</span>
                             </span>
                             <h5>Placed</h5>
                         </div>
                         <div class="seperator"></div>
-                        <div class="step @if ($orderDetails['order_status'] == 'Shipped') step-active @endif ">
+                        <div class="step @if ($orderDetails['order_status'] == 'Shipped' || $orderDetails['order_status'] == 'Delivered') step-active @endif">
                             <span class="number-container">
                                 <span class="number">2</span>
                             </span>
                             <h5>Shipped</h5>
                         </div>
                         <div class="seperator"></div>
-                        <div class="step @if ($orderDetails['order_status'] == 'Delivered') step-active @endif ">
+                        <div class="step @if ($orderDetails['order_status'] == 'Delivered') step-active @endif">
                             <span class="number-container">
                                 <span class="number">3</span>
                             </span>
                             <h5>Delivered</h5>
                         </div>
                     </div>
+
 
                     <div class="itemOrder_detail">
                         <div class="wrapper_imgDetail">

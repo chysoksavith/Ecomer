@@ -13,6 +13,7 @@ use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
 
 class CheckoutController extends Controller
@@ -123,7 +124,27 @@ class CheckoutController extends Controller
             Session::put('order_id', $order_id);
             DB::commit();
 
-            return redirect('/thank');
+            if ($data['payment_geteway'] == "COD") {
+                // Send order email
+
+                $orderDetails = Orders::with('orders_products', 'user')->where('id', $order_id)->first()->toArray();
+
+                // send order email
+                $email = Auth::user()->email;
+                $messageData = [
+                    'email' => $email,
+                    'name' => Auth::user()->name,
+                    'order_id' => $order_id,
+                    'orderDetails' => $orderDetails,
+                ];
+                Mail::send('email.order', $messageData, function($message) use ($email) {
+                    $message->to($email)->subject('Order Placed - CamShop');
+                });
+
+                return redirect('/thank');
+            } else {
+                echo "Prepaid methods coming soon"; die;
+            }
         }
 
         // get country
