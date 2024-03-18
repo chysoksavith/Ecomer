@@ -7,6 +7,8 @@ use App\Models\OrderLog;
 use App\Models\Orders;
 use App\Models\OrderStatus;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
 use PhpParser\Node\Stmt\Return_;
 
@@ -40,12 +42,31 @@ class OrderController extends Controller
                     'courier_name' => $data['courier_name'],
                     'tracking_number' => $data['tracking_number']
                 ]);
+
+                // Send Order shipped email to customer tracking details
+                $orderDetails = Orders::with('orders_products', 'user')->where('id', $data['order_id'])->first()->toArray();
+                // Send order shipped email
+                $email =  $orderDetails['user']['email'];
+                $messageData = [
+                    'email' => $email,
+                    'name' =>  $orderDetails['user']['name'],
+                    'order_id' => $data['order_id'],
+                    'order_status' => $data['order_status'],
+                    'tracking_number' => $data['tracking_number'],
+                    'courier_name' => $data['courier_name'],
+                    'orderDetails' => $orderDetails,
+                ];
+                Mail::send('email.shipped_order', $messageData, function ($message) use ($email) {
+                    $message->to($email)->subject('Order Shipped');
+                });
             }
             // update order log
             $log = new OrderLog;
             $log->order_id = $data['order_id'];
             $log->order_status = $data['order_status'];
             $log->save();
+
+
 
 
             $message = "Order status has been updated successfully ";

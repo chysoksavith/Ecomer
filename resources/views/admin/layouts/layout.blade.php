@@ -21,6 +21,11 @@
     <link rel="stylesheet" href="{{ asset('admin/customCss/custome.css') }}">
     <link rel="stylesheet" href="{{ asset('admin/plugins/select2/css/select2.min.css') }}">
     <link rel="stylesheet" href="{{ asset('admin/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css') }}">
+
+    <link rel="stylesheet" href="{{ asset('admin/css/custom.css') }}">
+    <link rel="stylesheet" href="https://cdn.datatables.net/2.0.2/css/dataTables.dataTables.css" />
+
+
 </head>
 
 <body class="hold-transition dark-mode sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
@@ -53,6 +58,62 @@
     <!-- jQuery -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="{{ asset('admin/plugins/jquery/jquery.min.js') }}"></script>
+    <script src="https://cdn.datatables.net/2.0.2/js/dataTables.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#ratingtable').DataTable({
+                "order": [
+                    [0, "desc"]
+                ]
+            });
+
+            $('#productTable').DataTable({
+                "order": [
+                    [0, "desc"]
+                ]
+            });
+            $('#orderTable').DataTable({
+                "order": [
+                    [0, "desc"]
+                ]
+            });
+            $('#categoryTable').DataTable({
+                "order": [
+                    [0, "desc"]
+                ]
+            });
+            $('#brandTable').DataTable({
+                "order": [
+                    [0, "desc"]
+                ]
+            });
+            $('#couponTable').DataTable({
+                "order": [
+                    [0, "desc"]
+                ]
+            });
+            $('#bannerTable').DataTable({
+                "order": [
+                    [0, "desc"]
+                ]
+            });
+            $('#userTable').DataTable({
+                "order": [
+                    [0, "desc"]
+                ]
+            });
+            $('#cmsTable').DataTable({
+                "order": [
+                    [0, "desc"]
+                ]
+            });
+            $('#subTable').DataTable({
+                "order": [
+                    [0, "desc"]
+                ]
+            });
+        });
+    </script>
     <!-- Bootstrap -->
     <script src="{{ asset('admin/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
     <!-- overlayScrollbars -->

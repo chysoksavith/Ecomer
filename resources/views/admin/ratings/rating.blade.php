@@ -49,84 +49,61 @@
                                         aria-label="Close"></button>
                                 </div>
                             @endif
-                            <form action="" method="get">
-                                @csrf
-                                <div class="col-md-12">
-                                    <div class=" d-flex justify-content-between align-items-center">
-                                        <div class=" card-title">
-                                            {{-- <a href="{{ route('admin.ratings') }}" class="btn btn-sm btn-default">Reset</a> --}}
-                                        </div>
-                                        <div class="card-tools">
-                                            <div class="input-group input-group" style="width: 250px;">
-                                                <input value="{{ Request::get('Keyword') }}" type="text" name="Keyword"
-                                                    class="form-control float-right" placeholder="Search">
-
-                                                <div class="input-group-append">
-                                                    <button type="submit" class="btn btn-default">
-                                                        <i class="fas fa-search"></i>
-                                                    </button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <hr>
-                                <table id="example" class="table table-bordered table-hover">
-                                    <thead>
+                            <table id="ratingtable" class="table table-bordered table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>Id</th>
+                                        <th>Product Name</th>
+                                        <th>User Email</th>
+                                        <th>Review</th>
+                                        <th>Rating</th>
+                                        <th>Rating on</th>
+                                        <th>status</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @forelse ($ratings as $rating)
                                         <tr>
-                                            <th>Id</th>
-                                            <th>Product Name</th>
-                                            <th>User Email</th>
-                                            <th>Review</th>
-                                            <th>Rating</th>
-                                            <th>Rating on</th>
-                                            <th>status</th>
-                                            <th>Action</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @forelse ($ratings as $rating)
-                                            <tr>
-                                                <td>{{ optional($rating)->id ?? 'N/A' }}</td>
-                                                <td>{{ optional($rating)->product->product_name ?? 'N/A' }}</td>
-                                                <td>{{ optional($rating)->user->email ?? 'N/A' }}</td>
-                                                <td>{{ optional($rating)->review ?? 'N/A' }}</td>
-                                                <td>{{ optional($rating)->rating ?? 'N/A' }}</td>
+                                            <td>{{ optional($rating)->id ?? 'N/A' }}</td>
+                                            <td>{{ optional($rating)->product->product_name ?? 'N/A' }}</td>
+                                            <td>{{ optional($rating)->user->email ?? 'N/A' }}</td>
+                                            <td>{{ optional($rating)->review ?? 'N/A' }}</td>
+                                            <td>{{ optional($rating)->rating ?? 'N/A' }}</td>
 
-                                                <td>
-                                                    @if (optional($rating->created_at)->format('Y-m-d'))
-                                                        {{ optional($rating->created_at)->format('Y-m-d') }}
+                                            <td>
+                                                @if (optional($rating->created_at)->format('Y-m-d'))
+                                                    {{ optional($rating->created_at)->format('Y-m-d') }}
+                                                @else
+                                                    N/A
+                                                @endif
+                                            </td>
+                                            <td>
+                                                <a class="updateRatingstatus" id="rating-{{ $rating['id'] }}"
+                                                    rating_id="{{ $rating['id'] }}" href="javascript:void(0)">
+                                                    @if ($rating['status'] == 1)
+                                                        <i class="fas fa-toggle-on" status="Active"></i>
                                                     @else
-                                                        N/A
+                                                        <i class="fas fa-toggle-off" style="color: grey"
+                                                            status="Inactive"></i>
                                                     @endif
-                                                </td>
-                                                <td>
-                                                    <a class="updateRatingstatus" id="rating-{{ $rating['id'] }}"
-                                                        rating_id="{{ $rating['id'] }}" href="javascript:void(0)">
-                                                        @if ($rating['status'] == 1)
-                                                            <i class="fas fa-toggle-on" status="Active"></i>
-                                                        @else
-                                                            <i class="fas fa-toggle-off" style="color: grey"
-                                                                status="Inactive"></i>
-                                                        @endif
-                                                    </a>
-                                                </td>
-                                                <th>
-                                                    <a class="confirmDelete" name="rating" title="Delete rating"
-                                                        href="javascript:void(0)" record="rating"
-                                                        recordid="{{ $rating->id }}"><i class="fas fa-trash"
-                                                            style="font-size: red"></i></a>
-                                                </th>
-                                            </tr>
-                                            {{-- href="{{ url('admin/delete-cms-pages/' . $page->id) }}" --}}
-                                        @empty
-                                            <tr>
-                                                <td colspan="5">No item record</td>
-                                            </tr>
-                                        @endforelse
-                                    </tbody>
-                                </table>
-                            </form>
+                                                </a>
+                                            </td>
+                                            <th>
+                                                <a class="confirmDelete" name="rating" title="Delete rating"
+                                                    href="javascript:void(0)" record="rating"
+                                                    recordid="{{ $rating->id }}"><i class="fas fa-trash"
+                                                        style="font-size: red"></i></a>
+                                            </th>
+                                        </tr>
+                                        {{-- href="{{ url('admin/delete-cms-pages/' . $page->id) }}" --}}
+                                    @empty
+                                        <tr>
+                                            <td colspan="5">No item record</td>
+                                        </tr>
+                                    @endforelse
+                                </tbody>
+                            </table>
                         </div>
                         <!-- /.card-header -->
                     </div>

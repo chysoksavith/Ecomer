@@ -53,95 +53,70 @@
                                         aria-label="Close"></button>
                                 </div>
                             @endif
-                            <form action="" method="get">
-                                @csrf
-                                <div class="col-md-12">
-                                    <div class=" d-flex justify-content-between align-items-center">
-                                        <div class=" card-title">
-                                            <a href="{{ route('admin.products') }}" class="btn btn-sm btn-default">Reset</a>
-                                        </div>
-                                        <div class="card-tools">
-                                            <div class="input-group input-group" style="width: 250px;">
-                                                <input value="{{ Request::get('Keyword') }}" type="text" name="Keyword"
-                                                    class="form-control float-right" placeholder="Search">
-
-                                                <div class="input-group-append">
-                                                    <button type="submit" class="btn btn-default">
-                                                        <i class="fas fa-search"></i>
-                                                    </button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <hr>
-                                <table id="example" class="table table-bordered table-hover">
-                                    <thead>
+                            <table id="productTable" class="table table-bordered table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>Id</th>
+                                        <th>Product Name</th>
+                                        <th>Product Code</th>
+                                        <th>Product Color</th>
+                                        <th>Create at</th>
+                                        <th>Status</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @forelse ($products as $product)
                                         <tr>
-                                            <th>Id</th>
-                                            <th>Product Name</th>
-                                            <th>Product Code</th>
-                                            <th>Product Color</th>
-                                            <th>Create at</th>
-                                            <th>Status</th>
-                                            <th>Action</th>
+                                            <td>{{ optional($product)->id ?? 'N/A' }}</td>
+                                            <td>{{ optional($product)->product_name ?? 'N/A' }}</td>
+                                            <td>{{ optional($product)->product_code ?? 'N/A' }}</td>
+                                            <td>{{ optional($product)->product_color ?? 'N/A' }}</td>
+                                            <td>
+                                                @if (optional($product->created_at)->format('Y-m-d'))
+                                                    {{ optional($product->created_at)->format('Y-m-d') }}
+                                                @else
+                                                    N/A
+                                                @endif
+                                            </td>
+                                            <td>
+                                                @if ($productsModule['edit_access'] == 1 || $productsModule['full_access'] == 1)
+                                                    <a class="updateProductStatus" id="product-{{ $product['id'] }}"
+                                                        product_id="{{ $product['id'] }}" href="javascript:void(0)">
+                                                        @if ($product['status'] == 1)
+                                                            <i class="fas fa-toggle-on" status="Active"></i>
+                                                        @else
+                                                            <i class="fas fa-toggle-off" style="color: grey"
+                                                                status="Inactive"></i>
+                                                        @endif
+                                                    </a>
+                                                @endif
+                                            </td>
+                                            <td class=" d-flex justify-content-around align-items-center">
+                                                @if ($productsModule['edit_access'] == 1 || $productsModule['full_access'] == 1)
+                                                    <a href="{{ url('admin/add-edit-product/' . $product->id) }}"><i
+                                                            class="fas fa-edit" style="font-size: #3fed3"></i></a>
+                                                @endif
+                                                @if ($productsModule['full_access'] == 1)
+                                                    <a class="confirmDelete" name="product" title="Delete product"
+                                                        href="javascript:void(0)" record="product"
+                                                        recordid="{{ $product->id }}"><i class="fas fa-trash"
+                                                            style="font-size: red"></i></a>
+                                                @endif
+                                            </td>
                                         </tr>
-                                    </thead>
-                                    <tbody>
-                                        @forelse ($products as $product)
-                                            <tr>
-                                                <td>{{ optional($product)->id ?? 'N/A' }}</td>
-                                                <td>{{ optional($product)->product_name ?? 'N/A' }}</td>
-                                                <td>{{ optional($product)->product_code ?? 'N/A' }}</td>
-                                                <td>{{ optional($product)->product_color ?? 'N/A' }}</td>
-                                                <td>
-                                                    @if (optional($product->created_at)->format('Y-m-d'))
-                                                        {{ optional($product->created_at)->format('Y-m-d') }}
-                                                    @else
-                                                        N/A
-                                                    @endif
-                                                </td>
-                                                <td>
-                                                    @if ($productsModule['edit_access'] == 1 || $productsModule['full_access'] == 1)
-                                                        <a class="updateProductStatus" id="product-{{ $product['id'] }}"
-                                                            product_id="{{ $product['id'] }}" href="javascript:void(0)">
-                                                            @if ($product['status'] == 1)
-                                                                <i class="fas fa-toggle-on" status="Active"></i>
-                                                            @else
-                                                                <i class="fas fa-toggle-off" style="color: grey"
-                                                                    status="Inactive"></i>
-                                                            @endif
-                                                        </a>
-                                                    @endif
-                                                </td>
-                                                <td class=" d-flex justify-content-around align-items-center">
-                                                    @if ($productsModule['edit_access'] == 1 || $productsModule['full_access'] == 1)
-                                                        <a href="{{ url('admin/add-edit-product/' . $product->id) }}"><i
-                                                                class="fas fa-edit" style="font-size: #3fed3"></i></a>
-                                                    @endif
-                                                    @if ($productsModule['full_access'] == 1)
-                                                        <a class="confirmDelete" name="product" title="Delete product"
-                                                            href="javascript:void(0)" record="product"
-                                                            recordid="{{ $product->id }}"><i class="fas fa-trash"
-                                                                style="font-size: red"></i></a>
-                                                    @endif
-                                                </td>
-                                            </tr>
-                                            {{-- href="{{ url('admin/delete-cms-pages/' . $page->id) }}" --}}
-                                        @empty
-                                            <tr>
-                                                <td colspan="5">No item record</td>
-                                            </tr>
-                                        @endforelse
-                                    </tbody>
-                                </table>
-                            </form>
+                                        {{-- href="{{ url('admin/delete-cms-pages/' . $page->id) }}" --}}
+                                    @empty
+                                        <tr>
+                                            <td colspan="5">No item record</td>
+                                        </tr>
+                                    @endforelse
+                                </tbody>
+                            </table>
                         </div>
                         <!-- /.card-header -->
                     </div>
-                    <div>
-                        {{ $products->links() }}
-                    </div>
+
                 </div>
             </div>
         </div>

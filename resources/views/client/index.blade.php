@@ -98,8 +98,8 @@
         </section>
     @endif
     {{-- banner 2 --}}
-    <section class="banner_two p-5 bg-black">
-        <div class="banner_wrapper d-flex justify-content-between">
+    <section class="banner_two ">
+        <div class="banner_wrapper">
             <div class="banner_left_two">
                 <div class="child_banner_two">
                     a

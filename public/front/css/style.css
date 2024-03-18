@@ -106,3 +106,30 @@ scrollbar-thumb {
 .datelandingpage {
     margin-top: 10%;
 }
+/* banner */
+.banner_wrapper {
+    padding: 0px 20px;
+    display: flex;
+    justify-content: space-between;
+}
+.banner_left_two {
+    width: 40%;
+    background-color: #888;
+}
+.child_banner_two {
+    width: 100%;
+    background-color: rgb(38, 192, 192);
+    height: 290px;
+}
+.child_banner_two:last-child {
+    margin-top: 20px;
+    width: 100%;
+    background-color: rgb(0, 0, 0);
+    height: 290px;
+}
+/*  */
+.banner_right_two {
+    width: 58%;
+    height: 600px;
+    background-color: #888;
+}

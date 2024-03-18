@@ -53,94 +53,71 @@
                                         aria-label="Close"></button>
                                 </div>
                             @endif
-                            <form action="" method="get">
-                                @csrf
-                                <div class="col-md-12">
-                                    <div class=" d-flex justify-content-between align-items-center">
-                                        <div class=" card-title">
-                                            <a href="{{ route('admin.categories') }}"
-                                                class="btn btn-sm btn-default">Reset</a>
-                                        </div>
-                                        <div class="card-tools">
-                                            <div class="input-group input-group" style="width: 250px;">
-                                                <input value="{{ Request::get('Keyword') }}" type="text" name="Keyword"
-                                                    class="form-control float-right" placeholder="Search">
 
-                                                <div class="input-group-append">
-                                                    <button type="submit" class="btn btn-default">
-                                                        <i class="fas fa-search"></i>
-                                                    </button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <hr>
-                                <table id="example" class="table table-bordered table-hover">
-                                    <thead>
+                            <table id="categoryTable" class="table table-bordered table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>Id</th>
+                                        <th>Name</th>
+                                        <th>Parent Category</th>
+                                        <th>Url</th>
+                                        <th>Create on</th>
+                                        <th>Status</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @forelse ($categories as $category)
                                         <tr>
-                                            <th>Id</th>
-                                            <th>Name</th>
-                                            <th>Parent Category</th>
-                                            <th>Url</th>
-                                            <th>Create on</th>
-                                            <th>Status</th>
-                                            <th>Action</th>
+                                            <td>{{ optional($category)->id ?? 'N/A' }}</td>
+                                            <td>{{ optional($category)->category_name ?? 'N/A' }}</td>
+                                            <td>
+                                                @if (isset($category['parentCategory']['category_name']))
+                                                    {{ $category['parentCategory']['category_name'] }}
+                                                @endif
+                                            </td>
+                                            <td>{{ optional($category)->url ?? 'N/A' }}</td>
+                                            <td>
+                                                @if (optional($category->created_at)->format('Y-m-d'))
+                                                    {{ optional($category->created_at)->format('Y-m-d') }}
+                                                @else
+                                                    N/A
+                                                @endif
+                                            </td>
+                                            <td>
+                                                @if ($categoriesModule['edit_access'] == 1 || $categoriesModule['full_access'] == 1)
+                                                    <a class="updateCategoryStatus" id="category-{{ $category['id'] }}"
+                                                        category_id="{{ $category['id'] }}" href="javascript:void(0)">
+                                                        @if ($category['status'] == 1)
+                                                            <i class="fas fa-toggle-on" status="Active"></i>
+                                                        @else
+                                                            <i class="fas fa-toggle-off" style="color: grey"
+                                                                status="Inactive"></i>
+                                                        @endif
+                                                    </a>
+                                                @endif
+                                            </td>
+                                            <td class=" d-flex justify-content-around align-items-center">
+                                                @if ($categoriesModule['edit_access'] == 1 || $categoriesModule['full_access'] == 1)
+                                                    <a href="{{ url('admin/add-edit-category/' . $category->id) }}"><i
+                                                            class="fas fa-edit" style="font-size: #3fed3"></i></a>
+                                                @endif
+                                                @if ($categoriesModule['full_access'] == 1)
+                                                    <a class="confirmDelete" name="category" title="Delete category"
+                                                        href="javascript:void(0)" record="category"
+                                                        recordid="{{ $category->id }}"><i class="fas fa-trash"
+                                                            style="font-size: red"></i></a>
+                                                @endif
+                                            </td>
                                         </tr>
-                                    </thead>
-                                    <tbody>
-                                        @forelse ($categories as $category)
-                                            <tr>
-                                                <td>{{ optional($category)->id ?? 'N/A' }}</td>
-                                                <td>{{ optional($category)->category_name ?? 'N/A' }}</td>
-                                                <td>
-                                                    @if (isset($category['parentCategory']['category_name']))
-                                                        {{ $category['parentCategory']['category_name'] }}
-                                                    @endif
-                                                </td>
-                                                <td>{{ optional($category)->url ?? 'N/A' }}</td>
-                                                <td>
-                                                    @if (optional($category->created_at)->format('Y-m-d'))
-                                                        {{ optional($category->created_at)->format('Y-m-d') }}
-                                                    @else
-                                                        N/A
-                                                    @endif
-                                                </td>
-                                                <td>
-                                                    @if ($categoriesModule['edit_access'] == 1 || $categoriesModule['full_access'] == 1)
-                                                        <a class="updateCategoryStatus" id="category-{{ $category['id'] }}"
-                                                            category_id="{{ $category['id'] }}" href="javascript:void(0)">
-                                                            @if ($category['status'] == 1)
-                                                                <i class="fas fa-toggle-on" status="Active"></i>
-                                                            @else
-                                                                <i class="fas fa-toggle-off" style="color: grey"
-                                                                    status="Inactive"></i>
-                                                            @endif
-                                                        </a>
-                                                    @endif
-                                                </td>
-                                                <td class=" d-flex justify-content-around align-items-center">
-                                                    @if ($categoriesModule['edit_access'] == 1 || $categoriesModule['full_access'] == 1)
-                                                        <a href="{{ url('admin/add-edit-category/' . $category->id) }}"><i
-                                                                class="fas fa-edit" style="font-size: #3fed3"></i></a>
-                                                    @endif
-                                                    @if ($categoriesModule['full_access'] == 1)
-                                                        <a class="confirmDelete" name="category" title="Delete category"
-                                                            href="javascript:void(0)" record="category"
-                                                            recordid="{{ $category->id }}"><i class="fas fa-trash"
-                                                                style="font-size: red"></i></a>
-                                                    @endif
-                                                </td>
-                                            </tr>
-                                            {{-- href="{{ url('admin/delete-cms-pages/' . $page->id) }}" --}}
-                                        @empty
-                                            <tr>
-                                                <td colspan="5">No item record</td>
-                                            </tr>
-                                        @endforelse
-                                    </tbody>
-                                </table>
-                            </form>
+                                        {{-- href="{{ url('admin/delete-cms-pages/' . $page->id) }}" --}}
+                                    @empty
+                                        <tr>
+                                            <td colspan="5">No item record</td>
+                                        </tr>
+                                    @endforelse
+                                </tbody>
+                            </table>
                         </div>
                         <!-- /.card-header -->
                     </div>

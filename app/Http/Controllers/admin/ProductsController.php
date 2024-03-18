@@ -219,88 +219,90 @@ class ProductsController extends Controller
                     }
                 }
             }
-            // add product attr
-            // foreach ($data['sku'] as $key => $value) {
-            //     if (!empty($value)) {
-            //         // Check if SKU already exists
-            //         $existingAttribute = ProductsAttribure::where('sku', $value)->first();
-
-            //         if ($existingAttribute) {
-            //             // SKU already exists, update the existing record
-            //             $existingAttribute->update([
-            //                 'size' => $data['size'][$key],
-            //                 'price' => $data['price'][$key],
-            //                 'stock' => $data['stock'][$key],
-            //             ]);
-            //         } else {
-            //             // SKU doesn't exist, create a new record
-            //             $attributes = new ProductsAttribure;
-            //             $attributes->product_id = $product_id;
-            //             $attributes->sku = $value;
-            //             $attributes->size = $data['size'][$key];
-            //             $attributes->price = $data['price'][$key];
-            //             $attributes->stock = $data['stock'][$key];
-            //             $attributes->status = 1;
-            //             $attributes->save();
-            //         }
-            //     }
-            // }
-
-            // edit product attr
-            // if (isset($data['attributeId'])) {
-            //     foreach ($data['attributeId'] as $akey => $attributeId) {
-            //         $attributeId = (int) $attributeId;
-
-            //         if (!empty($attributeId)) {
-            //             $attribute = ProductsAttribure::find($attributeId);
-
-            //             if ($attribute) {
-            //                 // Update existing attributes
-            //                 $attribute->update([
-            //                     'price' => $data['price'][$akey] ?? null,
-            //                     'stock' => $data['stock'][$akey] ?? null,
-            //                 ]);
-            //             }
-            //         }
-            //     }
-            // }
             // add attr
-            // Add new attributes
+            // Loop through $data['size'] and create or update ProductsAttribure
             foreach ($data['size'] as $key => $size) {
                 if (!empty($size) && !empty($data['sku'][$key]) && !empty($data['price'][$key]) && !empty($data['stock'][$key])) {
                     $countSKU = ProductsAttribure::where('sku', $data['sku'][$key])->count();
+
                     if ($countSKU > 0) {
-                        $message = "SKU already exists";
-                        return redirect()->back()->with('error_message', $message);
+                        // SKU already exists, update the existing attribute
+                        ProductsAttribure::where(['product_id' => $product_id, 'sku' => $data['sku'][$key]])
+                            ->update([
+                                'size' => $size,
+                                'price' => (int)$data['price'][$key],
+                                'stock' => (int)$data['stock'][$key],
+                                'status' => 1 // Assuming you want to update the status as well
+                            ]);
+                    } else {
+                        // SKU doesn't exist, create a new attribute
+                        $attribute = new ProductsAttribure;
+                        $attribute->product_id = $product_id;
+                        $attribute->sku = $data['sku'][$key];
+                        $attribute->size = $size;
+                        $attribute->price = (int)$data['price'][$key];
+                        $attribute->stock = (int)$data['stock'][$key];
+                        $attribute->status = 1;
+                        $attribute->save();
                     }
-
-                    $countSize = ProductsAttribure::where(['product_id' => $product_id, 'size' => $size])->count();
-                    if ($countSize > 0) {
-                        $message = "Size already exists";
-                        return redirect()->back()->with('error_message', $message);
-                    }
-
-                    $attribute = new ProductsAttribure;
-                    $attribute->product_id = $product_id;
-                    $attribute->sku = $data['sku'][$key];
-                    $attribute->size = $size;
-                    $attribute->price = (int)$data['price'][$key]; // Convert to integer
-                    $attribute->stock = (int)$data['stock'][$key]; // Convert to integer
-                    $attribute->status = 1;
-                    $attribute->save();
                 }
             }
 
-            // Update existing attributes
+
+
+            // Prepare data for update
+            $updateData = [];
+
+            // Loop through attributes and gather update data
             foreach ($data['attributeId'] as $key => $attributeId) {
-                if (!empty($attributeId)) {
-                    ProductsAttribure::where('id', $attributeId)->update([
-                        'price' => (int)$data['price'][$key], // Convert to integer
-                        'stock' => (int)$data['stock'][$key]  // Convert to integer
-                    ]);
+                // Check if all necessary data for updating exists
+                if (
+                    isset($data['price'][$key], $data['stock'][$key]) &&
+                    !empty($attributeId) &&
+                    is_numeric($data['price'][$key]) &&
+                    is_numeric($data['stock'][$key])
+                ) {
+                    // Gather update data for this attribute
+                    $updateData[] = [
+                        'id' => $attributeId,
+                        'price' => (int)$data['price'][$key],
+                        'stock' => (int)$data['stock'][$key]
+                    ];
+                } else {
+                    // Handle error: Missing or invalid data
+                    $errorMessage = "Missing or invalid data for updating attributes.";
+                    return redirect()->back()->with('error_message', $errorMessage);
                 }
             }
 
+            // Perform batch update
+            if (!empty($updateData)) {
+                // Update attributes using transaction
+                DB::beginTransaction();
+
+                try {
+                    foreach ($updateData as $update) {
+                        ProductsAttribure::where('id', $update['id'])->update([
+                            'price' => $update['price'],
+                            'stock' => $update['stock']
+                        ]);
+                    }
+
+                    // Commit transaction
+                    DB::commit();
+                } catch (\Exception $e) {
+                    // Rollback transaction on error
+                    DB::rollback();
+
+                    // Handle error
+                    $errorMessage = "Error occurred while updating attributes.";
+                    return redirect()->back()->with('error_message', $errorMessage);
+                }
+            } else {
+                // Handle error: No data to update
+                $errorMessage = "No data to update.";
+                return redirect()->back()->with('error_message', $errorMessage);
+            }
 
 
             return redirect('admin/products')->with('success_message', $message);

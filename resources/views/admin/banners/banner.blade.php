@@ -51,29 +51,7 @@
                                         aria-label="Close"></button>
                                 </div>
                             @endif
-                            <form action="" method="get">
-                                @csrf
-                                <div class="col-md-12">
-                                    <div class=" d-flex justify-content-between align-items-center">
-                                        <div class=" card-title">
-                                            <a href="{{ route('admin.banners') }}" class="btn btn-sm btn-default">Reset</a>
-                                        </div>
-                                        <div class="card-tools">
-                                            <div class="input-group input-group" style="width: 250px;">
-                                                <input value="{{ Request::get('Keyword') }}" type="text" name="Keyword"
-                                                    class="form-control float-right" placeholder="Search">
-
-                                                <div class="input-group-append">
-                                                    <button type="submit" class="btn btn-default">
-                                                        <i class="fas fa-search"></i>
-                                                    </button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <hr>
-                                <table id="example" class="table table-bordered table-hover">
+                                <table id="bannerTable" class="table table-bordered table-hover">
                                     <thead>
                                         <tr>
                                             <th>Id</th>
@@ -136,13 +114,10 @@
                                         @endforelse
                                     </tbody>
                                 </table>
-                            </form>
                         </div>
                         <!-- /.card-header -->
                     </div>
-                    <div>
-                        {{ $banners->links() }}
-                    </div>
+
                 </div>
             </div>
         </div>

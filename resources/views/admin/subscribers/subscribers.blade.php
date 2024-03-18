@@ -49,85 +49,60 @@
                                         aria-label="Close"></button>
                                 </div>
                             @endif
-                            <form action="" method="get">
-                                @csrf
-                                <div class="col-md-12">
-                                    <div class=" d-flex justify-content-between align-items-center">
-                                        <div class=" card-title">
-                                            {{-- <a href="{{ route('admin.subscribers') }}" class="btn btn-sm btn-default">Reset</a> --}}
-                                        </div>
-                                        <div class="card-tools">
-                                            <div class="input-group input-group" style="width: 250px;">
-                                                <input value="{{ Request::get('Keyword') }}" type="text" name="Keyword"
-                                                    class="form-control float-right" placeholder="Search">
 
-                                                <div class="input-group-append">
-                                                    <button type="submit" class="btn btn-default">
-                                                        <i class="fas fa-search"></i>
-                                                    </button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <hr>
-                                <table id="example" class="table table-bordered table-hover">
-                                    <thead>
+                            <table id="subTable" class="table table-bordered table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>Id</th>
+                                        <th>Email</th>
+                                        <th>Subscribe on</th>
+                                        <th>Status</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @forelse ($subscribers as $subscriber)
                                         <tr>
-                                            <th>Id</th>
-                                            <th>Email</th>
-                                            <th>Subscribe on</th>
-                                            <th>Status</th>
-                                            <th>Action</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @forelse ($subscribers as $subscriber)
-                                            <tr>
-                                                <td>{{ optional($subscriber)->id ?? 'N/A' }}</td>
-                                                <td>{{ optional($subscriber)->email ?? 'N/A' }}</td>
-                                                <td>
-                                                    @if (optional($subscriber->created_at)->diffForHumans())
-                                                        {{ optional($subscriber->created_at)->diffForHumans() }}
-                                                    @else
-                                                        N/A
-                                                    @endif
-                                                </td>
+                                            <td>{{ optional($subscriber)->id ?? 'N/A' }}</td>
+                                            <td>{{ optional($subscriber)->email ?? 'N/A' }}</td>
+                                            <td>
+                                                @if (optional($subscriber->created_at)->diffForHumans())
+                                                    {{ optional($subscriber->created_at)->diffForHumans() }}
+                                                @else
+                                                    N/A
+                                                @endif
+                                            </td>
 
-                                                <td>
-                                                    <a class="updatesubscriberstatus"
-                                                        id="subscriber-{{ $subscriber['id'] }}"
-                                                        subscriber_id="{{ $subscriber['id'] }}" href="javascript:void(0)">
-                                                        @if ($subscriber['status'] == 1)
-                                                            <i class="fas fa-toggle-on" status="Active"></i>
-                                                        @else
-                                                            <i class="fas fa-toggle-off" style="color: grey"
-                                                                status="Inactive"></i>
-                                                        @endif
-                                                    </a>
-                                                </td>
-                                                <td>
-                                                    <a class="confirmDelete" name="subscriber" title="Delete subscriber"
-                                                        href="javascript:void(0)" record="subscriber"
-                                                        recordid="{{ $subscriber->id }}"><i class="fas fa-trash"
-                                                            style="font-size: red"></i></a>
-                                                </td>
-                                            </tr>
-                                            {{-- href="{{ url('admin/delete-cms-pages/' . $page->id) }}" --}}
-                                        @empty
-                                            <tr>
-                                                <td colspan="5">No item record</td>
-                                            </tr>
-                                        @endforelse
-                                    </tbody>
-                                </table>
-                            </form>
+                                            <td>
+                                                <a class="updatesubscriberstatus" id="subscriber-{{ $subscriber['id'] }}"
+                                                    subscriber_id="{{ $subscriber['id'] }}" href="javascript:void(0)">
+                                                    @if ($subscriber['status'] == 1)
+                                                        <i class="fas fa-toggle-on" status="Active"></i>
+                                                    @else
+                                                        <i class="fas fa-toggle-off" style="color: grey"
+                                                            status="Inactive"></i>
+                                                    @endif
+                                                </a>
+                                            </td>
+                                            <td>
+                                                <a class="confirmDelete" name="subscriber" title="Delete subscriber"
+                                                    href="javascript:void(0)" record="subscriber"
+                                                    recordid="{{ $subscriber->id }}"><i class="fas fa-trash"
+                                                        style="font-size: red"></i></a>
+                                            </td>
+                                        </tr>
+                                        {{-- href="{{ url('admin/delete-cms-pages/' . $page->id) }}" --}}
+                                    @empty
+                                        <tr>
+                                            <td colspan="5">No item record</td>
+                                        </tr>
+                                    @endforelse
+                                </tbody>
+                            </table>
                         </div>
                         <!-- /.card-header -->
                     </div>
-                    <div>
-                        {{ $subscribers->links() }}
-                    </div>
+
                 </div>
             </div>
         </div>
