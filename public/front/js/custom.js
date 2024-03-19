@@ -478,4 +478,19 @@ $(document).ready(function () {
             },
         });
     });
+    //
+    $.ajax({
+        headers: {
+            "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+        },
+        url: "/check-coupons",
+        type: "GET",
+        success: function (response) {
+            if (response.hasCoupon) {
+                // If coupon is available, display the modal
+                $("#couponDetails").text("Coupon code: " + response.couponCode);
+                $("#couponModal").modal("show");
+            }
+        },
+    });
 });

@@ -60,7 +60,9 @@
         </div>
 
     </div>
+    {{-- @include('client.model') --}}
     @yield('scripts')
+
 
     <script src="https://code.jquery.com/jquery-3.7.1.js" crossorigin="anonymous"></script>
     {{-- ajax  --}}

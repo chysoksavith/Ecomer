@@ -23,24 +23,24 @@
                         <label class="tileLabelLogin">Name <span class="redValidation">*</span></label>
                         <input type="text" id="contact-name" name="name" class="inputLogin"
                             value="{{ old('name') }}">
-                        <p class="forgot-email"></p>
+                        <p class="-error"></p>
                     </div>
                     <div class="inputFiel">
                         <label class="tileLabelLogin">Email <span class="redValidation">*</span></label>
                         <input type="email" id="contact-email" name="email" class="inputLogin"
                             value="{{ old('email') }}">
-                        <p class="forgot-email"></p>
+                        <p class="-error"></p>
                     </div>
                     <div class="inputFiel">
                         <label class="tileLabelLogin">Subject <span class="redValidation">*</span></label>
                         <input type="text" id="contact-subject" name="subject" class="inputLogin"
                             value="{{ old('subject') }}">
-                        <p class="forgot-email"></p>
+                        <p class="-error"></p>
                     </div>
                     <div class="inputFiel">
                         <label class="tileLabelLogin">Message <span class="redValidation">*</span></label>
                         <textarea name="message" rows="4" id="contact-message">{{ old('message') }}</textarea>
-                        <p class="forgot-email"></p>
+                        <p class="-error"></p>
                     </div>
                     <div class="btnContactUs" style="margin-top: 40px">
                         <button type="submit" class="SignUptBtn" style="width: 200px">Submit</button>

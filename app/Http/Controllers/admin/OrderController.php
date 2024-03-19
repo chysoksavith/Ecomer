@@ -73,4 +73,10 @@ class OrderController extends Controller
             return redirect()->back()->with('success_message', $message);
         }
     }
+    // print invoice
+    public function printHtmlOrderInvoice($order_id)
+    {
+        $orderDetails = Orders::with('orders_products','user')->where('id', $order_id)->first()->toArray();
+        return view('admin.order.print-html-order-invoice')->with(compact('orderDetails'));
+    }
 }

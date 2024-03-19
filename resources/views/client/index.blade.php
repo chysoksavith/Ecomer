@@ -97,19 +97,86 @@
             </div>
         </section>
     @endif
+
     {{-- banner 2 --}}
     <section class="banner_two ">
         <div class="banner_wrapper">
             <div class="banner_left_two">
-                <div class="child_banner_two">
-                    a
-                </div>
-                <div class="child_banner_two">
-                    b
-                </div>
+
+
+                @if (count($homeFixBanner) >= 2)
+                    @if (isset($homeFixBanner[0]['image']))
+                        <!-- Changed index from 1 to 0 for the first banner -->
+                        <div class="child_banner_two">
+                            <img src="{{ asset('front/images/banner/' . $homeFixBanner[0]['image']) }}" alt="">
+                            <div class="textFixbanner">
+                                <div class="wrapperAhrefFixbanne">
+                                    <span class="TitleFixBanner">
+                                        {{ $homeFixBanner[0]['title'] }}
+                                        <!-- Changed index from 1 to 0 for the first banner -->
+                                    </span>
+                                </div>
+                                <a href="{{ url($homeFixBanner[0]['link']) }}" class="aHrefFix">
+                                    <button class="btnFixBanner">
+                                        Click Now
+                                    </button>
+                                </a>
+                            </div>
+                        </div>
+                    @else
+                        <span>No image available for the first banner</span>
+                    @endif
+
+                    @if (isset($homeFixBanner[1]['image']))
+                        <!-- Changed index from 2 to 1 for the second banner -->
+                        <div class="child_banner_two">
+                            <img src="{{ asset('front/images/banner/' . $homeFixBanner[1]['image']) }}" alt="">
+                            <div class="textFixbanner">
+                                <div class="wrapperAhrefFixbanne">
+                                    <span class="TitleFixBanner">
+                                        {{ $homeFixBanner[1]['title'] }}
+                                        <!-- Changed index from 2 to 1 for the second banner -->
+                                    </span>
+                                </div>
+                                <a href="{{ url($homeFixBanner[1]['link']) }}" class="aHrefFix">
+                                    <button class="btnFixBanner">
+                                        Click Now
+                                    </button>
+                                </a>
+                            </div>
+                        </div>
+                    @else
+                        <span>No image available for the second banner</span>
+                    @endif
+                @else
+                    <span>Insufficient data to display banners</span>
+                @endif
+
+
             </div>
             <div class="banner_right_two">
-                c
+                @if (isset($homeFixBanner[2]['image']))
+                    <!-- Changed index from 2 to 2 for the second banner -->
+                    <div class=" child_banner_three">
+                        <img src="{{ asset('front/images/banner/' . $homeFixBanner[2]['image']) }}" alt="">
+                        <div class="textFixbannerthree">
+
+                            <div class="wrapperAhrefFixbanne">
+                                <span class="TitleFixBanner">
+                                    {{ $homeFixBanner[2]['title'] }}
+                                    <!-- Changed index from 2 to 2 for the second banner -->
+                                </span>
+                            </div>
+                            <a href="{{ url($homeFixBanner[2]['link']) }}" class="aHrefFix">
+                                <button class="btnFixBanner">
+                                    Click Now
+                                </button>
+                            </a>
+                        </div>
+                    </div>
+                @else
+                    <span>No image available for the second banner</span>
+                @endif
             </div>
         </div>
     </section>
@@ -185,6 +252,25 @@
             </div>
         </section>
     @endif
+    {{-- <!-- Add a hidden modal for displaying coupon -->
+    <div class="modal fade" id="couponModal" tabindex="-1" role="dialog" aria-labelledby="couponModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="couponModalLabel">Coupon Available!</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <!-- Coupon details will be displayed here -->
+                    <p id="couponDetails"></p>
+                </div>
+            </div>
+        </div>
+    </div> --}}
+
     <section>
         @include('client.pages.review_comment')
     </section>

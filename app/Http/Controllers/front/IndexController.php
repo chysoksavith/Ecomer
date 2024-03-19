@@ -15,6 +15,7 @@ class IndexController extends Controller
             ->where('status', 1)
             ->orderBy('sort', 'ASC')
             ->get();
+
         $homeSliderBanner = Banners::where('type', 'Slider')
             ->where('status', 1)
             ->orderBy('sort', 'ASC')
@@ -44,7 +45,7 @@ class IndexController extends Controller
             ->inRandomOrder()
             ->limit(4)
             ->get();
-        return view('client.index')->with(compact('homeSliderBanner', 'homeFixBanner', 'NewProducts', 'BestSeller', 'discountProducts','IsFeatureProducts'));
+        return view('client.index')->with(compact('homeSliderBanner', 'homeFixBanner', 'NewProducts', 'BestSeller', 'discountProducts', 'IsFeatureProducts'));
     }
     public function HomePage()
     {

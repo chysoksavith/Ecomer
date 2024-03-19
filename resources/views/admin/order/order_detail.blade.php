@@ -6,8 +6,9 @@
     <div class="content-header mt-5">
         <div class="container-fluid">
             <div class="row mb-2">
-                <div class="col-sm-6">
+                <div class="col-sm-6 d-flex align-items-center justify-content-between">
                     <h1 class="m-0">Order Detail</h1>
+                    <a target="_blank" class="btn btn-info" href="{{url('admin/order')}}">Back</a>
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">

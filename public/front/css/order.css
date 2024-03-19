@@ -157,3 +157,20 @@
 .topleft_info {
     margin-top: 10px;
 }
+.order_log{
+    margin-top: 30px;
+}
+.containSip{
+    margin-bottom: 20px;
+}
+.orderStauts{
+    display: block;
+    font-size: 16px;
+    font-weight: 600;
+}
+.tracking{
+    display: block;
+}
+.namshio{
+    font-weight: 500;
+}

@@ -47,7 +47,7 @@ class ContactUsController extends Controller
                 $message->to($email)->subject("Enquiry from Seller Website");
             });
 
-            $message = "Thanks for your query, We will get back to you soon.";
+            $message = "Thanks for your message, We will get back to you soon.";
             return response()->json(['success' => true, 'message' => $message]);
         }
         return view('client.pages.contact_us');

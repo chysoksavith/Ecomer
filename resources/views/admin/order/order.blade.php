@@ -13,7 +13,7 @@
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="#">Home</a></li>
                         <li class="breadcrumb-item active">
-                            <a href="">Categories Cms Pages</a>
+                            <a href=""></a>
                         </li>
                     </ol>
                 </div>
@@ -90,8 +90,17 @@
                                             </td>
                                             <td>
                                                 <a href="{{ url('admin/orders/' . $order['id']) }}">
-                                                    <i class="fas fa-file"></i>
+                                                    <i class="fas fa-file" style="font-size: 20px"></i>
                                                 </a>
+
+                                                &nbsp;&nbsp;
+                                                @if ($order['order_status'] == 'Shipped' || $order['order_status'] == 'Delivered')
+                                                    <a target="_blank"
+                                                        href="{{ url('admin/print-order-invoice/' . $order['id']) }}">
+                                                        <i class="fas fa-print"style="font-size: 20px"></i>
+                                                    </a>
+                                                @endif
+
                                             </td>
                                         </tr>
                                     @endforeach

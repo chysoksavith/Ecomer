@@ -47,15 +47,14 @@
                                 <div class="form-group">
                                     <select name="type" class=" form-select">
                                         <option value="">Select</option>
-                                        <option @if (!empty($banner['type']) && $banner['type'] == "Slider") selected @endif value="Slider">Slider</option>
-                                        <option @if (!empty($banner['type']) && $banner['type'] == "Fix1") selected @endif value="Fix1">Fix1</option>
-                                        <option @if (!empty($banner['type']) && $banner['type'] == "Fix2") selected @endif value="Fix2">Fix1</option>
-                                        <option @if (!empty($banner['type']) && $banner['type'] == "Fix3") selected @endif value="Fix3">Fix3</option>
-                                        <option @if (!empty($banner['type']) && $banner['type'] == "Fix4") selected @endif value="Fix4">Fix4</option>
+                                        <option @if (!empty($banner['type']) && $banner['type'] == 'Slider') selected @endif value="Slider">Slider
+                                        </option>
+                                        <option @if (!empty($banner['type']) && $banner['type'] == 'Fix') selected @endif value="Fix">Fix
+                                        </option>
                                     </select>
                                 </div>
                                 <div class="form-group">
-                                    <label for="image">banner image*</label>
+                                    <label for="image">banner image*</label>1
                                     <input type="file" class="form-control" name="image" id="banner_image">
                                     <div class="d-flex align-items-center mt-3">
                                         <div class="col-md-3">

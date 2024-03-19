@@ -24,7 +24,15 @@ class UserController extends Controller
                 $request->all(),
                 [
                     'email' => 'required|email|max:250|exists:users',
-                    'password' => 'required|min:6'
+                    'password' => [
+                        'required',
+                        'min:6',
+                        function ($attribute, $value, $fail) use ($request) {
+                            if (!Auth::attempt(['email' => $request->email, 'password' => $value])) {
+                                $fail('The provided password is incorrect.');
+                            }
+                        }
+                    ]
                 ],
                 [
                     'email.required' => 'Please enter your email address.',

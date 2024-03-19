@@ -39,39 +39,51 @@ class BannersController extends Controller
 
     public function AddUpdatebanners(Request $request, $id = null)
     {
-        if ($id === "") {
-            $title = "Add Banner";
-            $banner = new Banners;
-            $message = "Banner added successfully";
-        } else {
-            $title = "Update Banner";
-            $banner = Banners::find($id);
-            $message = "Banner updated successfully";
+        // Initialize variables
+        $title = $id === null ? "Add Banner" : "Update Banner";
+        $banner = $id === null ? new Banners : Banners::find($id);
+
+        // Check if banner with given ID exists
+        if ($id !== null && !$banner) {
+            return redirect()->back()->with('error_message', 'Banner not found.');
         }
 
+        // Process form submission
         if ($request->isMethod('post')) {
-            $data = $request->all();
-
             // Validation rules
             $rules = [
                 'type' => 'required',
             ];
 
             // If it's a new banner or the image is being updated, add the 'image' validation rule
-            if ($id === "" || $request->hasFile('image')) {
-                $rules['image'] = 'required|image';
+            if ($id === null || $request->hasFile('image')) {
+                $rules = [
+                    'type' => 'required',
+                    'image' => 'required|image|mimes:jpeg,png,jpg,gif,webp|max:2048', // Adjusted image validation rules
+                ];
             }
 
+            // Custom validation messages
             $customMessage = [
                 'image.required' => 'Image is required',
                 'image.image' => 'Invalid image format',
                 'type.required' => 'Banner type is required',
             ];
 
+            // Validate request data
             $this->validate($request, $rules, $customMessage);
 
+            // Process image upload if present
             if ($request->hasFile('image')) {
-                // Upload and save image
+                // Delete old image if it exists
+                if ($banner->image) {
+                    $oldImagePath = public_path('front/images/banner/') . $banner->image;
+                    if (file_exists($oldImagePath)) {
+                        unlink($oldImagePath);
+                    }
+                }
+
+                // Upload new image
                 $image = $request->file('image');
                 $imageName = time() . '.' . $image->getClientOriginalExtension();
                 $imagePath = 'front/images/banner/' . $imageName;
@@ -80,18 +92,23 @@ class BannersController extends Controller
             }
 
             // Update other fields
-            $banner->title = $data['title'];
-            $banner->alt = $data['alt'];
-            $banner->link = $data['link'];
-            $banner->sort = $data['sort'];
-            $banner->type = $data['type'];
+            $banner->title = $request->input('title');
+            $banner->alt = $request->input('alt');
+            $banner->link = $request->input('link');
+            $banner->sort = $request->input('sort');
+            $banner->type = $request->input('type');
 
+            // Save banner
             $banner->save();
+
+            // Redirect with success message
+            $message = $id === null ? "Banner added successfully" : "Banner updated successfully";
             return redirect('admin/banners')->with('success_message', $message);
         }
 
-        return view('admin.banners.add_edit_banner')->with(compact('title', 'banner'));
+        return view('admin.banners.add_edit_banner', compact('title', 'banner'));
     }
+
 
 
 

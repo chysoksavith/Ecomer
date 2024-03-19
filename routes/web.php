@@ -97,7 +97,7 @@ Route::namespace('App\Http\Controllers\front')->group(function () {
             route::post('set-default-delivery-address', 'SetDefaultDeliveryAddress');
         });
         // My Orders
-        Route::controller(OrderController::class)->group(function(){
+        Route::controller(OrderController::class)->group(function () {
             Route::get('/user/orders', 'Order');
             // Order details
             Route::get('/user/orders/{id}', 'OrderDetails');
@@ -119,6 +119,8 @@ Route::namespace('App\Http\Controllers\front')->group(function () {
     Route::controller(RatingFrontController::class)->group(function () {
         Route::post('/add-rating', 'addRating');
     });
+    // Coupon check
+    Route::get('/check-coupons', 'CouponController@checkCoupons')->name('checkCoupons');
 });
 
 
@@ -208,10 +210,12 @@ Route::group(['prefix' => '/admin'], function () {
             Route::get('delete-rating/{id}',  'deleteRating');
         });
         // Order
-        Route::controller(AdminOrderController::class)->group(function(){
+        Route::controller(AdminOrderController::class)->group(function () {
             Route::get('order', 'Order');
             Route::get('orders/{id}', 'DetailOrder');
             Route::post('update-order-status', 'updateOrderStatus');
+            // print invoice
+            Route::get('print-order-invoice/{id}', 'printHtmlOrderInvoice');
         });
     });
 

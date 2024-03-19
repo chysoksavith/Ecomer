@@ -114,22 +114,96 @@ scrollbar-thumb {
 }
 .banner_left_two {
     width: 40%;
-    background-color: #888;
 }
 .child_banner_two {
     width: 100%;
-    background-color: rgb(38, 192, 192);
     height: 290px;
 }
 .child_banner_two:last-child {
     margin-top: 20px;
     width: 100%;
-    background-color: rgb(0, 0, 0);
     height: 290px;
 }
 /*  */
 .banner_right_two {
     width: 58%;
     height: 600px;
-    background-color: #888;
+}
+.child_banner_two {
+    position: relative;
+}
+.child_banner_two img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.textFixbanner {
+    position: absolute;
+    left: 20%;
+    top: 60%;
+    transform: translate(-50%, -50%);
+}
+.TitleFixBanner {
+    font-size: 16px;
+    font-weight: 500;
+    color: #fff8e7;
+}
+.btnFixBanner {
+    font-size: 15px;
+    font-weight: 600;
+    display: block;
+    width: 150px;
+    height: 50px;
+    background-color: #2c2930;
+    height: 54px;
+    color: white;
+    font-size: 14px;
+    letter-spacing: 3px;
+    border: none;
+    transition: all 0.3s;
+}
+.btnFixBanner:hover {
+    background: transparent;
+    color: black;
+    border: 1px solid black;
+}
+.aHrefFix {
+    text-decoration: none;
+}
+.child_banner_three {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+.child_banner_three img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.textFixbannerthree {
+    position: absolute;
+    left: 15%;
+    top: 80%;
+    transform: translate(-50%, -50%);
+}
+.wrapperAhrefFixbanne {
+    margin-bottom: 10px;
+}
+/* model */
+.model_coupon {
+    width: 100%;
+    height: 100%;
+    background-color: transparent;
+    position: fixed;
+    left: 0;
+    top: 0;
+}
+.content_model_coupon {
+    position: absolute;
+    width: 24rem;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: aqua;
+    z-index: 999999;
 }
