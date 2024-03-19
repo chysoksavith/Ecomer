@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Cart;
 use App\Models\Category;
 use App\Models\Coupon;
+use App\Models\Orders;
 use App\Models\Product;
 use App\Models\ProductsAttribure;
 use App\Models\ProductsFilter;
@@ -496,6 +497,14 @@ class ProductController extends Controller
                 $current_date = date('Y-m-d');
                 if ($expiry_date < $current_date) {
                     $error_message = "The Coupon is expired";
+                }
+                // Check coupon if for single time
+                if ($couponDetails->coupon_type == "Single Time") {
+                    // check in orders table if coupon already availed by the user
+                    $couponCount = Orders::where(['coupon_code' => $data['code'], 'user_id' => Auth::user()->id])->count();
+                    if ($couponCount >= 1) {
+                        $error_message = "Coupon Code is already used!";
+                    }
                 }
                 // get all selected category from coupon
                 $catArr = explode(",", $couponDetails->categories);
