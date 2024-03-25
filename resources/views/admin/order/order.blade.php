@@ -100,6 +100,10 @@
                                                         <i class="fas fa-print"style="font-size: 20px"></i>
                                                     </a>
                                                 @endif
+                                                &nbsp;&nbsp;
+                                                <a href="{{ url('admin/print-pdf-order-invoice/' . $order['id']) }}">
+                                                    <i class="fas fa-file-pdf" style="font-size: 20px"></i>
+                                                </a>
 
                                             </td>
                                         </tr>

@@ -75,13 +75,12 @@
                                         <tbody>
                                             <tr>
                                                 <td style="padding-bottom: 10px;">
-                                                    <a href="https://htmlcodex.com"><img src="images/logo.png"
-                                                            alt="PapaChina" /></a>
+                                                    <h1>Sike</h1>
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <td style="font-size: 14px; line-height: 18px; color: #666666;">
-                                                    CamShop.io
+                                                    Sike.io
                                                 </td>
                                             </tr>
                                             <tr>
@@ -91,7 +90,7 @@
                                             </tr>
                                             <tr>
                                                 <td style="font-size: 14px; line-height: 18px; color: #666666;">
-                                                    Phone: 111-111-111 | Email: camShop@gmail.com
+                                                    Phone: 111-111-111 | Email: Sike@gmail.com
                                                 </td>
                                             </tr>
                                             <tr>
@@ -307,9 +306,42 @@
                             </tr>
                             <!-- End calculation Section -->
 
-                            <!-- Start payment method Section -->
+                            <tr>
+                                <td style="padding-top: 0;">
+                                    <table width="560" align="center" cellpadding="0" cellspacing="0" border="0"
+                                        class="devicewidthinner" style="border-bottom: 1px solid #bbbbbb;">
+                                        <tbody>
+                                            <tr>
+                                                <td style="font-size: 14ox; line-height: 18px; color: #666666;">
+                                                    Download Order Invoice<a
+                                                        href="{{ url('download-order-pdf-invoice/' . $order_id) }}">{{ url('download-order-pdf-invoice/' . $order_id) }}</a>
+                                                    <br>
+                                                    (Copy & Paste to open if link does not work )
 
-                            <!-- End payment method Section -->
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="font-size: 14ox; line-height: 18px; color: #666666;">
+                                                    Regards, <br> Team Sike.ro
+
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="font-size: 14ox; line-height: 18px; color: #666666;">
+                                                    &nbsp; &nbsp;
+
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="font-size: 14ox; line-height: 18px; color: #666666;">
+                                                    Regards, <br> Team Sike.ro
+
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
                 </td>

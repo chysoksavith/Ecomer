@@ -42,6 +42,7 @@
                                     <img src="https://www.designscene.net/wp-content/uploads/2023/11/Fear-of-God-Athletics-2023-14.jpg"
                                         alt="">
                                 @endif
+
                                 <span class="soldOutItems">SOLD OUT</span>
                             </div>
                             <div class="TitleFirstPage">

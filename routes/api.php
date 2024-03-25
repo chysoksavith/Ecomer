@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\API\ApiController;
+use App\Models\CmsPage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -29,5 +30,10 @@ Route::namespace('App\Http\Controllers\API')->group(function () {
         Route::post('update-user', 'updateUser');
         // get category
         Route::get('menu', 'menuCategory');
+        // Cms Pages Route
+        $cmsUrl = CmsPage::select('url')->where('status' , 1)->get()->pluck('url')->toArray();
+        foreach($cmsUrl as $url){
+            Route::get($url, 'cmsPage');
+        }
     });
 });

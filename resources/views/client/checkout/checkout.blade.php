@@ -317,7 +317,7 @@
                                 </span>
                             </div>
                             <div class="inputFiel">
-                                <button type="submit" class="BtnApplyDiscount">Place Order</button>
+                                <button type="submit" id="placeOrderLoader" class="BtnApplyDiscount">Place Order</button>
                             </div>
 
                         </li>

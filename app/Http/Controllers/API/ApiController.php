@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Models\CmsPage;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -118,19 +119,19 @@ class ApiController extends Controller
             // verify user id
             $userCount = User::where('id', $data['id'])->count();
             if ($userCount > 0) {
-                if(empty($data['address'])){
+                if (empty($data['address'])) {
                     $data['address'] = "";
                 }
-                if(empty($data['city'])){
+                if (empty($data['city'])) {
                     $data['city'] = "";
                 }
-                if(empty($data['state'])){
+                if (empty($data['state'])) {
                     $data['state'] = "";
                 }
-                if(empty($data['country'])){
+                if (empty($data['country'])) {
                     $data['country'] = "";
                 }
-                if(empty($data['pincode'])){
+                if (empty($data['pincode'])) {
                     $data['pincode'] = "";
                 }
 
@@ -160,5 +161,32 @@ class ApiController extends Controller
             }
         }
     }
-    // get category
+    // get cms pages
+    public function cmsPage()
+    {
+        $currentRoute = url()->current();
+        $currentRoute = str_replace('http://127.0.0.1:8000/api/', '', $currentRoute);
+
+        $cmsPageDetails = CmsPage::where('url', $currentRoute)
+            ->where('status', 1)
+            ->get();
+
+        if ($cmsPageDetails->count() > 0) {
+            return response()->json([
+                'cmsPageDetails' => $cmsPageDetails,
+                'status' => true,
+                'message' => 'Page detail fetch success'
+            ], 200);
+        } else {
+            $message = "Page does not exist";
+            return response()->json([
+                'status' => false,
+                'message' => $message
+            ], 422);
+        }
+    }
+    // category
+    public function menu()
+    {
+    }
 }

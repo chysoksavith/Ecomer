@@ -40,8 +40,6 @@
             margin: 0;
             padding: 0;
             width: 100% !important;
-            height: 100vh;
-
             line-height: 100% !important;
         }
 
@@ -65,24 +63,24 @@
         <tbody>
             <tr>
                 <td>
-                    <table width="600" height="100%" align="center" cellpadding="15" cellspacing="0" border="0"
+                    <table width="600" align="center" cellpadding="15" cellspacing="0" border="0"
                         class="devicewidth" style="background-color: #ffffff;">
                         <tbody>
                             <!-- Start header Section -->
                             <tr>
-                                <td style="padding-top: 0px;">
+                                <td style="padding-top: 30px;">
                                     <table width="560" align="center" cellpadding="0" cellspacing="0" border="0"
                                         class="devicewidthinner"
                                         style="border-bottom: 1px solid #eeeeee; text-align: center;">
                                         <tbody>
                                             <tr>
-                                                <td style="padding-bottom: 0px;">
-                                                    <h1>ORDER INVOICE</h1>
+                                                <td style="padding-bottom: 10px;">
+                                                    <h1>Sike</h1>
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <td style="font-size: 14px; line-height: 18px; color: #666666;">
-                                                    CamShop.io
+                                                    Sike.io
                                                 </td>
                                             </tr>
                                             <tr>
@@ -92,25 +90,29 @@
                                             </tr>
                                             <tr>
                                                 <td style="font-size: 14px; line-height: 18px; color: #666666;">
-                                                    Phone: 111-111-111 | Email: camShop@gmail.com
+                                                    Phone: 111-111-111 | Email: Sike@gmail.com
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <td
                                                     style="font-size: 14px; line-height: 18px; color: #666666; padding-bottom: 25px;">
-                                                    <strong>Order Number:</strong> {{ $orderDetails['id'] }} |
-                                                    <strong>Order
+                                                    <strong>Order Number:</strong> {{ $order_id }} | <strong>Order
                                                         Date:</strong>
                                                     {{ date('F j, g:i a', strtotime($orderDetails['created_at'])) }}
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <td
-                                                    style="font-size: 14px; line-height: 18px; color: #666666; padding-bottom: 25px;" align="center">
-                                                    @php
-                                                        echo DNS1D::getBarcodeHTML($orderDetails['id'], 'C39');
-
-                                                    @endphp
+                                                    style="font-size: 14px; line-height: 18px; color: #666666; padding-bottom: 25px;">
+                                                    <strong>Order status:</strong> {{ $order_status }} |
+                                                    <strong>
+                                                        Courier Name
+                                                    </strong>
+                                                    {{ $courier_name }} |
+                                                    <strong>
+                                                        Tracking Number
+                                                    </strong>
+                                                    {{ $tracking_number }}
                                                 </td>
                                             </tr>
                                         </tbody>
@@ -304,9 +306,37 @@
                             </tr>
                             <!-- End calculation Section -->
 
-                            <!-- Start payment method Section -->
+                            <tr>
+                                <td style="padding-top: 0;">
+                                    <table width="560" align="center" cellpadding="0" cellspacing="0" border="0"
+                                        class="devicewidthinner" style="border-bottom: 1px solid #bbbbbb;">
+                                        <tbody>
+                                            <tr>
+                                                <td style="font-size: 14ox; line-height: 18px; color: #666666; text-align:center;">
+                                                    Download Order Invoice<a
+                                                        href="{{ url('download-order-pdf-invoice/' . $order_id) }}">{{ url('download-order-pdf-invoice/' . $order_id) }}</a>
+                                                    <br>
+                                                    (Copy & Paste to open if link does not work )
 
-                            <!-- End payment method Section -->
+                                                </td>
+                                            </tr>
+
+                                            <tr>
+                                                <td style="font-size: 14ox; line-height: 18px; color: #666666;">
+                                                    &nbsp; &nbsp;
+
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="font-size: 14ox; line-height: 18px; color: #666666;text-align:center;">
+                                                    Regards, <br> Team Sike.ro
+
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
                 </td>

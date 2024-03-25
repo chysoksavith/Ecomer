@@ -74,7 +74,6 @@ $(document).ready(function () {
             },
 
             error: function () {
-                $(".loader").hide();
                 showToast("something went wrong", "error");
             },
         });

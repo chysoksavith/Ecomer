@@ -216,10 +216,9 @@ Route::group(['prefix' => '/admin'], function () {
             Route::post('update-order-status', 'updateOrderStatus');
             // print invoice
             Route::get('print-order-invoice/{id}', 'printHtmlOrderInvoice');
+            Route::get('print-pdf-order-invoice/{id}', 'printPdfOrderInvoice');
         });
     });
-
-
 
 
 
@@ -230,3 +229,5 @@ Route::group(['prefix' => '/admin'], function () {
         Route::match(['get', 'post'], 'login', 'login')->name('admin.login');
     });
 });
+// download pdf invoice when send message
+Route::get('download-order-pdf-invoice/{id}', [AdminOrderController::class, 'printPdfOrderInvoice']);

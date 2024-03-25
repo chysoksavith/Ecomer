@@ -228,35 +228,38 @@
                     </div>
                 </div>
             </div>
-            <div class="order_log">
-                <span class="notamember ">
-                    Order Logs / Tracking Number
-                </span>
+            @if (!empty($orderDetails['log']))
+                <div class="order_log">
+                    <span class="notamember ">
+                        Order Logs / Tracking Number
+                    </span>
 
-            </div>
-            <div class="orderDetailContainerBody">
-                @foreach ($orderDetails['log'] as $log)
-                    <div class="containSip">
-                        <span class="orderStauts"> {{ $log['order_status'] }} </span>
-                        @if ($log['order_status'] == 'Shipped')
-                            @if (!empty($orderDetails['courier_name']))
-                                <span class="shipname">Courier Name:</span>
-                                <span class="namshio">{{ $orderDetails['courier_name'] }}</span>
+                </div>
+                <div class="orderDetailContainerBody">
+                    @foreach ($orderDetails['log'] as $log)
+                        <div class="containSip">
+                            <span class="orderStauts"> {{ $log['order_status'] }} </span>
+                            @if ($log['order_status'] == 'Shipped')
+                                @if (!empty($orderDetails['courier_name']))
+                                    <span class="shipname">Courier Name:</span>
+                                    <span class="namshio">{{ $orderDetails['courier_name'] }}</span>
+                                @endif
+                                @if (!empty($orderDetails['tracking_number']))
+                                    <span class="tracking"></span>
+                                    <span>Tracking Number:</span>
+                                    <span class="namshio">{{ $orderDetails['tracking_number'] }}</span>
+                                @endif
                             @endif
-                            @if (!empty($orderDetails['tracking_number']))
-                                <span class="tracking"></span>
-                                <span>Tracking Number:</span>
-                                <span class="namshio">{{ $orderDetails['tracking_number'] }}</span>
-                            @endif
-                        @endif
-                        <span class="tracking"></span>
-                        <span>
-                            {{ date('F j, Y, g:i a', strtotime($log['created_at'])) }}
-                        </span>
-                    </div>
-                @endforeach
+                            <span class="tracking"></span>
+                            <span>
+                                {{ date('F j, Y, g:i a', strtotime($log['created_at'])) }}
+                            </span>
+                        </div>
+                    @endforeach
 
-            </div>
+                </div>
+            @endif
+
         </div>
 
     </div>
