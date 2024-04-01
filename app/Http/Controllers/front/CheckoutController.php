@@ -10,6 +10,7 @@ use App\Models\DeliveryAddresses;
 use App\Models\Order_Product;
 use App\Models\Orders;
 use App\Models\Product;
+use App\Models\ShippingCharges;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -22,6 +23,16 @@ class CheckoutController extends Controller
     {
         // get update cart item
         $getCartItems = getCartItems();
+        // get country
+        $countries = Country::where('status', 1)->get()->toArray();
+        // Get delivery address of the User
+        $deliveryAddress = DeliveryAddresses::deliveryAddresses();
+        // get shipping charges
+        foreach ($deliveryAddress as $Key => $value) {
+            $shippingCharges = ShippingCharges::getShippingCharges($value['country']);
+            $deliveryAddress[$Key]['shipping_charges'] = $shippingCharges;
+        }
+        // dd($deliveryAddress); die;
 
         if (count($getCartItems) == 0) {
             $message = "Shopping Cart is empty! Please add Products to Checkout";
@@ -137,22 +148,30 @@ class CheckoutController extends Controller
                     'order_id' => $order_id,
                     'orderDetails' => $orderDetails,
                 ];
-                Mail::send('email.order', $messageData, function($message) use ($email) {
+                Mail::send('email.order', $messageData, function ($message) use ($email) {
                     $message->to($email)->subject('Order Placed - CamShop');
                 });
 
                 return redirect('/thank');
+            }
+            if ($data['payment_geteway'] == "Paypal") {
+                // Paypal - Redirect user to paypal page after saving orders
+
+                return redirect('/paypal');
             } else {
-                echo "Prepaid methods coming soon"; die;
+                echo "Prepaid methods coming soon";
+                die;
             }
         }
+        $total_price = 0;
+        foreach ($getCartItems as $item) {
 
-        // get country
-        $countries = Country::where('status', 1)->get()->toArray();
-
-        // Get delivery address of the User
-        $deliveryAddress = DeliveryAddresses::deliveryAddresses();
-        return view('client.checkout.checkout')->with(compact('getCartItems', 'countries', 'deliveryAddress'));
+            $attrPrice = Product::getAttributePrice($item['product_id'], $item['product_size']);
+            $total_price = $total_price + ($attrPrice['final_price'] * $item['product_qty']);
+        }
+        // echo $total_price;
+        // die;
+        return view('client.checkout.checkout')->with(compact('getCartItems','total_price', 'countries', 'deliveryAddress'));
     }
 
     // thanks pages

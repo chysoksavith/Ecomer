@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\AdminRoles;
 use App\Models\NewseltterSubcribers;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 
 class NewseltterController extends Controller
@@ -12,8 +14,22 @@ class NewseltterController extends Controller
     public function subscribers()
     {
         Session::put('page', 'subscriber');
-        $subscribers = NewseltterSubcribers::paginate(4);
-        return view('admin.subscribers.subscribers')->with(compact('subscribers'));
+        $subscribers = NewseltterSubcribers::get();
+        // permission
+        $subscribersModuleCount = AdminRoles::where(['subadmins_id' => Auth::guard('admin')->user()->id, 'module' => 'subscribers'])->count();
+
+        $subscribersModule = array();
+        if (Auth::guard('admin')->user()->type == "admin") {
+            $subscribersModule['view_access'] = 1;
+            $subscribersModule['edit_access'] = 1;
+            $subscribersModule['full_access'] = 1;
+        } else if ($subscribersModuleCount == 0) {
+            $message = "This feature is restricted for you";
+            return redirect('admin/dashboard')->with('error_message', $message);
+        } else {
+            $subscribersModule = AdminRoles::where(['subadmins_id' => Auth::guard('admin')->user()->id, 'module' => 'subscribers'])->first()->toArray();
+        }
+        return view('admin.subscribers.subscribers')->with(compact('subscribers',  'subscribersModule'));
     }
 
     // update subscribe
@@ -35,8 +51,9 @@ class NewseltterController extends Controller
         }
     }
     // delete
-    public function deleteSubscriber($id){
+    public function deleteSubscriber($id)
+    {
         NewseltterSubcribers::where('id', $id)->delete();
-        return redirect()->back()->with('success_message','Delete successfully');
+        return redirect()->back()->with('success_message', 'Delete successfully');
     }
 }

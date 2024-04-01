@@ -478,9 +478,10 @@ $(document).ready(function () {
             },
         });
     });
+
     // show loader when place order
     $(document).on("click", "#placeOrderLoader", function () {
         $(".loader").show();
     });
-  
+
 });

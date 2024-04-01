@@ -2,9 +2,9 @@
     @if (!is_null($deliveryAddress) && count($deliveryAddress) > 0)
         @foreach ($deliveryAddress as $index => $address)
             <div class="radio-item">
-                <input class="setDefaultStatus" type="radio" name="radio" id="radio{{ $address['id'] }}"
+                <input class="setDefaultStatus" type="radio" name="radio  address_id" id="radio{{ $address['id'] }}"
                     value="{{ $address['id'] }}" @if ($address['is_default'] == 1) checked @endif
-                    data-addressid={{ $address['id'] }}>
+                    data-addressid={{ $address['id'] }} />
                 <label for="radio{{ $address['id'] }}">
                     <p>
                         {{ $address['name'] }},{{ $address['address'] }},{{ $address['city'] }},{{ $address['state'] }},{{ $address['country'] }}

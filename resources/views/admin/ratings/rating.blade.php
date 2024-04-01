@@ -27,28 +27,11 @@
             <div class="row">
                 <div class="col-12">
                     <div class="card">
-                        <div class="card-header">
-                            <div class=" float-right">
-                            </div>
+                        <div class="p-2">
+                            @include('_message')
                         </div>
-                        <hr>
                         <div class="card-header ">
-                            @if ($errors->any())
-                                <div class="alert alert-danger">
-                                    <ul>
-                                        @foreach ($errors->all() as $error)
-                                            <li>{{ $error }}</li>
-                                        @endforeach
-                                    </ul>
-                                </div>
-                            @endif
-                            @if (Session::has('success_message'))
-                                <div class="alert alert-success alert-dismissible fade show" role="alert">
-                                    <strong>Sucess:</strong>{{ Session::get('success_message') }}
-                                    <button type="button" class="btn-close" data-bs-dismiss="alert"
-                                        aria-label="Close"></button>
-                                </div>
-                            @endif
+
                             <table id="ratingtable" class="table table-bordered table-hover">
                                 <thead>
                                     <tr>
@@ -78,23 +61,26 @@
                                                     N/A
                                                 @endif
                                             </td>
-                                            <td>
-                                                <a class="updateRatingstatus" id="rating-{{ $rating['id'] }}"
-                                                    rating_id="{{ $rating['id'] }}" href="javascript:void(0)">
-                                                    @if ($rating['status'] == 1)
-                                                        <i class="fas fa-toggle-on" status="Active"></i>
-                                                    @else
-                                                        <i class="fas fa-toggle-off" style="color: grey"
-                                                            status="Inactive"></i>
-                                                    @endif
-                                                </a>
-                                            </td>
-                                            <th>
-                                                <a class="confirmDelete" name="rating" title="Delete rating"
-                                                    href="javascript:void(0)" record="rating"
-                                                    recordid="{{ $rating->id }}"><i class="fas fa-trash"
-                                                        style="font-size: red"></i></a>
-                                            </th>
+                                            @if ($ratingModule['edit_access'] == 1 || $ratingModule['full_access'] == 1)
+                                                <td>
+                                                    <a class="updateRatingstatus" id="rating-{{ $rating['id'] }}"
+                                                        rating_id="{{ $rating['id'] }}" href="javascript:void(0)">
+                                                        @if ($rating['status'] == 1)
+                                                            <i class="fas fa-toggle-on" status="Active"></i>
+                                                        @else
+                                                            <i class="fas fa-toggle-off" style="color: grey"
+                                                                status="Inactive"></i>
+                                                        @endif
+                                                    </a>
+                                                </td>
+                                                <th>
+                                                    <a class="confirmDelete" name="rating" title="Delete rating"
+                                                        href="javascript:void(0)" record="rating"
+                                                        recordid="{{ $rating->id }}"><i class="fas fa-trash"
+                                                            style="font-size: red"></i></a>
+                                                </th>
+                                            @endif
+
                                         </tr>
                                         {{-- href="{{ url('admin/delete-cms-pages/' . $page->id) }}" --}}
                                     @empty
@@ -107,9 +93,7 @@
                         </div>
                         <!-- /.card-header -->
                     </div>
-                    <div>
-                        {{ $ratings->links() }}
-                    </div>
+
                 </div>
             </div>
         </div>

@@ -10,6 +10,7 @@ use App\Http\Controllers\admin\NewseltterController;
 use App\Http\Controllers\admin\OrderController as AdminOrderController;
 use App\Http\Controllers\admin\ProductsController;
 use App\Http\Controllers\admin\RatingController;
+use App\Http\Controllers\admin\ShippingController;
 use App\Http\Controllers\admin\UserController as AdminUserController;
 use App\Http\Controllers\front\AddressController;
 use App\Http\Controllers\front\CheckoutController;
@@ -18,6 +19,7 @@ use App\Http\Controllers\front\ContactUsController;
 use App\Http\Controllers\front\IndexController;
 use App\Http\Controllers\front\NewseletterController;
 use App\Http\Controllers\front\OrderController;
+use App\Http\Controllers\front\PaypalController;
 use App\Http\Controllers\front\ProductController;
 use App\Http\Controllers\front\RatingFrontController;
 use App\Http\Controllers\front\UserController;
@@ -101,6 +103,13 @@ Route::namespace('App\Http\Controllers\front')->group(function () {
             Route::get('/user/orders', 'Order');
             // Order details
             Route::get('/user/orders/{id}', 'OrderDetails');
+        });
+        // Paypal
+        Route::controller(PaypalController::class)->group(function () {
+            Route::get('paypal', 'paypals');
+            Route::post('paypal', 'pay')->name('payment'); // Change to POST method
+            Route::get('success', 'success');
+            Route::get('error', 'errors');
         });
     });
     // login
@@ -217,6 +226,17 @@ Route::group(['prefix' => '/admin'], function () {
             // print invoice
             Route::get('print-order-invoice/{id}', 'printHtmlOrderInvoice');
             Route::get('print-pdf-order-invoice/{id}', 'printPdfOrderInvoice');
+        });
+        // shipping
+        Route::controller(ShippingController::class)->group(function () {
+            Route::get('shipping-charges', 'shippingCharges');
+            Route::match(['get', 'post'], 'edit-shipping/{id}', 'editShipping');
+            Route::post('update-shipping-status', 'updateShippingStatus');
+            Route::get('delete-shipping/{id}',  'deleteShipping');
+            Route::get('recovery-shipping/{id}', 'recoverDeleteShipping')->name('recover.shipping');
+            Route::post('delete-shipping-all',  'deleteShippingAll')->name('delete.shipping.all');
+            Route::post('recovery-shipping-all',  'RecoverydeleteShippingAll')->name('recovery.shipping.all');
+            Route::get('shipping-recovery', 'shippingChargesRecovery');
         });
     });
 

@@ -105,7 +105,7 @@
                                   <a href="{{ route('admin.update.adminDetails') }}"
                                       class="nav-link {{ $active }}">
                                       <i class="far fa-circle nav-icon"></i>
-                                      <p>Update Admin Details</p>
+                                      <p>Update Admin </p>
                                   </a>
                                   {{-- Subadmin --}}
                                   @if (Session::get('page') == 'subadmins')
@@ -123,11 +123,33 @@
                                           Sub Admin
                                       </p>
                                   </a>
+
                               </li>
                           </ul>
                       </li>
 
                   @endif
+                  {{-- Shipping --}}
+                  @if (Auth::guard('admin')->user()->type == 'admin')
+                      @if (Session::get('page') == 'shipping')
+                          @php
+                              $active = 'active';
+                          @endphp
+                      @else
+                          @php
+                              $active = '';
+                          @endphp
+                      @endif
+                      <li class="nav-item">
+                          <a href="{{ url('admin/shipping-charges') }}" class="nav-link {{ $active }}">
+                              <i class="nav-icon fas fa-users"></i>
+                              <p>
+                                  Shipping Charges
+                              </p>
+                          </a>
+                      </li>
+                  @endif
+
                   {{-- Cms page --}}
                   @if (Session::get('page') == 'cms-pages')
                       @php

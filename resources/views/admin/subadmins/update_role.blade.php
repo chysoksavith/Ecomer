@@ -4,7 +4,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0">Subadmin</h1>
+                    <h1 class="m-0">Permission</h1>
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
@@ -18,345 +18,624 @@
     <section class="content">
         <div class="container-fluid">
             <div class="row">
-                <!-- left column -->
                 <div class="col-md-12">
-                    <!-- general form elements -->
-                    <div class="card card-primary">
-                        <div class="p-2 d-flex justify-content-between align-items-center">
-                            <h4 class="card-title">{{ $title }}</h4>
-                            <a href="{{ route('admin.subadmin') }}" class="btn btn-warning ">Back</a>
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="row">
+                                <div class="col">
+                                    <h3 class="card-title">Permission</h3>
+                                </div>
+                                <div class="col-auto">
+                                    <a href="{{ route('admin.subadmin') }}" class="btn btn-warning text-white bold">Back</a>
+                                </div>
+                                <div class="py-2">
+                                    @include('_message')
+                                </div>
+                            </div>
                         </div>
-                        <hr>
+                        <!-- /.card-header -->
+                        <div class="card-body">
+                            <table class="table table-bordered table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>Module</th>
+                                        <th>View Access</th>
+                                        <th>Edit Access</th>
+                                        <th>Full Access</th>
+                                    </tr>
+                                </thead>
 
-                        <form name="subAdminForm" id="subAdminForm" action="{{ route('admin-updateRoles', ['id' => $id]) }}"
-                            method="post">
 
-                            @csrf
-                            @if ($errors->any())
-                                <div class="alert alert-danger">
-                                    <ul>
-                                        @foreach ($errors->all() as $error)
-                                            <li>{{ $error }}</li>
-                                        @endforeach
-                                    </ul>
-                                </div>
-                            @endif
-                            @if (Session::has('error_message'))
-                                <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                    <strong>Error:</strong>{{ Session::get('error_message') }}
-                                    <button type="button" class="btn-close" data-bs-dismiss="alert"
-                                        aria-label="Close"></button>
-                                </div>
-                            @endif
-                            <div class="card-body">
-                                {{-- <div class="form-group">
-                                    <label for="email">Email</label>
-                                    <input @if ($subadminData['id'] != '') disabled @else required @endif
-                                        class="form-control" type="email" name="email" id="email"
-                                        @if (!empty($subadminData['email'])) value="{{ $subadminData['email'] }}" @endif
-                                        placeholder="Enter SubAdmin Email" style="background-color: #666666">
-                                </div> --}}
-                                @if ($errors->any())
-                                    <div class="alert alert-danger">
-                                        <ul>
-                                            @foreach ($errors->all() as $error)
-                                                <li>{{ $error }}</li>
+                                <tbody>
+                                    <form name="subAdminForm" id="subAdminForm"
+                                        action="{{ route('admin-updateRoles', ['id' => $id]) }}" method="post">
+                                        @csrf
+                                        <input type="hidden" name="subadmin_id" value="{{ $id }}">
+                                        @if (!empty($subadminRoles))
+                                            @foreach ($subadminRoles as $role)
+                                                @if ($role['module'] == 'cms_pages')
+                                                    @if ($role['view_access'] == 1)
+                                                        @php
+                                                            $viewCMSPages = 'checked';
+                                                        @endphp
+                                                    @else
+                                                        @php
+                                                            $viewCMSPages = '';
+                                                        @endphp
+                                                    @endif
+                                                    {{-- edit --}}
+                                                    @if ($role['edit_access'] == 1)
+                                                        @php
+                                                            $editCMSPages = 'checked';
+                                                        @endphp
+                                                    @else
+                                                        @php
+                                                            $editCMSPages = '';
+                                                        @endphp
+                                                    @endif
+                                                    {{-- full --}}
+                                                    @if ($role['full_access'] == 1)
+                                                        @php
+                                                            $fullCMSPages = 'checked';
+                                                        @endphp
+                                                    @else
+                                                        @php
+                                                            $fullCMSPages = '';
+                                                        @endphp
+                                                    @endif
+                                                @endif
+                                                {{-- module category --}}
+                                                @if ($role['module'] == 'categories')
+                                                    @if ($role['view_access'] == 1)
+                                                        @php
+                                                            $viewCategories = 'checked';
+                                                        @endphp
+                                                    @else
+                                                        @php
+                                                            $viewCategories = '';
+                                                        @endphp
+                                                    @endif
+                                                    {{-- edit --}}
+                                                    @if ($role['edit_access'] == 1)
+                                                        @php
+                                                            $editCategories = 'checked';
+                                                        @endphp
+                                                    @else
+                                                        @php
+                                                            $editCategories = '';
+                                                        @endphp
+                                                    @endif
+                                                    {{-- full --}}
+                                                    @if ($role['full_access'] == 1)
+                                                        @php
+                                                            $fullCategories = 'checked';
+                                                        @endphp
+                                                    @else
+                                                        @php
+                                                            $fullCategories = '';
+                                                        @endphp
+                                                    @endif
+                                                @endif
+                                                {{-- module poducts --}}
+                                                @if ($role['module'] == 'products')
+                                                    @if ($role['view_access'] == 1)
+                                                        @php
+                                                            $viewproducts = 'checked';
+                                                        @endphp
+                                                    @else
+                                                        @php
+                                                            $viewproducts = '';
+                                                        @endphp
+                                                    @endif
+                                                    {{-- edit --}}
+                                                    @if ($role['edit_access'] == 1)
+                                                        @php
+                                                            $editproducts = 'checked';
+                                                        @endphp
+                                                    @else
+                                                        @php
+                                                            $editproducts = '';
+                                                        @endphp
+                                                    @endif
+                                                    {{-- full --}}
+                                                    @if ($role['full_access'] == 1)
+                                                        @php
+                                                            $fullproducts = 'checked';
+                                                        @endphp
+                                                    @else
+                                                        @php
+                                                            $fullproducts = '';
+                                                        @endphp
+                                                    @endif
+                                                @endif
+                                                {{-- module Brands --}}
+                                                @if ($role['module'] == 'brands')
+                                                    @if ($role['view_access'] == 1)
+                                                        @php
+                                                            $viewbrands = 'checked';
+                                                        @endphp
+                                                    @else
+                                                        @php
+                                                            $viewbrands = '';
+                                                        @endphp
+                                                    @endif
+                                                    {{-- edit --}}
+                                                    @if ($role['edit_access'] == 1)
+                                                        @php
+                                                            $editbrands = 'checked';
+                                                        @endphp
+                                                    @else
+                                                        @php
+                                                            $editbrands = '';
+                                                        @endphp
+                                                    @endif
+                                                    {{-- full --}}
+                                                    @if ($role['full_access'] == 1)
+                                                        @php
+                                                            $fullbrands = 'checked';
+                                                        @endphp
+                                                    @else
+                                                        @php
+                                                            $fullbrands = '';
+                                                        @endphp
+                                                    @endif
+                                                @endif
+                                                {{-- module orders --}}
+                                                @if ($role['module'] == 'orders')
+                                                    @if ($role['view_access'] == 1)
+                                                        @php
+                                                            $viewOrders = 'checked';
+                                                        @endphp
+                                                    @else
+                                                        @php
+                                                            $viewOrders = '';
+                                                        @endphp
+                                                    @endif
+                                                    {{-- edit --}}
+                                                    @if ($role['edit_access'] == 1)
+                                                        @php
+                                                            $editOrders = 'checked';
+                                                        @endphp
+                                                    @else
+                                                        @php
+                                                            $editOrders = '';
+                                                        @endphp
+                                                    @endif
+                                                    {{-- full --}}
+                                                    @if ($role['full_access'] == 1)
+                                                        @php
+                                                            $fullOrders = 'checked';
+                                                        @endphp
+                                                    @else
+                                                        @php
+                                                            $fullOrders = '';
+                                                        @endphp
+                                                    @endif
+                                                @endif
+                                                {{-- module Banners --}}
+                                                @if ($role['module'] == 'banners')
+                                                    @if ($role['view_access'] == 1)
+                                                        @php
+                                                            $viewbanners = 'checked';
+                                                        @endphp
+                                                    @else
+                                                        @php
+                                                            $viewbanners = '';
+                                                        @endphp
+                                                    @endif
+                                                    {{-- edit --}}
+                                                    @if ($role['edit_access'] == 1)
+                                                        @php
+                                                            $editbanners = 'checked';
+                                                        @endphp
+                                                    @else
+                                                        @php
+                                                            $editbanners = '';
+                                                        @endphp
+                                                    @endif
+                                                    {{-- full --}}
+                                                    @if ($role['full_access'] == 1)
+                                                        @php
+                                                            $fullbanners = 'checked';
+                                                        @endphp
+                                                    @else
+                                                        @php
+                                                            $fullbanners = '';
+                                                        @endphp
+                                                    @endif
+                                                @endif
+                                                {{-- module subscriber --}}
+                                                @if ($role['module'] == 'subscribers')
+                                                    @if ($role['view_access'] == 1)
+                                                        @php
+                                                            $viewsubscribers = 'checked';
+                                                        @endphp
+                                                    @else
+                                                        @php
+                                                            $viewsubscribers = '';
+                                                        @endphp
+                                                    @endif
+                                                    {{-- edit --}}
+                                                    @if ($role['edit_access'] == 1)
+                                                        @php
+                                                            $editsubscribers = 'checked';
+                                                        @endphp
+                                                    @else
+                                                        @php
+                                                            $editsubscribers = '';
+                                                        @endphp
+                                                    @endif
+                                                    {{-- full --}}
+                                                    @if ($role['full_access'] == 1)
+                                                        @php
+                                                            $fullsubscribers = 'checked';
+                                                        @endphp
+                                                    @else
+                                                        @php
+                                                            $fullsubscribers = '';
+                                                        @endphp
+                                                    @endif
+                                                @endif
+                                                {{-- module Rating --}}
+                                                @if ($role['module'] == 'ratings')
+                                                    @if ($role['view_access'] == 1)
+                                                        @php
+                                                            $viewratings = 'checked';
+                                                        @endphp
+                                                    @else
+                                                        @php
+                                                            $viewratings = '';
+                                                        @endphp
+                                                    @endif
+                                                    {{-- edit --}}
+                                                    @if ($role['edit_access'] == 1)
+                                                        @php
+                                                            $editratings = 'checked';
+                                                        @endphp
+                                                    @else
+                                                        @php
+                                                            $editratings = '';
+                                                        @endphp
+                                                    @endif
+                                                    {{-- full --}}
+                                                    @if ($role['full_access'] == 1)
+                                                        @php
+                                                            $fullratings = 'checked';
+                                                        @endphp
+                                                    @else
+                                                        @php
+                                                            $fullratings = '';
+                                                        @endphp
+                                                    @endif
+                                                @endif
                                             @endforeach
-                                        </ul>
-                                    </div>
-                                @endif
-                                @if (Session::has('success_message'))
-                                    <div class="alert alert-success alert-dismissible fade show" role="alert">
-                                        <strong>Success:</strong>{{ Session::get('success_message') }}
-                                        <button type="button" class="btn-close" data-bs-dismiss="alert"
-                                            aria-label="Close"></button>
-                                    </div>
-                                @endif
-                                <input type="hidden" name="subadmin_id" value="{{ $id }}">
-                                @if (!empty($subadminRoles))
-                                    @foreach ($subadminRoles as $role)
-                                        @if ($role['module'] == 'cms_pages')
-                                            @if ($role['view_access'] == 1)
-                                                @php
-                                                    $viewCMSPages = 'checked';
-                                                @endphp
-                                            @else
-                                                @php
-                                                    $viewCMSPages = '';
-                                                @endphp
-                                            @endif
-                                            {{-- edit --}}
-                                            @if ($role['edit_access'] == 1)
-                                                @php
-                                                    $editCMSPages = 'checked';
-                                                @endphp
-                                            @else
-                                                @php
-                                                    $editCMSPages = '';
-                                                @endphp
-                                            @endif
-                                            {{-- full --}}
-                                            @if ($role['full_access'] == 1)
-                                                @php
-                                                    $fullCMSPages = 'checked';
-                                                @endphp
-                                            @else
-                                                @php
-                                                    $fullCMSPages = '';
-                                                @endphp
-                                            @endif
                                         @endif
-                                        {{-- module category --}}
-                                        @if ($role['module'] == 'categories')
-                                            @if ($role['view_access'] == 1)
-                                                @php
-                                                    $viewCategories = 'checked';
-                                                @endphp
-                                            @else
-                                                @php
-                                                    $viewCategories = '';
-                                                @endphp
-                                            @endif
-                                            {{-- edit --}}
-                                            @if ($role['edit_access'] == 1)
-                                                @php
-                                                    $editCategories = 'checked';
-                                                @endphp
-                                            @else
-                                                @php
-                                                    $editCategories = '';
-                                                @endphp
-                                            @endif
-                                            {{-- full --}}
-                                            @if ($role['full_access'] == 1)
-                                                @php
-                                                    $fullCategories = 'checked';
-                                                @endphp
-                                            @else
-                                                @php
-                                                    $fullCategories = '';
-                                                @endphp
-                                            @endif
-                                        @endif
-                                        {{-- module poducts --}}
-                                        @if ($role['module'] == 'products')
-                                            @if ($role['view_access'] == 1)
-                                                @php
-                                                    $viewproducts = 'checked';
-                                                @endphp
-                                            @else
-                                                @php
-                                                    $viewproducts = '';
-                                                @endphp
-                                            @endif
-                                            {{-- edit --}}
-                                            @if ($role['edit_access'] == 1)
-                                                @php
-                                                    $editproducts = 'checked';
-                                                @endphp
-                                            @else
-                                                @php
-                                                    $editproducts = '';
-                                                @endphp
-                                            @endif
-                                            {{-- full --}}
-                                            @if ($role['full_access'] == 1)
-                                                @php
-                                                    $fullproducts = 'checked';
-                                                @endphp
-                                            @else
-                                                @php
-                                                    $fullproducts = '';
-                                                @endphp
-                                            @endif
-                                        @endif
-                                        {{-- module Brands --}}
-                                        @if ($role['module'] == 'brands')
-                                            @if ($role['view_access'] == 1)
-                                                @php
-                                                    $viewbrands = 'checked';
-                                                @endphp
-                                            @else
-                                                @php
-                                                    $viewbrands = '';
-                                                @endphp
-                                            @endif
-                                            {{-- edit --}}
-                                            @if ($role['edit_access'] == 1)
-                                                @php
-                                                    $editbrands = 'checked';
-                                                @endphp
-                                            @else
-                                                @php
-                                                    $editbrands = '';
-                                                @endphp
-                                            @endif
-                                            {{-- full --}}
-                                            @if ($role['full_access'] == 1)
-                                                @php
-                                                    $fullbrands = 'checked';
-                                                @endphp
-                                            @else
-                                                @php
-                                                    $fullbrands = '';
-                                                @endphp
-                                            @endif
-                                        @endif
-                                        {{-- module Banners --}}
-                                        @if ($role['module'] == 'banners')
-                                            @if ($role['view_access'] == 1)
-                                                @php
-                                                    $viewbanners = 'checked';
-                                                @endphp
-                                            @else
-                                                @php
-                                                    $viewbanners = '';
-                                                @endphp
-                                            @endif
-                                            {{-- edit --}}
-                                            @if ($role['edit_access'] == 1)
-                                                @php
-                                                    $editbanners = 'checked';
-                                                @endphp
-                                            @else
-                                                @php
-                                                    $editbanners = '';
-                                                @endphp
-                                            @endif
-                                            {{-- full --}}
-                                            @if ($role['full_access'] == 1)
-                                                @php
-                                                    $fullbanners = 'checked';
-                                                @endphp
-                                            @else
-                                                @php
-                                                    $fullbanners = '';
-                                                @endphp
-                                            @endif
-                                        @endif
-                                    @endforeach
-                                @endif
-                                <div class="form-group">
-                                    <label for="title">CMS Pages</label>
+                                        <tr>
+                                            <td>
+                                                Cms Pages
+                                            </td>
+                                            <td>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" value="1"
+                                                        id="flexCheckChecked"
+                                                        @if (isset($viewCMSPages)) {{ $viewCMSPages }} @endif
+                                                        name="cms_pages[view]">
+                                                    <label class="form-check-label" for="flexCheckChecked">
+                                                        View Access
+                                                    </label>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" value="1"
+                                                        id="flexCheckChecked"
+                                                        @if (isset($editCMSPages)) {{ $editCMSPages }} @endif
+                                                        name="cms_pages[edit]">
+                                                    <label class="form-check-label" for="flexCheckChecked">
+                                                        Edit Access
+                                                    </label>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" value="1"
+                                                        id="flexCheckChecked"
+                                                        @if (isset($fullCMSPages)) {{ $fullCMSPages }} @endif
+                                                        name="cms_pages[full]">
+                                                    <label class="form-check-label" for="flexCheckChecked">
+                                                        Full Access
+                                                    </label>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                Categories
+                                            </td>
+                                            <td>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" value="1"
+                                                        id="flexCheckChecked"
+                                                        @if (isset($viewCategories)) {{ $viewCategories }} @endif
+                                                        name="categories[view]">
+                                                    <label class="form-check-label" for="flexCheckChecked">
+                                                        View Access
+                                                    </label>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" value="1"
+                                                        id="flexCheckChecked"
+                                                        @if (isset($editCategories)) {{ $editCategories }} @endif
+                                                        name="categories[edit]">
+                                                    <label class="form-check-label" for="flexCheckChecked">
+                                                        Edit Access
+                                                    </label>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" value="1"
+                                                        id="flexCheckChecked"
+                                                        @if (isset($fullCategories)) {{ $fullCategories }} @endif
+                                                        name="categories[full]">
+                                                    <label class="form-check-label" for="flexCheckChecked">
+                                                        Full Access
+                                                    </label>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                Brands
+                                            </td>
+                                            <td>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" value="1"
+                                                        id="flexCheckChecked"
+                                                        @if (isset($viewbrands)) {{ $viewbrands }} @endif
+                                                        name="brands[view]">
+                                                    <label class="form-check-label" for="flexCheckChecked">
+                                                        View Access
+                                                    </label>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" value="1"
+                                                        id="flexCheckChecked"
+                                                        @if (isset($editbrands)) {{ $editbrands }} @endif
+                                                        name="brands[edit]">
+                                                    <label class="form-check-label" for="flexCheckChecked">
+                                                        Edit Access
+                                                    </label>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" value="1"
+                                                        id="flexCheckChecked"
+                                                        @if (isset($fullbrands)) {{ $fullbrands }} @endif
+                                                        name="brands[full]">
+                                                    <label class="form-check-label" for="flexCheckChecked">
+                                                        Full Access
+                                                    </label>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                Products
+                                            </td>
+                                            <td>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" value="1"
+                                                        id="flexCheckChecked"
+                                                        @if (isset($viewproducts)) {{ $viewproducts }} @endif
+                                                        name="products[view]">
+                                                    <label class="form-check-label" for="flexCheckChecked">
+                                                        View Access
+                                                    </label>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" value="1"
+                                                        id="flexCheckChecked"
+                                                        @if (isset($editproducts)) {{ $editproducts }} @endif
+                                                        name="products[edit]">
+                                                    <label class="form-check-label" for="flexCheckChecked">
+                                                        Edit Access
+                                                    </label>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" value="1"
+                                                        id="flexCheckChecked"
+                                                        @if (isset($fullproducts)) {{ $fullproducts }} @endif
+                                                        name="products[full]">
+                                                    <label class="form-check-label" for="flexCheckChecked">
+                                                        Full Access
+                                                    </label>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                Orders
+                                            </td>
+                                            <td>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" value="1"
+                                                        id="flexCheckChecked"
+                                                        @if (isset($viewOrders)) {{ $viewOrders }} @endif
+                                                        name="orders[view]">
+                                                    <label class="form-check-label" for="flexCheckChecked">
+                                                        View Access
+                                                    </label>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" value="1"
+                                                        id="flexCheckChecked"
+                                                        @if (isset($editOrders)) {{ $editOrders }} @endif
+                                                        name="orders[edit]">
+                                                    <label class="form-check-label" for="flexCheckChecked">
+                                                        Edit Access
+                                                    </label>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" value="1"
+                                                        id="flexCheckChecked"
+                                                        @if (isset($fullOrders)) {{ $fullOrders }} @endif
+                                                        name="orders[full]">
+                                                    <label class="form-check-label" for="flexCheckChecked">
+                                                        Full Access
+                                                    </label>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                Banners
+                                            </td>
+                                            <td>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" value="1"
+                                                        id="flexCheckChecked"
+                                                        @if (isset($viewbanners)) {{ $viewbanners }} @endif
+                                                        name="banners[view]">
+                                                    <label class="form-check-label" for="flexCheckChecked">
+                                                        View Access
+                                                    </label>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" value="1"
+                                                        id="flexCheckChecked"
+                                                        @if (isset($editbanners)) {{ $editbanners }} @endif
+                                                        name="banners[edit]">
+                                                    <label class="form-check-label" for="flexCheckChecked">
+                                                        Edit Access
+                                                    </label>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" value="1"
+                                                        id="flexCheckChecked"
+                                                        @if (isset($fullbanners)) {{ $fullbanners }} @endif
+                                                        name="banners[full]">
+                                                    <label class="form-check-label" for="flexCheckChecked">
+                                                        Full Access
+                                                    </label>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                subscribers
+                                            </td>
+                                            <td>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" value="1"
+                                                        id="flexCheckChecked"
+                                                        @if (isset($viewsubscribers)) {{ $viewsubscribers }} @endif
+                                                        name="subscribers[view]">
+                                                    <label class="form-check-label" for="flexCheckChecked">
+                                                        View Access
+                                                    </label>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" value="1"
+                                                        id="flexCheckChecked"
+                                                        @if (isset($editsubscribers)) {{ $editsubscribers }} @endif
+                                                        name="subscribers[edit]">
+                                                    <label class="form-check-label" for="flexCheckChecked">
+                                                        Edit Access
+                                                    </label>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" value="1"
+                                                        id="flexCheckChecked"
+                                                        @if (isset($fullsubscribers)) {{ $fullsubscribers }} @endif
+                                                        name="subscribers[full]">
+                                                    <label class="form-check-label" for="flexCheckChecked">
+                                                        Full Access
+                                                    </label>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                Ratings
+                                            </td>
+                                            <td>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" value="1"
+                                                        id="flexCheckChecked"
+                                                        @if (isset($viewratings)) {{ $viewratings }} @endif
+                                                        name="ratings[view]">
+                                                    <label class="form-check-label" for="flexCheckChecked">
+                                                        View Access
+                                                    </label>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" value="1"
+                                                        id="flexCheckChecked"
+                                                        @if (isset($editratings)) {{ $editratings }} @endif
+                                                        name="ratings[edit]">
+                                                    <label class="form-check-label" for="flexCheckChecked">
+                                                        Edit Access
+                                                    </label>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" value="1"
+                                                        id="flexCheckChecked"
+                                                        @if (isset($fullratings)) {{ $fullratings }} @endif
+                                                        name="ratings[full]">
+                                                    <label class="form-check-label" for="flexCheckChecked">
+                                                        Full Access
+                                                    </label>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="4">
+                                                <div class="card-footer">
+                                                    <button type="submit" id="sub"
+                                                        class="btn btn-primary">Submit</button>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </form>
 
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" name="cms_pages[view]"
-                                            value="1" @if (isset($viewCMSPages)) {{ $viewCMSPages }} @endif>
-                                        <label class="form-check-label">View Access</label>
-                                    </div>
+                                </tbody>
+                            </table>
+                        </div>
+                        <!-- /.card-body -->
+                        {{-- <div class="card-footer clearfix">
 
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" name="cms_pages[edit]"
-                                            value="1" @if (isset($editCMSPages)) {{ $editCMSPages }} @endif>
-                                        <label class="form-check-label">Edit Access</label>
-                                    </div>
-
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" name="cms_pages[full]"
-                                            value="1" @if (isset($fullCMSPages)) {{ $fullCMSPages }} @endif>
-                                        <label class="form-check-label">Full Access</label>
-                                    </div>
-                                </div>
-                                {{-- Module Category --}}
-                                <div class="form-group">
-                                    <label for="title">Category</label>
-
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" name="categories[view]"
-                                            value="1" @if (isset($viewCategories)) {{ $viewCategories }} @endif>
-                                        <label class="form-check-label">View Access</label>
-                                    </div>
-
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" name="categories[edit]"
-                                            value="1" @if (isset($editCategories)) {{ $editCategories }} @endif>
-                                        <label class="form-check-label">Edit Access</label>
-                                    </div>
-
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" name="categories[full]"
-                                            value="1" @if (isset($fullCategories)) {{ $fullCategories }} @endif>
-                                        <label class="form-check-label">Full Access</label>
-                                    </div>
-                                </div>
-                                {{-- Module Product --}}
-                                <div class="form-group">
-                                    <label for="title">Products</label>
-
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" name="products[view]" value="1"
-                                            @if (isset($viewproducts)) {{ $viewproducts }} @endif>
-                                        <label class="form-check-label">View Access</label>
-                                    </div>
-
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" name="products[edit]" value="1"
-                                            @if (isset($editproducts)) {{ $editproducts }} @endif>
-                                        <label class="form-check-label">Edit Access</label>
-                                    </div>
-
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" name="products[full]" value="1"
-                                            @if (isset($fullproducts)) {{ $fullproducts }} @endif>
-                                        <label class="form-check-label">Full Access</label>
-                                    </div>
-                                </div>
-                                {{-- Module Brands --}}
-                                <div class="form-group">
-                                    <label for="title">Brands</label>
-
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" name="brands[view]"
-                                            value="1" @if (isset($viewbrands)) {{ $viewbrands }} @endif>
-                                        <label class="form-check-label">View Access</label>
-                                    </div>
-
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" name="brands[edit]"
-                                            value="1" @if (isset($editbrands)) {{ $editbrands }} @endif>
-                                        <label class="form-check-label">Edit Access</label>
-                                    </div>
-
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" name="brands[full]"
-                                            value="1" @if (isset($fullbrands)) {{ $fullbrands }} @endif>
-                                        <label class="form-check-label">Full Access</label>
-                                    </div>
-                                </div>
-                                 {{-- Module Banner --}}
-                                 <div class="form-group">
-                                    <label for="title">Banners</label>
-
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" name="banners[view]"
-                                            value="1" @if (isset($viewbanners)) {{ $viewbanners }} @endif>
-                                        <label class="form-check-label">View Access</label>
-                                    </div>
-
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" name="banners[edit]"
-                                            value="1" @if (isset($editbanners)) {{ $editbanners }} @endif>
-                                        <label class="form-check-label">Edit Access</label>
-                                    </div>
-
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" name="banners[full]"
-                                            value="1" @if (isset($fullbanners)) {{ $fullbanners }} @endif>
-                                        <label class="form-check-label">Full Access</label>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- /.card-body -->
-
-                            <div class="card-footer">
-                                <button type="submit" id="sub" class="btn btn-primary">Submit</button>
-                            </div>
-                        </form>
+                    </div> --}}
                     </div>
-                    <!-- /.card -->
                 </div>
-            </div>
-            <!-- /.row -->
-        </div><!-- /.container-fluid -->
+
+            </div><!-- /.container-fluid -->
     </section>
+
+
 @endsection

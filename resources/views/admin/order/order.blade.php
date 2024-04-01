@@ -88,24 +88,27 @@
                                             <td>
                                                 <span class="badge badge-primary">{{ $order['payment_method'] }}</span>
                                             </td>
-                                            <td>
-                                                <a href="{{ url('admin/orders/' . $order['id']) }}">
-                                                    <i class="fas fa-file" style="font-size: 20px"></i>
-                                                </a>
-
-                                                &nbsp;&nbsp;
-                                                @if ($order['order_status'] == 'Shipped' || $order['order_status'] == 'Delivered')
-                                                    <a target="_blank"
-                                                        href="{{ url('admin/print-order-invoice/' . $order['id']) }}">
-                                                        <i class="fas fa-print"style="font-size: 20px"></i>
+                                            @if ($ordersModule['edit_access'] == 1 || $ordersModule['full_access'] == 1)
+                                                <td>
+                                                    <a href="{{ url('admin/orders/' . $order['id']) }}">
+                                                        <i class="fas fa-file" style="font-size: 20px"></i>
                                                     </a>
-                                                @endif
-                                                &nbsp;&nbsp;
-                                                <a href="{{ url('admin/print-pdf-order-invoice/' . $order['id']) }}">
-                                                    <i class="fas fa-file-pdf" style="font-size: 20px"></i>
-                                                </a>
 
-                                            </td>
+                                                    &nbsp;&nbsp;
+                                                    @if ($order['order_status'] == 'Shipped' || $order['order_status'] == 'Delivered')
+                                                        <a target="_blank"
+                                                            href="{{ url('admin/print-order-invoice/' . $order['id']) }}">
+                                                            <i class="fas fa-print"style="font-size: 20px"></i>
+                                                        </a>
+                                                    @endif
+                                                    &nbsp;&nbsp;
+                                                    <a href="{{ url('admin/print-pdf-order-invoice/' . $order['id']) }}">
+                                                        <i class="fas fa-file-pdf" style="font-size: 20px"></i>
+                                                    </a>
+
+                                                </td>
+                                            @endif
+
                                         </tr>
                                     @endforeach
                                 </tbody>

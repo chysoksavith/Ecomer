@@ -26,7 +26,7 @@
                     </ul>
                 </div>
             @endif
-   
+
             <div class="row">
                 <!-- left column -->
                 <div class="col-md-12">
@@ -60,11 +60,14 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="description">Description</label>
-                                    <textarea class="form-control" name="description" id="description">
+                                    <textarea class="tinymce-editor" name="description" id="myeditorinstance">
                                         @if (!empty($cmsPage['description']))
 {{ $cmsPage['description'] }}
 @endif
                                     </textarea>
+                                    <textarea>
+                                        Welcome to TinyMCE!
+                                      </textarea>
                                 </div>
                                 <div class="form-group">
                                     <label for="meta_title">meta_title*</label>

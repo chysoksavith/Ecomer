@@ -264,4 +264,28 @@ $(document).ready(function () {
             },
         });
     });
+    // update status shipping
+    $(document).on("click", ".updatShippingstatus", function () {
+        var status = $(this).find("i").attr("status");
+        var shipping_id = $(this).attr("shipping_id");
+        $.ajax({
+            headers: {
+                "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+            },
+            type: "post",
+            url: "/admin/update-shipping-status",
+            data: { status: status, shipping_id: shipping_id },
+            success: function (resp) {
+                if (resp.status == 0) {
+                    $("#shipping-" + shipping_id).html(
+                        "<i class='fas fa-toggle-off' style='color:grey;' status='Inactive'></i>"
+                    );
+                } else if (resp.status == 1) {
+                    $("#shipping-" + shipping_id).html(
+                        "<i class='fas fa-toggle-on' style='color:blue;' status='Active'></i>"
+                    );
+                }
+            },
+        });
+    });
 });

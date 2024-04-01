@@ -17,89 +17,82 @@
               </div><!-- /.row -->
           </div><!-- /.container-fluid -->
       </div>
+      <div class="p-2">
+          @include('_message')
+      </div>
       <!-- /.content-header -->
-      @if ($errors->any())
-          <div class="alert alert-danger">
-              <ul>
-                  @foreach ($errors->all() as $error)
-                      <li>{{ $error }}</li>
-                  @endforeach
-              </ul>
-          </div>
-      @endif
-      @if (Session::has('error_message'))
-          <div class="alert alert-danger alert-dismissible fade show" role="alert">
-              <strong>Error:</strong>{{ Session::get('error_message') }}
-              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-          </div>
-      @endif
-      <!-- Main content -->
       <section class="content">
           <div class="container-fluid">
-              <!-- Info boxes -->
+              <!-- Small boxes (Stat box) -->
               <div class="row">
-                  <div class="col-12 col-sm-6 col-md-3">
-                      <div class="info-box">
-                          <span class="info-box-icon bg-info elevation-1"><i class="fas fa-cog"></i></span>
+                  <div class="col-lg-3 col-6">
+                      <!-- small box -->
+                      <div class="small-box bg-info">
+                          <div class="inner">
+                              <h3>{{ $brandCount }}</h3>
 
-                          <div class="info-box-content">
-                              <span class="info-box-text">Categories</span>
-                              <span class="info-box-number">
-                                  {{ $categoryCount }}
-                                  {{-- <small>%</small> --}}
-                              </span>
+                              <p>Brands</p>
                           </div>
-                          <!-- /.info-box-content -->
-                      </div>
-                      <!-- /.info-box -->
-                  </div>
-                  <!-- /.col -->
-                  <div class="col-12 col-sm-6 col-md-3">
-                      <div class="info-box mb-3">
-                          <span class="info-box-icon bg-danger elevation-1"><i class="fas fa-thumbs-up"></i></span>
-
-                          <div class="info-box-content">
-                              <span class="info-box-text">Products</span>
-                              <span class="info-box-number">{{$ProductCount}}</span>
+                          <div class="icon">
+                              <i class="fa-solid fa-b"></i>
                           </div>
-                          <!-- /.info-box-content -->
+                          <a href="{{ url('admin/brands') }}" class="small-box-footer">More info <i
+                                  class="fas fa-arrow-circle-right"></i></a>
                       </div>
-                      <!-- /.info-box -->
                   </div>
-                  <!-- /.col -->
+                  <!-- ./col -->
+                  <div class="col-lg-3 col-6">
+                      <!-- small box -->
+                      <div class="small-box bg-success">
+                          <div class="inner">
+                              <h3>{{ $categoryCount }}</h3>
 
-                  <!-- fix for small devices only -->
-                  <div class="clearfix hidden-md-up"></div>
-
-                  <div class="col-12 col-sm-6 col-md-3">
-                      <div class="info-box mb-3">
-                          <span class="info-box-icon bg-success elevation-1"><i class="fas fa-shopping-cart"></i></span>
-
-                          <div class="info-box-content">
-                              <span class="info-box-text">Brands</span>
-                              <span class="info-box-number">{{$brandCount}}</span>
+                              <p>Categories</p>
                           </div>
-                          <!-- /.info-box-content -->
-                      </div>
-                      <!-- /.info-box -->
-                  </div>
-                  <!-- /.col -->
-                  <div class="col-12 col-sm-6 col-md-3">
-                      <div class="info-box mb-3">
-                          <span class="info-box-icon bg-warning elevation-1"><i class="fas fa-users"></i></span>
-
-                          <div class="info-box-content">
-                              <span class="info-box-text">Users</span>
-                              <span class="info-box-number">{{$userCount}}</span>
+                          <div class="icon">
+                              <i class="fa-solid fa-list"></i>
                           </div>
+                          <a href="{{ url('admin/categories') }}" class="small-box-footer">More info <i
+                                  class="fas fa-arrow-circle-right"></i></a>
                       </div>
-                      <!-- /.info-box -->
                   </div>
-                  <!-- /.col -->
+                  <!-- ./col -->
+                  <div class="col-lg-3 col-6">
+                      <!-- small box -->
+                      <div class="small-box bg-warning">
+                          <div class="inner">
+                              <h3 class=" text-white">{{ $ProductCount }}</h3>
+
+                              <p class=" text-white">Products</p>
+                          </div>
+                          <div class="icon">
+                              <i class="fa-brands fa-product-hunt"></i>
+                          </div>
+                          <a href="{{ url('admin/products') }}" class="small-box-footer text-white">More info <i
+                                  class="fas fa-arrow-circle-right"></i></a>
+                      </div>
+                  </div>
+                  <!-- ./col -->
+                  <div class="col-lg-3 col-6">
+                      <!-- small box -->
+                      <div class="small-box bg-danger">
+                          <div class="inner">
+                              <h3>{{ $userCount }}</h3>
+
+                              <p>Users</p>
+                          </div>
+                          <div class="icon">
+                              <i class="fa-solid fa-users"></i>
+                          </div>
+                          <a href="{{ url('admin/users') }}" class="small-box-footer">More info <i
+                                  class="fas fa-arrow-circle-right"></i></a>
+                      </div>
+                  </div>
+                  <!-- ./col -->
               </div>
+              <!-- /.row -->
 
-          </div><!--/. container-fluid -->
+          </div><!-- /.container-fluid -->
       </section>
-      <!-- /.content -->
   @endsection
   <!-- /.content-wrapper -->

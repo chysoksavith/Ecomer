@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\AdminRoles;
 use App\Models\OrderLog;
 use App\Models\Orders;
 use App\Models\OrderStatus;
@@ -19,7 +20,20 @@ class OrderController extends Controller
     {
         Session::put('page', 'order');
         $orders = Orders::with('orders_products', 'user')->orderBy('id', 'Desc')->get()->toArray();
-        return view('admin.order.order')->with(compact('orders'));
+        // permission
+        $orderModuleCount = AdminRoles::where(['subadmins_id' => Auth::guard('admin')->user()->id, 'module' => 'orders'])->count();
+        $ordersModule = array();
+        if (Auth::guard('admin')->user()->type == "admin") {
+            $ordersModule['view_access'] = 1;
+            $ordersModule['edit_access'] = 1;
+            $ordersModule['full_access'] = 1;
+        } else if ($orderModuleCount == 0) {
+            $message = "This feature is restricted for you";
+            return redirect('admin/dashboard')->with('error_message', $message);
+        } else {
+            $ordersModule = AdminRoles::where(['subadmins_id' => Auth::guard('admin')->user()->id, 'module' => 'orders'])->first()->toArray();
+        }
+        return view('admin.order.order')->with(compact('orders', 'ordersModule'));
     }
     public function DetailOrder(Request $request, $id)
     {
@@ -28,6 +42,8 @@ class OrderController extends Controller
         $orderStatues = OrderStatus::where('status', 1)->get()->toArray();
         // fetch order log
         $orderLog = OrderLog::Where('order_id', $id)->get()->toArray();
+
+
         return view('admin.order.order_detail')->with(compact('orderDetails', 'orderStatues', 'orderLog'));
     }
     public function updateOrderStatus(Request $request)

@@ -23,13 +23,6 @@ class ProductsController extends Controller
         // Use paginate here
         $productsQuery = Product::with('category')->latest();
 
-        if ($request->get('Keyword')) {
-            $keyword = $request->input('Keyword');
-
-            // Apply the condition to filter products by 'product_name'
-            $productsQuery = $productsQuery->where('product_name', 'like', '%' . $keyword . '%');
-        }
-
         // Apply paginate after conditions
         $products = $productsQuery->paginate(4);
 

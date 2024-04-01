@@ -45,7 +45,7 @@ class IndexController extends Controller
             ->inRandomOrder()
             ->limit(4)
             ->get();
-        // stock    
+        // stock
         return view('client.index')->with(compact('homeSliderBanner', 'homeFixBanner', 'NewProducts', 'BestSeller', 'discountProducts', 'IsFeatureProducts'));
     }
     public function HomePage()
