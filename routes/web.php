@@ -28,6 +28,10 @@ use App\Models\Category;
 use App\Models\CmsPage;
 use Illuminate\Support\Facades\Route;
 
+// undifine route when user type wrong url when visit out page
+Route::fallback(function () {
+    return view('errors.404');
+});
 
 Route::namespace('App\Http\Controllers\front')->group(function () {
 
@@ -103,6 +107,8 @@ Route::namespace('App\Http\Controllers\front')->group(function () {
             Route::get('/user/orders', 'Order');
             // Order details
             Route::get('/user/orders/{id}', 'OrderDetails');
+            // Cancel order
+            Route::match(['get', 'post'], '/user/orders/{id}/cancel', 'cancelOrder');
         });
         // Paypal
         Route::controller(PaypalController::class)->group(function () {

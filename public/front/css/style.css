@@ -207,3 +207,67 @@ scrollbar-thumb {
     background-color: aqua;
     z-index: 999999;
 }
+/* model */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    position: relative;
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+}
+.h2-order{
+    margin-bottom: 10px;
+}
+.selcet-cencel{
+    width: 100%;
+    padding: 10px;
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+.order-btn-cancel {
+    margin-left: auto;
+    display: block;
+    width: 145px;
+    height: 40px;
+    font-size: 13px;
+    font-weight: 600;
+    background-color: #2c2930;
+    height: 54px;
+    color: white;
+    letter-spacing: 3px;
+    border: none;
+    transition: all 0.3s;
+}
+.order-btn-cancel:hover {
+    background: transparent;
+    color: black;
+    border: 1px solid black;
+}

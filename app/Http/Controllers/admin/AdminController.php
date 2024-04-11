@@ -7,6 +7,7 @@ use App\Models\Admin;
 use App\Models\AdminRoles;
 use App\Models\Brand;
 use App\Models\Category;
+use App\Models\Orders;
 use App\Models\Product;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -23,7 +24,8 @@ class AdminController extends Controller
         $ProductCount = Product::get()->count();
         $brandCount = Brand::get()->count();
         $userCount = User::get()->count();
-        return view('admin.dashboard')->with(compact('categoryCount','ProductCount','brandCount','userCount'));
+        $orderCount = Orders::get()->count();
+        return view('admin.dashboard')->with(compact('categoryCount', 'ProductCount', 'brandCount', 'userCount', 'orderCount'));
     }
     public function login(Request $request)
     {
@@ -51,7 +53,7 @@ class AdminController extends Controller
                     setcookie("password", "");
                 }
 
-                return redirect('admin/dashboard');
+                return redirect('admin/dashboard')->with('success_message', 'Welcome to Dashboard');
             } else {
                 return redirect()->back()->with("error_message", "Invalid Email Or Invalid password");
             }

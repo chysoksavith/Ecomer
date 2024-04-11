@@ -8,7 +8,7 @@
             <div class="row mb-2">
                 <div class="col-sm-6 d-flex align-items-center justify-content-between">
                     <h1 class="m-0">Order Detail</h1>
-                    <a target="_blank" class="btn btn-info" href="{{url('admin/order')}}">Back</a>
+                    <a target="_blank" class="btn btn-info" href="{{ url('admin/order') }}">Back</a>
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
@@ -241,7 +241,9 @@
                                                 @foreach ($orderLog as $log)
                                                     <tr>
                                                         <td colspan="3">
-                                                            <strong class="badge badge-info">{{ $log['order_status'] }}</strong> <br>
+                                                            <strong
+                                                                class="badge badge-info">{{ $log['order_status'] }}</strong>
+                                                            <br>
                                                             @if ($log['order_status'] == 'Shipped')
                                                                 @if (!empty($orderDetails['courier_name']))
                                                                     Courier Name :
@@ -253,6 +255,9 @@
                                                                     <strong>{{ $orderDetails['tracking_number'] }}</strong>
                                                                     <br>
                                                                 @endif
+                                                            @endif
+                                                            @if ($log['reason'] != '')
+                                                                <span>{{ $log['reason'] }}</span> <br>
                                                             @endif
                                                             {{ date('F j, Y, g:i a', strtotime($log['created_at'])) }}
                                                         </td>

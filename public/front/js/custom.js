@@ -396,6 +396,7 @@ $(document).ready(function () {
                     // Reset the form
                     $("#addressAddEditForm")[0].reset();
                     $(".deliveryText").text("Add New Delivery Address");
+                    window.location.href = "checkout";
                 }
             },
             error: function () {
@@ -448,6 +449,7 @@ $(document).ready(function () {
             success: function (resp) {
                 $("#deliveryAddress").html(resp.view);
                 showToast(resp.message);
+                window.location.href = "checkout";
             },
             error: function () {
                 showToast(
@@ -469,6 +471,7 @@ $(document).ready(function () {
             data: { addressid: addressid },
             success: function (resp) {
                 $("#deliveryAddress").html(resp.view);
+                window.location.href = "checkout";
             },
             error: function () {
                 showToast(
@@ -478,10 +481,21 @@ $(document).ready(function () {
             },
         });
     });
+    // Cancel order
+    $(document).on("click", "#cancelBtn", function () {
+        var reason = $("#cancelReason").val();
+        if (reason == "") {
+            showToast(
+                "Please Select The Reason For Canceling The Order",
+                "Error"
+            );
+            return false;
+        }
+    });
+
 
     // show loader when place order
     $(document).on("click", "#placeOrderLoader", function () {
         $(".loader").show();
     });
-
 });

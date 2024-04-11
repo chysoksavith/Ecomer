@@ -18,7 +18,13 @@ class Orders extends Model
     {
         return $this->belongsTo(User::class, 'user_id');
     }
-    public function log(){
-        return $this->hasMany(OrderLog::class, 'order_id')->orderBy('id','Desc');
+    public function log()
+    {
+        return $this->hasMany(OrderLog::class, 'order_id')->orderBy('id', 'Desc');
+    }
+    public static function getOrderStatus($order_id)
+    {
+        $getOrderStatus = self::select('order_status')->where('id', $order_id)->first();
+        return $getOrderStatus->order_status;
     }
 }

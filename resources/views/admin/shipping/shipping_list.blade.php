@@ -59,7 +59,11 @@
                                         <tr>
                                             <th>Id</th>
                                             <th>Country</th>
-                                            <th>Rate</th>
+                                            <th>Rate (0g to 500g)</th>
+                                            <th>Rate (501g to 1000g)</th>
+                                            <th>Rate (1001g to 2000g)</th>
+                                            <th>Rate (2001g to 5000g)</th>
+                                            <th>Rate (above to 5000g)</th>
                                             <th>status</th>
                                             <th>Action</th>
                                         </tr>
@@ -79,7 +83,19 @@
                                                     {{ $shipping['country'] }}
                                                 </td>
                                                 <td>
-                                                    {{ $shipping['rate'] }}
+                                                    {{ $shipping['0_500g'] }}
+                                                </td>
+                                                <td>
+                                                    {{ $shipping['501_1000g'] }}
+                                                </td>
+                                                <td>
+                                                    {{ $shipping['1001_2000g'] }}
+                                                </td>
+                                                <td>
+                                                    {{ $shipping['2001_5000g'] }}
+                                                </td>
+                                                <td>
+                                                    {{ $shipping['above_5000g'] }}
                                                 </td>
                                                 <td>
                                                     <a class="updatShippingstatus" id="shipping-{{ $shipping['id'] }}"

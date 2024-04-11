@@ -174,3 +174,18 @@
 .namshio{
     font-weight: 500;
 }
+.CancelOrder{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.ahrdd{
+    text-decoration: none;
+}
+.cancelBtn{
+    cursor: pointer;
+    font-size: 14px;
+    padding: 10px 20px;
+    color: white;
+    background-color: #D35400;
+}

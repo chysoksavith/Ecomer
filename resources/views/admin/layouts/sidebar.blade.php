@@ -53,7 +53,7 @@
                   @endif
                   <li class="nav-item">
                       <a href="{{ route('admin.index') }}" class="nav-link {{ $active }}">
-                          <i class="nav-icon fas fa-th"></i>
+                          <i class="nav-icon fas fa-chart-line"></i>
                           <p>
                               Dashboard
                           </p>
@@ -142,7 +142,7 @@
                       @endif
                       <li class="nav-item">
                           <a href="{{ url('admin/shipping-charges') }}" class="nav-link {{ $active }}">
-                              <i class="nav-icon fas fa-users"></i>
+                              <i class="nav-icon fas fa-ship"></i>
                               <p>
                                   Shipping Charges
                               </p>
@@ -162,7 +162,7 @@
                   @endif
                   <li class="nav-item">
                       <a href="{{ route('admin.cmspages') }}" class="nav-link {{ $active }}">
-                          <i class="nav-icon fas fa-users"></i>
+                          <i class="nav-icon fas fa-list"></i>
                           <p>
                               CMS Pages
                           </p>
@@ -368,7 +368,7 @@
                           $userActive = in_array(Session::get('page'), ['order']) ? 'active' : '';
                       @endphp
                       <a href="#" class="nav-link {{ $userActive }}">
-                          <i class="nav-icon fas fa-th"></i>
+                          <i class="nav-icon fas fa-shopping-cart"></i>
                           <p>
                               Orders
                               <i class="right fas fa-angle-left"></i>

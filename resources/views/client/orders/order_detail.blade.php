@@ -1,5 +1,9 @@
 @php
     use App\Models\Product;
+    use App\Models\Orders;
+
+    $getOrderStatus = Orders::getOrderStatus($orderDetails['id']);
+
 @endphp
 @extends('client.layouts.layout')
 @section('content')
@@ -10,10 +14,16 @@
             </div>
         </div>
         <div class="orderDetailContainer">
-            <div class="">
+            <div class=" CancelOrder">
                 <span class="notamember">
                     Order Details
                 </span>
+                @if ($getOrderStatus == 'New')
+                    <span class="cancelBtn" id="openModalBtn">
+                        Cancel Order
+                    </span>
+                @endif
+
 
             </div>
             <div class="orderDetailContainerBody">
@@ -263,4 +273,6 @@
         </div>
 
     </div>
+    @include('popup')
+
 @endsection

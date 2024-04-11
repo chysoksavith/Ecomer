@@ -57,6 +57,7 @@
                                 <thead>
                                     <tr>
                                         <th>Id</th>
+                                        <th>Image</th>
                                         <th>Product Name</th>
                                         <th>Product Code</th>
                                         <th>Product Color</th>
@@ -69,9 +70,14 @@
                                     @forelse ($products as $product)
                                         <tr>
                                             <td>{{ optional($product)->id ?? 'N/A' }}</td>
+                                            <td>
+                                                <img src="{{ asset('front/images/products/' . $product->images[0]->image) }}"
+                                                    width="50px">
+                                            </td>
                                             <td>{{ optional($product)->product_name ?? 'N/A' }}</td>
                                             <td>{{ optional($product)->product_code ?? 'N/A' }}</td>
                                             <td>{{ optional($product)->product_color ?? 'N/A' }}</td>
+
                                             <td>
                                                 @if (optional($product->created_at)->format('Y-m-d'))
                                                     {{ optional($product->created_at)->format('Y-m-d') }}

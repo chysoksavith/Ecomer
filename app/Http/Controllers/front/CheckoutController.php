@@ -10,6 +10,7 @@ use App\Models\DeliveryAddresses;
 use App\Models\Order_Product;
 use App\Models\Orders;
 use App\Models\Product;
+use App\Models\ProductsAttribure;
 use App\Models\ShippingCharges;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -21,24 +22,37 @@ class CheckoutController extends Controller
 {
     public function checkout(Request $request)
     {
+
         // get update cart item
         $getCartItems = getCartItems();
-        // get country
-        $countries = Country::where('status', 1)->get()->toArray();
-        // Get delivery address of the User
-        $deliveryAddress = DeliveryAddresses::deliveryAddresses();
-        // get shipping charges
-        foreach ($deliveryAddress as $Key => $value) {
-            $shippingCharges = ShippingCharges::getShippingCharges($value['country']);
-            $deliveryAddress[$Key]['shipping_charges'] = $shippingCharges;
-        }
-        // dd($deliveryAddress); die;
-
         if (count($getCartItems) == 0) {
             $message = "Shopping Cart is empty! Please add Products to Checkout";
             return redirect('cart')->with('error_message', $message);
         }
+        // get country
+        $countries = Country::where('status', 1)->get()->toArray();
+        // Get delivery address of the User
+        $deliveryAddress = DeliveryAddresses::deliveryAddresses();
+        // Fetch Order total price
+        $total_price = 0;
+        $total_weight = 0;
+        foreach ($getCartItems as $cartItems) {
 
+            $getAttributePrice = Product::getAttributePrice($cartItems['product_id'], $cartItems['product_size']);
+            $total_price = $total_price + ($getAttributePrice['final_price'] * $cartItems['product_qty']);
+            $product_weight = $cartItems['product']['product_weight'] * $cartItems['product_qty'];
+            $total_weight = $total_weight + $product_weight;
+        }
+
+
+        // get shipping charge from default country of the user
+        $shipping_charges = 0;
+        $addressCount = DeliveryAddresses::where(['user_id' => Auth::user()->id, 'is_default' => 1, 'status' => 1])->count();
+        if ($addressCount > 0) {
+            $defaultDeliveryAddress = DeliveryAddresses::where(['user_id' => Auth::user()->id, 'is_default' => 1, 'status' => 1])->first()->toArray();
+            // Calculate shipping charges based on total weight, regardless of quantity
+            $shipping_charges = ShippingCharges::getShippingCharges($defaultDeliveryAddress['country'], $total_weight);
+        }
 
         if ($request->isMethod('post')) {
             $data = $request->all();
@@ -74,24 +88,16 @@ class CheckoutController extends Controller
 
             DB::beginTransaction();
 
-            // Fetch Order total price
-            $total_price = 0;
-            foreach ($getCartItems as $cartItems) {
-                $getAttributePrice = Product::getAttributePrice($cartItems['product_id'], $cartItems['product_size']);
-                $total_price = $total_price + ($getAttributePrice['final_price'] * $cartItems['product_qty']);
-            }
 
-            // Get Shipping charger
+
+            // get shipping charge
             $shipping_charges = 0;
-
             // Calculate Grand Total
-            $grand_total = $total_price + $shipping_charges - Session::get('couponAmount');
-
+            $shipping_charges = ShippingCharges::getShippingCharges($deliveryAddress['country'], $total_weight);
             // Insert Grand Total i Session in Variable
-            Session::put('grand_total', $grand_total);
-
+            $grand_total = $total_price + $shipping_charges - Session::get('couponAmount');
             // Insert Order Details
-
+            Session::put('grand_total', $grand_total);
             $order = new Orders;
             $order->user_id = Auth::user()->id;
             $order->name = $deliveryAddress['name'];
@@ -130,6 +136,16 @@ class CheckoutController extends Controller
 
                 $cartItem->product_qty = $item['product_qty'];
                 $cartItem->save();
+
+                if ($data['payment_geteway'] == "COD") {
+                    // Reduce stock Scripts Start
+                    $getProductStock = ProductsAttribure::productStock($item['product_id'], $item['product_size']);
+                    $newStock = $getProductStock - $item['product_qty'];
+                    ProductsAttribure::where([
+                        'product_id' => $item['product_id'],
+                        'size' => $item['product_size'],
+                    ])->update(['stock' => $newStock]);
+                }
             }
             // inser Order ID in Session variable
             Session::put('order_id', $order_id);
@@ -152,6 +168,8 @@ class CheckoutController extends Controller
                     $message->to($email)->subject('Order Placed - CamShop');
                 });
 
+
+
                 return redirect('/thank');
             }
             if ($data['payment_geteway'] == "Paypal") {
@@ -163,15 +181,10 @@ class CheckoutController extends Controller
                 die;
             }
         }
-        $total_price = 0;
-        foreach ($getCartItems as $item) {
 
-            $attrPrice = Product::getAttributePrice($item['product_id'], $item['product_size']);
-            $total_price = $total_price + ($attrPrice['final_price'] * $item['product_qty']);
-        }
         // echo $total_price;
         // die;
-        return view('client.checkout.checkout')->with(compact('getCartItems','total_price', 'countries', 'deliveryAddress'));
+        return view('client.checkout.checkout')->with(compact('shipping_charges', 'getCartItems', 'countries', 'deliveryAddress'));
     }
 
     // thanks pages

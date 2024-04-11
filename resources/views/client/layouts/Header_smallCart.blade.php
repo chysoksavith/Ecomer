@@ -79,7 +79,7 @@ $getCartItems = getCartItems();
             <a class="aCartmini" href="{{ url('cart') }}">
                 <button type="submit" class="CartminiBtnDetail">View Cart</button>
             </a>
-            <a class="aCartmini" href="{{ url('cart') }}">
+            <a class="aCartmini" href="{{ url('checkout') }}">
 
                 <button type="submit" class="CartminiBtnDetail1">Checkout</button>
             </a>

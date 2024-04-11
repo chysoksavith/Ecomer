@@ -269,20 +269,19 @@
                         </li>
                         <li>
                             <div class="subtoal">
-                                <span class="subPrice">Shippign</span>
-                                <span class="subPrice">f$</span>
+                                <span class="subPrice">Shipping Charge</span>
+                                <span class="subPrice">{{ $shipping_charges }}$</span>
                             </div>
                         </li>
                         <li>
                             <div class="subtoal">
                                 <span class="subPrice">Tax</span>
-                                <span class="subPrice">f$</span>
+                                <span class="subPrice">0$</span>
                             </div>
                         </li>
                         <li>
                             <div class="subtoal">
                                 <span class="subPrice">Coupon Discount</span>
-
                                 <span class="subPrice couponAmount">
                                     @php
                                         $couponAmount = Session::get('couponAmount');
@@ -294,35 +293,29 @@
                         <li>
                             <div class="db">
                                 <span class="subPrice">Order Total</span>
-
                                 @php
                                     $couponAmount = Session::has('couponAmount') ? Session::get('couponAmount') : 0;
-                                    $grand_total = $total_price - $couponAmount;
+                                    $grand_total = $total_price - $couponAmount + $shipping_charges;
                                 @endphp
-                                <span class="subPrice orderTotal grandTotal">
-                                    {{ $grand_total }}$
-                                </span>
-
-
+                                <span class="subPrice orderTotal grandTotal">{{ $grand_total }}$</span>
                             </div>
                         </li>
                         <li>
                             <div class="inputFiel showPass">
                                 <input type="checkbox" class="checkboxshowpass" name="agree" value="Yes">
-
-                                <span class="showPasswordTxt" style=" font-size: 14px">
+                                <span class="showPasswordTxt" style="font-size: 14px">
                                     I consent to the <a href=""
-                                        style=" color: orange; text-decoration: none; font-weight: 600">Terms of
-                                        service</a>
+                                        style="color: orange; text-decoration: none; font-weight: 600">Terms of service</a>
                                 </span>
                             </div>
                             <div class="inputFiel">
-                                <button type="submit" id="placeOrderLoader" class="BtnApplyDiscount">Place Order</button>
+                                <button type="submit" id="placeOrderLoader" class="BtnApplyDiscount">Place
+                                    Order</button>
                             </div>
-
                         </li>
                     </ul>
                 </div>
+
             </div>
             </form>
 

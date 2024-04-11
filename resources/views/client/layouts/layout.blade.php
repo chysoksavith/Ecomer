@@ -27,7 +27,6 @@
     <link rel="stylesheet" href="{{ asset('front/css/checkout.css') }}">
     <link rel="stylesheet" href="{{ asset('front/css/thank.css') }}">
     <link rel="stylesheet" href="{{ asset('front/css/order.css') }}">
-
     {{-- AOS plugin --}}
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" />
     <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
@@ -36,7 +35,6 @@
     {{-- swiper js  --}}
     <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
     <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
-
     <title>Sike</title>
 </head>
 
@@ -69,6 +67,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" crossorigin="anonymous"></script>
     {{-- custom --}}
     <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+    <script src="{{ asset('front/js/popup.js') }}"></script>
     <script src="{{ asset('front/js/header.js') }}"></script>
     <script src="{{ asset('front/js/custom.js') }}"></script>
     <script src="{{ asset('front/js/filter.js') }}"></script>

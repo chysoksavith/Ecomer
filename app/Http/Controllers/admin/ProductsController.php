@@ -21,7 +21,7 @@ class ProductsController extends Controller
         Session::put('page', 'products');
 
         // Use paginate here
-        $productsQuery = Product::with('category')->latest();
+        $productsQuery = Product::with('category','images')->latest();
 
         // Apply paginate after conditions
         $products = $productsQuery->paginate(4);

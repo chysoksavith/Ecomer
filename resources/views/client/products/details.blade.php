@@ -353,15 +353,16 @@
                                             @if (!empty($productDetails->occasion))
                                                 <span class="prodt">Occasion</span>
                                                 <span class="prodt1">{{ $productDetails->occasion }}</span>
+
                                             @endif
 
                                         </div>
                                     </div>
                                     <div class="detailPro">
                                         <div class="moreDetail">
-                                            @if (!empty($productDetails->product_wieght))
+                                            @if (!empty($productDetails->product_weight))
                                                 <span class="prodt">Shipping Wieght (Grams )</span>
-                                                <span class="prodt1">{{ $productDetails->product_wieght }}</span>
+                                                <span class="prodt1">{{ $productDetails->product_weight }} g</span>
                                             @endif
 
                                         </div>
