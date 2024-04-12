@@ -106,17 +106,24 @@ class ProductController extends Controller
             } else {
                 return view('client.products.listing')->with(compact('categoryProducts', 'categoryDetails', 'url'));
             }
-        } else {
+        } else if ($request->filled('query')) {
+            $search = $request->input('query');
+            $categoryDetails['categoryDetails']['category_name'] = $search;
+            $categoryProducts = Product::with(['brand', 'images'])
+                ->where(function ($query) use ($search) {
+                    $query->where('product_name', 'like', '%' . $search . '%')
+                        ->orWhere('product_code', 'like', '%' . $search . '%')
+                        ->orWhere('product_color', 'like', '%' . $search . '%')
+                        ->orWhere('description', 'like', '%' . $search . '%');
+                })
+                ->where('status', 1)
+                ->get();
+                return view('client.products.listing')->with(compact('categoryDetails', 'categoryProducts', 'url'));
+            } else {
             abort(404);
         }
     }
-    // search header
-    public function search(Request $request)
-    {
-        $query = $request->input('query');
-        $products = Product::where('product_name', 'like', '%' . $query . '%')->get();
-        return response()->json($products);
-    }
+
     // product detail
     public function detail(Request $request, $id)
     {

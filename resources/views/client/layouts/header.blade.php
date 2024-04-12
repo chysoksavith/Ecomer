@@ -77,23 +77,27 @@ $totalCartItems = totalCartItems();
                     </a>
                 </li>
                 <li>
-                    <div class="dropdown" data-dropdown>
-                        <span class="fa-solid fa-magnifying-glass icoHead link  " data-dropdown-button></span>
-                        <div class="dropdown-memu">
-                            <div class=" divSearchdiv">
-                                <input type="search" class="searchHeader" id="searchHeader"
-                                    placeholder="Search for produts">
-                                <button class="btnSearch">
-                                    <i class="fa-solid fa-magnifying-glass icoHead"></i>
-                                </button>
+                    <form action="{{ url('search-product') }}" method="get">
+                        @csrf
+                        <div class="dropdown" data-dropdown>
+                            <span class="fa-solid fa-magnifying-glass icoHead link" data-dropdown-button></span>
+                            <div class="dropdown-memu">
+                                <div class="divSearchdiv">
+                                    <input type="search" class="searchHeader" id="searchHeader" name="query" placeholder="Search for products">
+                                    <button type="submit" class="btnSearch">
+                                        <i class="fa-solid fa-magnifying-glass icoHead"></i>
+                                    </button>
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    </form>
+
+
 
                 </li>
                 {{-- wishList --}}
                 <li class="NavLiRes">
-                    <a href="{{url('/wishlist')}}" class="Ico"><i class="fa-regular   fa-heart  icoHead"></i>
+                    <a href="{{ url('/wishlist') }}" class="Ico"><i class="fa-regular   fa-heart  icoHead"></i>
                         {{-- <span class="bagg">
                             <p>1</p>
                         </span> --}}
@@ -185,10 +189,10 @@ $totalCartItems = totalCartItems();
                                 @else
                                     <ul class="ulAccSidebar ">
                                         <li class="liAccSidebar">
-                                           <span class="spanPleaselOGIN">Please Login</span>
+                                            <span class="spanPleaselOGIN">Please Login</span>
                                         </li>
                                         <li class="liAccSidebar">
-                                            <a href="{{url('user/login')}}"class="hoverunderLine">
+                                            <a href="{{ url('user/login') }}"class="hoverunderLine">
                                                 Sign in
                                             </a>
                                         </li>

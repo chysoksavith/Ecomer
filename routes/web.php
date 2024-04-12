@@ -68,9 +68,8 @@ Route::namespace('App\Http\Controllers\front')->group(function () {
         // empty cart
         Route::post('/empty-cart', 'emptyCart');
         Route::get('/check-login-status', 'checkLoginStatus');
-
         // Search
-        Route::get('/search', 'search')->name('search');
+        Route::get('/search-product', 'listing')->name('search');
     });
     // add to wishlist
     Route::post('/update-wishlist', [WishListController::class, 'updateWishList']);

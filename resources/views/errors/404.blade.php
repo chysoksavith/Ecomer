@@ -30,13 +30,7 @@
                 <div class="leftTree">
                     <img src="{{asset('front/images/tree.png')}}" alt="">
                 </div>
-                <div class="btn_404">
-                    <a href="{{url('/')}}" class="abtn">
-                        <button class="btn-404">
-                            Back Home
-                        </button>
-                    </a>
-                </div>
+                
             </div>
         </div>
     </div>
