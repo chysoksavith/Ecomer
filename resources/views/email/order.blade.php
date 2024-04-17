@@ -75,8 +75,7 @@
                                         <tbody>
                                             <tr>
                                                 <td style="padding-bottom: 10px;">
-                                                    <a href="https://htmlcodex.com"><img src="images/logo.png"
-                                                            alt="PapaChina" /></a>
+
                                                 </td>
                                             </tr>
                                             <tr>
@@ -248,7 +247,7 @@
                                                 </td>
                                                 <td
                                                     style="font-size: 14px; line-height: 18px; color: #666666; width: 130px; text-align: right;">
-                                                    $ {{ $total_price }}
+                                                    ${{ $orderDetails['grand_total'] }}
                                                 </td>
                                             </tr>
                                             <tr>

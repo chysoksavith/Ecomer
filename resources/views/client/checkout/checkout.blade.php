@@ -114,7 +114,7 @@
                             </span>
                         </div>
                         <div class="radio-item">
-                            <input type="radio" name="payment_geteway" id="radioDirectBank" value="Bank Tranfer">
+                            <input type="radio" name="payment_geteway" id="radioDirectBank" value="Bank Transfer">
                             <label for="radioDirectBank">Direct Bank Transfer</label>
                         </div>
                         <div style="padding: 15px; font-size: 14px;">

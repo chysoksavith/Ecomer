@@ -64,8 +64,7 @@
     width: 100%;
 }
 /* responsive nav header */
-.NavREs .NavLiRes a {
-}
+
 .Ico {
     padding: 5px;
     position: relative;
@@ -276,6 +275,9 @@ details p {
     .CollectionNav {
         display: none;
     }
+    .NavLiRes{
+        display: none;
+    }
 }
 /* Small Devices (Tablet Portrait) */
 @media (min-width: 576px) and (max-width: 767.98px) {
@@ -292,6 +294,7 @@ details p {
     .CollectionNav {
         display: none;
     }
+
 }
 
 /* Medium Devices (Tablet Landscape) */

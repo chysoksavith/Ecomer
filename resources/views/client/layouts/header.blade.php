@@ -121,33 +121,6 @@ $totalCartItems = totalCartItems();
                     <div class="dropdownAccount">
                         <div class="dropdown-contentAccount" id="myDropdownAccount">
                             {{-- if auth login it show account and signout if not it show signup and signin --}}
-                            {{-- <div class="contentUserAccount">
-                                <ul>
-                                    @if (Auth::check())
-                                        <li>
-                                            <a href="{{ url('user/account') }}">
-                                                account
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="{{ url('user/logout') }}">
-                                                sign out
-                                            </a>
-                                        </li>
-                                    @else
-                                        <li>
-                                            <a href="{{ url('user/register') }}">
-                                                Sign up
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="{{ url('user/login') }}">
-                                                Sign in
-                                            </a>
-                                        </li>
-                                    @endif
-                                </ul>
-                            </div> --}}
                             <div class="accSudeBar">
                                 @if (Auth::check())
                                     <ul class="ulAccSidebar ">

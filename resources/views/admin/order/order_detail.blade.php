@@ -78,6 +78,10 @@
                                                     <td>Payment Method</td>
                                                     <td>{{ $orderDetails['payment_method'] }}</td>
                                                 </tr>
+                                                <tr>
+                                                    <td>Payment Gateway</td>
+                                                    <td>{{ $orderDetails['payment_gateway'] }}</td>
+                                                </tr>
                                             </tbody>
                                         </table>
                                     </div>

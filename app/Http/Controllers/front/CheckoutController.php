@@ -81,14 +81,16 @@ class CheckoutController extends Controller
             if ($data['payment_geteway'] == "COD") {
                 $payment_method = "COD";
                 $order_status = "New";
+            } else if ($data['payment_geteway'] == "Bank Transfer" || $data['payment_geteway'] == "Check") {
+                $payment_method = "Prepaid";
+                $order_status = "Pending";
             } else {
                 $payment_method = "Prepaid";
                 $order_status = "Pending";
             }
 
+
             DB::beginTransaction();
-
-
 
             // get shipping charge
             $shipping_charges = 0;
@@ -98,6 +100,7 @@ class CheckoutController extends Controller
             $grand_total = $total_price + $shipping_charges - Session::get('couponAmount');
             // Insert Order Details
             Session::put('grand_total', $grand_total);
+            $order = new Orders;
             $order = new Orders;
             $order->user_id = Auth::user()->id;
             $order->name = $deliveryAddress['name'];
@@ -137,7 +140,7 @@ class CheckoutController extends Controller
                 $cartItem->product_qty = $item['product_qty'];
                 $cartItem->save();
 
-                if ($data['payment_geteway'] == "COD") {
+                if ($data['payment_geteway'] == "COD" || $data['payment_geteway'] == "Bank Transfer" || $data['payment_geteway'] == "Check") {
                     // Reduce stock Scripts Start
                     $getProductStock = ProductsAttribure::productStock($item['product_id'], $item['product_size']);
                     $newStock = $getProductStock - $item['product_qty'];
@@ -151,7 +154,7 @@ class CheckoutController extends Controller
             Session::put('order_id', $order_id);
             DB::commit();
 
-            if ($data['payment_geteway'] == "COD") {
+            if ($data['payment_geteway'] == "COD" || $data['payment_geteway'] == "Bank Transfer" || $data['payment_geteway'] == "Check") {
                 // Send order email
 
                 $orderDetails = Orders::with('orders_products', 'user')->where('id', $order_id)->first()->toArray();
@@ -167,10 +170,14 @@ class CheckoutController extends Controller
                 Mail::send('email.order', $messageData, function ($message) use ($email) {
                     $message->to($email)->subject('Order Placed - CamShop');
                 });
-
-
-
-                return redirect('/thank');
+                // redirect when success checkout
+                if ($data['payment_geteway'] == "COD") {
+                    return redirect('/thank');
+                } else if ($data['payment_geteway'] == "Bank Transfer") {
+                    return redirect('/thank?order=bank');
+                } else if ($data['payment_geteway'] == "Check") {
+                    return redirect('/thank?order=check');
+                }
             }
             if ($data['payment_geteway'] == "Paypal") {
                 // Paypal - Redirect user to paypal page after saving orders
