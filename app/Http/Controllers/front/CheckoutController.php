@@ -4,6 +4,7 @@ namespace App\Http\Controllers\front;
 
 use App\Http\Controllers\Controller;
 use App\Models\Cart;
+use App\Models\Category;
 use App\Models\CmsPage;
 use App\Models\Country;
 use App\Models\DeliveryAddresses;
@@ -79,6 +80,13 @@ class CheckoutController extends Controller
 
                     Product::deleteCartProduct($item['product_id']);
                     $message = "One of the Product Attribute is disable please try again";
+                    return redirect('/cart')->with('error_message', $message);
+                }
+                // Prevent disable category product to order
+                $getCategoryStatus = Category::getCategoryStatus($item['product']['category_id']);
+                if ($getCategoryStatus == 0) {
+                    // Product::deleteCartProduct($item['product_id']);
+                    $message = $item['product']['product_name'] . "with" . $item['product_size'] . "Size is not available Please remove from Cart and choose some other product.";;
                     return redirect('/cart')->with('error_message', $message);
                 }
             }

@@ -78,4 +78,10 @@ class Category extends Model
 
         return (object) ['catIds' => $catIds, 'categoryDetails' => $categoryDetails, 'breadCrumb' => $breadCrumb];
     }
+
+    public static function getCategoryStatus($category_id)
+    {
+        $getCategoryStatus = Category::select('status')->where('id', $category_id)->first();
+        return $getCategoryStatus->status;
+    }
 }
