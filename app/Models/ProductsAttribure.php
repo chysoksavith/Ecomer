@@ -19,5 +19,11 @@ class ProductsAttribure extends Model
             ->first();
         return $productStock->stock;
     }
-
+    public static function getAttributeStatus($product_id, $size)
+    {
+        $getAttributeStatus = ProductsAttribure::select('status')
+            ->where(['product_id' => $product_id, 'size' => $size])
+            ->first();
+        return $getAttributeStatus->status;
+    }
 }

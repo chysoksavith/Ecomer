@@ -56,7 +56,32 @@ class CheckoutController extends Controller
 
         if ($request->isMethod('post')) {
             $data = $request->all();
+            // website security
+            foreach ($getCartItems as $item) {
+                // Prevent Disable Product Order
+                $product_status = Product::getProductStatus($item['product_id']);
+                if ($product_status == 0) {
 
+                    Product::deleteCartProduct($item['product_id']);
+                    $message = "One of the Product is disable please try again";
+                    return redirect('/cart')->with('error_message', $message);
+                }
+                // prevent sold out product is order
+                $getProductStock = ProductsAttribure::productStock($item['product_id'], $item['product_size']);
+                if ($getProductStock == 0) {
+                    Product::deleteCartProduct($item['product_id']);
+                    $message = "One of the Product is Sold Out please try again";
+                    return redirect('/cart')->with('error_message', $message);
+                }
+                // Prevent Disable status  Product attribute Order
+                $getAttributeStatus = ProductsAttribure::getAttributeStatus($item['product_id'], $item['product_size']);
+                if ($getAttributeStatus == 0) {
+
+                    Product::deleteCartProduct($item['product_id']);
+                    $message = "One of the Product Attribute is disable please try again";
+                    return redirect('/cart')->with('error_message', $message);
+                }
+            }
             // check for payment method
             if (empty($data['payment_geteway'])) {
                 return redirect()->back()->with('error_message', "Please select your Payment Method");
