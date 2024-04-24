@@ -250,7 +250,7 @@
                             </div>
                         </div>
                         {{-- Product Attribute  --}}
-                        <div class="col-md-6">
+                        <div class="col-md-12">
                             <div class="card card-primary">
                                 <div class="card-header">
                                     <h3 class="card-title">Product Attribute</h3>
@@ -271,52 +271,40 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                @if (!empty($product['attributes']))
-                                                    @foreach ($product['attributes'] as $attribute)
+                                                @foreach ($product['attributes'] as $attribute)
+                                                    <tr id="row-{{ $attribute['id'] }}">
                                                         <input type="hidden" name="attributeId[]"
                                                             value="{{ $attribute['id'] }}">
-                                                        <tr>
-                                                            <td>{{ $attribute['id'] }}</td>
-                                                            <td>{{ $attribute['size'] }}</td>
-                                                            <td>{{ $attribute['sku'] }}</td>
-                                                            <td>
-                                                                <input type="number" style="width: 100px" name="price[]"
-                                                                    value="{{ $attribute['price'] }}">
-                                                            </td>
-                                                            <td>
-                                                                <input type="number" style="width: 100px" name="stock[]"
-                                                                    value="{{ $attribute['stock'] }}">
-                                                            </td>
-                                                            <td>
-                                                                <a class="updateAttributeStatus"
-                                                                    id="attribute-{{ $attribute['id'] }}"
-                                                                    attribute_id="{{ $attribute['id'] }}"
-                                                                    href="javascript:void(0)">
-                                                                    @if ($attribute['status'] == 1)
-                                                                        <i class="fas fa-toggle-on" status="Active"></i>
-                                                                    @else
-                                                                        <i class="fas fa-toggle-off" style="color: grey"
-                                                                            status="Inactive"></i>
-                                                                    @endif
-                                                                </a>
-                                                            </td>
-                                                            <td class="">
-                                                                <a class="confirmDelete" name="attribute"
-                                                                    title="Delete attribute" href="javascript:void(0)"
-                                                                    record="attribute"
-                                                                    recordid="{{ $attribute['id'] }}"><i
-                                                                        class="fas fa-trash"
-                                                                        style="font-size: red"></i></a>
-                                                            </td>
-                                                        </tr>
-                                                    @endforeach
-                                                @endif
-
-
+                                                        <td>{{ $attribute['id'] }}</td>
+                                                        <td>{{ $attribute['size'] }}</td>
+                                                        <td>{{ $attribute['sku'] }}</td>
+                                                        <td><input type="number" style="width: 100px" name="price[]"
+                                                                value="{{ $attribute['price'] }}"></td>
+                                                        <td><input type="number" style="width: 100px" name="stock[]"
+                                                                value="{{ $attribute['stock'] }}"></td>
+                                                        <td>
+                                                            <a class="updateAttributeStatus"
+                                                                id="attribute-{{ $attribute['id'] }}"
+                                                                attribute_id="{{ $attribute['id'] }}"
+                                                                href="javascript:void(0)">
+                                                                @if ($attribute['status'] == 1)
+                                                                    <i class="fas fa-toggle-on" status="Active"></i>
+                                                                @else
+                                                                    <i class="fas fa-toggle-off" style="color: grey"
+                                                                        status="Inactive"></i>
+                                                                @endif
+                                                            </a>
+                                                        </td>
+                                                        <td class="">
+                                                            <a class="confirmDelete" name="attribute"
+                                                                title="Delete attribute" href="javascript:void(0)"
+                                                                record="attribute" recordid="{{ $attribute['id'] }}"><i
+                                                                    class="fas fa-trash" style="font-size: red"></i></a>
+                                                        </td>
+                                                    </tr>
+                                                @endforeach
                                             </tbody>
-
                                         </table>
-
                                     </div>
                                     <div class="form-group">
                                         <label>Add Product Attr</label>
@@ -338,6 +326,8 @@
                                 </div>
                             </div>
                         </div>
+
+
                         {{-- Filter Product such as fabric  --}}
                         <div class="col-md-6">
                             <div class="card card-primary">

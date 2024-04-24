@@ -72,7 +72,7 @@ class Category extends Model
         } else {
             // Show main and sub category in breadCrumb
             $parentCategory = Category::select('category_name', 'url')->where('id', $categoryDetails->parent_id)->first();
-            $breadCrumb = '<span class="btnTitleIte"> <a href="' . url($parentCategory->url) . '"> ' . $parentCategory->category_name . ' </a> </span>
+            $breadCrumb = '<span class="btnTitleIte "> <a href="' . url($parentCategory->url) . '"> ' . $parentCategory->category_name . ' </a> </span>
                            <span class="btnTitleIte"> <a href="' . url($categoryDetails->url) . '"> ' . $categoryDetails->category_name . ' </a> </span>';
         }
 

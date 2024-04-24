@@ -3,7 +3,16 @@ use App\Models\Product;
 $getCartItems = getCartItems();
 ?>
 
-<div class="dropdown-contentminiCart" id="myDropdownminiCart">
+<div class="backdrop_cart"></div>
+
+<div class="side_Cart_wrapper">
+
+    <div class="containerIcons">
+        <span class="closeCart"style="cursor: pointer;">
+            <i class="fa-solid fa-xmark"></i>
+        </span>
+    </div>
+    {{-- <span class="closeFilter" style="display:none;">X</span> --}}
     @php
         $total_price = 0;
     @endphp
@@ -73,16 +82,16 @@ $getCartItems = getCartItems();
             <span class="subPrice orderTotal grandTotal miniCartTotalPrice">
                 {{ $grand_total }}$
             </span>
-        </div>
-        {{-- cart checkout and process --}}
-        <div class="cartButtonCheckoutmini">
-            <a class="aCartmini" href="{{ url('cart') }}">
-                <button type="submit" class="CartminiBtnDetail">View Cart</button>
-            </a>
-            <a class="aCartmini" href="{{ url('checkout') }}">
+            {{-- cart checkout and process --}}
+            <div class="cartButtonCheckoutmini">
+                <a class="aCartmini" href="{{ url('cart') }}">
+                    <button type="submit" class="CartminiBtnDetail">View Cart</button>
+                </a>
+                <a class="aCartmini" href="{{ url('checkout') }}">
 
-                <button type="submit" class="CartminiBtnDetail1">Checkout</button>
-            </a>
+                    <button type="submit" class="CartminiBtnDetail1">Checkout</button>
+                </a>
+            </div>
         </div>
     @else
         <div class="empty-cart-message">

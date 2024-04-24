@@ -176,12 +176,14 @@ $(document).ready(function () {
                 if (page == "Checkout") {
                     window.location.href = "/checkout";
                 }
+                // You may want to add some handling here for the success case if needed
             },
             error: function () {
                 showToast("An error occurred", "error");
             },
         });
     });
+
     // delete empty
     $(document).on("click", ".emptyCart", function () {
         $.ajax({
@@ -492,7 +494,6 @@ $(document).ready(function () {
             return false;
         }
     });
-
 
     // show loader when place order
     $(document).on("click", "#placeOrderLoader", function () {

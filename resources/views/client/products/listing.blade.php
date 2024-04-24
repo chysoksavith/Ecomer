@@ -11,19 +11,30 @@
             <div class="ListProductContent">
 
                 <div class="productFoundContain">
-                    <span class="fountItem">FOUNT {{ count($categoryProducts) }} RESULT</span>
+                    <span class="fountItem">FOUND {{ count($categoryProducts) }} RESULT</span>
                     <div class="btnItem">
                         @if (isset($_GET['query']) && !empty($_GET['query']))
                             {{ $_GET['query'] }}
                         @else
                             <?php echo $categoryDetails->breadCrumb; ?>
                         @endif
-                        {{-- <a href="">Shirt</a> --}}
                     </div>
                 </div>
                 @if (empty($_GET['query']))
                     @if ($categoryProducts && count($categoryProducts) > 0)
                         <div class="SortByNewstItem">
+                            <div class="filter_dfNone">
+                                <div class="Filter_respons">
+                                    <span class="LogoAside" id="menuBtnFilterListing">
+                                        <img class="logo" src="{{ asset('icons8-menu-50.png') }}" alt="">
+                                    </span>
+                                    <span class="text__menu">
+                                        FILTER
+                                    </span>
+                                </div>
+                            </div>
+
+                            @include('client.products.sidebar_filter')
                             <div class="container">
                                 <form action="" name="sortProducts" id="sortProducts">
                                     @csrf

@@ -5,6 +5,7 @@
     padding: 0px 20px;
 }
 .FilterContainer {
+    margin-top: 30px;
     padding: 10px;
     width: 320px;
     height: auto;
@@ -63,6 +64,7 @@
 }
 /* ------------list product--------------- */
 .ListProductContent {
+    margin-top: 30px;
     padding: 0px 20px;
     width: 1500px;
     height: auto;
@@ -89,15 +91,10 @@
     margin-right: 10px; /* Adjust this value to control the space between buttons */
 }
 
-.btnTitleIte {
-    border-radius: 3%;
-    font-size: 15px;
-    padding: 7px 20px;
-    background-color: #000000;
-}
 .btnTitleIte a {
     text-decoration: none;
-    color: white;
+    font-size: 15px;
+    color: #b3b3b3;
 }
 /* pagination */
 .pagination nav li {
@@ -146,15 +143,28 @@ input[type="radio"] {
 }
 /* select */
 .SortByNewstItem {
+    display: flex;
+    align-items: center;
+    justify-content: end;
     margin-top: 20px;
 }
-
-.container {
-    margin-right: 0;
-    padding: 0px 20px;
-    text-align: right;
+.filter_dfNone {
+    display: none;
 }
-
+.Filter_respons {
+    margin-top: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.filter__text {
+    padding: 12px 0px;
+}
+.text__menu {
+    margin-left: 10px;
+    font-size: 14px;
+    font-weight: 700;
+}
 .select {
     text-transform: capitalize;
     border: 1px solid #ced4da; /* Add border for better visibility */
@@ -162,4 +172,141 @@ input[type="radio"] {
     display: inline-block; /* Ensure the select is inline */
     vertical-align: middle; /* Align vertically with other elements */
     font-size: 15px;
+}
+.dropdown__item {
+    list-style: none;
+}
+.filter__text {
+    text-decoration: none;
+    font-size: 14px;
+    color: black;
+}
+.dropdown__sublink {
+    padding: 2px 14px;
+
+    text-decoration: none;
+    color: #303030;
+    font-size: 13px;
+}
+/* side bar filter */
+.side_filter_wrapper {
+    overflow: scroll;
+    transition: left 0.4s ease;
+    position: fixed;
+    left: -50%;
+    width: 50%;
+    background-color: #fff;
+    z-index: 99999;
+    height: 100ch;
+    top: 0;
+}
+.side_filter_wrapper.visible {
+    left: 0;
+}
+.backdrop_filter {
+    display: none;
+    position: fixed;
+    z-index: 999;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0);
+    transition: background-color 0.4s ease;
+    backdrop-filter: blur(5px);
+}
+
+.backdrop_filter.active {
+    display: block;
+    background-color: rgba(0, 0, 0, 0.35);
+}
+.container_filterSide {
+    padding: 35px;
+}
+
+.div_filterMenu {
+    margin-top: 20px;
+    padding: 0px 0px 23px;
+    border-bottom: 1px solid #ced4da;
+}
+.text__filermenu {
+    font-weight: 700;
+    font-size: 20px;
+}
+/* no product */
+.No_productContain {
+    margin-top: 30px;
+}
+.search_result {
+    font-size: 40px;
+    font-weight: 700;
+}
+.info_noresult {
+    margin-top: 30px;
+    display: flex;
+}
+.box_info {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #44d7e2;
+    width: 80px;
+    height: 56px;
+    color: white;
+}
+.box_info2 {
+    background-color: #f4f4f4;
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    height: 56px;
+    width: 100%;
+    color: #2c2930;
+    font-size: 14px;
+    font-weight: 500;
+}
+.box_info2 span{
+   margin-left: 30px;
+}
+@media (max-width: 575.98px) {
+    .FilterContainer {
+        display: none;
+    }
+    .filter_dfNone {
+        display: block;
+    }
+    .SortByNewstItem {
+        justify-content: space-between;
+    }
+}
+/* Small Devices (Tablet Portrait) */
+@media (min-width: 576px) and (max-width: 767.98px) {
+    .FilterContainer {
+        display: none;
+    }
+    .filter_dfNone {
+        display: block;
+    }
+    .SortByNewstItem {
+        justify-content: space-between;
+    }
+}
+
+/* Medium Devices (Tablet Landscape) */
+@media (min-width: 768px) and (max-width: 991.98px) {
+    .FilterContainer {
+        display: none;
+    }
+    .filter_dfNone {
+        display: block;
+    }
+    .SortByNewstItem {
+        justify-content: space-between;
+    }
+}
+
+/* Large Devices (Desktops) */
+@media (min-width: 992px) and (max-width: 1199.98px) {
+}
+
+/* Extra Large Devices (Large Desktops) */
+@media (min-width: 1200px) {
+    /* Your styles for extra large devices go here */
 }

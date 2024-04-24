@@ -80,13 +80,6 @@
                             <input type="number" id="delivery_mobile" name="delivery_mobile" class="inputLogin">
                             <div id="delivery_mobile-error" class="error"></div>
                         </div>
-                        {{-- <div class="inputFiel showPass">
-                            <input type="checkbox" class="checkboxshowpass">
-
-                            <span class="showPasswordTxt">
-                                Make this default delivery address
-                            </span>
-                        </div> --}}
                         <div class="inputFiel">
                             <button type="submit" id="btnShipping" class="BtnApplyDiscount">Save</button>
                         </div>
@@ -94,7 +87,6 @@
                 </div>
             </div>
             {{-- option --}}
-
             <div class="optionCash-checkout check-wrapp">
                 <form action="{{ url('/checkout') }}" name="checkOutForm" id="checkOutForm" method="post">
 
@@ -295,7 +287,7 @@
                                 <span class="subPrice">Order Total</span>
                                 @php
                                     $couponAmount = Session::has('couponAmount') ? Session::get('couponAmount') : 0;
-                                    $grand_total = $total_price - $couponAmount + $shipping_charges;
+                                    $grand_total = $total_price - $couponAmount + $shipping_charges ;
                                 @endphp
                                 <span class="subPrice orderTotal grandTotal">{{ $grand_total }}$</span>
                             </div>
@@ -317,6 +309,7 @@
                 </div>
 
             </div>
+            
             </form>
 
         </div>

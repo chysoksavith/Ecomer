@@ -10,8 +10,6 @@
                             <img src="https://www.designscene.net/wp-content/uploads/2023/11/Fear-of-God-Athletics-2023-14.jpg"
                                 alt="">
                         @endif
-
-                        <span class="soldOutItems">SOLD OUT</span>
                     </div>
                     <div class="TitleFirstPage">
                         <span class="NameProFirstPage">{{ $product->product_name }}</span>
@@ -29,7 +27,23 @@
         @endforeach
     </div>
 @else
-    No product items
+    <div class="No_productContain">
+        <span class="search_result">
+            Search result for : @if (isset($_GET['query']) && !empty($_GET['query']))
+                {{ $_GET['query'] }}
+            @else
+                <?php echo $categoryDetails->breadCrumb; ?>
+            @endif
+        </span>
+        <div class="info_noresult">
+            <div class="box_info">
+                <i class="fa-solid fa-info"></i>
+            </div>
+            <div class="box_info2">
+                <span>Your search returned no results.</span>
+            </div>
+        </div>
+    </div>
 @endif
 @if (empty($_GET['query']))
     <div class="pagination">

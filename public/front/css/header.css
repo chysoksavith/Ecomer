@@ -126,14 +126,31 @@
     font-size: 14px;
     font-weight: 300;
 }
+/* sidebar account */
+.side_Account_wrapper {
+
+    overflow: scroll;
+    position: fixed;
+    transition: right 0.4s ease;
+    right: -35%;
+    width: 35%;
+    background-color: #fff;
+    padding: 35px;
+    z-index: 10011;
+    height: 100vh;
+    top: 0;
+}
+.side_Account_wrapper.active {
+    right: 0;
+}
 /* aside */
 aside {
+    overflow: scroll;
     position: fixed;
     transition: left 0.4s ease;
     left: -50%;
     width: 50%;
     background-color: #fff;
-    padding: 10px 10px;
     z-index: 10011;
     height: 100vh;
     top: 0;
@@ -163,7 +180,8 @@ aside button.close i {
     cursor: pointer;
 }
 
-.backdrop {
+.backdrop,
+.backdrop_Account {
     display: none;
     position: fixed;
     z-index: 113;
@@ -173,19 +191,144 @@ aside button.close i {
     backdrop-filter: blur(5px);
 }
 
-.backdrop.active {
+.backdrop.active,
+.backdrop_Account.active {
     display: block;
     background-color: rgba(0, 0, 0, 0.35);
 }
 
 section {
-    padding-top: 4rem;
     width: 100%;
     margin: auto;
 }
+.nav__link {
+    font-size: 20px;
+    font-weight: 500;
+    padding: 6px 4px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.hover__cate {
+    font-size: 16px;
+    font-weight: 400;
+    display: inline;
+    padding: 3px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.hover__cate.active {
+    background-color: black;
+    color: white;
+}
+.text__subsub {
+    font-size: 13px;
+    color: #979a9a;
+}
+
+.dropdown__item {
+    cursor: pointer;
+}
+
+.dropdown_arrow {
+    font-size: 14px;
+    transition: transform 0.4s;
+}
+
+.dropdown__link,
+.dropdown__sublink {
+    padding: 2px 14px;
+    transition: 0.3s;
+}
+
+.text__sub {
+    font-size: 14px;
+    font-weight: 400;
+}
+
+.dropdown__menu,
+.dropdown__submenu {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-out;
+}
+
+.dropdown__menu.show,
+.dropdown__submenu.show {
+    max-height: 1000px;
+    transition: max-height 0s ease-in;
+}
+
+.dropdown__item.active .dropdown_arrow {
+    transform: rotate(180deg);
+}
+
+.dropdown__link {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.dropdown__add {
+    margin-left: auto !important;
+}
+
+/* tab content aside or sidebar */
+.tab__content {
+    transition: background-color 0.3s ease; /* Added transition for background color */
+}
+.tab_overScroll {
+    overflow: scroll;
+}
+.tab {
+    border-bottom: 3px solid black;
+    margin-bottom: 15px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.tablinks {
+    width: 50%;
+    height: 70px;
+    color: black; /* Set default text color to black */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    transition: background-color 0.3s ease, color 0.3s ease; /* Added transitions */
+}
+
+.tablinks.active::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 0; /* Start with no height */
+    color: white; /* Set text color for active tab */
+    background-color: #30303018; /* Set semi-transparent background color for active tab */
+    transform: translateY(100%); /* Start from bottom */
+    transition: height 0.3s ease, transform 0.3s ease; /* Transition for height and transform */
+}
+
+.tablinks.active {
+    background-color: #303030; /* Set background color for active tab */
+    color: white; /* Set text color for active tab */
+}
+
+.tablinks.active::after {
+    height: 100%; /* Expand height from bottom to top */
+    transform: translateY(0); /* Move up to show background color */
+}
+
+.tab__text {
+    font-size: 14px;
+    font-weight: 500;
+}
 
 h1 {
-    font-size: 2rem;
     font-weight: 500;
 }
 details[open] summary ~ * {
@@ -261,6 +404,14 @@ details p {
     left: 50%;
     transform: translate(-50%, -50%);
 }
+.containerIcons {
+    display: flex;
+    justify-content: end;
+}
+.closeAccount i{
+    font-size: 25px;
+}
+
 @media (max-width: 575.98px) {
     .MenuREs {
         display: block;
@@ -269,13 +420,14 @@ details p {
         left: -80%;
         width: 80%;
     }
-    .ResNavSearch {
-        display: none;
-    }
+
     .CollectionNav {
         display: none;
     }
-    .NavLiRes{
+    .NavLiRes {
+        display: none;
+    }
+    .icon_dn {
         display: none;
     }
 }
@@ -288,13 +440,13 @@ details p {
         left: -80%;
         width: 80%;
     }
-    .ResNavSearch {
-        display: none;
-    }
+
     .CollectionNav {
         display: none;
     }
-
+    .icon_dn {
+        display: none;
+    }
 }
 
 /* Medium Devices (Tablet Landscape) */
@@ -302,10 +454,11 @@ details p {
     .MenuREs {
         display: block;
     }
-    .ResNavSearch {
+
+    .CollectionNav {
         display: none;
     }
-    .CollectionNav {
+    .icon_dn {
         display: none;
     }
 }
@@ -313,6 +466,16 @@ details p {
 /* Large Devices (Desktops) */
 @media (min-width: 992px) and (max-width: 1199.98px) {
     /* Your styles for large devices go here */
+    .MenuREs {
+        display: block;
+    }
+
+    .CollectionNav {
+        display: none;
+    }
+    .icon_dn {
+        display: none;
+    }
 }
 
 /* Extra Large Devices (Large Desktops) */

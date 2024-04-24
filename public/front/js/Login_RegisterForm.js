@@ -40,9 +40,13 @@ $(document).ready(function () {
             },
         });
     });
-    // login from validation
-    $("#loginForm").submit(function () {
+    // Function to handle userlogin form submission
+
+    $("#sidebarLoginForm").submit(function () {
+        // Validation and submission logic for userlogin form
         var formData = $(this).serialize();
+        var formId = $(this).attr("id");
+
         $.ajax({
             headers: {
                 "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
@@ -53,15 +57,15 @@ $(document).ready(function () {
             success: function (resp) {
                 if (resp.type === "error") {
                     $.each(resp.error, function (field, error) {
-                        $("#" + field + "-error").html(error);
-                        $("#" + field + "-error")
+                        $("#" + formId + " #" + field + "-error")
+                            .html(error)
                             .css({
                                 color: "red",
                                 "font-size": "14px",
                             })
                             .show();
                         setTimeout(function () {
-                            $("#" + field + "-error").hide();
+                            $("#" + formId + " #" + field + "-error").hide();
                         }, 4000);
                     });
                 } else if (resp.type === "inactive") {
@@ -72,12 +76,92 @@ $(document).ready(function () {
                     window.location.href = resp.url;
                 }
             },
-
             error: function () {
-                showToast("something went wrong", "error");
+                showToast("Something went wrong", "error");
             },
         });
     });
+    $("#userLoginForm").submit(function () {
+        // Validation and submission logic for userlogin form
+        var formData = $(this).serialize();
+        var formId = $(this).attr("id");
+
+        $.ajax({
+            headers: {
+                "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+            },
+            url: "/user/login",
+            type: "post",
+            data: formData,
+            success: function (resp) {
+                if (resp.type === "error") {
+                    $.each(resp.error, function (field, error) {
+                        $("#" + formId + " #" + field + "-error")
+                            .html(error)
+                            .css({
+                                color: "red",
+                                "font-size": "14px",
+                            })
+                            .show();
+                        setTimeout(function () {
+                            $("#" + formId + " #" + field + "-error").hide();
+                        }, 4000);
+                    });
+                } else if (resp.type === "inactive") {
+                    showToast(resp.message, "error", "Account Inactive");
+                } else if (resp.type === "incorrect") {
+                    showToast(resp.message, "error", "Incorrect Credentials");
+                } else if (resp.type === "success") {
+                    window.location.href = resp.url;
+                }
+            },
+            error: function () {
+                showToast("Something went wrong", "error");
+            },
+        });
+    });
+
+    // Function to handle aside form submission
+    $("#asideLoginForm").submit(function () {
+        // Validation and submission logic for aside form
+        var formData = $(this).serialize();
+        var formId = $(this).attr("id");
+
+        $.ajax({
+            headers: {
+                "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+            },
+            url: "/user/login",
+            type: "post",
+            data: formData,
+            success: function (resp) {
+                if (resp.type === "error") {
+                    $.each(resp.error, function (field, error) {
+                        $("#" + formId + " #" + field + "-error")
+                            .html(error)
+                            .css({
+                                color: "red",
+                                "font-size": "14px",
+                            })
+                            .show();
+                        setTimeout(function () {
+                            $("#" + formId + " #" + field + "-error").hide();
+                        }, 4000);
+                    });
+                } else if (resp.type === "inactive") {
+                    showToast(resp.message, "error", "Account Inactive");
+                } else if (resp.type === "incorrect") {
+                    showToast(resp.message, "error", "Incorrect Credentials");
+                } else if (resp.type === "success") {
+                    window.location.href = resp.url;
+                }
+            },
+            error: function () {
+                showToast("Something went wrong", "error");
+            },
+        });
+    });
+
     // ----------------------------------------------------------------------------------------
     //forgot password
     $("#forgotForm").submit(function () {
@@ -133,4 +217,5 @@ $(document).ready(function () {
             },
         });
     });
+    // show pass
 });

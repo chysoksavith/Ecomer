@@ -37,14 +37,13 @@ class CheckoutController extends Controller
         // Fetch Order total price
         $total_price = 0;
         $total_weight = 0;
-        foreach ($getCartItems as $cartItems) {
-
-            $getAttributePrice = Product::getAttributePrice($cartItems['product_id'], $cartItems['product_size']);
-            $total_price = $total_price + ($getAttributePrice['final_price'] * $cartItems['product_qty']);
-            $product_weight = $cartItems['product']['product_weight'] * $cartItems['product_qty'];
+        foreach ($getCartItems as $item) {
+            /*echo "<pre>"; print_r($item); die;*/
+            $attrPrice = Product::getAttributePrice($item['product_id'], $item['product_size']);
+            $total_price = $total_price + ($attrPrice['final_price'] * $item['product_qty']);
+            $product_weight = $item['product']['product_weight'] * $item['product_qty'];
             $total_weight = $total_weight + $product_weight;
         }
-
 
         // get shipping charge from default country of the user
         $shipping_charges = 0;
@@ -52,7 +51,7 @@ class CheckoutController extends Controller
         if ($addressCount > 0) {
             $defaultDeliveryAddress = DeliveryAddresses::where(['user_id' => Auth::user()->id, 'is_default' => 1, 'status' => 1])->first()->toArray();
             // Calculate shipping charges based on total weight, regardless of quantity
-            $shipping_charges = ShippingCharges::getShippingCharges($defaultDeliveryAddress['country'], $total_weight);
+            $shipping_charges = ShippingCharges::getShippingCharges($defaultDeliveryAddress['country'],  $total_weight);
         }
 
         if ($request->isMethod('post')) {
@@ -86,7 +85,7 @@ class CheckoutController extends Controller
                 $getCategoryStatus = Category::getCategoryStatus($item['product']['category_id']);
                 if ($getCategoryStatus == 0) {
                     // Product::deleteCartProduct($item['product_id']);
-                    $message = $item['product']['product_name'] . "with" . $item['product_size'] . "Size is not available Please remove from Cart and choose some other product.";;
+                    $message = $item['product']['product_name'] . "With" . $item['product_size'] . "Size is not Available Please find a new one that you like Thanks";
                     return redirect('/cart')->with('error_message', $message);
                 }
             }
@@ -220,6 +219,7 @@ class CheckoutController extends Controller
                 echo "Prepaid methods coming soon";
                 die;
             }
+
         }
 
         // echo $total_price;

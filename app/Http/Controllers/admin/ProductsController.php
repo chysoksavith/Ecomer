@@ -2,16 +2,17 @@
 
 namespace App\Http\Controllers\admin;
 
-use App\Http\Controllers\Controller;
-use App\Models\AdminRoles;
 use App\Models\Brand;
-use App\Models\Category;
 use App\Models\Product;
+use App\Models\Category;
+use App\Models\AdminRoles;
 use App\Models\ProductImage;
-use App\Models\ProductsAttribure;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+use App\Models\ProductsAttribure;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 
 class ProductsController extends Controller
@@ -21,10 +22,9 @@ class ProductsController extends Controller
         Session::put('page', 'products');
 
         // Use paginate here
-        $productsQuery = Product::with('category','images')->latest();
+        $products = Product::with('category', 'images')->get();
 
-        // Apply paginate after conditions
-        $products = $productsQuery->paginate(4);
+
 
         $productsModuleCount = AdminRoles::where(['subadmins_id' => Auth::guard('admin')->user()->id, 'module' => 'products'])->count();
 
@@ -119,19 +119,7 @@ class ProductsController extends Controller
             $product->product_color = $data['product_color'];
             $product->product_price = $data['product_price'];
             $product->product_discount = $data['product_discount'];
-            // if (!empty($data['product_discount']) && $data['product_discount'] > 0) {
-            //     $product->discount_type = 'product';
-            //     $product->final_price = $data['product_price'] = ($data['product_price'] * $data['product_discount']) / 100;
-            // } else {
-            //     $getCategoryDiscount = Category::select('category_discount')->where('id', $data['category_id'])->first();
-            //     if ($getCategoryDiscount->category_discount == 0) {
-            //         $product->discount_type = "";
-            //         $product->final_price = $data['product_price'];
-            //     } else {
-            //         $product->discount_type = 'category';
-            //         $product->final_price =  $data['product_price'] - ($data['product_price'] * $getCategoryDiscount->category_discount) / 100;
-            //     }
-            // }
+
             if (!empty($data['product_discount']) && $data['product_discount'] > 0) {
                 if (!empty($data['product_discount_type']) && $data['product_discount_type'] == 'fixed') {
                     // Apply fixed discount
@@ -212,90 +200,56 @@ class ProductsController extends Controller
                     }
                 }
             }
-            // add attr
-            // Loop through $data['size'] and create or update ProductsAttribure
-            foreach ($data['size'] as $key => $size) {
-                if (!empty($size) && !empty($data['sku'][$key]) && !empty($data['price'][$key]) && !empty($data['stock'][$key])) {
-                    $countSKU = ProductsAttribure::where('sku', $data['sku'][$key])->count();
-
+            // Add Product Attribute
+            foreach ($data['size'] as $Key => $value) {
+                if (!empty($value)) {
+                    // Check if SKU already exists
+                    $countSKU = ProductsAttribure::where('sku', $data['sku'][$Key])->count();
                     if ($countSKU > 0) {
-                        // SKU already exists, update the existing attribute
-                        ProductsAttribure::where(['product_id' => $product_id, 'sku' => $data['sku'][$key]])
-                            ->update([
-                                'size' => $size,
-                                'price' => (int)$data['price'][$key],
-                                'stock' => (int)$data['stock'][$key],
-                                'status' => 1 // Assuming you want to update the status as well
-                            ]);
-                    } else {
-                        // SKU doesn't exist, create a new attribute
-                        $attribute = new ProductsAttribure;
-                        $attribute->product_id = $product_id;
-                        $attribute->sku = $data['sku'][$key];
-                        $attribute->size = $size;
-                        $attribute->price = (int)$data['price'][$key];
-                        $attribute->stock = (int)$data['stock'][$key];
-                        $attribute->status = 1;
-                        $attribute->save();
+                        $message = "SKU Already exists, Please add another SKU";
+                        return redirect()->back()->with('error_message', $message);
+                    }
+
+                    // Check if Size already exists
+                    $countSize = ProductsAttribure::where(['product_id' => $product_id, 'size' => $data['size'][$Key]])->count();
+                    if ($countSize > 0) {
+                        $message = "Size Already exists, Please add another Size";
+                        return redirect()->back()->with('error_message', $message);
+                    }
+
+                    $attribute = new ProductsAttribure;
+                    $attribute->product_id = $product_id;
+                    $attribute->sku = $data['sku'][$Key];
+                    $attribute->size = $data['size'][$Key];
+                    $attribute->price = $data['price'][$Key];
+                    $attribute->stock = $data['stock'][$Key];
+                    $attribute->status = 1;
+                    $attribute->save();
+                }
+            }
+
+            // Edit Product Attribute
+            // Edit Product Attribute
+            if (isset($data['attributeId']) && is_array($data['attributeId'])) {
+                foreach ($data['attributeId'] as $aKey => $attributeId) {
+                    // Ensure $attributeId is not empty
+                    if (!empty($attributeId)) {
+                        // Find the product attribute by ID
+                        $attribute = ProductsAttribure::find($attributeId);
+
+                        // Check if the attribute exists
+                        if ($attribute) {
+                            // Update price and stock
+                            $attribute->price = $data['price'][$aKey];
+                            $attribute->stock = $data['stock'][$aKey];
+                            $attribute->save();
+                        }
                     }
                 }
             }
 
 
 
-            // Prepare data for update
-            $updateData = [];
-
-            // Loop through attributes and gather update data
-            foreach ($data['attributeId'] as $key => $attributeId) {
-                // Check if all necessary data for updating exists
-                if (
-                    isset($data['price'][$key], $data['stock'][$key]) &&
-                    !empty($attributeId) &&
-                    is_numeric($data['price'][$key]) &&
-                    is_numeric($data['stock'][$key])
-                ) {
-                    // Gather update data for this attribute
-                    $updateData[] = [
-                        'id' => $attributeId,
-                        'price' => (int)$data['price'][$key],
-                        'stock' => (int)$data['stock'][$key]
-                    ];
-                } else {
-                    // Handle error: Missing or invalid data
-                    $errorMessage = "Missing or invalid data for updating attributes.";
-                    return redirect()->back()->with('error_message', $errorMessage);
-                }
-            }
-
-            // Perform batch update
-            if (!empty($updateData)) {
-                // Update attributes using transaction
-                DB::beginTransaction();
-
-                try {
-                    foreach ($updateData as $update) {
-                        ProductsAttribure::where('id', $update['id'])->update([
-                            'price' => $update['price'],
-                            'stock' => $update['stock']
-                        ]);
-                    }
-
-                    // Commit transaction
-                    DB::commit();
-                } catch (\Exception $e) {
-                    // Rollback transaction on error
-                    DB::rollback();
-
-                    // Handle error
-                    $errorMessage = "Error occurred while updating attributes.";
-                    return redirect()->back()->with('error_message', $errorMessage);
-                }
-            } else {
-                // Handle error: No data to update
-                $errorMessage = "No data to update.";
-                return redirect()->back()->with('error_message', $errorMessage);
-            }
 
 
             return redirect('admin/products')->with('success_message', $message);

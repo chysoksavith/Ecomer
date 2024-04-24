@@ -35,6 +35,7 @@
     {{-- swiper js  --}}
     <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
     <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+    @yield('css')
     <title>Sike</title>
 </head>
 
@@ -80,27 +81,12 @@
     {{-- AOS plugin --}}
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-    <script>
-        window.onscroll = function() {
-            scrollFunction()
-        };
+    {{-- scroll smooth --}}
+    <script src="{{ asset('front/js/scrollSmooth.js') }}"></script>
+    {{-- capital --}}
+    <script src="{{ asset('front/js/CapitalWord.js') }}"></script>
 
-        function scrollFunction() {
-            var button = document.querySelector('.bt-nav');
-            if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
-                button.style.opacity = "1"; /* Show button if scroll position is not at the top */
-            } else {
-                button.style.opacity = "0"; /* Hide button if scroll position is at the top */
-            }
-        }
 
-        function scrollToTop() {
-            window.scrollTo({
-                top: 0,
-                behavior: "smooth"
-            });
-        }
-    </script>
     <script>
         function showToast(message, type = "success") {
             Toastify({
@@ -123,19 +109,17 @@
             showToast("{{ session('success_message') }}", "success");
         @endif
     </script>
-    <script>
-        // Execute the following script after the page has loaded
-        $(document).ready(function() {
-            // Select all elements with the 'capitalize' class and apply custom capitalization
-            $('.capitalize').each(function() {
-                var text = $(this).text();
-                // Convert the entire word to lowercase and then capitalize the first letter
-                $(this).text(text.toLowerCase().replace(/^(.)|\s(.)/g, function($1) {
-                    return $1.toUpperCase();
-                }));
-            });
-        });
-    </script>
+
+    @if (session('toast'))
+        <script>
+            // Extract toast data from the session
+            var toastData = @json(session('toast'));
+
+            // Call your showToast function
+            showToast(toastData.message, toastData.type);
+        </script>
+    @endif
+
     <!-- Add this script at the end of your HTML file -->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
@@ -151,17 +135,11 @@
             });
         });
     </script>
-
-    @if (session('toast'))
-        <script>
-            // Extract toast data from the session
-            var toastData = @json(session('toast'));
-
-            // Call your showToast function
-            showToast(toastData.message, toastData.type);
-        </script>
-    @endif
-
+    {{-- script side bar cartt --}}
+    <script src="{{ asset('front/js/sidebarFilter.js') }}"></script>
+    <script src="{{ asset('front/js/tabContentSidebar.js') }}"></script>
+    <script src="{{ asset('front/js/showpass.js') }}"></script>
+    <script src="{{ asset('front/js/asideDropdownMenu.js') }}"></script>
 </body>
 
 </html>

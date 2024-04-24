@@ -4,7 +4,6 @@
 }
 .row_footer {
     display: flex;
-    flex-wrap: wrap;
 }
 .footer_ul {
     list-style: none;
@@ -139,12 +138,12 @@
 }
 /* above content footer */
 .above_footer_content {
+    padding: 0px 20px;
     margin-top: 30px;
 }
 .container_above_footer {
     display: flex;
     justify-content: space-between;
-    flex-wrap: wrap;
 }
 .professionalSpp {
     margin: auto;
@@ -167,38 +166,64 @@
 }
 /* Small Devices (Mobile Portrait) */
 @media (max-width: 575.98px) {
+    .container_above_footer {
+        display: block;
+    }
     .professionalSpp {
+        width: 100%;
         border-right: none;
 
         border-bottom: 1px solid #d1d1d1;
     }
-    .footer_col {
-        width: 100%;
+    .row_footer{
+        display: block;
     }
-    .containIcon ul {
+    .footer_col{
         width: 100%;
     }
 }
 
 /* Medium Devices (Tablet Landscape) */
 @media (min-width: 576px) and (max-width: 767.98px) {
+    .container_above_footer {
+        display: block;
+    }
     .professionalSpp {
+        width: 100%;
         border-right: none;
 
         border-bottom: 1px solid #d1d1d1;
     }
-    .footer_col {
+    .row_footer{
+        display: block;
+    }
+    .footer_col{
         width: 100%;
-        margin-bottom: 30px;
     }
 }
 
 /* Large Devices (Tablet Landscape) */
 @media (min-width: 768px) and (max-width: 991.98px) {
+    .container_above_footer {
+        display: block;
+    }
+    .professionalSpp {
+        width: 100%;
+        border-right: none;
+
+        border-bottom: 1px solid #d1d1d1;
+    }
+    .row_footer{
+        display: block;
+    }
+    .footer_col{
+        width: 100%;
+    }
 }
 
 /* Large Devices (Desktops) */
 @media (min-width: 992px) and (max-width: 1199.98px) {
+
 }
 /* Extra Large Devices (Large Desktops) */
 @media (min-width: 1200px) {

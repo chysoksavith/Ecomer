@@ -71,9 +71,15 @@
                                         <tr>
                                             <td>{{ optional($product)->id ?? 'N/A' }}</td>
                                             <td>
-                                                <img src="{{ asset('front/images/products/' . $product->images[0]->image) }}"
-                                                    width="50px">
+                                                @if (isset($product->images[0]))
+                                                    <img src="{{ asset('front/images/products/' . $product->images[0]->image) }}"
+                                                        width="50px">
+                                                @else
+                                                    <!-- Provide an alternate image or display a placeholder -->
+                                                    <p>no image</p>
+                                                @endif
                                             </td>
+
                                             <td>{{ optional($product)->product_name ?? 'N/A' }}</td>
                                             <td>{{ optional($product)->product_code ?? 'N/A' }}</td>
                                             <td>{{ optional($product)->product_color ?? 'N/A' }}</td>

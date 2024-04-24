@@ -74,6 +74,7 @@
                         <div class="OfferPrice RightD">
                             <div class="">
                                 <div class="starings DiscoAFinal">
+
                                     @if ($avgStartRating > 0)
                                         @php
                                             $star = 1;
@@ -82,26 +83,13 @@
                                                 $star++;
                                             }
                                         @endphp
+                                        <span class="TotalReview"> ({{ $rating->total() }} review)</span>
                                     @endif
-                                    <span class="TotalReview"> ({{ $rating->total() }} review)</span>
 
                                 </div>
                             </div>
                         </div>
                     </li>
-                    {{-- Instock and left --}}
-                    {{-- <li class="rightDet">
-                        <div class="OfferPrice RightD InsOferr">
-                            <div class="DiscoAFinal sf">
-                                <div class="btnStock">
-                                    <span class="Instock">20 inStock</span>
-                                </div>
-                                <div class="btnStock">
-                                    <span class="Instock">20 inStock</span>
-                                </div>
-                            </div>
-                        </div>
-                    </li> --}}
                     {{-- Description --}}
                     <li class="rightDet">
                         <div class=" RightD Description">
@@ -353,7 +341,6 @@
                                             @if (!empty($productDetails->occasion))
                                                 <span class="prodt">Occasion</span>
                                                 <span class="prodt1">{{ $productDetails->occasion }}</span>
-
                                             @endif
 
                                         </div>

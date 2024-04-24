@@ -53,36 +53,41 @@
                             </div>
                         </div>
                     </div>
-                    <div class="priceCart">
-                        <div class=" getAttributePrice">
-                            <span
-                                class="FinalPrice ">{{ $getAttributePrice['final_price'] * $item['product_qty'] }}$</span>
-                            {{-- <div class="DiscoAFinal"> --}}
-                            @if ($getAttributePrice['discount'] > 0)
-                                <span class="offerPercentage">( {{ $getAttributePrice['discount_percent'] }}% )</span>
+                    <div class="res__cart">
+                        <div class="priceCart">
+                            <div class=" getAttributePrice">
                                 <span
-                                    class="dicPrice">{{ $getAttributePrice['product_price'] * $item['product_qty'] }}$</span>
-                            @endif
-                            {{-- </div> --}}
-                        </div>
-
-                    </div>
-                    <div class="qtyCart">
-                        <div class="countInput">
-                            <div class="Decre"><span class="fa-solid fa-minus updateCartItem qtyMinus"
-                                    data-cartid="{{ $item['id'] }}" data-qty="{{ $item['product_qty'] }}"></span>
+                                    class="FinalPrice ">{{ $getAttributePrice['final_price'] * $item['product_qty'] }}$</span>
+                                {{-- <div class="DiscoAFinal"> --}}
+                                @if ($getAttributePrice['discount'] > 0)
+                                    <span class="offerPercentage">( {{ $getAttributePrice['discount_percent'] }}%
+                                        )</span>
+                                    <span
+                                        class="dicPrice">{{ $getAttributePrice['product_price'] * $item['product_qty'] }}$</span>
+                                @endif
+                                {{-- </div> --}}
                             </div>
-                            <div class="Num"> <input type="text" value="{{ $item['product_qty'] }}"
-                                    class="qty" name="qty" data-max="1000" data-min="1" readonly> </div>
-                            <div class="Decre"><span
-                                    class="fa-solid fa-plus  updateCartItem qtyPlus fa-plus"data-cartid="{{ $item['id'] }}"
-                                    data-qty="{{ $item['product_qty'] }}"></span></div>
+
+                        </div>
+                        <div class="qtyCart">
+                            <div class="countInput">
+                                <div class="Decre"><span class="fa-solid fa-minus updateCartItem qtyMinus"
+                                        data-cartid="{{ $item['id'] }}"
+                                        data-qty="{{ $item['product_qty'] }}"></span>
+                                </div>
+                                <div class="Num"> <input type="text" value="{{ $item['product_qty'] }}"
+                                        class="qty" name="qty" data-max="1000" data-min="1" readonly> </div>
+                                <div class="Decre"><span
+                                        class="fa-solid fa-plus  updateCartItem qtyPlus fa-plus"data-cartid="{{ $item['id'] }}"
+                                        data-qty="{{ $item['product_qty'] }}"></span></div>
+                            </div>
+                        </div>
+                        {{-- delete cart --}}
+                        <div class="removeCart">
+                            <i class="fa-regular fa-trash-can deleteCartItems" data-cartid="{{ $item['id'] }}"></i>
                         </div>
                     </div>
-                    {{-- delete cart --}}
-                    <div class="removeCart">
-                        <i class="fa-regular fa-trash-can deleteCartItems" data-cartid="{{ $item['id'] }}"></i>
-                    </div>
+
                 </div>
                 @php
                     $total_price = $total_price + $getAttributePrice['final_price'] * $item['product_qty'];
@@ -101,8 +106,6 @@
             </div>
         </div>
         {{-- Process to checkout --}}
-
-
         <div class="process_checkot checkOutSection">
             <span class="processTxt">
                 Summary

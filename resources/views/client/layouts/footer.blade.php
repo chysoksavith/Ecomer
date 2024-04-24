@@ -126,7 +126,7 @@
         {{-- spacing --}}
         <div class="spacingRegular"></div>
         <p class=" txtModer">
-            ©2023 Modern Shop LLC - Aquascaping Shop and Gallery
+            ©2023 Modern Shop LLC - Sike io
         </p>
         {{-- spacing --}}
         <div class="spacingRegular"></div>

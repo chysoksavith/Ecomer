@@ -7,9 +7,9 @@
     color: #cacaca;
 }
 .CartTtitle {
-    width: 1640px;
+    width: 100%;
     margin: 30px auto;
-    padding: 20px 0px 50px;
+    padding:0px 30px;
 }
 .cartTtispan {
     margin-top: 20px;
@@ -20,13 +20,14 @@
     cursor: pointer;
 }
 .MainCartItems {
-    width: 1640px;
+    padding:0px 30px;
+    width: 100%;
     margin: 30px auto;
     display: flex;
     justify-content: space-between;
 }
 .coverItemCartAndClearAll {
-    width: 1000px;
+    width: 65%;
 }
 
 .BtnContinueS {
@@ -111,7 +112,7 @@
 /* ---------------------checkout-------------------------- */
 .process_checkot {
     padding: 35px;
-    width: 500px;
+    width: 30%;
     background-color: #f8f8f8;
 }
 .processTxt {
@@ -208,7 +209,10 @@
     display: block;
 }
 /* minicart items */
-
+.minicartItems {
+    padding-left: 10px;
+    padding-right: 10px;
+}
 .miniCartStyle {
     padding: 4px;
     width: 100%;
@@ -245,7 +249,7 @@
     text-decoration: none;
 }
 .cartButtonCheckoutmini {
-    margin-top: 30px;
+    margin-top: 10px;
     display: flex;
     justify-content: space-between;
 }
@@ -304,6 +308,13 @@
     justify-content: center;
     height: 100%;
 }
+.subminital {
+    padding: 25px 35px;
+}
+.cartsubtotal {
+    font-size: 15px;
+    font-weight: 700;
+}
 /* ----------------------cart empty ----------------------- */
 .cart_Empty {
     max-width: 760px;
@@ -328,4 +339,264 @@
     letter-spacing: 0;
     text-align: center;
     line-height: 1.2; /* Adjust the line-height as needed */
+}
+.side_Cart_wrapper {
+    padding: 35px;
+    overflow: scroll;
+    position: fixed;
+    transition: right 0.4s ease;
+    right: -30%;
+    width: 30%;
+    background-color: #fff;
+    /* padding: 10px 10px; */
+    z-index: 11111;
+    height: 100vh;
+    top: 0;
+}
+.closeCart{
+    font-size: 25px;
+}
+.side_Cart_wrapper.active {
+    right: 0;
+}
+.backdrop_cart {
+    display: none;
+    position: fixed;
+    z-index: 113;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0);
+    transition: background-color 0.4s ease;
+    backdrop-filter: blur(5px);
+}
+
+.backdrop_cart.active {
+    display: block;
+    background-color: rgba(0, 0, 0, 0.35);
+}
+.res__cart {
+    width: 35%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+@media (max-width: 575.98px) {
+    .side_Cart_wrapper {
+        right: -75%;
+        width: 75%;
+    }
+    .CartminiBtnDetail {
+        font-size: 14px;
+        height: 51px;
+        width: 150px;
+    }
+    .CartminiBtnDetail1 {
+        font-size: 14px;
+        height: 51px;
+        width: 150px;
+    }
+    /*  */
+    .MainCartItems {
+        display: block;
+    }
+    .MainCartItems {
+        width: 100%;
+        margin: 30px auto;
+        display: block;
+    }
+    .coverItemCartAndClearAll {
+        width: 100%;
+    }
+    .process_checkot {
+        display: block;
+        padding: 35px;
+        width: 500px;
+        background-color: #f8f8f8;
+    }
+    .CartTtitle {
+        width: 100%;
+    }
+    .mainCartContion {
+        display: block;
+    }
+    .CartDetail {
+        width: 100%;
+        height: 38px;
+        margin-bottom: 15px;
+    }
+    .cartItem {
+        display: block;
+    }
+
+    .ImageCarts {
+        width: 100px;
+        height: 100px;
+    }
+    .res__cart {
+        margin-top: 10px;
+        padding: 16px 10px;
+        width: 100%;
+    }
+    .process_checkot {
+        width: 100%;
+    }
+}
+/* Small Devices (Tablet Portrait) */
+@media (min-width: 576px) and (max-width: 767.98px) {
+    .side_Cart_wrapper {
+        right: -75%;
+        width: 75%;
+    }
+    /*  */
+    .MainCartItems {
+        display: block;
+    }
+    .MainCartItems {
+        width: 100%;
+        margin: 30px auto;
+        display: block;
+    }
+    .coverItemCartAndClearAll {
+        width: 100%;
+    }
+    .process_checkot {
+        display: block;
+        padding: 35px;
+        width: 500px;
+        background-color: #f8f8f8;
+    }
+    .CartTtitle {
+        width: 100%;
+    }
+    .mainCartContion {
+        display: block;
+    }
+    .CartDetail {
+        width: 100%;
+        height: 38px;
+        margin-bottom: 15px;
+    }
+    .cartItem {
+        display: block;
+    }
+
+    .ImageCarts {
+        width: 100px;
+        height: 100px;
+    }
+    .res__cart {
+        margin-top: 10px;
+        padding: 16px 10px;
+        width: 100%;
+    }
+    .process_checkot {
+        width: 100%;
+    }
+}
+
+/* Medium Devices (Tablet Landscape) */
+@media (min-width: 768px) and (max-width: 991.98px) {
+    /*  */
+    .MainCartItems {
+        display: block;
+    }
+    .MainCartItems {
+        width: 100%;
+        margin: 30px auto;
+        display: block;
+    }
+    .coverItemCartAndClearAll {
+        width: 100%;
+    }
+    .process_checkot {
+        display: block;
+        padding: 35px;
+        width: 500px;
+        background-color: #f8f8f8;
+    }
+    .CartTtitle {
+        width: 100%;
+    }
+    .mainCartContion {
+        justify-content: start;
+        gap: 20px;
+    }
+    .CartDetail {
+        width: 207px;
+        height: 38px;
+        margin-bottom: 15px;
+    }
+
+    .cartItem {
+        display: block;
+    }
+
+    .ImageCarts {
+        width: 100px;
+        height: 100px;
+    }
+    .res__cart {
+        margin-top: 10px;
+        padding: 16px 10px;
+        width: 100%;
+    }
+    .process_checkot {
+        width: 100%;
+    }
+}
+
+/* Large Devices (Desktops) */
+@media (min-width: 992px) and (max-width: 1199.98px) {
+      /*  */
+      .MainCartItems {
+        display: block;
+    }
+    .MainCartItems {
+        width: 100%;
+        margin: 30px auto;
+        display: block;
+    }
+    .coverItemCartAndClearAll {
+        width: 100%;
+    }
+    .process_checkot {
+        display: block;
+        padding: 35px;
+        width: 500px;
+        background-color: #f8f8f8;
+    }
+    .CartTtitle {
+        width: 100%;
+    }
+    .mainCartContion {
+        justify-content: start;
+        gap: 20px;
+    }
+    .CartDetail {
+        width: 207px;
+        height: 38px;
+        margin-bottom: 15px;
+    }
+
+    .cartItem {
+        display: block;
+    }
+
+    .ImageCarts {
+        width: 100px;
+        height: 100px;
+    }
+    .res__cart {
+        margin-top: 10px;
+        padding: 16px 10px;
+        width: 100%;
+    }
+    .process_checkot {
+        width: 100%;
+    }
+}
+
+/* Extra Large Devices (Large Desktops) */
+@media (min-width: 1200px) {
+    /* Your styles for extra large devices go here */
+
 }

@@ -46,6 +46,11 @@
 .inputFiel {
     margin-top: 25px;
 }
+.df__inputlogin {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
 .tileLabelLogin,
 .showPasswordTxt {
     font-size: 15px;
@@ -211,4 +216,8 @@
 
 .show {
     display: block;
+}
+/* /login aside */
+.container_aside_notamember {
+    margin-top: 70px;
 }

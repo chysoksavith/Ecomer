@@ -11,7 +11,7 @@ body {
 }
 /* padding container 20px */
 ::-webkit-scrollbar {
-    width: 3px;
+    width: 10px;
 }
 
 ::-webkit-scrollbar-thumb {
@@ -121,6 +121,7 @@ scrollbar-thumb {
 }
 .child_banner_two:last-child {
     margin-top: 20px;
+    margin-bottom: 20px;
     width: 100%;
     height: 290px;
 }
@@ -155,7 +156,6 @@ scrollbar-thumb {
     width: 150px;
     height: 50px;
     background-color: #2c2930;
-    height: 54px;
     color: white;
     font-size: 14px;
     letter-spacing: 3px;
@@ -164,8 +164,8 @@ scrollbar-thumb {
 }
 .btnFixBanner:hover {
     background: transparent;
-    color: black;
-    border: 1px solid black;
+    color: #fff8e7;
+    border: 1px solid white;
 }
 .aHrefFix {
     text-decoration: none;
@@ -243,10 +243,10 @@ scrollbar-thumb {
     color: black;
     text-decoration: none;
 }
-.h2-order{
+.h2-order {
     margin-bottom: 10px;
 }
-.selcet-cencel{
+.selcet-cencel {
     width: 100%;
     padding: 10px;
     margin-top: 15px;
@@ -270,4 +270,92 @@ scrollbar-thumb {
     background: transparent;
     color: black;
     border: 1px solid black;
+}
+/* Small Devices (Mobile Portrait) */
+@media (max-width: 575.98px) {
+    .banner_wrapper {
+        display: block;
+    }
+    .banner_left_two {
+        width: 100%;
+    }
+    .banner_right_two {
+        width: 100%;
+    }
+    .child_banner_three {
+        height: 290px;
+    }
+    .textFixbanner,
+    .textFixbannerthree {
+        left: 50%;
+        top: 70%;
+        transform: translate(-50%, -50%);
+    }
+    .btnFixBanner {
+        height: 39px;
+    }
+}
+
+/* Medium Devices (Tablet Landscape) */
+@media (min-width: 576px) and (max-width: 767.98px) {
+    .banner_wrapper {
+        display: block;
+    }
+    .banner_left_two {
+        width: 100%;
+    }
+    .banner_right_two {
+        width: 100%;
+    }
+    .child_banner_three {
+        height: 290px;
+    }
+    .textFixbanner,
+    .textFixbannerthree {
+        left: 50%;
+        top: 70%;
+        transform: translate(-50%, -50%);
+    }
+    .btnFixBanner {
+        height: 39px;
+    }
+}
+
+/* Large Devices (Tablet Landscape) */
+@media (min-width: 768px) and (max-width: 991.98px) {
+    .banner_wrapper {
+        display: block;
+    }
+    .banner_left_two {
+        width: 100%;
+    }
+    .banner_right_two {
+        width: 100%;
+    }
+    .child_banner_three {
+        height: 290px;
+    }
+    .textFixbanner,
+    .textFixbannerthree {
+        left: 50%;
+        top: 70%;
+        transform: translate(-50%, -50%);
+    }
+    .btnFixBanner {
+        height: 39px;
+    }
+}
+
+/* Large Devices (Desktops) */
+@media (min-width: 992px) and (max-width: 1199.98px) {
+    .textFixbanner,
+    .textFixbannerthree {
+        left: 50%;
+        top: 70%;
+        transform: translate(-50%, -50%);
+    }
+}
+/* Extra Large Devices (Large Desktops) */
+@media (min-width: 1200px) {
+    /* Your styles for extra large devices go here */
 }

@@ -10,7 +10,7 @@
                     <div class="secondLeftLogin">
                         <span class="SigninTitle">Sign in</span>
                         <p id="login-error"></p>
-                        <form id="loginForm" action="javascript:;" method="post">
+                        <form id="userLoginForm" action="javascript:;" method="post">
                             @csrf
                             <div class="inputFiel">
                                 <label class="tileLabelLogin">Email <span class="redValidation">*</span></label>
@@ -19,12 +19,12 @@
                             </div>
                             <div class="inputFiel">
                                 <label class="tileLabelLogin">Password <span class="redValidation">*</span></label>
-                                <input type="password" class="inputLogin" id="passwordInput" id="login-password"
+                                <input type="password" class="inputLogin" id="passwordInputLogin" id="login-password"
                                     name="password">
                                 <p id="password-error"></p>
                             </div>
                             <div class="inputFiel showPass">
-                                <input type="checkbox" class="checkboxshowpass" id="showPasswordCheckbox">
+                                <input type="checkbox" class="checkboxshowpass" id="showpassCheck">
 
                                 <span class="showPasswordTxt">
                                     Show Password
@@ -64,9 +64,9 @@
 @endsection
 @section('scripts')
     <script>
-        document.getElementById('showPasswordCheckbox').addEventListener('change', function() {
-            var passwordInput = document.getElementById('passwordInput');
-            passwordInput.type = this.checked ? 'text' : 'password';
+        document.getElementById('showpassCheck').addEventListener('change', function() {
+            var passwordInputLogin = document.getElementById('passwordInputLogin');
+            passwordInputLogin.type = this.checked ? 'text' : 'password';
         });
     </script>
 @endsection

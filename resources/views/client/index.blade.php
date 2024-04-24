@@ -43,7 +43,7 @@
                                         alt="">
                                 @endif
 
-                                <span class="soldOutItems">SOLD OUT</span>
+                                {{-- <span class="soldOutItems">SOLD OUT</span> --}}
                             </div>
                             <div class="TitleFirstPage">
                                 <span class="NameProFirstPage">{{ $product->product_name }}</span>
@@ -78,7 +78,7 @@
                                     <img src="https://www.designscene.net/wp-content/uploads/2023/11/Fear-of-God-Athletics-2023-14.jpg"
                                         alt="">
                                 @endif
-                                <span class="soldOutItems">SOLD OUT</span>
+                                {{-- <span class="soldOutItems">SOLD OUT</span> --}}
                             </div>
                             <div class="TitleFirstPage">
                                 <span class="NameProFirstPage">{{ $ProductBestSeller->product_name }}</span>
@@ -198,7 +198,7 @@
                                     <img src="https://www.designscene.net/wp-content/uploads/2023/11/Fear-of-God-Athletics-2023-14.jpg"
                                         alt="">
                                 @endif
-                                <span class="soldOutItems">SOLD OUT</span>
+                                {{-- <span class="soldOutItems">SOLD OUT</span> --}}
                             </div>
                             <div class="TitleFirstPage">
                                 <span class="NameProFirstPage">{{ $discountProduct->product_name }}</span>
@@ -234,7 +234,7 @@
                                     <img src="https://www.designscene.net/wp-content/uploads/2023/11/Fear-of-God-Athletics-2023-14.jpg"
                                         alt="">
                                 @endif
-                                <span class="soldOutItems">SOLD OUT</span>
+                                {{-- <span class="soldOutItems">SOLD OUT</span> --}}
                             </div>
                             <div class="TitleFirstPage">
                                 <span class="NameProFirstPage">{{ $IsFeatureProduct->product_name }}</span>

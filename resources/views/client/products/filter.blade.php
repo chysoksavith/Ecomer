@@ -3,42 +3,57 @@ use App\Models\Category;
 $categories = Category::getCategories();
 $categoryDeails = Category::categoryDetails($url);
 ?>
+
 <div class="FilterContainer">
     <div class="TitleFilter">
         <i class="fa-solid fa-filter"></i>
         <span class="fikte">FILTERS</span>
     </div>
-
     <div class="categoryList">
         <span class="MainMainCate">Category</span>
         <div class="coverCategory">
-            @foreach ($categories as $category)
-                <details>
-                    <summary><span class="MainCateTtiek">
-                            <a href="javascript:;" class="textDecorA capitalize">{{ $category->category_name }}</a></span>
-                    </summary>
-                    @if (count($category->subCategories))
-                        <details>
-                            @foreach ($category->subCategories as $subcategory)
-                                <summary class="TitleSubFilter">
-                                    <a href="{{ url($subcategory->url) }}" class="textDecorAb capitalize">
-                                        {{ $subcategory->category_name }}</a>
-                                </summary>
-                                @if (count($subcategory->subCategories))
-                                    @foreach ($subcategory->subCategories as $subsubcategory)
-                                        <p class="subsubCategoryTtile">
-                                            <a href="{{ url($subsubcategory->url) }}" class="textDecorAb capitalize">
-                                                {{ $subsubcategory->category_name }}</a>
-                                        </p>
-                                    @endforeach
-                                @endif
-                            @endforeach
-
-                        </details>
+            @foreach ($categories as $item)
+                <li class="dropdown__item">
+                    <div class="nav__link">
+                        <span class="hover__cate capitalize">
+                            {{ $item->category_name }}
+                        </span>
+                        @if (count($item->subCategories))
+                            <i class="fa-solid fa-chevron-down dropdown_arrow"></i>
+                        @endif
+                    </div>
+                    @if (count($item->subCategories))
+                        <ul class="dropdown__menu">
+                            <li class="dropdown__subitem">
+                                @foreach ($item->subCategories as $subitem)
+                                    <div class="dropdown__link">
+                                        <a href="{{ url($subitem->url) }}" class="filter__text capitalize">
+                                            <span class="text__sub">{{ $subitem->category_name }}</span>
+                                        </a>
+                                        @if (count($subitem->subCategories))
+                                            <!-- Check if subitem has sub-categories -->
+                                            <i class="fa-solid fa-plus dropdown__add"></i>
+                                        @endif
+                                    </div>
+                                    @if (count($subitem->subCategories))
+                                        <ul class="dropdown__submenu">
+                                            @foreach ($subitem->subCategories as $subsubitem)
+                                                <li>
+                                                    <a href="{{ url($subsubitem->url) }}"
+                                                        class="capitalize filter__text dropdown__sublink">
+                                                        <span
+                                                            class="text__sub text__subsub">{{ $subsubitem->category_name }}</span>
+                                                    </a>
+                                                </li>
+                                            @endforeach
+                                        </ul>
+                                    @endif
+                                @endforeach
+                            </li>
+                        </ul>
                     @endif
-                </details>
+                </li>
             @endforeach
-
         </div>
     </div>
     {{-- Size --}}
@@ -105,33 +120,32 @@ $categoryDeails = Category::categoryDetails($url);
 
 
     {{-- Price --}}
-    <div class="categoryList">
-        <span class="MainMainCate">Price</span>
-        <div class="coverCategory Colors">
-            <?php $getPrices = ['0-100', '100-200', '200-300', '300-400', '400-500']; ?>
-            @foreach ($getPrices as $key => $price)
-                <?php
-                if (isset($_GET['price']) && !empty($_GET['price'])) {
-                    $prices = explode('~', $_GET['price']);
-
-                    if (!empty($prices) && in_array($price, $prices)) {
-                        $pricechecked = 'checked';
-                    } else {
-                        $pricechecked = '';
+    <?php $getPrices = ['0-100', '100-200', '200-300', '300-400', '400-500']; ?>
+    @if (count($getPrices) > 0)
+        <div class="categoryList">
+            <span class="MainMainCate">Price</span>
+            <div class="coverCategory Colors">
+                @foreach ($getPrices as $key => $price)
+                    <?php
+                    $pricechecked = ''; // Default value
+                    if (isset($_GET['price']) && !empty($_GET['price'])) {
+                        $prices = explode('~', $_GET['price']);
+                        if (!empty($prices) && in_array($price, $prices)) {
+                            $pricechecked = 'checked';
+                        }
                     }
-                } else {
-                    $pricechecked = '';
-                }
-                ?>
-                <div class="checkbox-wrapper-1">
-                    <input id="price{{ $key }}" class="substituted filterAjax" name="price"
-                        value="{{ $price }}" type="checkbox" {{ $pricechecked }} />
-                    <label class=" labelpriceandSize" for="price{{ $key }}"><span
-                            class="priceFil">{{ $price }}</span></label>
-                </div>
-            @endforeach
+                    ?>
+                    <div class="checkbox-wrapper-1">
+                        <input id="price{{ $key }}" class="substituted filterAjax" name="price"
+                            value="{{ $price }}" type="checkbox" {{ $pricechecked }} />
+                        <label class=" labelpriceandSize" for="price{{ $key }}"><span
+                                class="priceFil">{{ $price }}</span></label>
+                    </div>
+                @endforeach
+            </div>
         </div>
-    </div>
+    @endif
+
     {{-- color --}}
     <?php $getColors = ProductsFilter::getColors($categoryDetails->catIds); ?>
     @if ($getColors && count($getColors) > 0)
@@ -221,4 +235,3 @@ $categoryDeails = Category::categoryDetails($url);
 
 
 </div>
-

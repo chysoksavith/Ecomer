@@ -14,6 +14,24 @@ $totalCartItems = totalCartItems();
                     </span>
 
                 </li>
+                <li>
+                    <form action="{{ url('search-product') }}" method="get">
+                        @csrf
+                        <div class="dropdown" data-dropdown>
+                            <span class="fa-solid fa-magnifying-glass icoHead link" data-dropdown-button></span>
+                            <div class="dropdown-memu">
+                                <div class="divSearchdiv">
+                                    <input type="search" class="searchHeader" id="searchHeader" name="query"
+                                        placeholder="Search for products">
+                                    <button type="submit" class="btnSearch">
+                                        <i class="fa-solid fa-magnifying-glass icoHead"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+
+                </li>
             </ul>
         </nav>
         <nav class="CollectionNav">
@@ -70,122 +88,63 @@ $totalCartItems = totalCartItems();
             <img src="{{ asset('pngwing.com.png') }}" alt="">
         </a>
 
-        <nav class="NavREs">
+        <nav class="NavREs ">
             <ul>
                 {{-- search --}}
-                <li class="NavLiRes"><a href="" class="Ico">
-                    </a>
-                </li>
-                <li>
+                <li class="NavReSnone">
                     <form action="{{ url('search-product') }}" method="get">
                         @csrf
                         <div class="dropdown" data-dropdown>
-                            <span class="fa-solid fa-magnifying-glass icoHead link" data-dropdown-button></span>
+                            <span class="fa-solid fa-magnifying-glass icoHead link icon_dn" data-dropdown-button></span>
                             <div class="dropdown-memu">
                                 <div class="divSearchdiv">
-                                    <input type="search" class="searchHeader" id="searchHeader" name="query" placeholder="Search for products">
+                                    <input type="search" class="searchHeader" id="searchHeader" name="query"
+                                        placeholder="Search for products">
                                     <button type="submit" class="btnSearch">
-                                        <i class="fa-solid fa-magnifying-glass icoHead"></i>
+                                        <i class="fa-solid fa-magnifying-glass icoHead "></i>
                                     </button>
                                 </div>
                             </div>
                         </div>
                     </form>
-
-
-
                 </li>
                 {{-- wishList --}}
-                <li class="NavLiRes">
-                    <a href="{{ url('/wishlist') }}" class="Ico"><i class="fa-regular   fa-heart  icoHead"></i>
-                        {{-- <span class="bagg">
-                            <p>1</p>
-                        </span> --}}
+                <li>
+                    <a href="{{ url('/wishlist') }}" class="Ico icon_dn"><i
+                            class="fa-regular   fa-heart  icoHead "></i>
+
                     </a>
                 </li>
+                {{-- user account --}}
+                <li>
+                    <i class="fa-regular fa-user icoHead dropbtnAccount icon_dn" id="myDropdownAccount"> </i>
+
+                    {{-- if auth login it show account and signout if not it show signup and signin --}}
+                    @include('client.layouts.sidebar_account')
+
+                </li>
                 {{-- cart --}}
-                <li class="NavLiRes">
-                    <span class="Ico" id="bagIcon"><i class="fa-solid fa-bag-shopping icoHead dropbtnminiCart"></i>
+                <li>
+                    <span class="Ico sideBarCart" id="bagIcon"><i
+                            class="fa-solid fa-bag-shopping icoHead dropbtnminiCart"></i>
                         <span class="bagg totalCartItems">
                             <p>{{ $totalCartItems }}</p>
                         </span>
                     </span>
-                    <div class="mini-cart dropdownminiCart" id="appendHeaderCartItems">
+
+                    <div class="mini-cart" id="appendHeaderCartItems">
                         @include('client.layouts.Header_smallCart')
                     </div>
+                    {{-- <div class="mini-cart dropdownminiCart" id="appendHeaderCartItems">
+                        @include('client.layouts.Header_smallCart')
+                    </div> --}}
                 </li>
 
-                {{-- user --}}
-                <li class="NavLiRes">
-                    <i class="fa-regular fa-user icoHead dropbtnAccount"> </i>
-                    <div class="dropdownAccount">
-                        <div class="dropdown-contentAccount" id="myDropdownAccount">
-                            {{-- if auth login it show account and signout if not it show signup and signin --}}
-                            <div class="accSudeBar">
-                                @if (Auth::check())
-                                    <ul class="ulAccSidebar ">
-                                        <li class="liAccSidebar">
-                                            <span class="spantxt">
-                                                Welcone, {{ Auth::user()->name }}!
-                                            </span>
-                                        </li>
-                                        <li class="liAccSidebar">
-                                            <a href="{{ url('user/account') }}">
-                                                My account
-                                            </a>
-                                        </li>
 
-                                        <li class="liAccSidebar">
-                                            <a href=""class="hoverunderLine">
-                                                My Orders
-                                            </a>
-                                        </li>
-                                        <li class="liAccSidebar">
-                                            <a href=""class="hoverunderLine">
-                                                My WishList
-                                            </a>
-                                        </li>
-                                        <li class="liAccSidebar">
-                                            <a href=""class="hoverunderLine">
-                                                Checkout
-                                            </a>
-                                        </li>
-                                    </ul>
-
-                                    <ul class="ulAccSidebar ulLogout">
-                                        <li>
-                                            <a href="{{ url('user/logout') }}">
-                                                sign out
-                                            </a>
-                                        </li>
-                                    </ul>
-                                @else
-                                    <ul class="ulAccSidebar ">
-                                        <li class="liAccSidebar">
-                                            <span class="spanPleaselOGIN">Please Login</span>
-                                        </li>
-                                        <li class="liAccSidebar">
-                                            <a href="{{ url('user/login') }}"class="hoverunderLine">
-                                                Sign in
-                                            </a>
-                                        </li>
-                                    </ul>
-                                @endif
-
-
-                            </div>
-                        </div>
-                    </div>
-                </li>
 
             </ul>
         </nav>
     </div>
 
-    {{-- side bar add to cart --}}
-
-    {{-- aside menu --}}
     @include('client.layouts.aside')
 </header>
-@section('scripts')
-@endsection
