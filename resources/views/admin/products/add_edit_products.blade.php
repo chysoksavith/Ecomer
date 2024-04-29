@@ -6,12 +6,7 @@
                 <div class="col-sm-6">
                     <h1 class="m-0">{{ $title }}</h1>
                 </div><!-- /.col -->
-                <div class="col-sm-6">
-                    <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="{{ route('admin.index') }}">Home</a></li>
-                        <li class="breadcrumb-item active">{{ $title }}</li>
-                    </ol>
-                </div><!-- /.col -->
+
             </div><!-- /.row -->
         </div><!-- /.container-fluid -->
     </div>
@@ -20,31 +15,9 @@
             <div class="row">
                 <div class="col-md-12">
                     <!-- general form elements -->
-                    <div class="card ">
-                        @if ($errors->any())
-                            <div class="alert alert-danger">
-                                <ul>
-                                    @foreach ($errors->all() as $error)
-                                        <li>{{ $error }}</li>
-                                    @endforeach
-                                </ul>
-                            </div>
-                        @endif
-                        @if (Session::has('success_message'))
-                            <div class="alert alert-success alert-dismissible fade show" role="alert">
-                                <strong>Sucess:</strong>{{ Session::get('success_message') }}
-                                <button type="button" class="btn-close" data-bs-dismiss="alert"
-                                    aria-label="Close"></button>
-                            </div>
-                        @endif
-                        @if (Session::has('error_message'))
-                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                <strong>Error:</strong>{{ Session::get('error_message') }}
-                                <button type="button" class="btn-close" data-bs-dismiss="alert"
-                                    aria-label="Close"></button>
-                            </div>
-                        @endif
-                    </div>
+                        <div class="p-2">
+                            @include('_message')
+                        </div>
                 </div>
             </div>
         </div>
@@ -164,8 +137,8 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="product_price">product price</label>
-                                        <input type="number" class="form-control" id="product_price"
-                                            name="product_price" placeholder="Enter Page product_price"
+                                        <input type="number" class="form-control" id="product_price" name="product_price"
+                                            placeholder="Enter Page product_price"
                                             @if (!empty($product['product_price'])) value="{{ $product['product_price'] }}" @else value="{{ old('product_price') }}" @endif>
                                     </div>
                                     <div class="form-group">
@@ -320,6 +293,7 @@
                                                     style="width: 120px;" />
                                                 <a href="javascript:void(0);" class="add_button"
                                                     title="Add field">Add</a>
+
                                             </div>
                                         </div>
                                     </div>
@@ -347,13 +321,29 @@
                                 </div>
                                 <div class="card-body">
                                     <div class="form-group">
-                                        <label for="description">Description</label>
-                                        <textarea class="form-control" rows="3" placeholder="Enter ..." id="description" name="description">
-@if (!empty($product['description']))
+                                        <section class="content">
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="card card-outline card-info">
+                                                        <div class="card-header">
+                                                            <h3 class="card-title">Description Item</h3>
+                                                        </div>
+                                                        <!-- /.card-header -->
+                                                        <div class="card-body">
+                                                            <textarea id="summernote" name="description">
+                                                        @if (!empty($product['description']))
 {{ $product['description'] }}@else{{ old('description') }}
 @endif
-</textarea>
+                                                        </textarea>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </section>
                                     </div>
+
                                     <div class="form-group">
                                         <label for="wash_care">Wash Care</label>
                                         <textarea class="form-control" rows="3" placeholder="Enter ..." id="wash_care" name="wash_care">
@@ -433,9 +423,4 @@
             </div>
         </form>
     </section>
-
-
-
-
-
 @endsection

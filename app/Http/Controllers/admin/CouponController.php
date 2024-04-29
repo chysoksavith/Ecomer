@@ -32,7 +32,7 @@ class CouponController extends Controller
             $message = "this feature is restricted for you";
             return redirect('admin/dashboard')->with('error_message', $message);
         } else {
-            $couponsModule = AdminRoles::where(['subadmin_id' => Auth::guard('admin')->user()->id, 'module' => 'coupons'])->first()->toArray();
+            $couponsModule = AdminRoles::where(['subadmins_id' => Auth::guard('admin')->user()->id, 'module' => 'coupons'])->first()->toArray();
         }
         return view('admin.coupons.coupon')->with(compact('coupons', 'couponsModule'));
     }

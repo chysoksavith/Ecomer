@@ -15,25 +15,8 @@ class BrandsController extends Controller
     public function brands(Request $request)
     {
         Session::put('page', 'brands');
-        $brands = Brand::latest('id');
-
-        // Check for the presence of search parameters
-        if ($request->has('Keyword')) {
-            $keyword = $request->input('Keyword');
-            $brands->where(function ($query) use ($keyword) {
-                $query->where('brand_name', 'like', '%' . $keyword . '%')
-                    ->orWhere('description', 'like', '%' . $keyword . '%');
-            });
-        }
-
-        if ($request->has('AnotherParameter')) {
-            // Add additional conditions based on other search parameters
-            $anotherParameter = $request->input('AnotherParameter');
-            $brands->where('another_column', '=', $anotherParameter);
-        }
-
+        $brands = Brand::get();
         // Paginate the results
-        $brands = $brands->paginate(10);
         $brandsModuleCount = AdminRoles::where(['subadmins_id' => Auth::guard('admin')->user()->id, 'module' => 'brands'])->count();
 
         $brandsModule = array();
@@ -48,7 +31,7 @@ class BrandsController extends Controller
             $brandsModule = AdminRoles::where(['subadmins_id' => Auth::guard('admin')->user()->id, 'module' => 'brands'])->first()->toArray();
         }
 
-        return view('admin.brands.brands')->with(compact('brands','brandsModule'));
+        return view('admin.brands.brands')->with(compact('brands', 'brandsModule'));
     }
     public function AddUpdateBrands(Request $request, $id = null)
     {

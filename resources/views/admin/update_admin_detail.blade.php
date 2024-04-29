@@ -26,30 +26,9 @@
                             <h3 class="card-title">Update Admin Detail</h3>
                         </div>
                         <div>
-                            @if ($errors->any())
-                                <div class="alert alert-danger">
-                                    <ul>
-                                        @foreach ($errors->all() as $error)
-                                            <li>{{ $error }}</li>
-                                        @endforeach
-                                    </ul>
-                                </div>
-                            @endif
-                            @if (session('error_message'))
-                                <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                    <strong>Error:</strong> {{ session('error_message') }}
-                                    <button type="button" class="btn-close" data-bs-dismiss="alert"
-                                        aria-label="Close"></button>
-                                </div>
-                            @endif
-
-                            @if (session('success_message'))
-                                <div class="alert alert-success alert-dismissible fade show" role="alert">
-                                    <strong>Success:</strong> {{ session('success_message') }}
-                                    <button type="button" class="btn-close" data-bs-dismiss="alert"
-                                        aria-label="Close"></button>
-                                </div>
-                            @endif
+                            <div class="p-2">
+                                @include('_message')
+                            </div>
 
 
                         </div>

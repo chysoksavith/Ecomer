@@ -44,7 +44,7 @@ scrollbar-thumb {
     padding: 20px;
     width: 100%;
     height: 230px; /* Adjust height as needed */
-    overflow-x: hidden; /* Hide horizontal overflow */
+    overflow-x: hidden !important; /* Hide horizontal overflow */
     cursor: grab; /* Use grab cursor to indicate scrollability */
 }
 .swiper-slide {

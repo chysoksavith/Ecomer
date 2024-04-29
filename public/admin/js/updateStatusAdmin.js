@@ -288,4 +288,28 @@ $(document).ready(function () {
             },
         });
     });
+    // update status color
+    $(document).on("click", ".updateColorStatus", function () {
+        var status = $(this).find("i").attr("status");
+        var color_id = $(this).attr("color_id");
+        $.ajax({
+            headers: {
+                "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+            },
+            type: "post",
+            url: "/admin/update-color-status",
+            data: { status: status, color_id: color_id },
+            success: function (resp) {
+                if (resp.status == 0) {
+                    $("#color-" + color_id).html(
+                        "<i class='fas fa-toggle-off' style='color:grey;' status='Inactive'></i>"
+                    );
+                } else if (resp.status == 1) {
+                    $("#color-" + color_id).html(
+                        "<i class='fas fa-toggle-on' style='color:blue;' status='Active'></i>"
+                    );
+                }
+            },
+        });
+    });
 });

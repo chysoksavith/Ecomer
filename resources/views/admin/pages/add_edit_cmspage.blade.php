@@ -6,26 +6,15 @@
                 <div class="col-sm-6">
                     <h1 class="m-0">{{ $title }}</h1>
                 </div><!-- /.col -->
-                <div class="col-sm-6">
-                    <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="{{ route('admin.index') }}">Home</a></li>
-                        <li class="breadcrumb-item active">{{ $title }}</li>
-                    </ol>
-                </div><!-- /.col -->
+
             </div><!-- /.row -->
         </div><!-- /.container-fluid -->
     </div>
     <section class="content">
         <div class="container-fluid">
-            @if ($errors->any())
-                <div class="alert alert-danger">
-                    <ul>
-                        @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                </div>
-            @endif
+            <div class="p-2">
+                @include('_message')
+            </div>
 
             <div class="row">
                 <!-- left column -->
@@ -59,15 +48,27 @@
                                         @if (!empty($cmsPage['url'])) value="{{ $cmsPage->url }}" @endif>
                                 </div>
                                 <div class="form-group">
-                                    <label for="description">Description</label>
-                                    <textarea class="tinymce-editor" name="description" id="myeditorinstance">
-                                        @if (!empty($cmsPage['description']))
-{{ $cmsPage['description'] }}
-@endif
-                                    </textarea>
-                                    <textarea>
-                                        Welcome to TinyMCE!
-                                      </textarea>
+                                    <section class="content">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="card card-outline card-info">
+                                                    <div class="card-header">
+                                                        <h3 class="card-title">Description CmsPage</h3>
+                                                    </div>
+                                                    <!-- /.card-header -->
+                                                    <div class="card-body">
+                                                    <textarea id="summernote" name="description">
+                                                    @if (!empty($cmsPage['description']))
+                                                    {{ $cmsPage['description'] }}@else{{ old('description') }}
+                                                    @endif
+                                                    </textarea>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </section>
                                 </div>
                                 <div class="form-group">
                                     <label for="meta_title">meta_title*</label>

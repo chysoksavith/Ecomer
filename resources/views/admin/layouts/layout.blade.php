@@ -15,6 +15,9 @@
     <link rel="stylesheet" href="{{ asset('admin/plugins/overlayScrollbars/css/OverlayScrollbars.min.css') }}">
     <!-- Theme style -->
     <link rel="stylesheet" href="{{ asset('admin/css/adminlte.min.css') }}">
+    {{-- text editor --}}
+    <link rel="stylesheet" href="{{ asset('admin/plugins/summernote/summernote-bs4.min.css') }}">
+
     <!-- Select2 -->
     <link rel="stylesheet" href="{{ asset('admin/customCss/custome.css') }}">
     <link rel="stylesheet" href="{{ asset('admin/plugins/select2/css/select2.min.css') }}">
@@ -125,6 +128,11 @@
                     [0, "desc"]
                 ]
             });
+            $('#ColorTable').DataTable({
+                "order": [
+                    [0, "desc"]
+                ]
+            });
         });
     </script>
     <!-- Bootstrap -->
@@ -142,6 +150,8 @@
     <script src="{{ asset('admin/plugins/chart.js/Chart.min.js') }}"></script>
     {{-- sweetalert 2 --}}
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    {{-- text editor --}}
+    <script src="{{ asset('admin/plugins/summernote/summernote-bs4.min.js') }}"></script>
     <!-- AdminLTE for demo purposes -->
     <script src="{{ asset('admin/js/demo.js') }}"></script>
     <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
@@ -159,7 +169,19 @@
             $('.select2').select2();
         })
     </script>
+    <!-- Page specific script -->
+    <script>
+        $(function() {
+            // Summernote
+            $("#summernote").summernote();
 
+            // CodeMirror
+            CodeMirror.fromTextArea(document.getElementById("codeMirrorDemo"), {
+                mode: "htmlmixed",
+                theme: "monokai",
+            });
+        });
+    </script>
 </body>
 
 </html>

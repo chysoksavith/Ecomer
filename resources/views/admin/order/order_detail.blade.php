@@ -10,32 +10,15 @@
                     <h1 class="m-0">Order Detail</h1>
                     <a target="_blank" class="btn btn-info" href="{{ url('admin/order') }}">Back</a>
                 </div><!-- /.col -->
-                <div class="col-sm-6">
-                    <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="{{ route('admin.index') }}">Home</a></li>
-                        <li class="breadcrumb-item active">Order #{{ $orderDetails['id'] }}</li>
-                    </ol>
-                </div><!-- /.col -->
+
             </div><!-- /.row -->
         </div><!-- /.container-fluid -->
     </div>
     <section class="content">
         <div class="container-fluid">
-            @if ($errors->any())
-                <div class="alert alert-danger">
-                    <ul>
-                        @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                </div>
-            @endif
-            @if (Session::has('success_message'))
-                <div class="alert alert-success alert-dismissible fade show" role="alert">
-                    <strong>Sucess:</strong>{{ Session::get('success_message') }}
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                </div>
-            @endif
+            <div class="p-2">
+                @include('_message')
+            </div>
             <div class="row">
                 <section class="content">
                     <div class="container-fluid">

@@ -6,12 +6,7 @@
                 <div class="col-sm-6">
                     <h1 class="m-0">{{ $title }}</h1>
                 </div><!-- /.col -->
-                <div class="col-sm-6">
-                    <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="{{ route('admin.index') }}">Home</a></li>
-                        <li class="breadcrumb-item active">{{ $title }}</li>
-                    </ol>
-                </div><!-- /.col -->
+
             </div><!-- /.row -->
         </div><!-- /.container-fluid -->
     </div>
@@ -34,22 +29,9 @@
                         action="{{ route('admin-addedit-subadmin', ['id' => $subadminData['id']]) }}" @endif
                             method="post">
                             @csrf
-                            @if ($errors->any())
-                                <div class="alert alert-danger">
-                                    <ul>
-                                        @foreach ($errors->all() as $error)
-                                            <li>{{ $error }}</li>
-                                        @endforeach
-                                    </ul>
-                                </div>
-                            @endif
-                            @if (Session::has('error_message'))
-                                <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                    <strong>Error:</strong>{{ Session::get('error_message') }}
-                                    <button type="button" class="btn-close" data-bs-dismiss="alert"
-                                        aria-label="Close"></button>
-                                </div>
-                            @endif
+                            <div class="p-2">
+                                @include('_message')
+                            </div>
                             <div class="card-body">
                                 <div class="form-group">
                                     <label for="title">Name</label>

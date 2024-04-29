@@ -312,28 +312,28 @@
                                         class="devicewidthinner" style="border-bottom: 1px solid #bbbbbb;">
                                         <tbody>
                                             <tr>
-                                                <td style="font-size: 14ox; line-height: 18px; color: #666666;">
+                                                <td style="font-size: 14px; line-height: 18px; color: #666666;">
                                                     Download Order Invoice<a
-                                                        href="{{ url('download-order-pdf-invoice/' . $order_id) }}">{{ url('download-order-pdf-invoice/' . $order_id) }}</a>
+                                                        href="{{ url('download-order-pdf-invoice/' . $order_id) }}">Download Invoice Shipping</a>
                                                     <br>
                                                     (Copy & Paste to open if link does not work )
 
                                                 </td>
                                             </tr>
                                             <tr>
-                                                <td style="font-size: 14ox; line-height: 18px; color: #666666;">
+                                                <td style="font-size: 14px; line-height: 18px; color: #666666;">
                                                     Regards, <br> Team Sike.ro
 
                                                 </td>
                                             </tr>
                                             <tr>
-                                                <td style="font-size: 14ox; line-height: 18px; color: #666666;">
+                                                <td style="font-size: 14px; line-height: 18px; color: #666666;">
                                                     &nbsp; &nbsp;
 
                                                 </td>
                                             </tr>
                                             <tr>
-                                                <td style="font-size: 14ox; line-height: 18px; color: #666666;">
+                                                <td style="font-size: 14px; line-height: 18px; color: #666666;">
                                                     Regards, <br> Team Sike.ro
 
                                                 </td>

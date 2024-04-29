@@ -5,6 +5,7 @@ use App\Http\Controllers\admin\BannersController;
 use App\Http\Controllers\admin\BrandsController;
 use App\Http\Controllers\admin\CategoryController;
 use App\Http\Controllers\admin\CmsController;
+use App\Http\Controllers\admin\ColorController;
 use App\Http\Controllers\admin\CouponController;
 use App\Http\Controllers\admin\NewseltterController;
 use App\Http\Controllers\admin\OrderController as AdminOrderController;
@@ -242,6 +243,14 @@ Route::group(['prefix' => '/admin'], function () {
             Route::post('delete-shipping-all',  'deleteShippingAll')->name('delete.shipping.all');
             Route::post('recovery-shipping-all',  'RecoverydeleteShippingAll')->name('recovery.shipping.all');
             Route::get('shipping-recovery', 'shippingChargesRecovery');
+        });
+        // Color
+        Route::controller(ColorController::class)->group(function () {
+            Route::get('colors', 'getColor')->name('admin.color');
+            Route::match(['get','post'], 'add-edit-color/{id?}', 'addEditColor')->name('add.edit.color');
+            Route::post('update-color-status', 'updateColorStatus');
+            Route::get('delete-color/{id?}','deleteColor');
+            // Route::mactch(['get','post'],'color', 'getColors');
         });
     });
 

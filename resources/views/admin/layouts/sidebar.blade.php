@@ -169,7 +169,7 @@
                       </a>
                   </li>
                   {{-- Catelouge --}}
-                  @if (Session::get('page') == 'categories' || Session::get('page') == 'products' || Session::get('page' == 'brands'))
+                  @if (Session::get('page') == 'categories' || Session::get('page') == 'products' || Session::get('page') == 'brands')
                       @php
                           $active = 'active';
                       @endphp
@@ -188,6 +188,20 @@
                       </a>
                       <ul class="nav nav-treeview">
                           <li class="nav-item">
+                              {{-- brand --}}
+                              @if (Session::get('page') == 'brands')
+                                  @php
+                                      $active = 'active';
+                                  @endphp
+                              @else
+                                  @php
+                                      $active = '';
+                                  @endphp
+                              @endif
+                              <a href="{{ route('admin.brands') }}" class="nav-link {{ $active }}">
+                                  <i class="far fa-circle nav-icon"></i>
+                                  <p>Brands</p>
+                              </a>
                               @if (Session::get('page') == 'categories')
                                   @php
                                       $active = 'active';
@@ -215,25 +229,11 @@
                                   <i class="far fa-circle nav-icon"></i>
                                   <p>Products</p>
                               </a>
-                              {{-- brand --}}
-                              @if (Session::get('page') == 'brands')
-                                  @php
-                                      $active = 'active';
-                                  @endphp
-                              @else
-                                  @php
-                                      $active = '';
-                                  @endphp
-                              @endif
-                              <a href="{{ route('admin.brands') }}" class="nav-link {{ $active }}">
-                                  <i class="far fa-circle nav-icon"></i>
-                                  <p>Brands</p>
-                              </a>
+
 
                           </li>
                       </ul>
                   </li>
-                  {{-- Banner manger --}}
                   {{-- Banner manager --}}
                   <li class="nav-item">
                       @php
@@ -359,6 +359,24 @@
                           <i class="nav-icon fas fa-star"></i>
                           <p>
                               Rating & Review
+                          </p>
+                      </a>
+                  </li>
+                  {{-- Color --}}
+                  @if (Session::get('page') == 'colors')
+                      @php
+                          $active = 'active';
+                      @endphp
+                  @else
+                      @php
+                          $active = '';
+                      @endphp
+                  @endif
+                  <li class="nav-item">
+                      <a href="{{ url('admin/colors') }}" class="nav-link {{ $active }}">
+                          <i class="nav-icon fas fa-palette"></i>
+                          <p>
+                              Color
                           </p>
                       </a>
                   </li>

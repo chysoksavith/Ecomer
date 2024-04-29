@@ -6,12 +6,7 @@
                 <div class="col-sm-6">
                     <h1 class="m-0">Permission</h1>
                 </div><!-- /.col -->
-                <div class="col-sm-6">
-                    <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="{{ route('admin.index') }}">Home</a></li>
-                        <li class="breadcrumb-item active">{{ $title }}</li>
-                    </ol>
-                </div><!-- /.col -->
+
             </div><!-- /.row -->
         </div><!-- /.container-fluid -->
     </div>
@@ -308,6 +303,70 @@
                                                         @endphp
                                                     @endif
                                                 @endif
+                                                {{-- color --}}
+                                                @if ($role['module'] == 'colors')
+                                                    @if ($role['view_access'] == 1)
+                                                        @php
+                                                            $viewColor = 'checked';
+                                                        @endphp
+                                                    @else
+                                                        @php
+                                                            $viewColor = '';
+                                                        @endphp
+                                                    @endif
+                                                    {{-- edit --}}
+                                                    @if ($role['edit_access'] == 1)
+                                                        @php
+                                                            $editColor = 'checked';
+                                                        @endphp
+                                                    @else
+                                                        @php
+                                                            $editColor = '';
+                                                        @endphp
+                                                    @endif
+                                                    {{-- full --}}
+                                                    @if ($role['full_access'] == 1)
+                                                        @php
+                                                            $fullColor = 'checked';
+                                                        @endphp
+                                                    @else
+                                                        @php
+                                                            $fullColor = '';
+                                                        @endphp
+                                                    @endif
+                                                @endif
+                                                   {{-- coupon --}}
+                                                   @if ($role['module'] == 'coupons')
+                                                   @if ($role['view_access'] == 1)
+                                                       @php
+                                                           $viewCoupon = 'checked';
+                                                       @endphp
+                                                   @else
+                                                       @php
+                                                           $viewCoupon = '';
+                                                       @endphp
+                                                   @endif
+                                                   {{-- edit --}}
+                                                   @if ($role['edit_access'] == 1)
+                                                       @php
+                                                           $editCoupon = 'checked';
+                                                       @endphp
+                                                   @else
+                                                       @php
+                                                           $editCoupon = '';
+                                                       @endphp
+                                                   @endif
+                                                   {{-- full --}}
+                                                   @if ($role['full_access'] == 1)
+                                                       @php
+                                                           $fullCoupon = 'checked';
+                                                       @endphp
+                                                   @else
+                                                       @php
+                                                           $fullCoupon = '';
+                                                       @endphp
+                                                   @endif
+                                               @endif
                                             @endforeach
                                         @endif
                                         <tr>
@@ -608,6 +667,84 @@
                                                         id="flexCheckChecked"
                                                         @if (isset($fullratings)) {{ $fullratings }} @endif
                                                         name="ratings[full]">
+                                                    <label class="form-check-label" for="flexCheckChecked">
+                                                        Full Access
+                                                    </label>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        {{-- color --}}
+                                        <tr>
+                                            <td>
+                                                Color
+                                            </td>
+                                            <td>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" value="1"
+                                                        id="flexCheckChecked"
+                                                        @if (isset($viewColor)) {{ $viewColor }} @endif
+                                                        name="colors[view]">
+                                                    <label class="form-check-label" for="flexCheckChecked">
+                                                        View Access
+                                                    </label>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" value="1"
+                                                        id="flexCheckChecked"
+                                                        @if (isset($editColor)) {{ $editColor }} @endif
+                                                        name="colors[edit]">
+                                                    <label class="form-check-label" for="flexCheckChecked">
+                                                        Edit Access
+                                                    </label>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" value="1"
+                                                        id="flexCheckChecked"
+                                                        @if (isset($fullColor)) {{ $fullColor }} @endif
+                                                        name="colors[full]">
+                                                    <label class="form-check-label" for="flexCheckChecked">
+                                                        Full Access
+                                                    </label>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                         {{-- Coupon --}}
+                                         <tr>
+                                            <td>
+                                                Coupon
+                                            </td>
+                                            <td>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" value="1"
+                                                        id="flexCheckChecked"
+                                                        @if (isset($viewCoupon)) {{ $viewCoupon }} @endif
+                                                        name="coupons[view]">
+                                                    <label class="form-check-label" for="flexCheckChecked">
+                                                        View Access
+                                                    </label>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" value="1"
+                                                        id="flexCheckChecked"
+                                                        @if (isset($editCoupon)) {{ $editCoupon }} @endif
+                                                        name="coupons[edit]">
+                                                    <label class="form-check-label" for="flexCheckChecked">
+                                                        Edit Access
+                                                    </label>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" value="1"
+                                                        id="flexCheckChecked"
+                                                        @if (isset($fullCoupon)) {{ $fullCoupon }} @endif
+                                                        name="coupons[full]">
                                                     <label class="form-check-label" for="flexCheckChecked">
                                                         Full Access
                                                     </label>

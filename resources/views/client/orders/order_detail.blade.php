@@ -65,7 +65,10 @@
                             <h5>Placed</h5>
                         </div>
                         <div class="seperator"></div>
-                        <div class="step @if ($orderDetails['order_status'] == 'Shipped' || $orderDetails['order_status'] == 'Delivered') step-active @endif">
+                        <div class="step @if (
+                            $orderDetails['order_status'] == 'Shipped' ||
+                                $orderDetails['order_status'] == 'In Process' ||
+                                $orderDetails['order_status'] == 'Delivered') step-active @endif">
                             <span class="number-container">
                                 <span class="number">2</span>
                             </span>

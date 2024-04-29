@@ -69,18 +69,17 @@
                             <!-- Start header Section -->
                             <tr>
                                 <td style="padding-top: 30px;">
-                                    <table width="560" align="center" cellpadding="0" cellspacing="0" border="0"
-                                        class="devicewidthinner"
-                                        style="border-bottom: 1px solid #eeeeee; text-align: center;">
+                                    <table width="600" align="center" cellpadding="15" cellspacing="0" border="0"
+                                        class="devicewidth" style="background-color: #ffffff;">
                                         <tbody>
                                             <tr>
                                                 <td style="padding-bottom: 10px;">
-
+                                                    <h1>Sike</h1>
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <td style="font-size: 14px; line-height: 18px; color: #666666;">
-                                                    CamShop.io
+                                                    Sike.io
                                                 </td>
                                             </tr>
                                             <tr>
@@ -90,7 +89,7 @@
                                             </tr>
                                             <tr>
                                                 <td style="font-size: 14px; line-height: 18px; color: #666666;">
-                                                    Phone: 111-111-111 | Email: camShop@gmail.com
+                                                    Phone: 111-111-111 | Email: Sike@gmail.com
                                                 </td>
                                             </tr>
                                             <tr>

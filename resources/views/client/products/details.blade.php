@@ -12,25 +12,46 @@
                     <span class="ItemNameDet">Name Items</span> --}}
                 </div>
                 <div class="LeftImageZoom">
-
-                    <div class="picZoomer img-container">
-                        @if ($productDetails->images)
-                            <img class="ImagePicXoom"
-                                src="{{ asset('front/images/products/' . $productDetails->images[0]->image) }}"
-                                id="mainImage">
-                        @else
-                            <span>No Image</span>
-                        @endif
-
-
+                    <div class="zoom__img">
+                        <div class="picZoomer img-container" id="zoomPicture">
+                            <div class="react" id="react"></div>
+                            @if ($productDetails->images)
+                                <img class="ImagePicXoom"
+                                    src="{{ asset('front/images/products/' . $productDetails->images[0]->image) }}"
+                                    id="mainImage">
+                            @else
+                                <span>No Image</span>
+                            @endif
+                            <!-- Zoom Icon -->
+                            <div class="zoom-icon" id="zoomIcon"><i class="fas fa-search-plus"></i></div>
+                        </div>
+                    </div>
+                    <div class="zoom" id="zoom">
+                        <!-- Zoomed Image -->
+                        <div class="zoomed-image-container">
+                            <img class="zoomed-image" id="zoomedImage">
+                            <!-- Close Button -->
+                            <span class="close-btn" id="closeBtn">
+                                <i class="fa-solid fa-xmark"></i>
+                            </span>
+                            <!-- Zoom In/Zoom Out Buttons -->
+                            <div class="zoom-buttons">
+                                <span class="zoom-in-btn" id="zoomInBtn">
+                                    <i class="fa-solid fa-plus"></i>
+                                </span>
+                                <span class="zoom-out-btn" id="zoomOutBtn">
+                                    <i class="fa-solid fa-minus"></i>
+                                </span>
+                            </div>
+                        </div>
                     </div>
                     <ul class="piclist">
                         @foreach ($productDetails->images as $imge)
                             <li><img src="{{ asset('front/images/products/' . $imge->image) }} " class="subImage"></li>
                         @endforeach
                     </ul>
-
                 </div>
+
             </div>
             <div class="RightContainerDetail">
                 <ul class="MainRightDetail">
@@ -92,9 +113,10 @@
                     </li>
                     {{-- Description --}}
                     <li class="rightDet">
-                        <div class=" RightD Description">
-                            <span>{{ $productDetails->description }}</span>
+                        <div class="RightD Description">
+                            <span>{!! $productDetails->description !!}</span>
                         </div>
+
                     </li>
                     {{-- Color --}}
                     <form action="j" name="addToCart" id="addToCart">
@@ -488,19 +510,62 @@
 @endsection
 @section('scripts')
     <script>
-        // function opanTab(evt, cityName) {
-        //     var i, tabcontent, tablinks;
-        //     tabcontent = document.getElementsByClassName("tabcontent");
-        //     for (i = 0; i < tabcontent.length; i++) {
-        //         tabcontent[i].style.display = "none";
-        //     }
-        //     tablinks = document.getElementsByClassName("tablinks");
-        //     for (i = 0; i < tablinks.length; i++) {
-        //         tablinks[i].className = tablinks[i].className.replace(" active", "");
-        //     }
-        //     document.getElementById(cityName).style.display = "block";
-        //     evt.currentTarget.className += " active";
-        // }
+        document.addEventListener('DOMContentLoaded', function() {
+            const mainImage = document.getElementById('mainImage');
+            const zoomIcon = document.getElementById('zoomIcon');
+            const zoomedImageContainer = document.querySelector('.zoomed-image-container');
+            const zoomedImage = document.getElementById('zoomedImage');
+            const closeBtn = document.getElementById('closeBtn');
+            const zoomInBtn = document.getElementById('zoomInBtn');
+            const zoomOutBtn = document.getElementById('zoomOutBtn');
+
+            let zoomLevel = 100; // Initial zoom level
+            const maxZoom = 300; // Maximum zoom level
+            const minZoom = 50; // Minimum zoom level
+
+            // Function to show zoomed image in pop-up container
+            function showZoomedImage() {
+                zoomedImage.src = mainImage.src;
+                zoomedImageContainer.style.display = 'flex';
+            }
+
+            // Zoom icon click action
+            zoomIcon.addEventListener('click', showZoomedImage);
+
+
+
+            // Close button action
+            function closeZoomedImage() {
+                zoomedImageContainer.style.display = 'none';
+                // Reset zoom level when closing
+                zoomLevel = 100;
+                zoomedImage.style.transform = `scale(1)`; // Reset to original size
+            }
+
+            closeBtn.addEventListener('click', closeZoomedImage);
+
+            // Zoom in button action
+            zoomInBtn.addEventListener('click', function() {
+                if (zoomLevel < maxZoom) {
+                    zoomLevel += 10; // Increase zoom level by 10%
+                    zoomedImage.style.transform = `scale(${zoomLevel / 100})`; // Apply zoom
+                }
+            });
+
+            // Zoom out button action
+            zoomOutBtn.addEventListener('click', function() {
+                if (zoomLevel > minZoom) {
+                    if (zoomLevel > 100) {
+                        zoomLevel -= 10; // Decrease zoom level by 10% if above original size
+                        zoomedImage.style.transform = `scale(${zoomLevel / 100})`; // Apply zoom
+                    }
+                }
+            });
+
+            // Close pop-up container when zoomed image is clicked
+            zoomedImage.addEventListener('click', closeZoomedImage);
+        });
+
 
         // summary when click open summary 1 it open when click on 2 summry 1 close and summary 2 open
         function handleDetailsClick(clickedDetails) {
