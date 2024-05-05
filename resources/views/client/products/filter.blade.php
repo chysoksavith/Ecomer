@@ -67,7 +67,7 @@ $categoryDeails = Category::categoryDetails($url);
                     <?php
                     if (isset($_GET['size']) && !empty($_GET['size'])) {
                         $sizes = explode('~', $_GET['size']);
-
+                    
                         if (!empty($sizes) && in_array($size, $sizes)) {
                             $sizechecked = 'checked';
                         } else {
@@ -97,7 +97,7 @@ $categoryDeails = Category::categoryDetails($url);
                     <?php
                     if (isset($_GET['brand']) && !empty($_GET['brand'])) {
                         $brands = explode('~', $_GET['brand']);
-
+                    
                         if (!empty($brands) && in_array($brand->id, $brands)) {
                             $brandchecked = 'checked';
                         } else {
@@ -157,7 +157,7 @@ $categoryDeails = Category::categoryDetails($url);
                     <?php
                     if (isset($_GET['color']) && !empty($_GET['color'])) {
                         $colors = explode('~', $_GET['color']);
-
+                    
                         if (!empty($colors) && in_array($color, $colors)) {
                             $colorchecked = 'checked';
                         } else {
@@ -235,3 +235,50 @@ $categoryDeails = Category::categoryDetails($url);
 
 
 </div>
+@section('scripts')
+    <script>
+        // side bar menu filter in age listing
+        const openMenuFiler = () => {
+            document.querySelector(".backdrop_filter").classList.add("active");
+
+            const sideFilterWrappers = document.getElementsByClassName(
+                "side_filter_wrapper"
+            );
+            for (let i = 0; i < sideFilterWrappers.length; i++) {
+                sideFilterWrappers[i].classList.add("visible");
+            }
+        };
+
+        const closeMenuFilter = () => {
+            document.querySelector(".backdrop_filter").classList.remove("active");
+            const sideFilterWrappers = document.getElementsByClassName(
+                "side_filter_wrapper"
+            );
+            for (let i = 0; i < sideFilterWrappers.length; i++) {
+                sideFilterWrappers[i].classList.remove("visible");
+            }
+        };
+
+        document.addEventListener("DOMContentLoaded", function() {
+            // Your JavaScript code here
+            document
+                .getElementById("menuBtnFilterListing")
+                .addEventListener("click", (e) => {
+                    e.preventDefault();
+                    openMenuFiler();
+                });
+
+            document
+                .querySelector(".backdrop_filter")
+                .addEventListener("click", (e) => {
+                    closeMenuFilter();
+                });
+
+            document
+                .querySelector(".side_filter_wrapper .closeFilter")
+                .addEventListener("click", (e) => {
+                    closeMenuFilter();
+                });
+        });
+    </script>
+@endsection

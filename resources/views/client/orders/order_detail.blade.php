@@ -13,6 +13,10 @@
                 @include('client.User.sidebarAccount')
             </div>
         </div>
+        <div class="left__nav_mobile">
+            @include('client.User.sidebarAccMobile')
+
+        </div>
         <div class="orderDetailContainer">
             <div class=" CancelOrder">
                 <span class="notamember">
@@ -24,7 +28,7 @@
                     </span>
                 @endif
 
-
+               
             </div>
             <div class="orderDetailContainerBody">
                 <div class="header_cartOrder bdnone">
@@ -33,7 +37,7 @@
                             Order #{{ $orderDetails['id'] }}
                         </span>
                         <span class="date_order">
-                            Place on {{ \Carbon\Carbon::parse($orderDetails['created_at'])->format('h:i a d F Y') }}
+                            Place on {{ \Carbon\Carbon::parse($orderDetails['created_at'])->format('n/j/y') }}
                         </span>
                     </div>
                     <div class="viewDetail_cartOrder">
@@ -51,7 +55,7 @@
                     </div>
                     <div class="wrapper_iteminOrderdetail">
                         <span class="txt_orderdetak">Place on
-                            {{ \Carbon\Carbon::parse($items['created_at'])->format('h:i a d F Y') }}</span>
+                            {{ \Carbon\Carbon::parse($items['created_at'])->format('n/j/y') }}</span>
                         <span class="txt_orderdetak">
                             <i class="fa-solid fa-van-shuttle icon-head"></i> Standard
                         </span>
@@ -97,10 +101,10 @@
                             @endif
 
                             <div class="div_delailitems">
-                                <span class="Name_itemDetaik">Product Name: <span class="quant">
-                                        {{ $items['product_name'] }} </span> </span> <br>
-                                <span class="Name_itemDetaik">Code: <span class="quant"> {{ $items['product_code'] }}
-                                    </span> </span> <br>
+                                <span class="Name_itemDetaik">Product Name: <span class="quant res__Prod">
+                                        {{ $items['product_name'] }} </span> </span>
+                                <span class="Name_itemDetaik res__Prod">Code: <span class="quant"> {{ $items['product_code'] }}
+                                    </span> </span>
                                 <span class="Name_itemDetaik">Size: <span class="quant"> {{ $items['product_size'] }}
                                     </span> </span>
 
@@ -109,7 +113,7 @@
                         </div>
                         <div class="total_wrappDetail">
                             <span>Quantity : <span class="quant"> {{ $items['product_qty'] }} </span> </span>
-                            <span class="db">Total : <span class="quant"> {{ $items['product_price'] }} </span>
+                            <span class="db">Total : <span class="quant"> {{ $items['product_price'] }} $</span>
                             </span>
                         </div>
 

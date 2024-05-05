@@ -24,6 +24,7 @@ class IndexController extends Controller
         $NewProducts = Product::with('brand', 'images')
             ->where('status', 1)
             ->orderBy('id', 'Desc')
+            ->inRandomOrder()
             ->limit(4)
             ->get();
         // get Best seller Product

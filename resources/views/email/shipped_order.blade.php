@@ -1,353 +1,549 @@
-@php
-    use App\Models\Product;
-@endphp
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html>
+<html lang="en">
 
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Email Template for Order Confirmation Email</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Order</title>
+</head>
+<style>
+    @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700;800;900&display=swap");
 
-    <!-- Start Common CSS -->
-    <style type="text/css">
-        #outlook a {
-            padding: 0;
+    * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+        letter-spacing: 1px;
+    }
+
+    body {
+        font-family: "Poppins", sans-serif;
+    }
+
+    .header_ship {
+        padding: 40px 40px 80px;
+        margin: auto;
+        width: 80%;
+    }
+
+    .pro__info {
+        background-color: #f8f8f8;
+    }
+
+    .headerText {
+        display: block;
+        margin-bottom: 30px;
+        font-size: 48px;
+        font-weight: 700;
+    }
+
+    .headerText1 {
+        font-size: 48px;
+        font-weight: 700;
+    }
+
+    .wrap_proInfo {
+        margin-top: 30px;
+        background-color: #f8f8f8;
+        padding: 10px;
+    }
+
+    .table {
+        width: 100%;
+
+        border-collapse: collapse;
+    }
+
+    .table td,
+    .table th {
+        padding: 16px 16px 16px 36px;
+        text-align: center;
+        font-size: 14px;
+    }
+
+    .table th {
+        border-bottom: 1px solid black;
+        color: black;
+    }
+
+    .table tbody tr:nth-child(even) {
+        background-color: white;
+    }
+
+    .text_sub {
+        background-color: white;
+        text-align: end !important;
+    }
+
+    .r {
+        content: attr(data-label);
+        font-weight: 400;
+        text-align: end !important;
+    }
+
+    .z {
+        font-weight: 600 !important;
+    }
+
+    .a {
+        font-weight: 600 !important;
+    }
+
+    .div_infoUSER {
+        margin-top: 30px;
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .box1 {
+        width: 25%;
+    }
+
+    .box1 ul {
+        padding: 10px;
+        list-style: none;
+        font-size: 14px;
+    }
+
+    .box1 li {
+        padding: 10px;
+    }
+
+    .main {
+        font-size: 20px;
+        font-weight: 600;
+    }
+
+    .ahref {
+        text-decoration: none;
+        font-weight: 600;
+        color: black;
+
+    }
+
+    /* Small Devices (Mobile Portrait) */
+    @media (max-width: 575.98px) {
+        .div_infoUSER {
+            display: block;
         }
 
-        body {
-            width: 100% !important;
-            -webkit-text-size-adjust: 100%;
-            -ms-text-size-adjust: 100%;
-            margin: 0;
-            padding: 0;
-            font-family: Helvetica, arial, sans-serif;
-        }
-
-        .ExternalClass {
+        .box1 {
             width: 100%;
         }
 
-        .ExternalClass,
-        .ExternalClass p,
-        .ExternalClass span,
-        .ExternalClass font,
-        .ExternalClass td,
-        .ExternalClass div {
-            line-height: 100%;
+        .table thead {
+            display: none;
         }
 
-        .backgroundTable {
-            margin: 0;
-            padding: 0;
-            width: 100% !important;
-            line-height: 100% !important;
+        .sub {
+            font-weight: lighter !important;
+            display: none !important;
         }
 
-        .main-temp table {
-            border-collapse: collapse;
-            mso-table-lspace: 0pt;
-            mso-table-rspace: 0pt;
-            font-family: Helvetica, arial, sans-serif;
+        .container_ship {
+            padding: px;
         }
 
-        .main-temp table td {
-            border-collapse: collapse;
+        .wrap_proInfo {
+            padding: 1px;
         }
-    </style>
-    <!-- End Common CSS -->
-</head>
+
+        .table,
+        .table tbody,
+        .table tfoot,
+        .table tr,
+        .table td {
+            display: block;
+            width: 100%;
+        }
+
+        .table tr {
+            margin-bottom: 15px;
+        }
+
+        .table td {
+            padding-left: 50%;
+            text-align: left;
+            position: relative;
+        }
+
+        .table td::before {
+            content: attr(data-label);
+            position: absolute;
+            left: 0;
+            width: 50%;
+            padding-left: 15px;
+            font-size: 14px;
+            font-weight: bold;
+            text-align: left;
+        }
+
+        .pro {
+            border-bottom: 2px solid black;
+        }
+
+        .header_ship {
+            padding: 4px;
+        }
+    }
+
+    /* Medium Devices (Tablet Landscape) */
+    @media (min-width: 576px) and (max-width: 767.98px) {
+        .div_infoUSER {
+            display: block;
+        }
+
+        .box1 {
+            width: 100%;
+        }
+
+        .table thead {
+            display: none;
+        }
+
+        .sub {
+            font-weight: lighter !important;
+            display: none !important;
+        }
+
+        .container_ship {
+            padding: px;
+        }
+
+        .wrap_proInfo {
+            padding: 1px;
+        }
+
+        .table,
+        .table tbody,
+        .table tfoot,
+        .table tr,
+        .table td {
+            display: block;
+            width: 100%;
+        }
+
+        .table tr {
+            margin-bottom: 15px;
+        }
+
+        .table td {
+            padding-left: 50%;
+            text-align: left;
+            position: relative;
+        }
+
+        .table td::before {
+            content: attr(data-label);
+            position: absolute;
+            left: 0;
+            width: 50%;
+            padding-left: 15px;
+            font-size: 14px;
+            font-weight: bold;
+            text-align: left;
+        }
+
+        .pro {
+            border-bottom: 2px solid black;
+        }
+
+        .header_ship {
+            padding: 4px;
+        }
+    }
+
+    /* Large Devices (Tablet Landscape) */
+    @media (min-width: 768px) and (max-width: 991.98px) {
+        .div_infoUSER {
+            display: block;
+        }
+
+        .box1 {
+            width: 100%;
+        }
+
+        .table thead {
+            display: none;
+        }
+
+        .sub {
+            font-weight: lighter !important;
+            display: none !important;
+        }
+
+        .container_ship {
+            padding: px;
+        }
+
+        .wrap_proInfo {
+            padding: 1px;
+        }
+
+        .table,
+        .table tbody,
+        .table tfoot,
+        .table tr,
+        .table td {
+            display: block;
+            width: 100%;
+        }
+
+        .table tr {
+            margin-bottom: 15px;
+        }
+
+        .table td {
+            padding-left: 50%;
+            text-align: left;
+            position: relative;
+        }
+
+        .table td::before {
+            content: attr(data-label);
+            position: absolute;
+            left: 0;
+            width: 50%;
+            padding-left: 15px;
+            font-size: 14px;
+            font-weight: bold;
+            text-align: left;
+        }
+
+        .pro {
+            border-bottom: 2px solid black;
+        }
+
+        .header_ship {
+            padding: 4px;
+        }
+    }
+
+    /* Large Devices (Desktops) */
+    @media (min-width: 992px) and (max-width: 1199.98px) {}
+
+    /* Extra Large Devices (Large Desktops) */
+    @media (min-width: 1200px) {
+        /* Your styles for extra large devices go here */
+    }
+</style>
 
 <body>
-    <table width="100%" cellpadding="0" cellspacing="0" border="0" class="backgroundTable main-temp"
-        style="background-color: #d5d5d5;">
-        <tbody>
-            <tr>
-                <td>
-                    <table width="600" align="center" cellpadding="15" cellspacing="0" border="0"
-                        class="devicewidth" style="background-color: #ffffff;">
-                        <tbody>
-                            <!-- Start header Section -->
+    <div class="header_ship">
+        <span class="headerText"> Order# {{ $order_id }} </span>
+        <span class="data">
+            {{ date('F j, g:i a', strtotime($orderDetails['created_at'])) }}
+        </span>
+        <!-- info product -->
+        <div class="pro__info">
+            <div class="wrap_proInfo">
+                <table class="table">
+                    <thead>
+                        <th>Product name</th>
+                        <th>Product Code</th>
+                        <th>Price</th>
+                        <th>Qty</th>
+                        <th>Subtotal</th>
+                    </thead>
+                    <tbody>
+                        @php $total_price = 0; @endphp
+                        @foreach ($orderDetails['orders_products'] as $orderProduct)
                             <tr>
-                                <td style="padding-top: 30px;">
-                                    <table width="560" align="center" cellpadding="0" cellspacing="0" border="0"
-                                        class="devicewidthinner"
-                                        style="border-bottom: 1px solid #eeeeee; text-align: center;">
-                                        <tbody>
-                                            <tr>
-                                                <td style="padding-bottom: 10px;">
-                                                    <h1>Sike</h1>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td style="font-size: 14px; line-height: 18px; color: #666666;">
-                                                    Sike.io
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td style="font-size: 14px; line-height: 18px; color: #666666;">
-                                                    Cambodia
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td style="font-size: 14px; line-height: 18px; color: #666666;">
-                                                    Phone: 111-111-111 | Email: Sike@gmail.com
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td
-                                                    style="font-size: 14px; line-height: 18px; color: #666666; padding-bottom: 25px;">
-                                                    <strong>Order Number:</strong> {{ $order_id }} | <strong>Order
-                                                        Date:</strong>
-                                                    {{ date('F j, g:i a', strtotime($orderDetails['created_at'])) }}
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td
-                                                    style="font-size: 14px; line-height: 18px; color: #666666; padding-bottom: 25px;">
-                                                    <strong>Order status:</strong> {{ $order_status }} |
-                                                    <strong>
-                                                        Courier Name
-                                                    </strong>
-                                                    {{ $courier_name }} |
-                                                    <strong>
-                                                        Tracking Number
-                                                    </strong>
-                                                    {{ $tracking_number }}
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
+                                <td data-label="Product name"> {{ $orderProduct['product_name'] }}</td>
+                                <td data-label="Product Code">{{ $orderProduct['product_code'] }}</td>
+                                <td data-label="Price" class="a">{{ $orderProduct['product_price'] }} $</td>
+                                <td data-label="Qty">{{ $orderProduct['product_qty'] }}</td>
+                                <td data-label="Subtotal" class="pro">
+                                    {{ $orderProduct['product_price'] }}
                                 </td>
                             </tr>
-                            <!-- End header Section -->
+                        @endforeach
+                        @php
+                            $total_price += $orderProduct['product_price'] * $orderProduct['product_qty'];
+                        @endphp
+                    </tbody>
 
-                            <!-- Start address Section -->
-                            <tr>
-                                <td style="padding-top: 0;">
-                                    <table width="560" align="center" cellpadding="0" cellspacing="0" border="0"
-                                        class="devicewidthinner" style="border-bottom: 1px solid #bbbbbb;">
-                                        <tbody>
-                                            <tr>
-                                                <td
-                                                    style="width: 55%; font-size: 16px; font-weight: bold; color: #666666; padding-bottom: 5px;">
-                                                    Delivery Adderss
-                                                </td>
-                                                <td
-                                                    style="width: 45%; font-size: 16px; font-weight: bold; color: #666666; padding-bottom: 5px;">
-                                                    Billing Address
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td
-                                                    style="width: 55%; font-size: 14px; line-height: 18px; color: #666666;">
-                                                    {{ $orderDetails['name'] }}
-                                                </td>
-                                                <td
-                                                    style="width: 45%; font-size: 14px; line-height: 18px; color: #666666;">
-                                                    {{ $orderDetails['user']['name'] }}
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td
-                                                    style="width: 55%; font-size: 14px; line-height: 18px; color: #666666;">
-                                                    {{ $orderDetails['address'] }}
-                                                </td>
-                                                <td
-                                                    style="width: 45%; font-size: 14px; line-height: 18px; color: #666666;">
-                                                    {{ $orderDetails['user']['address'] }}
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td
-                                                    style="width: 55%; font-size: 14px; line-height: 18px; color: #666666; padding-bottom: 10px;">
-                                                    {{ $orderDetails['city'] }}, {{ $orderDetails['pincode'] }}
-                                                </td>
-                                                <td
-                                                    style="width: 45%; font-size: 14px; line-height: 18px; color: #666666; padding-bottom: 10px;">
-                                                    {{ $orderDetails['user']['city'] }},
-                                                    {{ $orderDetails['user']['pincode'] }}
+                    <tfoot>
 
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
+                        <tr>
+                            <td class="sub r" colspan="4">Subtotal</td>
+                            <td data-label="Subtotal" colspan="4" class="a">
+                                {{ $total_price }} $
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="sub r" colspan="4">
+                                Shipping & Handling
+                            </td>
+                            <td data-label="Shipping & Handling" colspan="4">
+                                {{ $orderDetails['shipping_charges'] }} $
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="sub r" colspan="4">
+                                Coupon Discount
+                            </td>
+                            @if ($orderDetails['coupon_amount'] > 0)
+                                <td data-label="Coupon Discount" colspan="4">
+                                    ${{ $orderDetails['coupon_amount'] }}
                                 </td>
-                            </tr>
-                            <!-- End address Section -->
+                            @else
+                                0$
+                            @endif
+                        </tr>
+                        <tr>
+                            <td class="sub r z" colspan="4">Grand Total</td>
+                            <td data-label="Grand Total" colspan="4" class="a">
+                                {{ $orderDetails['grand_total'] }} $
+                            </td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+        <span class="headerText1"> Order Information</span>
+        <div class="div_infoUSER">
+            <div class="box1">
+                <ul>
+                    <li>
+                        <span class="textUser main"> Sike </span>
+                    </li>
+                    <li>
+                        <span class="textUser"> Cambodia </span>
+                    </li>
+                    <li>
+                        <span class="textUser">
+                            Phone: 111-111-111 | Email: Sike@gmail.com
+                        </span>
+                    </li>
 
-                            <!-- Start product Section -->
-                            @php
-                                $total_price = 0;
-                            @endphp
 
-                            @foreach ($orderDetails['orders_products'] as $orderProduct)
-                                <tr>
-                                    <td style="padding-top: 0;">
-                                        <table width="560" align="center" cellpadding="0" cellspacing="0"
-                                            border="0" class="devicewidthinner"
-                                            style="border-bottom: 1px solid #eeeeee;">
-                                            <tbody>
-                                                <tr>
-                                                    <td rowspan="4"
-                                                        style="padding-right: 10px; padding-bottom: 10px;">
-                                                        @php
-                                                            $getProductImage = Product::getProductImage(
-                                                                $orderProduct['product_id'],
-                                                            );
-                                                        @endphp
-                                                        @if ($getProductImage !== null && $getProductImage !== '')
-                                                            <img height="80px"
-                                                                src="{{ asset('front/images/products/' . $getProductImage) }}"
-                                                                alt="{{ $orderProduct['product_name'] }}"
-                                                                class="image_detail">
-                                                        @else
-                                                            <span>no images</span>
-                                                        @endif
-                                                    </td>
-                                                    <td colspan="2"
-                                                        style="font-size: 14px; font-weight: bold; color: #666666; padding-bottom: 5px;">
-                                                        {{ $orderProduct['product_name'] }}
-                                                        {{ $orderProduct['product_code'] }}
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td
-                                                        style="font-size: 14px; line-height: 18px; color: #757575; width: 440px;">
-                                                        Quantity: {{ $orderProduct['product_qty'] }}
-                                                    </td>
-                                                    <td style="width: 130px;"></td>
-                                                </tr>
-                                                <tr>
-                                                    <td style="font-size: 14px; line-height: 18px; color: #757575;">
-                                                        Color: {{ $orderProduct['product_color'] }}
-                                                    </td>
-                                                    <td
-                                                        style="font-size: 14px; line-height: 18px; color: #757575; text-align: right;">
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td
-                                                        style="font-size: 14px; line-height: 18px; color: #757575; padding-bottom: 10px;">
-                                                        Size: {{ $orderProduct['product_size'] }}
-                                                    </td>
-                                                    <td
-                                                        style="font-size: 14px; line-height: 18px; color: #757575; text-align: right; padding-bottom: 10px;">
-                                                        <b style="color: #666666;">$
-                                                            Total {{ $orderProduct['product_price'] }}
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </td>
-                                </tr>
-                                @php
-                                    $total_price += $orderProduct['product_price'] * $orderProduct['product_qty'];
-                                @endphp
-                            @endforeach
+                </ul>
+            </div>
 
-                            <!-- End product Section -->
-
-                            <!-- Start calculation Section -->
-                            <tr>
-                                <td style="padding-top: 0;">
-                                    <table width="560" align="center" cellpadding="0" cellspacing="0" border="0"
-                                        class="devicewidthinner"
-                                        style="border-bottom: 1px solid #bbbbbb; margin-top: -5px;">
-                                        <tbody>
-                                            <tr>
-                                                <td rowspan="5" style="width: 55%;"></td>
-                                                <td style="font-size: 14px; line-height: 18px; color: #666666;">
-                                                    Sub-Total:
-                                                </td>
-                                                <td
-                                                    style="font-size: 14px; line-height: 18px; color: #666666; width: 130px; text-align: right;">
-                                                    $ {{ $total_price }}
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td
-                                                    style="font-size: 14px; line-height: 18px; color: #666666; padding-bottom: 10px; border-bottom: 1px solid #eeeeee;">
-                                                    Shipping Fee:
-                                                </td>
-                                                <td
-                                                    style="font-size: 14px; line-height: 18px; color: #666666; padding-bottom: 10px; border-bottom: 1px solid #eeeeee; text-align: right;">
-                                                    $ {{ $orderDetails['shipping_charges'] }}
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td
-                                                    style="font-size: 14px; font-weight: bold; line-height: 18px; color: #666666; padding-top: 10px;">
-                                                    Coupon Discount
-                                                </td>
-                                                <td
-                                                    style="font-size: 14px; font-weight: bold; line-height: 18px; color: #666666; padding-top: 10px; text-align: right;">
-                                                    @if ($orderDetails['coupon_amount'] > 0)
-                                                        ${{ $orderDetails['coupon_amount'] }}
-                                                    @else
-                                                        0$
-                                                    @endif
-
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td
-                                                    style="font-size: 14px; font-weight: bold; line-height: 18px; color: #666666; padding-top: 10px;">
-                                                    Order Total
-                                                </td>
-                                                <td
-                                                    style="font-size: 14px; font-weight: bold; line-height: 18px; color: #666666; padding-top: 10px; text-align: right;">
-                                                    ${{ $orderDetails['grand_total'] }}
-                                                </td>
-                                            </tr>
-
-                                        </tbody>
-                                    </table>
-                                </td>
-                            </tr>
-                            <!-- End calculation Section -->
-
-                            <tr>
-                                <td style="padding-top: 0;">
-                                    <table width="560" align="center" cellpadding="0" cellspacing="0" border="0"
-                                        class="devicewidthinner" style="border-bottom: 1px solid #bbbbbb;">
-                                        <tbody>
-                                            <tr>
-                                                <td style="font-size: 14px; line-height: 18px; color: #666666;">
-                                                    Download Order Invoice<a
-                                                        href="{{ url('download-order-pdf-invoice/' . $order_id) }}">Download Invoice Shipping</a>
-                                                    <br>
-                                                    (Copy & Paste to open if link does not work )
-
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td style="font-size: 14px; line-height: 18px; color: #666666;">
-                                                    Regards, <br> Team Sike.ro
-
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td style="font-size: 14px; line-height: 18px; color: #666666;">
-                                                    &nbsp; &nbsp;
-
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td style="font-size: 14px; line-height: 18px; color: #666666;">
-                                                    Regards, <br> Team Sike.ro
-
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </td>
-            </tr>
-        </tbody>
-    </table>
+            <div class="box1">
+                <ul>
+                    <li>
+                        <span class="textUser main">
+                            Delivery Address
+                        </span>
+                    </li>
+                    <li>
+                        <span class="textUser"> {{ $orderDetails['name'] }} </span>
+                    </li>
+                    <li>
+                        <span class="textUser"> {{ $orderDetails['address'] }} </span>
+                    </li>
+                    <li>
+                        <span class="textUser"> {{ $orderDetails['user']['city'] }},
+                            {{ $orderDetails['user']['pincode'] }}
+                        </span>
+                    </li>
+                    <li>
+                        <span class="textUser">
+                            <strong>Order status :</strong>
+                            {{ $order_status ?? 'None' }}
+                        </span>
+                    </li>
+                    <li>
+                        <span class="textUser">
+                            <strong>
+                                Courier Name :
+                            </strong>
+                            {{ $courier_name ?? 'None' }}
+                        </span>
+                    </li>
+                    <li>
+                        <span class="textUser">
+                            <strong>
+                                Tracking Number :
+                            </strong>
+                            {{ $tracking_number ?? 'None' }}
+                        </span>
+                    </li>
+                </ul>
+            </div>
+            <div class="box1">
+                <ul>
+                    <li>
+                        <span class="textUser main"> Billing Address </span>
+                    </li>
+                    <li>
+                        <span class="textUser"> {{ $orderDetails['user']['name'] }} </span>
+                    </li>
+                    <li>
+                        <span class="textUser">
+                            {{ $orderDetails['user']['address'] }}
+                        </span>
+                    </li>
+                    <li>
+                        <span class="textUser"> {{ $orderDetails['user']['city'] }},
+                            {{ $orderDetails['user']['pincode'] }}</span>
+                    </li>
+                </ul>
+            </div>
+            <div class="box1">
+                <ul>
+                    <li>
+                        <span class="textUser main"> Method Payment</span>
+                    </li>
+                    <li>
+                        <span class="textUser">
+                            Bank Transfer - Pre-Payment
+                        </span>
+                    </li>
+                    <li>
+                        <span class="textUser">
+                            Please send the total amount to the following
+                            bank account number:
+                        </span>
+                    </li>
+                    <li>
+                        <span class="textUser"> SikeBay</span>
+                    </li>
+                    <li>
+                        <span class="textUser"> Bank: ABA</span>
+                    </li>
+                    <li>
+                        <span class="textUser">
+                            Upon the transfer arrival, we will pack your
+                            order and will start the shipment</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <!--  -->
+        <div class="div_infoUSER">
+            <div class="box1">
+                <ul>
+                    <li>
+                        <span class="textUser">
+                            Download Order Invoice
+                            <a href="{{ url('download-order-pdf-invoice/' . $order_id) }}" class="ahref">
+                                Print Order
+                            </a>
+                        </span>
+                    </li>
+                    <li>
+                        <span class="textUser">
+                            (Copy & Paste to open if link does not work )
+                        </span>
+                    </li>
+                    <li>
+                        <span class="textUser"> Regards, Team Sike </span>
+                    </li>
+                    <li>
+                        <span class="textUser"> Order Number: {{ $order_id }} </span>
+                    </li>
+                    <li>
+                        <span class="textUser">
+                            Order Date:  {{ date('F j, g:i a', strtotime($orderDetails['created_at'])) }}
+                        </span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
 </body>
 
 </html>

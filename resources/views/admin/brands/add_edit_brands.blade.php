@@ -34,9 +34,9 @@
 
                             <div class="card-body">
                                 <div class="form-group">
-                                    <label for="brand_name">brand Name</label>
+                                    <label for="brand_name">brand Name*</label>
                                     <input type="text" class="form-control" id="brand_name" name="brand_name"
-                                        placeholder="Enter Page brand_name"
+                                        placeholder="Enter Page brand name"
                                         @if (!empty($brand['brand_name'])) value="{{ $brand['brand_name'] }}"  @else value="{{ old('brand_name') }}" @endif>
                                 </div>
                                 <div class="form-group">
@@ -83,17 +83,19 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="description">Description</label>
-                                    <textarea class="form-control" name="description" id="description">
+                                    <textarea class="form-control" rows="3" name="description" id="description" placeholder="Enter ...">
                                         @if (!empty($brand['description']))
-{{ $brand['description'] }}
+{{ $cmsPage['description'] }}@else{{ old('description') }}
 @endif
                                     </textarea>
+
+
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="brand_discount">brand_discount*</label>
-                                    <input type="text" class="form-control" name="brand_discount"
-                                        id="brand_discount" placeholder="Enter Page brand_discount"
+                                    <label for="brand_discount">brand discount</label>
+                                    <input type="text" class="form-control" name="brand_discount" id="brand_discount"
+                                        placeholder="Enter Page brand discount"
                                         @if (!empty($brand['brand_discount'])) value="{{ $brand['brand_discount'] }}"  @else value="{{ old('brand_discount') }}" @endif>
                                 </div>
                                 <div class="form-group">
@@ -105,21 +107,21 @@
 
                                 {{-- ----------------------------Meta title----------------------------- --}}
                                 <div class="form-group">
-                                    <label for="meta_title">meta_title*</label>
+                                    <label for="meta_title">meta title</label>
                                     <input type="text" class="form-control" name="meta_title" id="meta_title"
-                                        placeholder="Enter Page meta_title"
+                                        placeholder="Enter Page meta title"
                                         @if (!empty($brand['meta_title'])) value="{{ $brand['meta_title'] }}"  @else value="{{ old('meta_title') }}" @endif>
                                 </div>
                                 <div class="form-group">
-                                    <label for="meta_description">meta_description *</label>
+                                    <label for="meta_description">meta description </label>
                                     <input type="text" class="form-control" name="meta_description" id="meta_description"
-                                        placeholder="Enter Page meta_description"
+                                        placeholder="Enter Page meta description"
                                         @if (!empty($brand['meta_description'])) value="{{ $brand['meta_description'] }}"  @else value="{{ old('meta_description') }}" @endif>
                                 </div>
                                 <div class="form-group">
-                                    <label for="meta_Keywords">meta_keywords*</label>
+                                    <label for="meta_Keywords">meta keywords</label>
                                     <input type="text" class="form-control" name="meta_Keywords" id="meta_Keywords"
-                                        placeholder="Enter Page meta_Keywords"
+                                        placeholder="Enter Page meta Keywords"
                                         @if (!empty($brand['meta_Keywords'])) value="{{ $brand['meta_Keywords'] }}"  @else value="{{ old('meta_Keywords') }}" @endif>
                                 </div>
                             </div>

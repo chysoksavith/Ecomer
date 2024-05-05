@@ -128,7 +128,6 @@
 }
 /* sidebar account */
 .side_Account_wrapper {
-
     overflow: scroll;
     position: fixed;
     transition: right 0.4s ease;
@@ -145,8 +144,8 @@
 }
 /* aside */
 aside {
-    overflow: scroll;
     position: fixed;
+    overflow-y: auto; /* Change from 'scroll' to 'auto' */
     transition: left 0.4s ease;
     left: -50%;
     width: 50%;
@@ -210,7 +209,7 @@ section {
     justify-content: space-between;
 }
 
-.hover__cate {
+/* .hover__cate {
     font-size: 16px;
     font-weight: 400;
     display: inline;
@@ -221,6 +220,24 @@ section {
 .hover__cate.active {
     background-color: black;
     color: white;
+} */
+
+.hover__cate {
+    font-size: 16px;
+    font-weight: 400;
+    display: inline;
+    padding: 3px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.hover__cate.active,
+.hover__cate:hover {
+    background-color: black;
+    color: white;
+}
+
+.hover__cate.active:hover {
+    background-color: black; /* Keep background color black even on hover if the item is active */
 }
 .text__subsub {
     font-size: 13px;
@@ -278,10 +295,9 @@ section {
 .tab__content {
     transition: background-color 0.3s ease; /* Added transition for background color */
 }
-.tab_overScroll {
-    overflow: scroll;
-}
+
 .tab {
+    width: 100%;
     border-bottom: 3px solid black;
     margin-bottom: 15px;
     display: flex;
@@ -408,7 +424,7 @@ details p {
     display: flex;
     justify-content: end;
 }
-.closeAccount i{
+.closeAccount i {
     font-size: 25px;
 }
 

@@ -298,6 +298,7 @@
     border: 1px solid black;
 }
 .emptyP {
+    text-align: center;
     font-size: 15px;
     padding: 10px;
 }
@@ -306,7 +307,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    height: 100%;
+    height: 90%;
 }
 .subminital {
     padding: 25px 35px;
@@ -342,7 +343,7 @@
 }
 .side_Cart_wrapper {
     padding: 35px;
-    overflow: scroll;
+    overflow-y: auto; /* Change from 'scroll' to 'auto' */
     position: fixed;
     transition: right 0.4s ease;
     right: -30%;

@@ -8,12 +8,15 @@
 
 body {
     font-family: "Poppins", sans-serif;
+    overflow-y: auto;
 }
 /* padding container 20px */
 ::-webkit-scrollbar {
     width: 10px;
 }
-
+.overflow_hidden {
+    overflow: hidden;
+}
 ::-webkit-scrollbar-thumb {
     background-color: #888;
 }

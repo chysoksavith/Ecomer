@@ -34,17 +34,30 @@
 /* Zoom Icon Style */
 .zoom-icon {
     position: absolute;
-    top: 10px;
-    right: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+    height: 50px;
+    bottom: 0;
+    right: 0;
+    z-index: 1;
     cursor: pointer;
+    background-color: #f1f1f1;
+    transition: 0.4s ease-out;
 }
 
-/* Full Screen Button Style */
-.fullscreen-btn {
-    position: absolute;
-    top: 10px;
-    left: 10px;
-    z-index: 999;
+.zoom-icon svg {
+    width: 30px;
+    height: 30px;
+}
+
+.zoom-icon:hover {
+    background-color: #000000;
+}
+
+.zoom-icon:hover svg {
+    fill: white;
 }
 
 /* Zoomed Image Container Style */
@@ -344,9 +357,20 @@ span {
     gap: 10px;
 }
 .clor_radio label {
-    width: 20px;
-    height: 20px;
+    padding: 10px;
+    cursor: pointer;
+    border: 1px solid gray;
+    width: 25px;
+    height: 25px;
+transition: 0.3s ease-out;
+    border-radius: 50%;
+    display: inline-block; /* Ensures each radio button is on its own line */
 }
+
+.clor_radio label:hover {
+    transform: scale(1.1); /* Increased scale on hover for a slight zoom effect */
+}
+
 .clor_radio label:last-child {
     margin-right: 10px;
 }
@@ -409,13 +433,6 @@ span {
     font-size: 14px;
 }
 /* sku iinstock */
-.divPricedetail {
-    display: flex;
-    align-items: center;
-}
-.sKUsTOCK {
-    margin-left: 15px;
-}
 
 .ins {
     font-style: 14px;
@@ -447,7 +464,6 @@ span {
         width: 100%;
         height: 500px;
         position: relative;
-        background-color: #35b886;
     }
     .picZoomer,
     .ImagePicXoom {

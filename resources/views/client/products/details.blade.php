@@ -23,7 +23,13 @@
                                 <span>No Image</span>
                             @endif
                             <!-- Zoom Icon -->
-                            <div class="zoom-icon" id="zoomIcon"><i class="fas fa-search-plus"></i></div>
+                            <div class="zoom-icon" id="zoomIcon">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="zoom">
+                                    <path
+                                        d="M20 9V5.41L13.41 12 20 18.59V15a1 1 0 0 1 2 0v6a1 1 0 0 1-1 1h-6a1 1 0 0 1 0-2h3.59L12 13.41 5.41 20H9a1 1 0 0 1 0 2H3a1 1 0 0 1-1-1v-6a1 1 0 0 1 2 0v3.59L10.59 12 4 5.41V9a1 1 0 0 1-2 0V3a1 1 0 0 1 1-1h6a1 1 0 0 1 0 2H5.41L12 10.59 18.59 4H15a1 1 0 0 1 0-2h6a1 1 0 0 1 1 1v6a1 1 0 0 1-2 0Z">
+                                    </path>
+                                </svg>
+                            </div>
                         </div>
                     </div>
                     <div class="zoom" id="zoom">
@@ -71,15 +77,7 @@
                         <div class="OfferPrice RightD getAttributePrice">
                             <div class="divPricedetail">
                                 <span class="FinalPrice ">{{ $productDetails->final_price }}$</span>
-                                <div class="sKUsTOCK">
-                                    @if ($totalStock > 0)
-                                        <span class="ins">In Stock</span>
-                                    @else
-                                        <span class="ins">Out of Stock</span>
-                                    @endif
 
-                                    <span class="sk">Code {{ $productDetails->product_code }}</span>
-                                </div>
                             </div>
 
                             {{-- <div class="DiscoAFinal"> --}}
@@ -88,6 +86,17 @@
                                 <span class="dicPrice">{{ $productDetails->product_price }}$</span>
                             @endif
                             {{-- </div> --}}
+                        </div>
+                    </li>
+                    <li class="rightDet">
+                        <div class="sKUsTOCK">
+                            @if ($totalStock > 0)
+                                <span class="ins">In Stock</span>
+                            @else
+                                <span class="ins">Out of Stock</span>
+                            @endif
+
+                            <span class="sk">Code {{ $productDetails->product_code }}</span>
                         </div>
                     </li>
                     {{-- Rateing --}}
@@ -438,75 +447,7 @@
         </div>
         {{-- content tab detail revire video description --}}
     </div>
-    {{-- relate product --}}
-    <div class="RelateProdTitle">
-        <span class="youMayAlsolike">You might also like</span>
-    </div>
-    <div class="MainContainerFirstPage">
-        @foreach ($relatedProducts as $product)
-            <div class="ContainerFirstPage">
-                <a href="{{ url('product/' . $product->id) }}" class="AherfItemProduct">
-                    <div class="ImageFirstPage">
-                        @if (isset($product->images[0]->image) && !empty($product->images[0]->image))
-                            <img src="{{ asset('front/images/products/' . $product->images[0]->image) }}" alt="">
-                        @else
-                            <img src="https://www.designscene.net/wp-content/uploads/2023/11/Fear-of-God-Athletics-2023-14.jpg"
-                                alt="">
-                        @endif
-                        <span class="soldOutItems">SOLD OUT</span>
-                    </div>
-                    <div class="TitleFirstPage">
-                        <span class="NameProFirstPage">{{ $product->product_name }}</span>
-                        <span class="NameProFirstPageColor">{{ $product->product_color }}</span>
-                        <div class="fial_price">
-                            <span class="PriceFirstPage">{{ $product->final_price }}$</span>
-                            @if ($product->discount_type != '')
-                                <span class="PriceFirstPageoG">{{ $product->product_price }}$</span>
-                            @endif
-
-                        </div>
-                    </div>
-                </a>
-            </div>
-        @endforeach
-
-    </div>
-    {{-- customer view product --}}
-    @if (count($recentProducts) > 0)
-        <div class="RelateProdTitle">
-            <span class="youMayAlsolike">Cutomers also view products</span>
-        </div>
-        <div class="MainContainerFirstPage">
-            @foreach ($recentProducts as $product)
-                <div class="ContainerFirstPage">
-                    <a href="{{ url('product/' . $product->id) }}" class="AherfItemProduct">
-                        <div class="ImageFirstPage">
-                            @if (isset($product->images[0]->image) && !empty($product->images[0]->image))
-                                <img src="{{ asset('front/images/products/' . $product->images[0]->image) }}"
-                                    alt="">
-                            @else
-                                <img src="https://www.designscene.net/wp-content/uploads/2023/11/Fear-of-God-Athletics-2023-14.jpg"
-                                    alt="">
-                            @endif
-                            <span class="soldOutItems">SOLD OUT</span>
-                        </div>
-                        <div class="TitleFirstPage">
-                            <span class="NameProFirstPage">{{ $product->product_name }}</span>
-                            <span class="NameProFirstPageColor">{{ $product->product_color }}</span>
-                            <div class="fial_price">
-                                <span class="PriceFirstPage">{{ $product->final_price }}$</span>
-                                @if ($product->discount_type != '')
-                                    <span class="PriceFirstPageoG">{{ $product->product_price }}$</span>
-                                @endif
-
-                            </div>
-                        </div>
-                    </a>
-                </div>
-            @endforeach
-
-        </div>
-    @endif
+    @include('client.products.relate_product')
 @endsection
 @section('scripts')
     <script>

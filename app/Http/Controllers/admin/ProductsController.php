@@ -201,33 +201,33 @@ class ProductsController extends Controller
                 }
             }
             // Add Product Attribute
-            // foreach ($data['size'] as $Key => $value) {
-            //     if (!empty($value)) {
-            //         // Check if SKU already exists
-            //         $countSKU = ProductsAttribure::where('sku', $data['sku'][$Key])->count();
-            //         if ($countSKU > 0) {
-            //             $message = "SKU Already exists, Please add another SKU";
-            //             return redirect()->back()->with('error_message', $message);
-            //         }
+            foreach ($data['size'] as $Key => $value) {
+                if (!empty($value)) {
+                    // Check if SKU already exists
+                    $countSKU = ProductsAttribure::where('sku', $data['sku'][$Key])->count();
+                    if ($countSKU > 0) {
+                        $message = "SKU Already exists, Please add another SKU";
+                        return redirect()->back()->with('error_message', $message);
+                    }
 
-            //         // Check if Size already exists
-            //         $countSize = ProductsAttribure::where(['product_id' => $product_id, 'size' => $data['size'][$Key]])->count();
-            //         if ($countSize > 0) {
-            //             $message = "Size Already exists, Please add another Size";
-            //             return redirect()->back()->with('error_message', $message);
-            //         }
+                    // Check if Size already exists
+                    $countSize = ProductsAttribure::where(['product_id' => $product_id, 'size' => $data['size'][$Key]])->count();
+                    if ($countSize > 0) {
+                        $message = "Size Already exists, Please add another Size";
+                        return redirect()->back()->with('error_message', $message);
+                    }
 
-            //         $attribute = new ProductsAttribure;
-            //         $attribute->product_id = $product_id;
-            //         $attribute->sku = $data['sku'][$Key];
-            //         $attribute->size = $data['size'][$Key];
-            //         $attribute->price = $data['price'][$Key];
-            //         $attribute->stock = $data['stock'][$Key];
-            //         $attribute->status = 1;
-            //         $attribute->save();
-            //     }
-            // }
-        
+                    $attribute = new ProductsAttribure;
+                    $attribute->product_id = $product_id;
+                    $attribute->sku = $data['sku'][$Key];
+                    $attribute->size = $data['size'][$Key];
+                    $attribute->price = $data['price'][$Key];
+                    $attribute->stock = $data['stock'][$Key];
+                    $attribute->status = 1;
+                    $attribute->save();
+                }
+            }
+
 
             // Edit Product Attribute
             if (isset($data['attributeId']) && is_array($data['attributeId'])) {

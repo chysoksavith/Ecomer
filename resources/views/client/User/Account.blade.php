@@ -3,8 +3,13 @@
     <div class="containerAccount">
         <div class="leftContainAcc">
             <div class="leftAcc">
-                @include("client.User.sidebarAccount")
+                @include('client.User.sidebarAccount')
             </div>
+
+        </div>
+        <div class="left__nav_mobile">
+            @include('client.User.sidebarAccMobile')
+
         </div>
         <div class="rightContainAcc">
             <form name="accountForm" id="accountForm" action="javascript:;" method="post">

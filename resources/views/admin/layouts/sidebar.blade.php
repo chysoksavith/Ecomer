@@ -236,10 +236,16 @@
                   </li>
                   {{-- Banner manager --}}
                   <li class="nav-item">
-                      @php
-                          $bannerActive = Session::get('page') == 'banners' ? 'active' : '';
-                      @endphp
-                      <a href="#" class="nav-link {{ $bannerActive }}">
+                      @if (Session::get('page') == 'banners')
+                          @php
+                              $active = 'active';
+                          @endphp
+                      @else
+                          @php
+                              $active = '';
+                          @endphp
+                      @endif
+                      <a href="#" class="nav-link  {{ $active }}">
                           <i class="nav-icon fas fa-image"></i>
                           <p>
                               Banner

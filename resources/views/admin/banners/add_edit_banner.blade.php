@@ -43,7 +43,7 @@
                                     </select>
                                 </div>
                                 <div class="form-group">
-                                    <label for="image">banner image*</label>1
+                                    <label for="image">banner image*</label>
                                     <input type="file" class="form-control" name="image" id="banner_image">
                                     <div class="d-flex align-items-center mt-3">
                                         <div class="col-md-3">

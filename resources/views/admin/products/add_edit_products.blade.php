@@ -15,9 +15,9 @@
             <div class="row">
                 <div class="col-md-12">
                     <!-- general form elements -->
-                        <div class="p-2">
-                            @include('_message')
-                        </div>
+                    <div class="p-2">
+                        @include('_message')
+                    </div>
                 </div>
             </div>
         </div>
@@ -51,7 +51,7 @@
                                 </div>
                                 <div class="card-body">
                                     <div class="form-group">
-                                        <label for="category_id">Select Category</label>
+                                        <label for="category_id">Select Category *</label>
                                         <select class="custom-select rounded-0" name="category_id">
                                             <option value="">Select</option>
                                             @foreach ($getCategories as $cat)
@@ -95,28 +95,28 @@
                                 </div>
                                 <div class="card-body">
                                     <div class="form-group">
-                                        <label for="product_name">Product Name</label>
+                                        <label for="product_name">Product Name*</label>
                                         <input type="text" class="form-control" id="product_name" name="product_name"
                                             placeholder="Enter Product Name"
                                             @if (!empty($product['product_name'])) value="{{ $product['product_name'] }}" @else value="{{ old('product_name') }}" @endif>
                                     </div>
                                     <div class="form-group">
-                                        <label for="product_code">product Code</label>
+                                        <label for="product_code">product Code*</label>
                                         <input type="text" class="form-control" id="product_code" name="product_code"
-                                            placeholder="Enter Page product_code"
+                                            placeholder="Enter Page product code"
                                             @if (!empty($product['product_code'])) value="{{ $product['product_code'] }}" @else value="{{ old('product_code') }}" @endif>
                                     </div>
                                     <div class="form-group">
-                                        <label for="product_color">product color</label>
+                                        <label for="product_color">product color*</label>
                                         <input type="text" class="form-control" id="product_color" name="product_color"
-                                            placeholder="Enter Page product_color"
+                                            placeholder="Enter Page product color"
                                             @if (!empty($product['product_color'])) value="{{ $product['product_color'] }}" @else value="{{ old('product_color') }}" @endif>
                                     </div>
                                     @php
                                         $familyColors = \App\Models\Color::colors();
                                     @endphp
                                     <div class="form-group">
-                                        <label for="family_color">Family Color</label>
+                                        <label for="family_color">Family Color*</label>
                                         <select class="custom-select rounded-0" name="family_color">
                                             <option value="">Select Main Colors</option>
                                             @foreach ($familyColors as $color)
@@ -132,25 +132,25 @@
                                     <div class="form-group">
                                         <label for="group_code">Group Code</label>
                                         <input type="text" class="form-control" id="group_code" name="group_code"
-                                            placeholder="Enter Page group_code"
+                                            placeholder="Enter Page group code"
                                             @if (!empty($product['group_code'])) value="{{ $product['group_code'] }}" @else value="{{ old('group_code') }}" @endif>
                                     </div>
                                     <div class="form-group">
                                         <label for="product_price">product price</label>
                                         <input type="number" class="form-control" id="product_price" name="product_price"
-                                            placeholder="Enter Page product_price"
+                                            placeholder="Enter Page product price"
                                             @if (!empty($product['product_price'])) value="{{ $product['product_price'] }}" @else value="{{ old('product_price') }}" @endif>
                                     </div>
                                     <div class="form-group">
                                         <label for="product_discount">product discount(%)</label>
                                         <input type="text" class="form-control" id="product_discount"
-                                            name="product_discount" placeholder="Enter Page product_discount"
+                                            name="product_discount" placeholder="Enter Page product discount"
                                             @if (!empty($product['product_discount'])) value="{{ $product['product_discount'] }}" @else value="{{ old('product_discount') }}" @endif>
                                     </div>
                                     <div class="form-group">
                                         <label for="product_weight">product weight</label>
                                         <input type="text" class="form-control" id="product_weight"
-                                            name="product_weight" placeholder="Enter Page product_weight"
+                                            name="product_weight" placeholder="Enter Page product weight"
                                             @if (!empty($product['product_weight'])) value="{{ $product['product_weight'] }}" @else value="{{ old('product_weight') }}" @endif>
                                     </div>
                                 </div>
@@ -291,7 +291,7 @@
                                                     style="width: 120px;" />
                                                 <input type="text" name="stock[]" placeholder="Stock"
                                                     style="width: 120px;" />
-                                                <a href="javascript:void(0);" class="add_button"
+                                                <a href="javascript:void(0);" class="add_button  btn-primary btn-sm"
                                                     title="Add field">Add</a>
 
                                             </div>
@@ -371,21 +371,21 @@
                                 </div>
                                 <div class="card-body">
                                     <div class="form-group">
-                                        <label for="meta_title">meta_title*</label>
+                                        <label for="meta_title">meta_title</label>
                                         <input type="text" class="form-control" name="meta_title" id="meta_title"
-                                            placeholder="Enter Page meta_title"
+                                            placeholder="Enter Page meta title"
                                             @if (!empty($product['meta_title'])) value="{{ $product['meta_title'] }}" @else value="{{ old('meta_title') }}" @endif>
                                     </div>
                                     <div class="form-group">
-                                        <label for="meta_description">meta_description *</label>
+                                        <label for="meta_description">meta_description </label>
                                         <input type="text" class="form-control" name="meta_description"
-                                            id="meta_description" placeholder="Enter Page meta_description"
+                                            id="meta_description" placeholder="Enter Page meta description"
                                             @if (!empty($product['meta_description'])) value="{{ $product['meta_description'] }}" @else value="{{ old('meta_description') }}" @endif>
                                     </div>
                                     <div class="form-group">
-                                        <label for="meta_Keywords">meta_keywords*</label>
+                                        <label for="meta_Keywords">meta_keywords</label>
                                         <input type="text" class="form-control" name="meta_Keywords"
-                                            id="meta_Keywords" placeholder="Enter Page meta_Keywords"
+                                            id="meta_Keywords" placeholder="Enter Page meta Keywords"
                                             @if (!empty($product['meta_Keywords'])) value="{{ $product['meta_Keywords'] }}" @else value="{{ old('meta_Keywords') }}" @endif>
                                     </div>
                                 </div>

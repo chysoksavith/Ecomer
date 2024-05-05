@@ -36,16 +36,16 @@
 
                             <div class="card-body">
                                 <div class="form-group">
-                                    <label for="title">Ttitle</label>
+                                    <label for="title">Ttitle *</label>
                                     <input type="text" class="form-control" id="title" name="title"
                                         placeholder="Enter Page Title"
-                                        @if (!empty($cmsPage['title'])) value="{{ $cmsPage->title }}" @endif>
+                                        @if (!empty($cmsPage['title'])) value="{{ $cmsPage->title }}" @else value="{{ old('title') }}" @endif>
                                 </div>
                                 <div class="form-group">
                                     <label for="url">Url*</label>
                                     <input type="text" class="form-control" name="url" id="url"
                                         placeholder="Enter Page Url"
-                                        @if (!empty($cmsPage['url'])) value="{{ $cmsPage->url }}" @endif>
+                                        @if (!empty($cmsPage['url'])) value="{{ $cmsPage->url }}" @else value="{{ old('url') }}" @endif>
                                 </div>
                                 <div class="form-group">
                                     <section class="content">
@@ -53,14 +53,14 @@
                                             <div class="col-md-12">
                                                 <div class="card card-outline card-info">
                                                     <div class="card-header">
-                                                        <h3 class="card-title">Description CmsPage</h3>
+                                                        <h3 class="card-title">Description CmsPage*</h3>
                                                     </div>
                                                     <!-- /.card-header -->
                                                     <div class="card-body">
-                                                    <textarea id="summernote" name="description">
+                                                        <textarea id="summernote" name="description">
                                                     @if (!empty($cmsPage['description']))
-                                                    {{ $cmsPage['description'] }}@else{{ old('description') }}
-                                                    @endif
+{{ $cmsPage['description'] }}@else{{ old('description') }}
+@endif
                                                     </textarea>
                                                     </div>
 
@@ -71,22 +71,22 @@
                                     </section>
                                 </div>
                                 <div class="form-group">
-                                    <label for="meta_title">meta_title*</label>
+                                    <label for="meta_title">meta title</label>
                                     <input type="text" class="form-control" name="meta_title" id="meta_title"
-                                        placeholder="Enter Page meta_title"
-                                        @if (!empty($cmsPage['meta_title'])) value="{{ $cmsPage->meta_title }}" @endif>
+                                        placeholder="Enter Page meta title"
+                                        @if (!empty($cmsPage['meta_title'])) value="{{ $cmsPage->meta_title }}" @else value="{{ old('meta_title') }}" @endif>
                                 </div>
                                 <div class="form-group">
-                                    <label for="meta_description">meta_description *</label>
+                                    <label for="meta_description">meta description</label>
                                     <input type="text" class="form-control" name="meta_description" id="meta_description"
-                                        placeholder="Enter Page meta_description"
-                                        @if (!empty($cmsPage['meta_description'])) value="{{ $cmsPage->meta_description }}" @endif>
+                                        placeholder="Enter Page meta description"
+                                        @if (!empty($cmsPage['meta_description'])) value="{{ $cmsPage->meta_description }}" @else value="{{ old('meta_description') }}" @endif>
                                 </div>
                                 <div class="form-group">
-                                    <label for="meta_keywords">meta_keywords*</label>
+                                    <label for="meta_keywords">meta keywords</label>
                                     <input type="text" class="form-control" name="meta_keywords" id="meta_keywords"
-                                        placeholder="Enter Page meta_keywords"
-                                        @if (!empty($cmsPage['meta_keywords'])) value="{{ $cmsPage->meta_keywords }}" @endif>
+                                        placeholder="Enter Page meta keywords"
+                                        @if (!empty($cmsPage['meta_keywords'])) value="{{ $cmsPage->meta_keywords }}"  @else value="{{ old('meta_keywords') }}" @endif>
                                 </div>
                             </div>
                             <!-- /.card-body -->

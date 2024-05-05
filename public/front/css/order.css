@@ -1,13 +1,10 @@
+.orderDetailContainerBody,
 .orderDetailContainer {
     display: block;
     width: 920px;
     height: auto;
 }
-.orderDetailContainerBody {
-    display: block;
-    width: 920px;
-    height: auto;
-}
+
 .bdnone {
     border-bottom: none;
 }
@@ -157,35 +154,104 @@
 .topleft_info {
     margin-top: 10px;
 }
-.order_log{
+.order_log {
     margin-top: 30px;
 }
-.containSip{
+.containSip {
     margin-bottom: 20px;
 }
-.orderStauts{
+.orderStauts {
     display: block;
     font-size: 16px;
     font-weight: 600;
 }
-.tracking{
+.tracking {
     display: block;
 }
-.namshio{
+.namshio {
     font-weight: 500;
 }
-.CancelOrder{
+.CancelOrder {
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
-.ahrdd{
+.ahrdd {
     text-decoration: none;
 }
-.cancelBtn{
+.cancelBtn {
     cursor: pointer;
     font-size: 14px;
     padding: 10px 20px;
     color: white;
-    background-color: #D35400;
+    background-color: #d25212;
+}
+.res__Prod{
+    letter-spacing: 0px;
+    display: block;
+}
+/* Small Devices (Mobile Portrait) */
+@media (max-width: 575.98px) {
+    .orderDetailContainerBody,
+    .orderDetailContainer {
+        width: 100%;
+    }
+    .information_wrap {
+       display: block;
+    }
+    .wrapper_leftInfo,
+    .right_infor  {
+        width: 100%;
+    }
+    .res__Prod{
+        letter-spacing: 0px;
+        display: block;
+    }
+
+}
+
+/* Medium Devices (Tablet Landscape) */
+@media (min-width: 576px) and (max-width: 767.98px) {
+    .orderDetailContainerBody,
+    .orderDetailContainer {
+        width: 100%;
+    }
+    .information_wrap {
+       display: block;
+    }
+    .wrapper_leftInfo,
+    .right_infor  {
+        width: 100%;
+    }
+    .res__Prod{
+        letter-spacing: 0px;
+        display: block;
+    }
+}
+
+/* Large Devices (Tablet Landscape) */
+@media (min-width: 768px) and (max-width: 991.98px) {
+    .orderDetailContainerBody,
+    .orderDetailContainer {
+        width: 100%;
+    }
+    .information_wrap {
+       display: block;
+    }
+    .wrapper_leftInfo,
+    .right_infor  {
+        width: 100%;
+    }
+    .res__Prod{
+        letter-spacing: 0px;
+        display: block;
+    }
+}
+
+/* Large Devices (Desktops) */
+@media (min-width: 992px) and (max-width: 1199.98px) {
+}
+/* Extra Large Devices (Large Desktops) */
+@media (min-width: 1200px) {
+    /* Your styles for extra large devices go here */
 }

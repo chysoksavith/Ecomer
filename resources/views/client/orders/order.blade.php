@@ -6,6 +6,10 @@
                 @include('client.User.sidebarAccount')
             </div>
         </div>
+        <div class="left__nav_mobile">
+            @include('client.User.sidebarAccMobile')
+
+        </div>
         <div class="rightContainAcc">
             <div class="leftform">
                 <span class="notamember">
@@ -25,7 +29,7 @@
                                     Order # {{ $order->id }}
                                 </span>
                                 <span class="date_order">
-                                    Place on {{ \Carbon\Carbon::parse($order['created_at'])->format('h:i a d F Y') }}
+                                    Place on {{ \Carbon\Carbon::parse($order['created_at'])->format('n/j/y') }}
                                 </span>
                             </div>
                             <div class="viewDetail_cartOrder">
@@ -38,7 +42,6 @@
                         <div class="container_grandOrder">
                             <div class="wrapper_grandOrder">
                                 <span class="bn16">{{ $order->order_status }}</span>
-
                             </div>
                             <div class="detail_grand">
                                 <span class="grand_text">

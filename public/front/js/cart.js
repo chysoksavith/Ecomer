@@ -1,25 +1,32 @@
-// side bar menu cart in page header
 const openMenuCart = () => {
+    // Add overflow-hidden class to body to hide overflow
+    document.body.classList.add("overflow_hidden");
+
     const backdropCart = document.querySelector(".backdrop_cart");
     if (backdropCart) {
         backdropCart.classList.add("active");
         backdropCart.addEventListener("click", closeMenuCart);
     }
 
-    const sideBarMenuCart = document.getElementsByClassName("side_Cart_wrapper");
+    const sideBarMenuCart =
+        document.getElementsByClassName("side_Cart_wrapper");
     for (let i = 0; i < sideBarMenuCart.length; i++) {
         sideBarMenuCart[i].classList.add("active");
     }
 };
 
 const closeMenuCart = () => {
+    // Remove overflow-hidden class from body to restore scrolling
+    document.body.classList.remove("overflow_hidden");
+
     const backdropCart = document.querySelector(".backdrop_cart");
     if (backdropCart) {
         backdropCart.classList.remove("active");
         backdropCart.removeEventListener("click", closeMenuCart);
     }
 
-    const sideBarMenuCart = document.getElementsByClassName("side_Cart_wrapper");
+    const sideBarMenuCart =
+        document.getElementsByClassName("side_Cart_wrapper");
     for (let i = 0; i < sideBarMenuCart.length; i++) {
         sideBarMenuCart[i].classList.remove("active");
     }

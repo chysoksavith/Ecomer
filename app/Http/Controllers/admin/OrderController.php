@@ -103,320 +103,540 @@ class OrderController extends Controller
         $output = '
         <!DOCTYPE html>
         <html lang="en">
-          <head>
-            <meta charset="utf-8">
-            <title>Example 2</title>
+            <head>
+                <meta charset="UTF-8" />
+                <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+                <title>Order</title>
+            </head>
             <style>
-              @font-face {
-                font-family: SourceSansPro;
-                src: url(SourceSansPro-Regular.ttf);
-              }
+                @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700;800;900&display=swap");
 
-              .clearfix:after {
-                content: "";
-                display: table;
-                clear: both;
-              }
+                * {
+                    box-sizing: border-box;
+                    margin: 0;
+                    padding: 0;
+                    letter-spacing: 1px;
+                }
 
-              a {
-                color: #0087C3;
-                text-decoration: none;
-              }
+                body {
+                    font-family: "Poppins", sans-serif;
+                }
 
-              body {
-                position: relative;
-                width: 18cm;
-                height: 29.7cm;
-                margin: 0 auto;
-                color: #555555;
-                background: #FFFFFF;
-                font-family: Arial, sans-serif;
-                font-size: 14px;
-                font-family: SourceSansPro;
-              }
+                .header_ship {
+                    padding: 40px 40px 80px;
+                    margin: auto;
+                    width: 80%;
+                }
 
-              header {
-                padding: 10px 0;
-                margin-bottom: 20px;
-                border-bottom: 1px solid #AAAAAA;
-              }
+                .pro__info {
+                    background-color: #f8f8f8;
+                }
 
-              #logo {
-                float: left;
-                margin-top: 8px;
-              }
+                .headerText {
+                    display: block;
+                    margin-bottom: 30px;
+                    font-size: 48px;
+                    font-weight: 700;
+                }
 
-              #logo img {
-                height: 70px;
-              }
+                .headerText1 {
+                    font-size: 48px;
+                    font-weight: 700;
+                }
 
-              #company {
-                float: right;
-                text-align: right;
-              }
+                .wrap_proInfo {
+                    margin-top: 30px;
+                    background-color: #f8f8f8;
+                    padding: 10px;
+                }
 
+                .table {
+                    width: 100%;
 
-              #details {
-                margin-bottom: 50px;
-              }
+                    border-collapse: collapse;
+                }
 
-              #client {
-                padding-left: 6px;
-                border-left: 6px solid #0087C3;
-                float: left;
-              }
+                .table td,
+                .table th {
+                    padding: 16px 16px 16px 36px;
+                    text-align: center;
+                    font-size: 14px;
+                }
 
-              #client .to {
-                color: #777777;
-              }
+                .table th {
+                    border-bottom: 1px solid black;
+                    color: black;
+                }
 
-              h2.name {
-                font-size: 1.4em;
-                font-weight: normal;
-                margin: 0;
-              }
+                .table tbody tr:nth-child(even) {
+                    background-color: white;
+                }
 
-              #invoice {
-                float: right;
-                text-align: right;
-              }
+                .text_sub {
+                    background-color: white;
+                    text-align: end !important;
+                }
 
-              #invoice h1 {
-                color: #0087C3;
-                font-size: 2.4em;
-                line-height: 1em;
-                font-weight: normal;
-                margin: 0  0 10px 0;
-              }
+                .r {
+                    content: attr(data-label);
+                    font-weight: 400;
+                    text-align: end !important;
+                }
 
-              #invoice .date {
-                font-size: 1.1em;
-                color: #777777;
-              }
+                .z {
+                    font-weight: 600 !important;
+                }
 
-              table {
-                width: 100%;
-                border-collapse: collapse;
-                border-spacing: 0;
-                margin-bottom: 20px;
-              }
+                .a {
+                    font-weight: 600 !important;
+                }
 
-              table th,
-              table td {
-                padding: 20px;
-                background: #EEEEEE;
-                text-align: center;
-                border-bottom: 1px solid #FFFFFF;
-              }
+                .div_infoUSER {
+                    margin-top: 30px;
+                    display: flex;
+                    justify-content: space-between;
+                }
 
-              table th {
-                white-space: nowrap;
-                font-weight: normal;
-              }
+                .box1 {
+                    width: 25%;
+                }
 
-              table td {
-                text-align: right;
-              }
+                .box1 ul {
+                    padding: 10px;
+                    list-style: none;
+                    font-size: 14px;
+                }
 
-              table td h3{
-                color: #57B223;
-                font-size: 1.2em;
-                font-weight: normal;
-                margin: 0 0 0.2em 0;
-              }
+                .box1 li {
+                    padding: 10px;
+                }
 
-              table .no {
-                color: #FFFFFF;
-                font-size: 1.6em;
-                background: #57B223;
-              }
+                .main {
+                    font-size: 20px;
+                    font-weight: 600;
+                }
 
-              table .desc {
-                text-align: left;
-              }
+                .ahref {
+                    text-decoration: none;
+                    font-weight: 600;
+                    color: black;
+                }
 
-              table .unit {
-                background: #DDDDDD;
-              }
+                /* Small Devices (Mobile Portrait) */
+                @media (max-width: 575.98px) {
+                    .div_infoUSER {
+                        display: block;
+                    }
 
-              table .qty {
-              }
+                    .box1 {
+                        width: 100%;
+                    }
 
-              table .total {
-                background: #57B223;
-                color: #FFFFFF;
-              }
+                    .table thead {
+                        display: none;
+                    }
 
-              table td.unit,
-              table td.qty,
-              table td.total {
-                font-size: 1.2em;
-              }
+                    .sub {
+                        font-weight: lighter !important;
+                        display: none !important;
+                    }
 
-              table tbody tr:last-child td {
-                border: none;
-              }
+                    .container_ship {
+                        padding: px;
+                    }
 
-              table tfoot td {
-                padding: 10px 20px;
-                background: #FFFFFF;
-                border-bottom: none;
-                font-size: 1.2em;
-                white-space: nowrap;
-                border-top: 1px solid #AAAAAA;
-              }
+                    .wrap_proInfo {
+                        padding: 1px;
+                    }
 
-              table tfoot tr:first-child td {
-                border-top: none;
-              }
+                    .table,
+                    .table tbody,
+                    .table tfoot,
+                    .table tr,
+                    .table td {
+                        display: block;
+                        width: 100%;
+                    }
 
-              table tfoot tr:last-child td {
-                color: #57B223;
-                font-size: 1.4em;
-                border-top: 1px solid #57B223;
+                    .table tr {
+                        margin-bottom: 15px;
+                    }
 
-              }
+                    .table td {
+                        padding-left: 50%;
+                        text-align: left;
+                        position: relative;
+                    }
 
-              table tfoot tr td:first-child {
-                border: none;
-              }
+                    .table td::before {
+                        content: attr(data-label);
+                        position: absolute;
+                        left: 0;
+                        width: 50%;
+                        padding-left: 15px;
+                        font-size: 14px;
+                        font-weight: bold;
+                        text-align: left;
+                    }
 
-              #thanks{
-                font-size: 2em;
-                margin-bottom: 50px;
-              }
+                    .pro {
+                        border-bottom: 2px solid black;
+                    }
 
-              #notices{
-                padding-left: 6px;
-                border-left: 6px solid #0087C3;
-              }
+                    .header_ship {
+                        padding: 4px;
+                    }
+                }
 
-              #notices .notice {
-                font-size: 1.2em;
-              }
+                /* Medium Devices (Tablet Landscape) */
+                @media (min-width: 576px) and (max-width: 767.98px) {
+                    .div_infoUSER {
+                        display: block;
+                    }
 
-              footer {
-                color: #777777;
-                width: 100%;
-                height: 30px;
-                position: absolute;
-                bottom: 0;
-                border-top: 1px solid #AAAAAA;
-                padding: 8px 0;
-                text-align: center;
-              }
+                    .box1 {
+                        width: 100%;
+                    }
 
+                    .table thead {
+                        display: none;
+                    }
 
+                    .sub {
+                        font-weight: lighter !important;
+                        display: none !important;
+                    }
+
+                    .container_ship {
+                        padding: px;
+                    }
+
+                    .wrap_proInfo {
+                        padding: 1px;
+                    }
+
+                    .table,
+                    .table tbody,
+                    .table tfoot,
+                    .table tr,
+                    .table td {
+                        display: block;
+                        width: 100%;
+                    }
+
+                    .table tr {
+                        margin-bottom: 15px;
+                    }
+
+                    .table td {
+                        padding-left: 50%;
+                        text-align: left;
+                        position: relative;
+                    }
+
+                    .table td::before {
+                        content: attr(data-label);
+                        position: absolute;
+                        left: 0;
+                        width: 50%;
+                        padding-left: 15px;
+                        font-size: 14px;
+                        font-weight: bold;
+                        text-align: left;
+                    }
+
+                    .pro {
+                        border-bottom: 2px solid black;
+                    }
+
+                    .header_ship {
+                        padding: 4px;
+                    }
+                }
+
+                /* Large Devices (Tablet Landscape) */
+                @media (min-width: 768px) and (max-width: 991.98px) {
+                    .div_infoUSER {
+                        display: block;
+                    }
+
+                    .box1 {
+                        width: 100%;
+                    }
+
+                    .table thead {
+                        display: none;
+                    }
+
+                    .sub {
+                        font-weight: lighter !important;
+                        display: none !important;
+                    }
+
+                    .container_ship {
+                        padding: px;
+                    }
+
+                    .wrap_proInfo {
+                        padding: 1px;
+                    }
+
+                    .table,
+                    .table tbody,
+                    .table tfoot,
+                    .table tr,
+                    .table td {
+                        display: block;
+                        width: 100%;
+                    }
+
+                    .table tr {
+                        margin-bottom: 15px;
+                    }
+
+                    .table td {
+                        padding-left: 50%;
+                        text-align: left;
+                        position: relative;
+                    }
+
+                    .table td::before {
+                        content: attr(data-label);
+                        position: absolute;
+                        left: 0;
+                        width: 50%;
+                        padding-left: 15px;
+                        font-size: 14px;
+                        font-weight: bold;
+                        text-align: left;
+                    }
+
+                    .pro {
+                        border-bottom: 2px solid black;
+                    }
+
+                    .header_ship {
+                        padding: 4px;
+                    }
+                }
+
+                /* Large Devices (Desktops) */
+                @media (min-width: 992px) and (max-width: 1199.98px) {
+                }
+
+                /* Extra Large Devices (Large Desktops) */
+                @media (min-width: 1200px) {
+                    /* Your styles for extra large devices go here */
+                }
             </style>
-          </head>
-          <body>
-            <header class="clearfix">
-              <div id="logo">
-              </div>
-              <div id="company">
-                <h2 class="name">Sike</h2>
-                <div> Stt 2003, Phnom Penh AZ 85004, Cambodia</div>
-                <div>(602) 519-0450</div>
-                <div><a href="mailto:company@example.com">sike@example.com</a></div>
-              </div>
-              </div>
-            </header>
-            <main>
-              <div id="details" class="clearfix">
-                <div id="client">
-                  <div class="to">ORDER NUMBER</div>
-                  <h2 class="name">' . $orderDetails['id'] . '</h2>
-                  <div><span>DATE</span> ' . $orderDetails['created_at'] . '</div>
-                  <div class="address">
-                    <span>BILLING ADDRESS</span>
-                    ' . $orderDetails['user']['name'] . ',' .
-            $orderDetails['user']['address'] . ',' .
-            $orderDetails['user']['city'] . ', ' .
-            $orderDetails['user']['state'] . ',' .
-            $orderDetails['user']['country'] . ',' .
-            $orderDetails['user']['pincode'] . ',
-                  </div>
-                  <div  class="address">
-                    <span>DELIVERY ADDRESS</span>
-                    ' . $orderDetails['name'] . ',' . $orderDetails['address'] .
-            ',' . $orderDetails['city'] . ', ' . $orderDetails['state']
-            . ',' . $orderDetails['country'] . ',' .
-            $orderDetails['pincode'] . ',
-                </div>
-                </div>
-              </div>
-              <table border="0" cellspacing="0" cellpadding="0">
-                <thead>
-                  <tr>
-                    <th class="desc">Product</th>
-                    <th class="unit">Size</th>
-                    <th class="unit">Color</th>
-                    <th class="unit">UNIT PRICE</th>
-                    <th class="qty">QUANTITY</th>
-                    <th class="total">TOTAL</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  ';
+
+            <body>
+                <div class="header_ship">
+                    <span class="headerText"> Order# ' . $orderDetails['id'] . ' </span>
+                    <span class="data"> ' . $orderDetails['created_at'] . ' </span>
+                    <!-- info product -->
+                    <div class="pro__info">
+                        <div class="wrap_proInfo">
+                            <table class="table">
+                                <thead>
+                                    <th>Product name</th>
+                                    <th>Product Code</th>
+                                    <th>Price</th>
+                                    <th>Qty</th>
+                                    <th>Subtotal</th>
+                                </thead>
+                                <tbody>
+                                    ';
         $total_price = 0;
         foreach ($orderDetails['orders_products'] as $order) {
             $product_total = $order['product_price'] *
                 $order['product_qty'];
-            $total_price += $product_total;
+            $total_price +=
+                $product_total;
             $output .= '
-                  <tr>
-                    <td class="desc"><h3>  ' . $order['product_code'] . '</h3></td>
-                    <td class="unit">' . $order['product_size'] . '</td>
-                    <td class="unit">' . $order['product_color'] . '</td>
-                    <td class="unit">' . $order['product_price'] . '</td>
-                    <td class="qty">' . $order['product_qty'] . '</td>
-                    <td class="total">' . $product_total . '</td>
-                  </tr>
-                  ';
+                                    <tr>
+                                        <td data-label="Product name">
+                                            ' . $order['product_name'] . '
+                                        </td>
+                                        <td data-label="Product Code">
+                                            ' . $order['product_code'] . '
+                                        </td>
+                                        <td data-label="Price" class="a">
+                                            ' . $order['product_price'] . ' $
+                                        </td>
+                                        <td data-label="Qty">
+                                            ' . $order['product_qty'] . '
+                                        </td>
+                                        <td data-label="Subtotal" class="pro">
+                                            ' . $product_total . '
+                                        </td>
+                                    </tr>
+                                    ';
         }
         $output .= '
-                </tbody>
-                <tfoot>
-                  <tr>
-                    <td colspan="3"></td>
-                    <td colspan="2">SUBTOTAL</td>
-                    <td class="total">$' . $total_price . '</td>
-                  </tr>
-                  <tr>
-                    <td colspan="3"></td>
-                    <td colspan="2">SHIPPING CHARGES</td>
-                    <td class="total"> $ ' . $orderDetails['shipping_charges'] . '</td>
-                  </tr>
-                  <tr>
-                    <td colspan="3"></td>
-                    <td colspan="2">COUPON DISCOUNT</td>
-                    <td class="total">
-                      $' . ($orderDetails['coupon_amount'] > 0 ?
+                                </tbody>
+
+                                <tfoot>
+                                    <tr>
+                                        <td class="sub r" colspan="4">Subtotal</td>
+                                        <td data-label="Subtotal" colspan="4" class="a">
+                                        $' . $total_price . '
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="sub r" colspan="4">
+                                            Shipping & Handling
+                                        </td>
+                                        <td
+                                            data-label="Shipping & Handling"
+                                            colspan="4"
+                                        >
+                                        $ ' . $orderDetails['shipping_charges'] . '
+                                    </tr>
+                                    <tr>
+                                        <td class="sub r" colspan="4">
+                                            Coupon Discount
+                                        </td>
+
+                                        <td data-label="Coupon Discount" colspan="4">
+                                        $' . ($orderDetails['coupon_amount'] > 0 ?
             $orderDetails['coupon_amount'] : 0) . '
-                     </td>
-                  </tr>
-                  <tr>
-                    <td colspan="3"></td>
-                    <td colspan="2">GRAND TOTAL</td>
-                    <td class="total">
-                      $' . $orderDetails['grand_total'] . '
-                     </td>
-                  </tr>
-                </tfoot>
-              </table>
-              ';
-        $output .= '
-              <div id="thanks">Thank you!</div>
-              <div id="notices">
-                <div>NOTICE:</div>
-                <div class="notice">A finance charge of 1.5% will be made on unpaid balances after 30 days.</div>
-              </div>
-            </main>
-            <footer>
-              Invoice was created on a computer and is valid without the signature and seal.
-            </footer>
-          </body>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="sub r z" colspan="4">Grand Total</td>
+                                        <td
+                                            data-label="Grand Total"
+                                            colspan="4"
+                                            class="a"
+                                        >
+                                        $' . $orderDetails['grand_total'] . '
+                                        </td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                    </div>
+                    <span class="headerText1"> Order Information</span>
+                    <div class="div_infoUSER">
+                        <div class="box1">
+                            <ul>
+                                <li>
+                                    <span class="textUser main"> Sike </span>
+                                </li>
+                                <li>
+                                    <span class="textUser"> Cambodia </span>
+                                </li>
+                                <li>
+                                    <span class="textUser">
+                                        Phone: 111-111-111 | Email: Sike@gmail.com
+                                    </span>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="box1">
+                            <ul>
+                                <li>
+                                    <span class="textUser main">
+                                        Delivery Address
+                                    </span>
+                                </li>
+                                <li>
+                                    <span class="textUser">
+                                        ' . $orderDetails['name'] . '
+                                    </span>
+                                </li>
+                                <li>
+                                    <span class="textUser">
+                                        ' . $orderDetails['address'] . '
+                                    </span>
+                                </li>
+                                <li>
+                                    <span class="textUser">
+                                        ' . $orderDetails['state'] . '
+                                    </span>
+                                </li>
+                                <li>
+                                    <span class="textUser">
+                                        ' . $orderDetails['city'] . ' , ' . $orderDetails['pincode'] . '
+                                    </span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="box1">
+                            <ul>
+                                <li>
+                                    <span class="textUser main"> Billing Address </span>
+                                </li>
+                                <li>
+                                    <span class="textUser">
+                                        ' . $orderDetails['user']['name'] . '
+                                    </span>
+                                </li>
+                                <li>
+                                    <span class="textUser">
+                                        ' . $orderDetails['user']['address'] . '
+                                    </span>
+                                </li>
+                                <li>
+                                    <span class="textUser">
+                                        ' . $orderDetails['user']['state'] . '
+                                    </span>
+                                </li>
+                                <li>
+                                    <span class="textUser">
+                                        ' . $orderDetails['user']['country'] . ' , ' .
+            $orderDetails['user']['pincode'] . '
+                                    </span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="box1">
+                            <ul>
+                                <li>
+                                    <span class="textUser main"> Method Payment</span>
+                                </li>
+                                <li>
+                                    <span class="textUser">
+                                        Bank Transfer - Pre-Payment
+                                    </span>
+                                </li>
+                                <li>
+                                    <span class="textUser">
+                                        Please send the total amount to the following
+                                        bank account number:
+                                    </span>
+                                </li>
+                                <li>
+                                    <span class="textUser"> SikeBay</span>
+                                </li>
+                                <li>
+                                    <span class="textUser"> Bank: ABA</span>
+                                </li>
+                                <li>
+                                    <span class="textUser">
+                                        Upon the transfer arrival, we will pack your
+                                        order and will start the shipment</span
+                                    >
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!--  -->
+                    <div class="div_infoUSER">
+                        <div class="box1">
+                            <ul>
+                                <li>
+                                    <span class="textUser"> Thank you! </span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </body>
         </html>
+
         ';
 
         // instantiate and use the dompdf class

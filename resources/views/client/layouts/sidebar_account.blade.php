@@ -74,17 +74,17 @@
                     </li>
 
                     <li class="liAccSidebar">
-                        <a href=""class="hoverunderLine">
+                        <a href="{{url('user/orders')}}"class="hoverunderLine">
                             My Orders
                         </a>
                     </li>
                     <li class="liAccSidebar">
-                        <a href=""class="hoverunderLine">
+                        <a href="{{url('wishlist')}}"class="hoverunderLine">
                             My WishList
                         </a>
                     </li>
                     <li class="liAccSidebar">
-                        <a href=""class="hoverunderLine">
+                        <a href="{{url('checkout')}}"class="hoverunderLine">
                             Checkout
                         </a>
                     </li>

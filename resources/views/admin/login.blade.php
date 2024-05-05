@@ -72,7 +72,7 @@
                                                 class="form-control form-control-lg" name="password"
                                                 @if (isset($_COOKIE['password'])) value="{{ $_COOKIE['password'] }}" @endif />
                                         </div>
-                                        <div class="form-outline mb-4">
+                                        {{-- <div class="form-outline mb-4">
                                             <div class="icheck-primary">
                                                 <input type="checkbox" id="remember" name="remember"
                                                     @if (isset($_COOKIE['email'])) checked="" @endif>
@@ -80,7 +80,7 @@
                                                     Remember Me
                                                 </label>
                                             </div>
-                                        </div>
+                                        </div> --}}
 
                                         <div class="pt-1 mb-4">
                                             <button class="btn btn-dark btn-lg btn-block" type="submit">Login</button>

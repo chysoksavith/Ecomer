@@ -60,7 +60,6 @@
 
     </div>
     {{-- @include('client.model') --}}
-    @yield('scripts')
 
 
     <script src="https://code.jquery.com/jquery-3.7.1.js" crossorigin="anonymous"></script>
@@ -140,6 +139,9 @@
     <script src="{{ asset('front/js/tabContentSidebar.js') }}"></script>
     <script src="{{ asset('front/js/showpass.js') }}"></script>
     <script src="{{ asset('front/js/asideDropdownMenu.js') }}"></script>
+
+    @yield('scripts')
+
 </body>
 
 </html>

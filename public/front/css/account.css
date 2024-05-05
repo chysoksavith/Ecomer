@@ -1,10 +1,14 @@
 .containerAccount {
     margin-top: 90px;
+    padding: 10px;
     width: 100%;
     height: auto;
     display: flex;
     justify-content: space-around;
-}section-review
+}
+.left__nav_mobile {
+    display: none;
+}
 .hoverunderLine {
     position: relative;
     text-decoration: none;
@@ -27,7 +31,7 @@
     width: 100%;
 }
 .leftContainAcc {
-    width: 300px;
+    width: 320px;
     padding: 15px;
     height: 637px;
     box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px 0px;
@@ -54,7 +58,7 @@
 }
 /* --------------------------Form account------------------------------------------- */
 .rightContainAcc {
-    width: 920px;
+    width: 1320px;
     height: auto;
     padding: 55px;
     box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px 0px;
@@ -65,12 +69,12 @@
     justify-content: space-between;
 }
 .leftform {
-    width: 810px;
+    width: 100%;
     height: auto;
 }
 .inputbilling {
     display: block;
-    width: 380px;
+    width: 540px;
     height: 38px;
     border: none;
     background-color: transparent;
@@ -109,16 +113,16 @@
 /* order items */
 .cotnainer_cartOrder {
     margin-top: 25px;
+    border-bottom: 1px solid #b3b3b3;
 }
-.wrapper_carOrder {
-    border: 1px solid #b3b3b3;
-}
+
 .header_cartOrder {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 10px;
-    border-bottom: 1px solid #b3b3b3;
+    background-color: #f4f4f4;
+
 }
 .txtHeader_cartOrder {
 }
@@ -126,6 +130,7 @@
 .list_order,
 .detail_cartOrder {
     font-size: 14px;
+    font-weight: 600;
     text-decoration: none;
     color: black;
     display: block;
@@ -158,4 +163,164 @@
     position: relative;
     border: 1px solid black;
     border-radius: 25px;
+}
+/*  */
+.wrap__acc {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    position: relative;
+    background-color: #f4f4f4;
+}
+.icon_mbiel {
+    font-size: 20px;
+    cursor: pointer;
+}
+.myAccount {
+    letter-spacing: 0;
+    margin-left: 10px;
+    font-size: 16px;
+    font-weight: 600;
+}
+.wrapper__mobileNav {
+    margin-bottom: 20px;
+    overflow: hidden;
+    position: relative;
+}
+.wrapper__mobileNav #myLinks {
+    display: none;
+}
+.mobileNav__Content {
+    background-color: #b3b3b3;
+    margin-bottom: 20px;
+}
+.mobileNav {
+    padding: 20px;
+    list-style: none;
+    background-color: #f8f8f8;
+}
+.mobileNav li {
+    margin-bottom: 7px;
+}
+.mobileNav li a {
+    padding: 7px;
+    color: black;
+    font-weight: 600;
+    text-decoration: none;
+    font-size: 16px;
+}
+
+/* Small Devices (Mobile Portrait) */
+@media (max-width: 575.98px) {
+    .containerAccount {
+        display: block;
+    }
+    .leftContainAcc {
+        display: none;
+    }
+    .rightContainAcc {
+        width: 100%;
+    }
+    .coverFromBill {
+        display: block;
+    }
+    .leftform {
+        width: 100%;
+    }
+    .left__nav_mobile {
+        display: block;
+    }
+    .inputbilling {
+        width: 100%;
+    }
+    .bn16 {
+        font-size: 14px;
+        letter-spacing: 0.1em;
+        text-decoration: none;
+        color: black;
+        display: inline-block;
+        padding: 3px;
+        position: relative;
+        border: none;
+        border-bottom: 2px solid #b3b3b3;
+        border-radius: 0px;
+    }
+}
+
+/* Medium Devices (Tablet Landscape) */
+@media (min-width: 576px) and (max-width: 767.98px) {
+    .containerAccount {
+        display: block;
+    }
+    .leftContainAcc {
+        display: none;
+    }
+    .rightContainAcc {
+        width: 100%;
+    }
+    .coverFromBill {
+        display: block;
+    }
+    .leftform {
+        width: 100%;
+    }
+    .left__nav_mobile {
+        display: block;
+    }
+    .inputbilling {
+        width: 100%;
+    }
+}
+
+/* Large Devices (Tablet Landscape) */
+@media (min-width: 768px) and (max-width: 991.98px) {
+    .containerAccount {
+        display: block;
+    }
+    .leftContainAcc {
+        display: none;
+    }
+    .rightContainAcc {
+        width: 100%;
+    }
+    .coverFromBill {
+        display: block;
+    }
+    .leftform {
+        width: 100%;
+    }
+    .left__nav_mobile {
+        display: block;
+    }
+    .inputbilling {
+        width: 100%;
+    }
+}
+
+/* Large Devices (Desktops) */
+@media (min-width: 992px) and (max-width: 1199.98px) {
+
+    .rightContainAcc{
+        width: 60%;
+    }
+    .leftContainAcc {
+       width: 30%;
+    }
+    .coverFromBill {
+        display: block;
+    }
+    .leftform {
+        width: 100%;
+    }
+    .inputbilling {
+        width: 100%;
+    }
+    .inputbilling {
+       width: 100%;
+    }
+}
+/* Extra Large Devices (Large Desktops) */
+@media (min-width: 1200px) {
+
+    /* Your styles for extra large devices go here */
 }

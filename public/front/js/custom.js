@@ -499,4 +499,5 @@ $(document).ready(function () {
     $(document).on("click", "#placeOrderLoader", function () {
         $(".loader").show();
     });
+    // toggle overflow scroll
 });
