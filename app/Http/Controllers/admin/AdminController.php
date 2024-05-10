@@ -6,26 +6,50 @@ use App\Http\Controllers\Controller;
 use App\Models\Admin;
 use App\Models\AdminRoles;
 use App\Models\Brand;
+use App\Models\Cart;
 use App\Models\Category;
+use App\Models\Order_Product;
 use App\Models\Orders;
 use App\Models\Product;
+use App\Models\ProductsAttribure;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
 
 class AdminController extends Controller
 {
-    public function dashboard()
+    public function dashboard(Request $request)
     {
         Session::put('page', 'dashboard');
-        $categoryCount = Category::get()->count();
-        $ProductCount = Product::get()->count();
-        $brandCount = Brand::get()->count();
-        $userCount = User::get()->count();
-        $orderCount = Orders::get()->count();
-        return view('admin.dashboard')->with(compact('categoryCount', 'ProductCount', 'brandCount', 'userCount', 'orderCount'));
+        $categoryCount = Category::where('status', '=', '1')->count();
+        $ProductCount = Product::where('status', '=', '1')->count();
+        $brandCount = Brand::where('status', '=', '1')->count();
+        $userCount = User::where('status', '=', '1')->count();
+        $orderCount = Orders::count();
+        // complete Pruches
+        $completePurchase = Orders::where('order_status', '=','Delivered')->count();
+        $totalIncome = Orders::sum('grand_total');
+        $topSaleItems = Order_Product::select('*', DB::raw('COUNT(*) as total_sales'))
+            ->groupBy('product_id') // Group by product_id and product_name
+            ->orderBy('total_sales', 'desc')
+            ->take(10)
+            ->get();
+        $totalInventory = ProductsAttribure::where('status', '=', '1')->sum('stock');
+        $goalAddToCart = Cart::count();
+        // store session user visit website
+        $visitData = $request->session()->get('visit_data');
+        if (!$visitData) {
+            $visitData = [];
+        }
+        // store or update visit data
+        $visitData['last_visit_time'] = now();
+        $visitData['user_agent'] = $request->header('User-Agent');
+
+        $request->session()->put('visit_data', $visitData);
+        return view('admin.dashboard')->with(compact('completePurchase','visitData', 'goalAddToCart', 'totalInventory', 'categoryCount', 'ProductCount', 'brandCount', 'userCount', 'orderCount', 'totalIncome', 'topSaleItems'));
     }
     public function login(Request $request)
     {

@@ -34,7 +34,6 @@ class ShippingController extends Controller
     public function editShipping(Request $request, $id)
     {
         // update
-        Session::put('page', 'shipping');
         if ($request->isMethod('post')) {
             $data = $request->all();
             ShippingCharges::where('id', $id)->update([

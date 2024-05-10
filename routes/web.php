@@ -7,6 +7,7 @@ use App\Http\Controllers\admin\CategoryController;
 use App\Http\Controllers\admin\CmsController;
 use App\Http\Controllers\admin\ColorController;
 use App\Http\Controllers\admin\CouponController;
+use App\Http\Controllers\admin\LocalShippingController as AdminLocalShippingController;
 use App\Http\Controllers\admin\NewseltterController;
 use App\Http\Controllers\admin\OrderController as AdminOrderController;
 use App\Http\Controllers\admin\ProductsController;
@@ -25,6 +26,7 @@ use App\Http\Controllers\front\ProductController;
 use App\Http\Controllers\front\RatingFrontController;
 use App\Http\Controllers\front\UserController;
 use App\Http\Controllers\front\WishListController;
+use App\Http\Controllers\localShippingController;
 use App\Models\Category;
 use App\Models\CmsPage;
 use Illuminate\Support\Facades\Route;
@@ -71,6 +73,7 @@ Route::namespace('App\Http\Controllers\front')->group(function () {
         Route::get('/check-login-status', 'checkLoginStatus');
         // Search
         Route::get('/search-product', 'listing')->name('search');
+        Route::get('/search-live', 'liveSearch');
     });
     // add to wishlist
     Route::post('/update-wishlist', [WishListController::class, 'updateWishList']);
@@ -211,6 +214,7 @@ Route::group(['prefix' => '/admin'], function () {
         Route::controller(AdminUserController::class)->group(function () {
             Route::get('users', 'users');
             Route::post('update-user-status', 'updateUserStatus');
+            Route::get('view-users-chart', 'UserChart');
         });
         // for Newsletter
         Route::controller(NewseltterController::class)->group(function () {
@@ -232,6 +236,8 @@ Route::group(['prefix' => '/admin'], function () {
             // print invoice
             Route::get('print-order-invoice/{id}', 'printHtmlOrderInvoice');
             Route::get('print-pdf-order-invoice/{id}', 'printPdfOrderInvoice');
+            // View Chart
+            Route::get('view-order-chart', 'OrderChart');
         });
         // shipping
         Route::controller(ShippingController::class)->group(function () {
@@ -244,12 +250,19 @@ Route::group(['prefix' => '/admin'], function () {
             Route::post('recovery-shipping-all',  'RecoverydeleteShippingAll')->name('recovery.shipping.all');
             Route::get('shipping-recovery', 'shippingChargesRecovery');
         });
+        // local shipping
+        Route::controller(AdminLocalShippingController::class)->group(function () {
+            Route::get('local-ship', 'LocalShipping');
+            Route::match(['get', 'post'], 'edit-localshipping/{id}', 'editLocalShipping');
+            Route::post('update-Localshipping-status', 'updateLocalShippingStatus');
+            Route::get('delete-Localshipping/{id}',  'deleteLocalShipping');
+        });
         // Color
         Route::controller(ColorController::class)->group(function () {
             Route::get('colors', 'getColor')->name('admin.color');
-            Route::match(['get','post'], 'add-edit-color/{id?}', 'addEditColor')->name('add.edit.color');
+            Route::match(['get', 'post'], 'add-edit-color/{id?}', 'addEditColor')->name('add.edit.color');
             Route::post('update-color-status', 'updateColorStatus');
-            Route::get('delete-color/{id?}','deleteColor');
+            Route::get('delete-color/{id?}', 'deleteColor');
             // Route::mactch(['get','post'],'color', 'getColors');
         });
     });

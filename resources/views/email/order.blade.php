@@ -354,7 +354,7 @@
                                 <td data-label="Price" class="a">{{ $orderProduct['product_price'] }} $</td>
                                 <td data-label="Qty">{{ $orderProduct['product_qty'] }}</td>
                                 <td data-label="Subtotal" class="pro">
-                                    {{ $orderProduct['product_price'] }}
+                                    {{ $orderProduct['product_price'] }} $
                                 </td>
                             </tr>
                         @endforeach
@@ -388,9 +388,10 @@
                                 @if ($orderDetails['coupon_amount'] > 0)
                                     ${{ $orderDetails['coupon_amount'] }}
                                 @else
-                                    0$
+                                    <span class="zero-amount">$0</span>
                                 @endif
                             </td>
+
 
                         </tr>
                         <tr>

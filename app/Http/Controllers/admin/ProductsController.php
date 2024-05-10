@@ -75,9 +75,7 @@ class ProductsController extends Controller
                 'product_name' => 'required|regex:/^[\pL\s\-]+$/u|max:255',
                 'product_code' => 'required|regex:/^[\w-]+$/|max:30',
                 'product_price' => ['required', 'integer'],
-
                 'product_color' => 'required|regex:/^[\pL\s\-]+$/u|max:200',
-                'family_color' => 'required|regex:/^[\pL\s\-]+$/u|max:200',
             ];
             $customMessage = [
                 'category_id.required' => 'The category is required.',
@@ -91,9 +89,7 @@ class ProductsController extends Controller
                 'product_color.required' => 'The product color is required.',
                 'product_color.regex' => 'The product color should only contain letters, spaces, and hyphens.',
                 'product_color.max' => 'The product color should not exceed 200 characters.',
-                'family_color.required' => 'The family color is required.',
-                'family_color.regex' => 'The family color should only contain letters, spaces, and hyphens.',
-                'family_color.max' => 'The family color should not exceed 200 characters.',
+               
             ];
 
             $this->validate($request, $rules, $customMessage);

@@ -35,6 +35,10 @@ class Product extends Model
     {
         return $this->belongsTo(Brand::class, 'brand_id');
     }
+    public function colors()
+    {
+        return $this->hasMany(Color::class);
+    }
 
 
     public static function getAttributePrice($product_id, $size)
@@ -117,6 +121,7 @@ class Product extends Model
         $getProductDetails = Product::where('id', $product_id)->first()->toArray();
         return $getProductDetails;
     }
+
     public static function getAttributeDetail($product_id, $size)
     {
         $getAttributeDetail = ProductsAttribure::where(['product_id' => $product_id, 'size' => $size])
@@ -143,5 +148,4 @@ class Product extends Model
     {
         Cart::where('product_id', $product_id)->delete();
     }
-  
 }

@@ -29,7 +29,7 @@
                 <div class="col-sm-6">
                     <h1>shippings</h1>
                 </div>
-               
+
             </div>
         </div><!-- /.container-fluid -->
     </section>
@@ -121,18 +121,18 @@
                                     </tbody>
                                     <tfoot>
 
-                                        <tr>
-                                            <td>
+                                        <tr >
+                                            <td colspan="9" >
                                                 <button class="btn btn-danger" type="button" id="deleteButton"
                                                     data-bs-toggle="modal" data-bs-target="#confirmDeleteModal">Delete
                                                     Record</button>
-                                            </td>
-                                            <td>
+
                                                 <a href="{{ url('admin/shipping-recovery') }}">
                                                     <button class="btn btn-info" type="button">Recovery
                                                         Record</button>
                                                 </a>
                                             </td>
+
                                         </tr>
                                     </tfoot>
                                 </table>

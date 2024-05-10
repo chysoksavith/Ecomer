@@ -7,6 +7,7 @@ use App\Models\AdminRoles;
 use App\Models\OrderLog;
 use App\Models\Orders;
 use App\Models\OrderStatus;
+use Carbon\Carbon;
 use Dompdf\Dompdf;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -89,6 +90,27 @@ class OrderController extends Controller
             $message = "Order status has been updated successfully ";
             return redirect()->back()->with('success_message', $message);
         }
+    }
+    // User  Chart report
+    public function OrderChart()
+    {
+        Session::put('page','order_report');
+        $currentMonthOrdersCount = Orders::whereYear('created_at', Carbon::now()->year)
+            ->whereMonth('created_at', Carbon::now()->month)
+            ->count();
+        $beforeOneMonthOrdersCount = Orders::whereYear('created_at', Carbon::now()->subMonth()->year)
+            ->whereMonth('created_at', Carbon::now()->subMonth()->month)
+            ->count();
+        $beforeTwoMonthsOrdersCount = Orders::whereYear('created_at', Carbon::now()->subMonths()->year)
+            ->whereMonth('created_at', Carbon::now()->subMonths(2)->month)
+            ->count();
+        $beforeThreeMonthsOrdersCount = Orders::whereYear('created_at', Carbon::now()->subMonths()->year)
+            ->whereMonth('created_at', Carbon::now()->subMonths(3)->month)
+            ->count();
+        $OrderCount = array($currentMonthOrdersCount, $beforeOneMonthOrdersCount, $beforeTwoMonthsOrdersCount, $beforeThreeMonthsOrdersCount);
+
+
+        return view('admin.order.view_order_report')->with(compact('OrderCount'));
     }
     // print invoice
     public function printHtmlOrderInvoice($order_id)

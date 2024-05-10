@@ -5,6 +5,7 @@ namespace App\Http\Controllers\admin;
 use App\Http\Controllers\Controller;
 use App\Models\AdminRoles;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
@@ -13,7 +14,7 @@ class UserController extends Controller
 {
     public function users(Request $request)
     {
-        Session::put('page','users');
+        Session::put('page', 'users');
         $users = User::paginate(4);
 
         // set admin/subadmin Permission for users
@@ -45,5 +46,23 @@ class UserController extends Controller
         User::where('id', $data['user_id'])->update(['status' => $status]);
         return response()->json(['status' => $status, 'user_id' => $data['user_id']]);
     }
+    public function UserChart()
+    {
+        Session::put('page', 'users_report');
 
+        $currentMonthUsersCount = User::whereYear('created_at', Carbon::now()->year)
+            ->whereMonth('created_at', Carbon::now()->month)
+            ->count();
+        $beforeOneMonthUsersCount = User::whereYear('created_at', Carbon::now()->subMonth()->year)
+            ->whereMonth('created_at', Carbon::now()->subMonth()->month)
+            ->count();
+        $beforeTwoMonthsUsersCount = User::whereYear('created_at', Carbon::now()->subMonths()->year)
+            ->whereMonth('created_at', Carbon::now()->subMonths(2)->month)
+            ->count();
+        $beforeThreeMonthsUsersCount = User::whereYear('created_at', Carbon::now()->subMonths()->year)
+            ->whereMonth('created_at', Carbon::now()->subMonths(3)->month)
+            ->count();
+        $userCount = array($currentMonthUsersCount, $beforeOneMonthUsersCount, $beforeTwoMonthsUsersCount, $beforeThreeMonthsUsersCount);
+        return view('admin.users.view_users_chart')->with(compact('userCount'));
+    }
 }

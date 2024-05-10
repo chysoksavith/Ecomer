@@ -139,7 +139,7 @@
                                             @foreach ($groupProducts as $product)
                                                 <a href="{{ url('product/' . $product->id) }}">
                                                     <div class="clor_radio">
-                                                        <label style="background-color: {{ $product->product_color }}"
+                                                        <label style="background-color: {{ $product->family_color}}"
                                                             class="productColor"></label>
                                                     </div>
                                                 </a>

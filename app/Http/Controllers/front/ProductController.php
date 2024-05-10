@@ -118,12 +118,45 @@ class ProductController extends Controller
                 })
                 ->where('status', 1)
                 ->get();
-                return view('client.products.listing')->with(compact('categoryDetails', 'categoryProducts', 'url'));
-            } else {
+            return view('client.products.listing')->with(compact('categoryDetails', 'categoryProducts', 'url'));
+        } else {
             abort(404);
         }
     }
+    // live search
+    public function liveSearch(Request $request)
+    {
+        $output = '';
+        if ($request->ajax()) {
+            $products = Product::where('product_name', 'like', '%' . $request->search . '%')
 
+                ->get();
+            if ($products->isNotEmpty()) {
+                foreach ($products as $product) {
+                    $output .= '
+                    <a href="'.url('product/' . $product->id).'" class="a__live">
+                        <div class="box__searchProd">
+                            <span class="image__live">
+                                <img src="' . asset('front/images/products/' . $product->images[0]->image) . '" alt="no image">
+                            </span>
+                        </div>
+                            <div class="price__main">
+                                <span class="name__live">
+                                ' . $product->product_name . '
+                                </span>
+                                <span class="price__live">
+                                ' . $product->product_price . ' $
+                                </span>
+                            </div>
+                    </a>
+                    ';
+                }
+            } else {
+                $output = '<p class="no__product">No products found.</p>';
+            }
+            return response()->json($output);
+        }
+    }
     // product detail
     public function detail(Request $request, $id)
     {
@@ -140,7 +173,7 @@ class ProductController extends Controller
         $categoryDetails = Category::categoryDetails($productDetails->category->url);
         // get group code (Product color)
         if (!empty($productDetails['group_code'])) {
-            $groupProducts = Product::with('images')->select('id',  'product_color')
+            $groupProducts = Product::with('images')->select('id',  'family_color')
                 ->where('id', '!=', $id)
                 ->where('group_code', $productDetails['group_code'])
                 ->where('status', 1)

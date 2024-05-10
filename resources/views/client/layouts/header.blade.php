@@ -14,24 +14,7 @@ $totalCartItems = totalCartItems();
                     </span>
 
                 </li>
-                <li>
-                    <form action="{{ url('search-product') }}" method="get">
-                        @csrf
-                        <div class="dropdown" data-dropdown>
-                            <span class="fa-solid fa-magnifying-glass icoHead link" data-dropdown-button></span>
-                            <div class="dropdown-memu">
-                                <div class="divSearchdiv">
-                                    <input type="search" class="searchHeader" id="searchHeader" name="query"
-                                        placeholder="Search for products">
-                                    <button type="submit" class="btnSearch">
-                                        <i class="fa-solid fa-magnifying-glass icoHead"></i>
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </form>
 
-                </li>
             </ul>
         </nav>
         <nav class="CollectionNav">
@@ -88,35 +71,40 @@ $totalCartItems = totalCartItems();
             <img src="{{ asset('pngwing.com.png') }}" alt="">
         </a>
 
-        <nav class="NavREs ">
+        <nav class="NavREs">
             <ul>
                 {{-- search --}}
-                <li class="NavReSnone">
-                    <form action="{{ url('search-product') }}" method="get">
+                <li class="row_1">
+                    <form action="{{ url('search-product') }}" method="get" autocomplete="off">
                         @csrf
                         <div class="dropdown" data-dropdown>
-                            <span class="fa-solid fa-magnifying-glass icoHead link icon_dn" data-dropdown-button></span>
+                            <span class="fa-solid fa-magnifying-glass icoHead link " id="onClickBg" data-dropdown-button></span>
                             <div class="dropdown-memu">
                                 <div class="divSearchdiv">
                                     <input type="search" class="searchHeader" id="searchHeader" name="query"
-                                        placeholder="Search for products">
+                                        placeholder="Search for products" autocomplete="off" readonly
+                                        onfocus="this.removeAttribute('readonly');">
                                     <button type="submit" class="btnSearch">
                                         <i class="fa-solid fa-magnifying-glass icoHead "></i>
                                     </button>
                                 </div>
+                                <div class="content_search card__live">
+                                    {{-- conttent search --}}
+                                </div>
                             </div>
+
                         </div>
                     </form>
                 </li>
                 {{-- wishList --}}
-                <li>
+                <li class="row_2">
                     <a href="{{ url('/wishlist') }}" class="Ico icon_dn"><i
                             class="fa-regular   fa-heart  icoHead "></i>
 
                     </a>
                 </li>
                 {{-- user account --}}
-                <li>
+                <li class="row_3">
                     <i class="fa-regular fa-user icoHead dropbtnAccount icon_dn" id="myDropdownAccount"> </i>
 
                     {{-- if auth login it show account and signout if not it show signup and signin --}}
@@ -124,7 +112,7 @@ $totalCartItems = totalCartItems();
 
                 </li>
                 {{-- cart --}}
-                <li>
+                <li class="row_4">
                     <span class="Ico sideBarCart" id="bagIcon"><i
                             class="fa-solid fa-bag-shopping icoHead dropbtnminiCart"></i>
                         <span class="bagg totalCartItems">
@@ -139,9 +127,6 @@ $totalCartItems = totalCartItems();
                         @include('client.layouts.Header_smallCart')
                     </div> --}}
                 </li>
-
-
-
             </ul>
         </nav>
     </div>

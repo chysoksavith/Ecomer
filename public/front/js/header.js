@@ -13,8 +13,27 @@ window.addEventListener("scroll", function () {
     lastScrollTop = scrollTop;
 });
 
+// document.addEventListener("click", (e) => {
+//     const isDropdownMenu = e.target.matches("[data-dropdown-button]");
+
+//     if (!isDropdownMenu && e.target.closest("[data-dropdown]") !== null) return;
+
+//     let currentDropdown;
+
+//     if (isDropdownMenu) {
+//         currentDropdown = e.target.closest("[data-dropdown]");
+//         currentDropdown.classList.toggle("active");
+//     }
+
+//     document.querySelectorAll("[data-dropdown].active").forEach((dropdown) => {
+//         if (dropdown === currentDropdown) return;
+//         dropdown.classList.remove("active");
+//         $(".header_nav").removeClass("white-background");
+//     });
+// });
 document.addEventListener("click", (e) => {
     const isDropdownMenu = e.target.matches("[data-dropdown-button]");
+    const headerNav = document.getElementById("headerNav");
 
     if (!isDropdownMenu && e.target.closest("[data-dropdown]") !== null) return;
 
@@ -22,13 +41,22 @@ document.addEventListener("click", (e) => {
 
     if (isDropdownMenu) {
         currentDropdown = e.target.closest("[data-dropdown]");
-        currentDropdown.classList.toggle("active");
+        const isActive = currentDropdown.classList.contains("active");
+        document.querySelectorAll("[data-dropdown].active").forEach((dropdown) => {
+            dropdown.classList.remove("active");
+        });
+        if (!isActive) {
+            currentDropdown.classList.add("active");
+            headerNav.classList.add("active-header");
+        } else {
+            headerNav.classList.remove("active-header");
+        }
+    } else {
+        document.querySelectorAll("[data-dropdown].active").forEach((dropdown) => {
+            dropdown.classList.remove("active");
+        });
+        headerNav.classList.remove("active-header");
     }
-
-    document.querySelectorAll("[data-dropdown].active").forEach((dropdown) => {
-        if (dropdown === currentDropdown) return;
-        dropdown.classList.remove("active");
-    });
 });
 
 // sidebar menu header

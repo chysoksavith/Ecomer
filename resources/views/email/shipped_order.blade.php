@@ -383,13 +383,14 @@
                             <td class="sub r" colspan="4">
                                 Coupon Discount
                             </td>
-                            @if ($orderDetails['coupon_amount'] > 0)
-                                <td data-label="Coupon Discount" colspan="4">
+
+                            <td data-label="Coupon Discount" colspan="4">
+                                @if ($orderDetails['coupon_amount'] > 0)
                                     ${{ $orderDetails['coupon_amount'] }}
-                                </td>
-                            @else
-                                0$
-                            @endif
+                                @else
+                                    <span class="zero-amount">$0</span>
+                                @endif
+                            </td>
                         </tr>
                         <tr>
                             <td class="sub r z" colspan="4">Grand Total</td>
@@ -537,7 +538,7 @@
                     </li>
                     <li>
                         <span class="textUser">
-                            Order Date:  {{ date('F j, g:i a', strtotime($orderDetails['created_at'])) }}
+                            Order Date: {{ date('F j, g:i a', strtotime($orderDetails['created_at'])) }}
                         </span>
                     </li>
                 </ul>

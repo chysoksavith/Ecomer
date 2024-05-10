@@ -315,6 +315,7 @@ $(document).ready(function () {
                         showToast(response.message);
                         $(".loader").hide();
                         $("#formRating")[0].reset();
+                        window.location.reload();
                     } else {
                         if (response.error) {
                             showToast(response.message, "error");
@@ -494,6 +495,33 @@ $(document).ready(function () {
             return false;
         }
     });
+
+    // live search
+
+    $(document).on("keyup", "#searchHeader", function () {
+        var value = $(this).val();
+        $.ajax({
+            headers: {
+                "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+            },
+            url: "/search-live",
+            type: "GET",
+            data: { search: value },
+            success: function (data) {
+                if (value.trim() === "") {
+                    $(".card__live").empty(); // Clear search results if input is empty
+                } else {
+                    $(".card__live").html(data); // Update search results with data
+                }
+            },
+            error: function (xhr, status, error) {
+                console.error(xhr.responseText);
+            },
+        });
+    });
+    // $(document).on("click", "#onClickBg", function(){
+    //     $(".header_nav").toggleClass("white-backgroud");
+    // })
 
     // show loader when place order
     $(document).on("click", "#placeOrderLoader", function () {

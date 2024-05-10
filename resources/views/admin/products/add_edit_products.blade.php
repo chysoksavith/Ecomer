@@ -120,11 +120,11 @@
                                         <select class="custom-select rounded-0" name="family_color">
                                             <option value="">Select Main Colors</option>
                                             @foreach ($familyColors as $color)
-                                                <option value="{{ $color['color_name'] }}"
-                                                    @if (old('family_color', $product->family_color) == $color['color_name'] ||
-                                                            $product->family_color == $color['color_name']
+                                                <option value="{{ $color['color_code'] }}"
+                                                    @if (old('family_color', $product->family_color) == $color['color_code'] ||
+                                                            $product->family_color == $color['color_code']
                                                     ) selected @endif>
-                                                    {{ $color['color_name'] }}
+                                                    {{$color['color_name']}} &nabla; {{ $color['color_code'] }}
                                                 </option>
                                             @endforeach
                                         </select>

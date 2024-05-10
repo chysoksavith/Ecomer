@@ -64,22 +64,18 @@
                 <ul class="footer_ul">
                     <li><a href="{{url('about-us')}}">About Us</a></li>
                     <li><a href="{{url('contact-us')}}">Contact Us</a></li>
-                    <li><a href="">c</a></li>
-                    <li><a href="">d</a></li>
                 </ul>
             </div>
             <div class="footer_col">
-                <h4>About</h4>
+                <h4>Shopping Help</h4>
                 <ul class="footer_ul">
-                    <li><a href="">a</a></li>
-
+                    <li><a href="javascript:;">Content Comming</a></li>
                 </ul>
             </div>
             <div class="footer_col">
-                <h4>About</h4>
+                <h4>Payment Information</h4>
                 <ul class="footer_ul">
-                    <li><a href="">a</a></li>
-
+                    <li><a href="javascript:;">Content Comming</a></li>
                 </ul>
             </div>
             <div class="footer_col">

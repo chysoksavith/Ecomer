@@ -312,4 +312,28 @@ $(document).ready(function () {
             },
         });
     });
+    // update status color
+    $(document).on("click", ".updatLocalShippingstatus", function () {
+        var status = $(this).find("i").attr("status");
+        var localshipping_id = $(this).attr("localshipping_id");
+        $.ajax({
+            headers: {
+                "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+            },
+            type: "post",
+            url: "/admin/update-Localshipping-status",
+            data: { status: status, localshipping_id: localshipping_id },
+            success: function (resp) {
+                if (resp.status == 0) {
+                    $("#localshipping-" + localshipping_id).html(
+                        "<i class='fas fa-toggle-off' style='color:grey;' status='Inactive'></i>"
+                    );
+                } else if (resp.status == 1) {
+                    $("#localshipping-" + localshipping_id).html(
+                        "<i class='fas fa-toggle-on' style='color:blue;' status='Active'></i>"
+                    );
+                }
+            },
+        });
+    });
 });

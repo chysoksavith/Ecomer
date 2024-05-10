@@ -62,7 +62,6 @@
 
         @include('admin.layouts.footer')
     </div>
-    @yield('scritps')
     <!-- jQuery -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="{{ asset('admin/plugins/jquery/jquery.min.js') }}"></script>
@@ -82,7 +81,12 @@
                     [0, "desc"]
                 ]
             });
-
+            //
+            $('#localShippingTable').DataTable({
+                "order": [
+                    [0, "desc"]
+                ]
+            });
             $('#productTable').DataTable({
                 "order": [
                     [0, "desc"]
@@ -182,6 +186,10 @@
             });
         });
     </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/canvasjs/1.7.0/canvasjs.min.js"></script>
+
+    @yield('scritps')
+
 </body>
 
 </html>

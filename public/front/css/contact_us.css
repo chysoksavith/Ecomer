@@ -1,4 +1,4 @@
-.containContactUs{
+.containContactUs {
     padding: 10px;
     display: flex;
     justify-content: space-between;
@@ -6,25 +6,57 @@
     width: 100%;
     height: 972px;
 }
-.MapContain{
-    width: 50%;
-    background-color: rgb(185, 177, 224);
+.section__infoShop {
+    margin-top: 30px;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
 }
-.mappp{
+.MapContain {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50%;
+    border: 1px solid gray;
+}
+.mappp {
     width: 100%;
     height: 100%;
 }
 
-
-.EmailSendContain{
+.EmailSendContain {
     display: flex;
     justify-content: center;
     align-items: center;
     width: 50%;
 }
 
-
-.MainSendEmail{
+.MainSendEmail {
     width: 550px;
     height: 577px;
+}
+.main__ifo {
+    font-size: 25px;
+    font-weight: 600;
+}
+.tex__shop {
+    font-size: 14px;
+    margin-bottom: 10px;
+    font-weight: 600;
+}
+.li__info{
+    margin-bottom: 10px;
+}
+.ul__infoShop {
+    margin-top: 10px;
+    margin-bottom: 25px;
+}
+.ul__infoShop li {
+    display: block;
+}
+.tex__shop_lighter{
+    font-size: 14px;
+}
+.box__info{
+    width: 387px;
 }

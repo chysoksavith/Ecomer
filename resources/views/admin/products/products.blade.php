@@ -50,10 +50,10 @@
                                     @forelse ($products as $product)
                                         <tr>
                                             <td>{{ optional($product)->id ?? 'N/A' }}</td>
-                                            <td>
+                                            <td class="text-center">
                                                 @if (isset($product->images[0]))
                                                     <img src="{{ asset('front/images/products/' . $product->images[0]->image) }}"
-                                                        width="50px">
+                                                        width="60px">
                                                 @else
                                                     <!-- Provide an alternate image or display a placeholder -->
                                                     <p>no image</p>

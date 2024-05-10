@@ -25,18 +25,6 @@
               </div>
           </div>
 
-          <!-- SidebarSearch Form -->
-          <div class="form-inline">
-              <div class="input-group" data-widget="sidebar-search">
-                  <input class="form-control form-control-sidebar" type="search" placeholder="Search"
-                      aria-label="Search">
-                  <div class="input-group-append">
-                      <button class="btn btn-sidebar">
-                          <i class="fas fa-search fa-fw"></i>
-                      </button>
-                  </div>
-              </div>
-          </div>
 
           <!-- Sidebar Menu -->
           <nav class="mt-2">
@@ -58,6 +46,56 @@
                               Dashboard
                           </p>
                       </a>
+                  </li>
+                  {{-- Report --}}
+                  @if (Session::get('page') == 'order_report' || Session::get('page') == 'users_report')
+                      @php
+                          $active = 'active';
+                      @endphp
+                  @else
+                      @php
+                          $active = '';
+                      @endphp
+                  @endif
+                  <li class="nav-item">
+                      <a href="#" class="nav-link {{ $active }}">
+                          <i class="nav-icon fa fa-file"></i>
+                          <p>
+                              Report
+                              <i class="right fas fa-angle-left"></i>
+                          </p>
+                      </a>
+                      <ul class="nav nav-treeview">
+                          <li class="nav-item">
+                              {{-- brand --}}
+                              @if (Session::get('page') == 'order_report')
+                                  @php
+                                      $active = 'active';
+                                  @endphp
+                              @else
+                                  @php
+                                      $active = '';
+                                  @endphp
+                              @endif
+                              <a href="{{ url('admin/view-order-chart') }}" class="nav-link {{ $active }}">
+                                  <i class="far fa-circle nav-icon"></i>
+                                  <p>Order Report</p>
+                              </a>
+                              @if (Session::get('page') == 'users_report')
+                                  @php
+                                      $active = 'active';
+                                  @endphp
+                              @else
+                                  @php
+                                      $active = '';
+                                  @endphp
+                              @endif
+                              <a href="{{ url('admin/view-users-chart') }}" class="nav-link {{ $active }}">
+                                  <i class="far fa-circle nav-icon"></i>
+                                  <p>User Report</p>
+                              </a>
+                          </li>
+                      </ul>
                   </li>
                   {{-- setting --}}
                   @if (Auth::guard('admin')->user()->type == 'admin')
@@ -129,6 +167,26 @@
                       </li>
 
                   @endif
+                   {{-- local Shipping --}}
+                   @if (Auth::guard('admin')->user()->type == 'admin')
+                   @if (Session::get('page') == 'local_ship')
+                       @php
+                           $active = 'active';
+                       @endphp
+                   @else
+                       @php
+                           $active = '';
+                       @endphp
+                   @endif
+                   <li class="nav-item">
+                       <a href="{{ url('admin/local-ship') }}" class="nav-link {{ $active }}">
+                           <i class="nav-icon fas fa-ship"></i>
+                           <p>
+                               Local Charges
+                           </p>
+                       </a>
+                   </li>
+               @endif
                   {{-- Shipping --}}
                   @if (Auth::guard('admin')->user()->type == 'admin')
                       @if (Session::get('page') == 'shipping')
