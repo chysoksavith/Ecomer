@@ -37,12 +37,19 @@
                             <div class="ImageFirstPage">
                                 @if (isset($product->images[0]->image) && !empty($product->images[0]->image))
                                     <img src="{{ asset('front/images/products/' . $product->images[0]->image) }}"
-                                        alt="">
+                                        alt="" class="primary-image">
                                 @else
                                     <img src="https://www.designscene.net/wp-content/uploads/2023/11/Fear-of-God-Athletics-2023-14.jpg"
-                                        alt="">
+                                        alt=""class="primary-image">
                                 @endif
-
+                                {{-- secondary image --}}
+                                @if (isset($product->images[1]->image) && !empty($product->images[1]->image))
+                                    <img src="{{ asset('front/images/products/' . $product->images[1]->image) }}"
+                                        alt="" class="secondary-image">
+                                @else
+                                    <img src="https://www.designscene.net/wp-content/uploads/2023/11/Fear-of-God-Athletics-2023-14.jpg"
+                                        alt="" class="secondary-image">
+                                @endif
                                 {{-- <span class="soldOutItems">SOLD OUT</span> --}}
                             </div>
                             <div class="TitleFirstPage">

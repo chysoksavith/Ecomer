@@ -2,7 +2,6 @@
 use App\Models\Product;
 $getCartItems = getCartItems();
 ?>
-
 <div class="backdrop_cart"></div>
 
 <div class="side_Cart_wrapper">

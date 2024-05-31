@@ -9,7 +9,7 @@
                 <div class="col-sm-6">
                     <h1>Ratings</h1>
                 </div>
-                
+
             </div>
         </div><!-- /.container-fluid -->
     </section>
@@ -78,7 +78,7 @@
                                         {{-- href="{{ url('admin/delete-cms-pages/' . $page->id) }}" --}}
                                     @empty
                                         <tr>
-                                            <td colspan="5">No item record</td>
+                                            <td colspan="8">No item record</td>
                                         </tr>
                                     @endforelse
                                 </tbody>

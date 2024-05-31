@@ -38,7 +38,8 @@
                                         <th>Order Amount</th>
                                         <th>Order Status</th>
                                         <th>Edit</th>
-                                        <th>Print</th>
+                                        <th>Print Invoice</th>
+                                        <th>Print Pdf</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -51,6 +52,7 @@
                                             <td>
                                                 {{ $order['grand_total'] }} $
                                             </td>
+
                                             <td class="text-center">
                                                 @if ($order['order_status'] == 'New')
                                                     <span
@@ -84,13 +86,20 @@
                                             @endif
                                             @if ($ordersModule['edit_access'] == 1 || $ordersModule['full_access'] == 1)
                                                 <td class=" d-flex justify-content-evenly">
-
                                                     @if ($order['order_status'] == 'Shipped' || $order['order_status'] == 'Delivered')
                                                         <a target="_blank"
                                                             href="{{ url('admin/print-order-invoice/' . $order['id']) }}">
                                                             <i class="fas fa-print"style="font-size: 20px"></i>
                                                         </a>
+                                                        @else
+                                                        no
                                                     @endif
+                                                </td>
+                                            @endif
+                                            @if ($ordersModule['edit_access'] == 1 || $ordersModule['full_access'] == 1)
+                                                <td>
+
+
                                                     <a href="{{ url('admin/print-pdf-order-invoice/' . $order['id']) }}">
                                                         <i class="fas fa-file-pdf" style="font-size: 20px"></i>
                                                     </a>

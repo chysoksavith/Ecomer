@@ -133,7 +133,7 @@
                         <li class="rightDet">
                             @if (count($groupProducts) > 0)
                                 <div class="RightD ColorSelected">
-                                    <span class="TtitleColor"> Color : </span>
+                                    <span class="TtitleColor"> Relate Color</span>
                                     <div class="selectedColor">
                                         <div class="checkSelecColor">
                                             @foreach ($groupProducts as $product)
@@ -162,7 +162,7 @@
                         {{-- Size --}}
                         <li class="rightDet">
                             <div class=" RightD ColorSelected">
-                                <span class="TtitleColor"> Size : </span>
+                                <span class="TtitleColor">Select Size </span>
                                 <div class="selectedSizes">
                                     @foreach ($productDetails->attributes as $attribute)
                                         <input class="btnsize getPrice" type="radio" id="{{ $attribute->size }}"
@@ -404,10 +404,10 @@
                             </div>
                         </details>
                         {{--  --}}
-                        <details onclick="handleDetailsClick(this)" class="detail_summary">
+                        {{-- <details onclick="handleDetailsClick(this)" class="detail_summary">
                             <summary>Special Product Delivery</summary>
                             <p>Sub Category</p>
-                        </details>
+                        </details> --}}
                     </li>
                     {{-- info --}}
                     <li class="rightDet info_detail_prod">

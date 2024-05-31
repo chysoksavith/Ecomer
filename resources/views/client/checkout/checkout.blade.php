@@ -296,8 +296,8 @@
                             <div class="inputFiel showPass">
                                 <input type="checkbox" class="checkboxshowpass" name="agree" value="Yes">
                                 <span class="showPasswordTxt" style="font-size: 14px">
-                                    I consent to the <a href=""
-                                        style="color: orange; text-decoration: none; font-weight: 600">Terms of service</a>
+                                    I consent to the <a href="{{url('terms-and-conditions')}}"
+                                        style="color: orange; text-decoration: none; font-weight: 600">Terms of condition</a>
                                 </span>
                             </div>
                             <div class="inputFiel">

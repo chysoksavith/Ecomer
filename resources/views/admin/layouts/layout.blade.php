@@ -74,7 +74,9 @@
             $('#shippingRecoveryTable').DataTable({
 
             });
+            $('#logoTable').DataTable({
 
+            });
             //
             $('#ratingtable').DataTable({
                 "order": [
@@ -187,6 +189,7 @@
         });
     </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/canvasjs/1.7.0/canvasjs.min.js"></script>
+   
 
     @yield('scritps')
 

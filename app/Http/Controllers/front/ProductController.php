@@ -189,7 +189,7 @@ class ProductController extends Controller
 
         // get Rating
 
-        $rating = Ratings::with('user', 'product')->where(['product_id' => $id, 'status' => 1])->paginate();
+        $rating = Ratings::with('user', 'product')->where(['product_id' => $id, 'status' => 1])->paginate(10);
 
         // get average rating of product
         $ratingSum = Ratings::where(['product_id' => $id, 'status' => 1])->sum('rating');
@@ -492,7 +492,9 @@ class ProductController extends Controller
                 'message' => 'Cart emptied successfully',
                 'totalCartItems' => $totalCartItems,
                 'view' => (string) View::make('client.products.cart_item')->with(compact('getCartItems')),
-                'miniCartview' => (string) View::make('client.layouts.Header_smallCart')->with(compact('getCartItems'))
+                'miniCartview' => (string) View::make('client.layouts.Header_smallCart')->with(compact('getCartItems')),
+                'detailPageView' => (string) View::make('client.products.details')->with(compact('getCartItems'))
+
             ]);
         }
         return response()->json([

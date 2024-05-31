@@ -57,4 +57,3 @@
     <span>No feedback</span>
 @endif
 {{ $rating->links() }}
-        

@@ -54,14 +54,10 @@ class OrderController extends Controller
 
             // update order status
             Orders::where('id', $data['order_id'])->update(['order_status' => $data['order_status']]);
-            // update courier name and tracking number
-            if (!empty($data['courier_name']) && !empty($data['tracking_number'])) {
-                Orders::where('id', $data['order_id'])->update([
-                    'courier_name' => $data['courier_name'],
-                    'tracking_number' => $data['tracking_number']
-                ]);
 
-                // Send Order shipped email to customer tracking details
+            // Send Order shipped email to customer if status is "Shipped" or "Delivered"
+            $validStatuses = ['Shipped', 'Delivered', 'Partially Delivered', 'Pending', 'Cancelled', 'In Process', 'Partially Shipped'];
+            if (in_array($data['order_status'], $validStatuses)) {
                 $orderDetails = Orders::with('orders_products', 'user')->where('id', $data['order_id'])->first()->toArray();
                 // Send order shipped email
                 $email =  $orderDetails['user']['email'];
@@ -70,31 +66,38 @@ class OrderController extends Controller
                     'name' =>  $orderDetails['user']['name'],
                     'order_id' => $data['order_id'],
                     'order_status' => $data['order_status'],
-                    'tracking_number' => $data['tracking_number'],
-                    'courier_name' => $data['courier_name'],
+                    'tracking_number' => $data['tracking_number'] ?? null,
+                    'courier_name' => $data['courier_name'] ?? null,
                     'orderDetails' => $orderDetails,
                 ];
                 Mail::send('email.shipped_order', $messageData, function ($message) use ($email) {
                     $message->to($email)->subject('Order Shipped');
                 });
             }
+
+            // update courier name and tracking number if provided
+            if (!empty($data['courier_name']) && !empty($data['tracking_number'])) {
+                Orders::where('id', $data['order_id'])->update([
+                    'courier_name' => $data['courier_name'],
+                    'tracking_number' => $data['tracking_number']
+                ]);
+            }
+
             // update order log
             $log = new OrderLog;
             $log->order_id = $data['order_id'];
             $log->order_status = $data['order_status'];
             $log->save();
 
-
-
-
             $message = "Order status has been updated successfully ";
             return redirect()->back()->with('success_message', $message);
         }
     }
+
     // User  Chart report
     public function OrderChart()
     {
-        Session::put('page','order_report');
+        Session::put('page', 'order_report');
         $currentMonthOrdersCount = Orders::whereYear('created_at', Carbon::now()->year)
             ->whereMonth('created_at', Carbon::now()->month)
             ->count();

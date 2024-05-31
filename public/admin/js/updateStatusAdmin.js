@@ -336,4 +336,33 @@ $(document).ready(function () {
             },
         });
     });
+    // logo
+    $(document).on("click", ".updateLogoStatus", function () {
+        var status = $(this).find("i").attr("status");
+        var logo_id = $(this).attr("logo_id");
+
+        $.ajax({
+            headers: {
+                "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+            },
+            type: "post",
+            url: "/admin/logo-update-status",
+            data: { status: status, logo_id: logo_id },
+            success: function (resp) {
+                if (resp.status == 0) {
+                    $("#logo-" + logo_id).html(
+                        "<i class='fas fa-toggle-off' style='color:grey;' status='Inactive'></i>"
+                    );
+                } else if (resp.status == 1) {
+                    $("#logo-" + logo_id).html(
+                        "<i class='fas fa-toggle-on' style='color:blue;' status='Active'></i>"
+                    );
+                }
+            },
+            error: function (xhr, status, error) {
+                console.error("Error:", error);
+                alert("Something went wrong. Please try again.");
+            },
+        });
+    });
 });

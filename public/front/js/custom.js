@@ -173,9 +173,15 @@ $(document).ready(function () {
                 showToast(resp.message); // Assuming your server response has a 'message' key
                 $("#appendCartItems").html(resp.view);
                 $("#appendHeaderCartItems").html(resp.miniCartview);
+                if (page === "details") {
+                    $(".MainMainContainerDetails").html(resp.detailPageView);
+                }
+
                 if (page == "Checkout") {
                     window.location.href = "/checkout";
                 }
+                window.location.reload();
+
                 // You may want to add some handling here for the success case if needed
             },
             error: function () {

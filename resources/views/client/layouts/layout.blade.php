@@ -66,17 +66,17 @@
     {{-- ajax  --}}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" crossorigin="anonymous"></script>
     {{-- custom --}}
-    <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
-    <script src="{{ asset('front/js/popup.js') }}"></script>
-    <script src="{{ asset('front/js/header.js') }}"></script>
-    <script src="{{ asset('front/js/custom.js') }}"></script>
-    <script src="{{ asset('front/js/filter.js') }}"></script>
-    <script src="{{ asset('front/js/imageZoom.js') }}"></script>
-    <script src="{{ asset('front/js/btnIncreasement.js') }}"></script>
-    <script src="{{ asset('front/js/cart.js') }}"></script>
-    <script src="{{ asset('front/js/Login_RegisterForm.js') }}"></script>
-    <script src="{{ asset('front/js/accountForm.js') }}"></script>
-    <script src="{{ asset('front/js/animatonProduct.js') }}"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+    <script defer src="{{ asset('front/js/popup.js') }}"></script>
+    <script defer src="{{ asset('front/js/header.js') }}"></script>
+    <script defer src="{{ asset('front/js/custom.js') }}"></script>
+    <script defer src="{{ asset('front/js/filter.js') }}"></script>
+    <script defer src="{{ asset('front/js/imageZoom.js') }}"></script>
+    <script defer src="{{ asset('front/js/btnIncreasement.js') }}"></script>
+    <script defer src="{{ asset('front/js/cart.js') }}"></script>
+    <script defer src="{{ asset('front/js/Login_RegisterForm.js') }}"></script>
+    <script defer src="{{ asset('front/js/accountForm.js') }}"></script>
+    <script defer src="{{ asset('front/js/animatonProduct.js') }}"></script>
     {{-- AOS plugin --}}
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>

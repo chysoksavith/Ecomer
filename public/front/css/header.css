@@ -27,7 +27,16 @@
     align-items: center;
 }
 .LogoHeader img {
-    width: 78px;
+    width: 158px;
+    animation: spin 3s infinite linear; /* Adjust the duration as needed */
+}
+@keyframes spin {
+    0% {
+        transform: rotateY(0deg);
+    }
+    100% {
+        transform: rotateY(360deg);
+    }
 }
 .header_nav.nav-scroll {
     background-color: white;
@@ -99,8 +108,7 @@
     transition: opacity 0.3s ease-in;
     z-index: 111;
     box-shadow: rgba(0, 0, 0, 0.45) 0px 25px 20px -20px;
-}    
-
+}
 
 .dropdown.active > .link + .dropdown-memu {
     opacity: 1;
@@ -470,7 +478,7 @@ details p {
     overflow: hidden;
     text-overflow: ellipsis;
 }
-.no__product{
+.no__product {
     font-size: 14px;
     margin: auto;
     padding: 10px;

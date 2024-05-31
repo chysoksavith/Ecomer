@@ -62,14 +62,8 @@
             <div class="footer_col">
                 <h4>Information</h4>
                 <ul class="footer_ul">
-                    <li><a href="{{url('about-us')}}">About Us</a></li>
-                    <li><a href="{{url('contact-us')}}">Contact Us</a></li>
-                </ul>
-            </div>
-            <div class="footer_col">
-                <h4>Shopping Help</h4>
-                <ul class="footer_ul">
-                    <li><a href="javascript:;">Content Comming</a></li>
+                    <li><a href="{{ url('about-us') }}">About Us</a></li>
+                    <li><a href="{{ url('contact-us') }}">Contact Us</a></li>
                 </ul>
             </div>
             <div class="footer_col">
@@ -79,13 +73,23 @@
                 </ul>
             </div>
             <div class="footer_col">
+                <h4>SIKE</h4>
+                <ul class="footer_ul">
+                    <li><a href="javascript:;">Phone: 00000-000</a></li>
+                    <li><a href="javascript:;">Address: Cambodia</a></li>
+                    <li><a href="javascript:;">Stt 171, Khan Dun Penh</a></li>
+                    <li><a href="javascript:;">Mo-Fr 10-17, Sat 10-13</a></li>
+                </ul>
+            </div>
+            <div class="footer_col">
                 <h4>Newsletter</h4>
                 <p class="pSubscribe ">
                     Subscribe to the mailing list to recive update promotios and Coupon
                 </p>
                 <div class="div_input">
                     <form action="">
-                        <input type="text" class="input_subscribe" placeholder="Please Enter Your Email" name="subscriber" id="subscriber_email" required>
+                        <input type="text" class="input_subscribe" placeholder="Please Enter Your Email"
+                            name="subscriber" id="subscriber_email" required>
                         <button type="submit" id="AddSubscriber" class="btn_subc">Subscribe</button>
                     </form>
                 </div>

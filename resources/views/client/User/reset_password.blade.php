@@ -24,7 +24,7 @@
                         </div>
 
                         <div class="inputFiel inputregister">
-                            <a href="{{ route('login.user') }}" class="SignIntBtnDetail"
+                            <a href="{{ route('login') }}" class="SignIntBtnDetail"
                                 style="text-decoration: none; display: flex; align-items: center; justify-content: center;">
                                 Back
                             </a>

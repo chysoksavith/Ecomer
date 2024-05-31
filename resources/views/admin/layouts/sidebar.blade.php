@@ -167,26 +167,46 @@
                       </li>
 
                   @endif
-                   {{-- local Shipping --}}
-                   @if (Auth::guard('admin')->user()->type == 'admin')
-                   @if (Session::get('page') == 'local_ship')
-                       @php
-                           $active = 'active';
-                       @endphp
-                   @else
-                       @php
-                           $active = '';
-                       @endphp
-                   @endif
-                   <li class="nav-item">
-                       <a href="{{ url('admin/local-ship') }}" class="nav-link {{ $active }}">
-                           <i class="nav-icon fas fa-ship"></i>
-                           <p>
-                               Local Charges
-                           </p>
-                       </a>
-                   </li>
-               @endif
+                  {{-- logo --}}
+                  @if (Auth::guard('admin')->user()->type == 'admin')
+                      @if (Session::get('page') == 'logo')
+                          @php
+                              $active = 'active';
+                          @endphp
+                      @else
+                          @php
+                              $active = '';
+                          @endphp
+                      @endif
+                      <li class="nav-item">
+                          <a href="{{ url('admin/logo-list') }}" class="nav-link {{ $active }}">
+                              <i class="nav-icon fas fa-ship"></i>
+                              <p>
+                                  Logo
+                              </p>
+                          </a>
+                      </li>
+                  @endif
+                  {{-- local Shipping --}}
+                  @if (Auth::guard('admin')->user()->type == 'admin')
+                      @if (Session::get('page') == 'local_ship')
+                          @php
+                              $active = 'active';
+                          @endphp
+                      @else
+                          @php
+                              $active = '';
+                          @endphp
+                      @endif
+                      <li class="nav-item">
+                          <a href="{{ url('admin/local-ship') }}" class="nav-link {{ $active }}">
+                              <i class="nav-icon fas fa-ship"></i>
+                              <p>
+                                  Local Charges
+                              </p>
+                          </a>
+                      </li>
+                  @endif
                   {{-- Shipping --}}
                   @if (Auth::guard('admin')->user()->type == 'admin')
                       @if (Session::get('page') == 'shipping')

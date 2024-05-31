@@ -68,7 +68,7 @@ $totalCartItems = totalCartItems();
             </ul>
         </nav>
         <a class="LogoHeader" href="{{ route('HomePage') }}">
-            <img src="{{ asset('pngwing.com.png') }}" alt="">
+            <img src="{{ asset('logoopng.png') }}" alt="">
         </a>
 
         <nav class="NavREs">

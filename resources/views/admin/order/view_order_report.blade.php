@@ -55,7 +55,7 @@
                 },
                 data: [{
                     type: "column",
-                    yValueFormatString: "#,##0.## tonnes",
+                    yValueFormatString: "#,##0.## Orders",
                     dataPoints: <?php echo json_encode($dataPoints, JSON_NUMERIC_CHECK); ?>
                 }]
             });

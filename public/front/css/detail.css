@@ -179,7 +179,7 @@
     font-weight: 700;
 }
 .RightD {
-    margin-top: 25px;
+    margin-top: 15px;
 }
 /* price and offer */
 .OfferPrice {
@@ -232,7 +232,7 @@ span {
 /* color */
 
 .TtitleColor {
-    font-size: 18px;
+    font-size: 14px;
 }
 .selectedColor {
     display: flex;

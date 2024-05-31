@@ -101,7 +101,7 @@ class UserController extends Controller
                 $request->all(),
                 [
                     'name' => 'required|string|max:150',
-                    'mobile' => 'required|numeric|digits:10',
+                    'mobile' => 'required|numeric|digits_between:9,10',
                     'email' => 'required|email|max:250|unique:users',
                     'password' => 'required|string|min:6'
                 ],

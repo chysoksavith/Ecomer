@@ -30,7 +30,11 @@ $(document).ready(function () {
                 } else if (data.type == "success") {
                     $(".loader").hide();
                     $("#register-success").attr("style", "color:green");
-                    $("#register-success").html(data.message);
+                    if (data.success) {
+                        showToast(data.message);
+                    } else {
+                        showToast("Something went wrong", "error");
+                    }
                 }
             },
 

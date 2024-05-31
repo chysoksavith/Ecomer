@@ -8,6 +8,7 @@ use App\Http\Controllers\admin\CmsController;
 use App\Http\Controllers\admin\ColorController;
 use App\Http\Controllers\admin\CouponController;
 use App\Http\Controllers\admin\LocalShippingController as AdminLocalShippingController;
+use App\Http\Controllers\Admin\LogoController;
 use App\Http\Controllers\admin\NewseltterController;
 use App\Http\Controllers\admin\OrderController as AdminOrderController;
 use App\Http\Controllers\admin\ProductsController;
@@ -37,7 +38,12 @@ Route::fallback(function () {
 });
 
 Route::namespace('App\Http\Controllers\front')->group(function () {
-
+    Route::get('terms-and-conditions', function () {
+        return view('client.pages.term_service');
+    })->name('term_service');
+    Route::get('about-us', function () {
+        return view('client.pages.about_us');
+    })->name('aboutus');
     Route::controller(IndexController::class)->group(function () {
         Route::get('/', 'index')->name('front.home');
         Route::get('HomePage', 'HomePage')->name('HomePage');
@@ -263,7 +269,15 @@ Route::group(['prefix' => '/admin'], function () {
             Route::match(['get', 'post'], 'add-edit-color/{id?}', 'addEditColor')->name('add.edit.color');
             Route::post('update-color-status', 'updateColorStatus');
             Route::get('delete-color/{id?}', 'deleteColor');
-            // Route::mactch(['get','post'],'color', 'getColors');
+        });
+        Route::controller(LogoController::class)->group(function(){
+            Route::get('logo-list','logoList');
+            Route::get('logo-add','logo_add');
+            Route::post('logo-insert','logo_insert');
+            Route::get('logo-edit/{id}','logo_edit');
+            Route::post('logo-update/{id}','logo_update');
+            Route::post('logo-update-status','logo_updateStatus');
+            Route::get('delete-logo/{id}','logo_delete');
         });
     });
 

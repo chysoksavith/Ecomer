@@ -20,6 +20,10 @@
         font-family: "Poppins", sans-serif;
     }
 
+    .data {
+        font-size: 14px;
+    }
+
     .header_ship {
         padding: 40px 40px 80px;
         margin: auto;
@@ -39,7 +43,15 @@
 
     .headerText1 {
         font-size: 48px;
+        display: block;
+
         font-weight: 700;
+    }
+
+    .headerText2 {
+        display: block;
+        font-size: 18px;
+        font-weight: 600;
     }
 
     .wrap_proInfo {
@@ -123,6 +135,19 @@
 
     /* Small Devices (Mobile Portrait) */
     @media (max-width: 575.98px) {
+        .headerText1 {
+            font-size: 18px;
+            display: block;
+
+            font-weight: 700;
+        }
+
+        .headerText2 {
+            display: block;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
         .div_infoUSER {
             display: block;
         }
@@ -185,10 +210,25 @@
         .header_ship {
             padding: 4px;
         }
+
     }
 
     /* Medium Devices (Tablet Landscape) */
     @media (min-width: 576px) and (max-width: 767.98px) {
+
+        .headerText1 {
+            font-size: 18px;
+            display: block;
+
+            font-weight: 700;
+        }
+
+        .headerText2 {
+            display: block;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
         .div_infoUSER {
             display: block;
         }
@@ -255,6 +295,20 @@
 
     /* Large Devices (Tablet Landscape) */
     @media (min-width: 768px) and (max-width: 991.98px) {
+
+        .headerText1 {
+            font-size: 18px;
+            display: block;
+
+            font-weight: 700;
+        }
+
+        .headerText2 {
+            display: block;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
         .div_infoUSER {
             display: block;
         }
@@ -329,8 +383,12 @@
 </style>
 
 <body>
+
     <div class="header_ship">
         <span class="headerText"> Order# {{ $order_id }} </span>
+        @if (!empty($order_status))
+            <span class="headerText2"> Order Status : {{ $order_status ?? 'None' }} </span>
+        @endif
         <span class="data">
             {{ date('F j, g:i a', strtotime($orderDetails['created_at'])) }}
         </span>
@@ -440,28 +498,35 @@
                             {{ $orderDetails['user']['pincode'] }}
                         </span>
                     </li>
-                    <li>
-                        <span class="textUser">
-                            <strong>Order status :</strong>
-                            {{ $order_status ?? 'None' }}
-                        </span>
-                    </li>
-                    <li>
-                        <span class="textUser">
-                            <strong>
-                                Courier Name :
-                            </strong>
-                            {{ $courier_name ?? 'None' }}
-                        </span>
-                    </li>
-                    <li>
-                        <span class="textUser">
-                            <strong>
-                                Tracking Number :
-                            </strong>
-                            {{ $tracking_number ?? 'None' }}
-                        </span>
-                    </li>
+                    @if (!empty($order_status))
+                        <li>
+                            <span class="textUser">
+                                <strong>Order status :</strong>
+                                {{ $order_status ?? 'None' }}
+                            </span>
+                        </li>
+                    @endif
+                    @if (!empty($courier_name))
+                        <li>
+                            <span class="textUser">
+                                <strong>
+                                    Courier Name :
+                                </strong>
+                                {{ $courier_name ?? 'None' }}
+                            </span>
+                        </li>
+                    @endif
+                    @if (!empty($tracking_number))
+                        <li>
+                            <span class="textUser">
+                                <strong>
+                                    Tracking Number :
+                                </strong>
+                                {{ $tracking_number ?? 'None' }}
+                            </span>
+                        </li>
+                    @endif
+
                 </ul>
             </div>
             <div class="box1">
