@@ -40,7 +40,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @forelse ($subscribers as $subscriber)
+                                    @foreach ($subscribers as $subscriber)
                                         <tr>
                                             <td>{{ optional($subscriber)->id ?? 'N/A' }}</td>
                                             <td>{{ optional($subscriber)->email ?? 'N/A' }}</td>
@@ -73,12 +73,7 @@
                                             @endif
 
                                         </tr>
-                                        {{-- href="{{ url('admin/delete-cms-pages/' . $page->id) }}" --}}
-                                    @empty
-                                        <tr>
-                                            <td colspan="5">No item record</td>
-                                        </tr>
-                                    @endforelse
+                                    @endforeach
                                 </tbody>
                             </table>
                         </div>

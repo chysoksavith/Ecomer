@@ -62,9 +62,9 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @forelse ($shippingCharges as $shipping)
+                                        @foreach ($shippingCharges as $shipping)
                                             <tr>
-                                                <td>
+                                                <td style="width: 120px">
                                                     <span>
                                                         <input type="checkbox" name="ids[]" value="{{ $shipping['id'] }}">
                                                     </span>
@@ -112,17 +112,13 @@
                                                 </th>
 
                                             </tr>
-                                            {{-- href="{{ url('admin/delete-cms-pages/' . $page->id) }}" --}}
-                                        @empty
-                                            <tr>
-                                                <td colspan="5">No item record</td>
-                                            </tr>
-                                        @endforelse
+                                        @endforeach
+
                                     </tbody>
                                     <tfoot>
 
-                                        <tr >
-                                            <td colspan="9" >
+                                        <tr>
+                                            <td colspan="9">
                                                 <button class="btn btn-danger" type="button" id="deleteButton"
                                                     data-bs-toggle="modal" data-bs-target="#confirmDeleteModal">Delete
                                                     Record</button>

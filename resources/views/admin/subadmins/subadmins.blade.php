@@ -49,7 +49,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @forelse ($subadmins as $subadmin)
+                                    @foreach ($subadmins as $subadmin)
                                         <tr>
                                             <td>{{ $subadmin->id ?? 'N/A' }}</td>
                                             <td>{{ $subadmin->name ?? 'N/A' }}</td>
@@ -90,11 +90,8 @@
                                                         style="font-size: red"></i></a>
                                             </td>
                                         </tr>
-                                    @empty
-                                        <tr>
-                                            <td colspan="5">No item record</td>
-                                        </tr>
-                                    @endforelse
+                                    @endforeach
+
                                 </tbody>
                             </table>
                         </div>

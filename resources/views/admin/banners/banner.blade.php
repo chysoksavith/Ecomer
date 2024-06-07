@@ -45,7 +45,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @forelse ($banners as $banner)
+                                    @foreach ($banners as $banner)
                                         <tr>
                                             <td>{{ optional($banner)->id ?? 'N/A' }}</td>
                                             <td>
@@ -86,12 +86,11 @@
                                                         style="font-size: red"></i></a>
                                             </td>
                                         </tr>
-                                        {{-- href="{{ url('admin/delete-cms-pages/' . $page->id) }}" --}}
-                                    @empty
-                                        <tr>
-                                            <td colspan="5">No item record</td>
-                                        </tr>
-                                    @endforelse
+                                    @endforeach
+
+
+                                    {{-- href="{{ url('admin/delete-cms-pages/' . $page->id) }}" --}}
+
                                 </tbody>
                             </table>
                         </div>

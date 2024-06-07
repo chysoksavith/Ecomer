@@ -39,7 +39,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @forelse ($ratings as $rating)
+                                    @foreach ($ratings as $rating)
                                         <tr>
                                             <td>{{ optional($rating)->id ?? 'N/A' }}</td>
                                             <td>{{ optional($rating)->product->product_name ?? 'N/A' }}</td>
@@ -75,12 +75,8 @@
                                             @endif
 
                                         </tr>
-                                        {{-- href="{{ url('admin/delete-cms-pages/' . $page->id) }}" --}}
-                                    @empty
-                                        <tr>
-                                            <td colspan="8">No item record</td>
-                                        </tr>
-                                    @endforelse
+                                    @endforeach
+
                                 </tbody>
                             </table>
                         </div>

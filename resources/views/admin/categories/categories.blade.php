@@ -47,7 +47,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @forelse ($categories as $category)
+                                    @foreach ($categories as $category)
                                         <tr>
                                             <td>{{ optional($category)->id ?? 'N/A' }}</td>
                                             <td>{{ optional($category)->category_name ?? 'N/A' }}</td>
@@ -90,12 +90,7 @@
                                                 @endif
                                             </td>
                                         </tr>
-                                        {{-- href="{{ url('admin/delete-cms-pages/' . $page->id) }}" --}}
-                                    @empty
-                                        <tr>
-                                            <td colspan="5">No item record</td>
-                                        </tr>
-                                    @endforelse
+                                    @endforeach
                                 </tbody>
                             </table>
                         </div>

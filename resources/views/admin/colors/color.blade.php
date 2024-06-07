@@ -46,7 +46,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @forelse ($colors as $color)
+                                    @foreach ($colors as $color)
                                         <tr>
                                             <td>{{ optional($color)->id ?? 'N/A' }}</td>
                                             <td>{{ optional($color)->color_name ?? 'N/A' }}</td>
@@ -89,11 +89,8 @@
 
                                             </td>
                                         </tr>
-                                    @empty
-                                        <tr>
-                                            <td colspan="5">No item record</td>
-                                        </tr>
-                                    @endforelse
+                                    @endforeach
+
                                 </tbody>
                             </table>
                         </div>

@@ -47,7 +47,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @forelse ($CmsPage as $page)
+                                    @foreach ($CmsPage as $page)
                                         <tr>
                                             <td>{{ $page->id ?? 'N/A' }}</td>
                                             <td>{{ $page->title ?? 'N/A' }}</td>
@@ -85,12 +85,8 @@
                                                 @endif
                                             </td>
                                         </tr>
-                                        {{-- href="{{ url('admin/delete-cms-pages/' . $page->id) }}" --}}
-                                    @empty
-                                        <tr>
-                                            <td colspan="5">No item record</td>
-                                        </tr>
-                                    @endforelse
+                                    @endforeach
+
                                 </tbody>
                             </table>
                         </div>

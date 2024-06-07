@@ -47,7 +47,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @forelse ($users as $user)
+                                    @foreach ($users as $user)
                                         <tr>
                                             <td>{{ optional($user)->id ?? 'N/A' }}</td>
                                             <td>{{ optional($user)->name ?? 'N/A' }}</td>
@@ -79,12 +79,8 @@
                                                 @endif
                                             </td>
                                         </tr>
-                                        {{-- href="{{ url('admin/delete-cms-pages/' . $page->id) }}" --}}
-                                    @empty
-                                        <tr>
-                                            <td colspan="5">No item record</td>
-                                        </tr>
-                                    @endforelse
+                                    @endforeach
+
                                 </tbody>
                             </table>
                         </div>

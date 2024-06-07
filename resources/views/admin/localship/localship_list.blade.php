@@ -37,7 +37,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @forelse ($localShip as $localshipping)
+                                        @foreach ($localShip as $localshipping)
                                             <tr>
                                                 <td>
                                                     <span>
@@ -73,11 +73,7 @@
                                                 </td>
 
                                             </tr>
-                                        @empty
-                                            <tr>
-                                                <td colspan="5">No item record</td>
-                                            </tr>
-                                        @endforelse
+                                        @endforeach
                                     </tbody>
 
                                 </table>

@@ -46,7 +46,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @forelse ($brands as $brand)
+                                    @foreach ($brands as $brand)
                                         <tr>
                                             <td>{{ optional($brand)->id ?? 'N/A' }}</td>
                                             <td>{{ optional($brand)->brand_name ?? 'N/A' }}</td>
@@ -84,12 +84,8 @@
                                                 @endif
                                             </td>
                                         </tr>
-                                        {{-- href="{{ url('admin/delete-cms-pages/' . $page->id) }}" --}}
-                                    @empty
-                                        <tr>
-                                            <td colspan="5">No item record</td>
-                                        </tr>
-                                    @endforelse
+                                    @endforeach
+
                                 </tbody>
                             </table>
                         </div>
