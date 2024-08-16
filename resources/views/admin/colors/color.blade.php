@@ -39,7 +39,7 @@
                                     <tr>
                                         <th>Id</th>
                                         <th>Name</th>
-                                        <th>Url</th>
+                                        <th>Color Code</th>
                                         <th>Create on</th>
                                         <th>Status</th>
                                         <th>Action</th>

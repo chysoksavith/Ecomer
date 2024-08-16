@@ -15,7 +15,6 @@
                 Please enter your details below to complete your purchase
             </span>
         </div>
-
         <div class="checkoutMain-part">
             <div class="shippingInfo-checkout check-wrapp">
                 <div class="titleShiption">
@@ -89,12 +88,11 @@
             {{-- option --}}
             <div class="optionCash-checkout check-wrapp">
                 <form action="{{ url('/checkout') }}" name="checkOutForm" id="checkOutForm" method="post">
-
+                    @csrf
                     {{-- payment method --}}
                     <div class="titleShiption">
                         <span>Payment Method</span>
                     </div>
-                    @csrf
                     <div class="radio-list">
                         <div class="radio-item">
                             <input type="radio" name="payment_geteway" id="radioCashOnDelivery" value="COD">
@@ -287,7 +285,7 @@
                                 <span class="subPrice">Order Total</span>
                                 @php
                                     $couponAmount = Session::has('couponAmount') ? Session::get('couponAmount') : 0;
-                                    $grand_total = $total_price - $couponAmount + $shipping_charges ;
+                                    $grand_total = $total_price - $couponAmount + $shipping_charges;
                                 @endphp
                                 <span class="subPrice orderTotal grandTotal">{{ $grand_total }}$</span>
                             </div>
@@ -296,8 +294,9 @@
                             <div class="inputFiel showPass">
                                 <input type="checkbox" class="checkboxshowpass" name="agree" value="Yes">
                                 <span class="showPasswordTxt" style="font-size: 14px">
-                                    I consent to the <a href="{{url('terms-and-conditions')}}"
-                                        style="color: orange; text-decoration: none; font-weight: 600">Terms of condition</a>
+                                    I consent to the <a href="{{ url('terms-and-conditions') }}"
+                                        style="color: orange; text-decoration: none; font-weight: 600">Terms of
+                                        condition</a>
                                 </span>
                             </div>
                             <div class="inputFiel">

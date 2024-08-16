@@ -8,6 +8,7 @@ use App\Models\AdminRoles;
 use App\Models\Brand;
 use App\Models\Cart;
 use App\Models\Category;
+use App\Models\GoalModel;
 use App\Models\Order_Product;
 use App\Models\Orders;
 use App\Models\Product;
@@ -44,12 +45,13 @@ class AdminController extends Controller
         if (!$visitData) {
             $visitData = [];
         }
+        $goal = GoalModel::get();
         // store or update visit data
         $visitData['last_visit_time'] = now();
         $visitData['user_agent'] = $request->header('User-Agent');
 
         $request->session()->put('visit_data', $visitData);
-        return view('admin.dashboard')->with(compact('completePurchase','visitData', 'goalAddToCart', 'totalInventory', 'categoryCount', 'ProductCount', 'brandCount', 'userCount', 'orderCount', 'totalIncome', 'topSaleItems'));
+        return view('admin.dashboard')->with(compact('goal','completePurchase','visitData', 'goalAddToCart', 'totalInventory', 'categoryCount', 'ProductCount', 'brandCount', 'userCount', 'orderCount', 'totalIncome', 'topSaleItems'));
     }
     public function login(Request $request)
     {
@@ -186,13 +188,7 @@ class AdminController extends Controller
     public function subadmin(Request $request)
     {
         Session::put('page', 'subadmins');
-        $subadmins = Admin::latest('id');
-
-        if ($request->get('Keyword')) {
-            $subadmins = $subadmins->where('name', 'like', '%' . $request->Keyword . '%');
-        }
-
-        $subadmins = $subadmins->paginate(10);
+        $subadmins = Admin::where('type','=','subadmin')->get();
         return view('admin.subadmins.subadmins')->with(compact('subadmins'));
     }
     // sub admin status

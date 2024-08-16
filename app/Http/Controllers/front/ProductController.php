@@ -583,9 +583,6 @@ class ProductController extends Controller
                     $total_amount = $total_amount + ($getAttributePrice['final_price'] * $item['product_qty']);
                 }
 
-
-
-
                 // if error message is there
                 if (isset($error_message)) {
                     return response()->json([

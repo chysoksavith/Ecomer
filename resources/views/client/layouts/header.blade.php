@@ -51,6 +51,7 @@ $totalCartItems = totalCartItems();
                                                                 class="subsubtxt capitalize">
                                                                 {{ $subsubcategory->category_name }}
                                                             </a>
+                                                           
                                                         @endforeach
                                                     </div>
                                                 @endif
@@ -70,7 +71,6 @@ $totalCartItems = totalCartItems();
         <a class="LogoHeader" href="{{ route('HomePage') }}">
             <img src="{{ asset('logoopng.png') }}" alt="">
         </a>
-
         <nav class="NavREs">
             <ul>
                 {{-- search --}}
@@ -78,7 +78,8 @@ $totalCartItems = totalCartItems();
                     <form action="{{ url('search-product') }}" method="get" autocomplete="off">
                         @csrf
                         <div class="dropdown" data-dropdown>
-                            <span class="fa-solid fa-magnifying-glass icoHead link " id="onClickBg" data-dropdown-button></span>
+                            <span class="fa-solid fa-magnifying-glass icoHead link " id="onClickBg"
+                                data-dropdown-button></span>
                             <div class="dropdown-memu">
                                 <div class="divSearchdiv">
                                     <input type="search" class="searchHeader" id="searchHeader" name="query"
@@ -103,14 +104,6 @@ $totalCartItems = totalCartItems();
 
                     </a>
                 </li>
-                {{-- user account --}}
-                <li class="row_3">
-                    <i class="fa-regular fa-user icoHead dropbtnAccount icon_dn" id="myDropdownAccount"> </i>
-
-                    {{-- if auth login it show account and signout if not it show signup and signin --}}
-                    @include('client.layouts.sidebar_account')
-
-                </li>
                 {{-- cart --}}
                 <li class="row_4">
                     <span class="Ico sideBarCart" id="bagIcon"><i
@@ -127,6 +120,15 @@ $totalCartItems = totalCartItems();
                         @include('client.layouts.Header_smallCart')
                     </div> --}}
                 </li>
+                {{-- user account --}}
+                <li class="row_3">
+                    <i class="fa-regular fa-user icoHead dropbtnAccount icon_dn" id="myDropdownAccount"> </i>
+
+                    {{-- if auth login it show account and signout if not it show signup and signin --}}
+                    @include('client.layouts.sidebar_account')
+
+                </li>
+
             </ul>
         </nav>
     </div>

@@ -5,12 +5,15 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\LogoModel;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 use PDO;
 
 class LogoController extends Controller
 {
     public function logoList()
     {
+        Session::put('page', 'logo');
+
         $getRecord = LogoModel::get_record();
         return view('admin.logo.list')->with(compact('getRecord'));
     }
@@ -23,7 +26,7 @@ class LogoController extends Controller
     {
         $insert = new LogoModel;
         $request->validate([
-            'logo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', // Adjust max file size as needed
+            'logo' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048', // Adjust max file size as needed
         ]);
         if ($request->hasFile('logo')) {
             $image = $request->file('logo');
@@ -87,12 +90,22 @@ class LogoController extends Controller
             return redirect()->back()->with('error_message', "Record not found");
         }
 
-        // Delete the associated image file
-        $deletePath = 'admin/images/logo/';
-        $imagePath = $deletePath . $record->logo;
+        // Check if the logo attribute is not empty
+        if (!empty($record->logo)) {
+            // Construct the full path to the image file
+            $deletePath = 'admin/images/logo/';
+            $imagePath = $deletePath . $record->logo;
 
-        if (file_exists($imagePath)) {
-            unlink($imagePath);
+            // Check if the constructed path points to a file and delete it if it exists
+            if (file_exists($imagePath)) {
+                if (is_file($imagePath)) {
+                    unlink($imagePath);
+                } else {
+                    return redirect()->back()->with('error_message', "The path is not a file: $imagePath");
+                }
+            } else {
+                return redirect()->back()->with('error_message', "File does not exist: $imagePath");
+            }
         }
 
         // Delete the record from the database
@@ -100,5 +113,4 @@ class LogoController extends Controller
 
         return redirect()->back()->with('success_message', "Record and associated image deleted successfully");
     }
-
 }

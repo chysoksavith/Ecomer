@@ -491,11 +491,14 @@
                         <span class="textUser"> {{ $orderDetails['name'] }} </span>
                     </li>
                     <li>
-                        <span class="textUser"> {{ $orderDetails['address'] }} </span>
+                        <span class="textUser"><strong>Address:</strong> {{ $orderDetails['address'] }} </span>
                     </li>
                     <li>
-                        <span class="textUser"> {{ $orderDetails['user']['city'] }},
-                            {{ $orderDetails['user']['pincode'] }}
+                        <span class="textUser"><strong>Phone:</strong> {{ $orderDetails['mobile'] }} </span>
+                    </li>
+                    <li>
+                        <span class="textUser"> {{ $orderDetails['city'] }},
+                            {{ $orderDetails['pincode'] }}
                         </span>
                     </li>
                     @if (!empty($order_status))
@@ -543,8 +546,16 @@
                         </span>
                     </li>
                     <li>
-                        <span class="textUser"> {{ $orderDetails['user']['city'] }},
-                            {{ $orderDetails['user']['pincode'] }}</span>
+                        <span class="textUser">
+                            {{ $orderDetails['user']['mobile'] }}
+                        </span>
+                    </li>
+                    <li>
+                        @if (!empty($orderDetails['city']) && !empty($orderDetails['pincode']))
+                            <span class="textUser">
+                                {{ $orderDetails['city'] }}, {{ $orderDetails['pincode'] }}
+                            </span>
+                        @endif
                     </li>
                 </ul>
             </div>

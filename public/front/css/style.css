@@ -50,12 +50,13 @@ scrollbar-thumb {
     overflow-x: hidden !important; /* Hide horizontal overflow */
     cursor: grab; /* Use grab cursor to indicate scrollability */
 }
+
 .swiper-slide {
-    box-shadow: rgba(33, 35, 38, 0.1) 0px 10px 10px -10px;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
     padding: 5px;
     width: calc(
         25% - 15px
-    ); /* Set the width of each slide to 25% of the container width with less space between */
+    ) !important; /* Set the width of each slide to 25% of the container width with less space between */
     margin-right: 15px; /* Space between slides */
     flex-shrink: 0; /* Prevent slides from shrinking */
 }
@@ -282,25 +283,25 @@ scrollbar-thumb {
     font-size: 45px;
     font-weight: bold;
 }
-.mt_10_term{
+.mt_10_term {
     margin-top: 10px;
 }
-.fs_36{
+.fs_36 {
     margin-top: 10px;
     font-size: 30px;
     font-weight: bold;
 }
-.fs_14{
+.fs_14 {
     text-decoration: none;
     color: black;
     margin-top: 10px;
     font-size: 14px;
 }
-.fs_14_bold{
+.fs_14_bold {
     font-size: 14px;
     font-weight: bold;
 }
-.ul_term{
+.ul_term {
     margin-top: 10px;
     padding: 0px 0px 0px 40px;
 }
@@ -315,6 +316,7 @@ scrollbar-thumb {
     }
     .banner_right_two {
         width: 100%;
+        height: auto;
     }
     .child_banner_three {
         height: 290px;
@@ -328,6 +330,13 @@ scrollbar-thumb {
     .btnFixBanner {
         height: 39px;
     }
+    .section-review {
+       display: none;
+    }
+    .swiper-container{
+        display: none;
+    }
+
 }
 
 /* Medium Devices (Tablet Landscape) */
@@ -340,6 +349,8 @@ scrollbar-thumb {
     }
     .banner_right_two {
         width: 100%;
+        height: auto;
+
     }
     .child_banner_three {
         height: 290px;
@@ -353,6 +364,12 @@ scrollbar-thumb {
     .btnFixBanner {
         height: 39px;
     }
+    .section-review {
+        display: none;
+     }
+     .swiper-container{
+         display: none;
+     }
 }
 
 /* Large Devices (Tablet Landscape) */
@@ -365,6 +382,8 @@ scrollbar-thumb {
     }
     .banner_right_two {
         width: 100%;
+        height: auto;
+
     }
     .child_banner_three {
         height: 290px;
@@ -378,6 +397,12 @@ scrollbar-thumb {
     .btnFixBanner {
         height: 39px;
     }
+    .section-review {
+        display: none;
+     }
+     .swiper-container{
+         display: none;
+     }
 }
 
 /* Large Devices (Desktops) */
@@ -387,6 +412,12 @@ scrollbar-thumb {
         left: 50%;
         top: 70%;
         transform: translate(-50%, -50%);
+    }
+    .swiper-slide {
+
+        width: calc(
+            45% - 15px
+        ) !important;
     }
 }
 /* Extra Large Devices (Large Desktops) */

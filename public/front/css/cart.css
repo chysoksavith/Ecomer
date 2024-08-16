@@ -9,7 +9,7 @@
 .CartTtitle {
     width: 100%;
     margin: 30px auto;
-    padding:0px 30px;
+    padding: 0px 30px;
 }
 .cartTtispan {
     margin-top: 20px;
@@ -20,7 +20,7 @@
     cursor: pointer;
 }
 .MainCartItems {
-    padding:0px 30px;
+    padding: 0px 30px;
     width: 100%;
     margin: 30px auto;
     display: flex;
@@ -39,6 +39,8 @@
     justify-content: space-between;
 }
 .cartItem {
+    margin-bottom: 10px;
+
     padding: 20px;
     display: flex;
     align-items: center;
@@ -210,29 +212,26 @@
 }
 /* minicart items */
 .minicartItems {
-    padding-left: 10px;
-    padding-right: 10px;
+    margin-bottom: 10px;
+
 }
 .miniCartStyle {
-    padding: 4px;
     width: 100%;
     height: 150px;
     display: flex;
     align-items: center;
-    background-color: white;
     justify-content: space-between;
 }
 .MiniImageCarts img {
-    width: 90px;
-    height: 100%;
-    object-fit: fill;
+    width: 78px;
+    height: 150%;
+    object-fit: cover;
 }
 .miniCartTitle {
     display: block;
 }
 .nMiniCart {
     white-space: nowrap;
-
     font-size: 14px;
 }
 .nameMiniCart {
@@ -240,6 +239,9 @@
     margin-top: 5px;
     font-size: 14px;
     font-weight: 300;
+}
+.priceBoldMinicart{
+    font-weight: 600;
 }
 .miniCartTitle span {
     display: block;
@@ -354,7 +356,7 @@
     height: 100vh;
     top: 0;
 }
-.closeCart{
+.closeCart {
     font-size: 25px;
 }
 .side_Cart_wrapper.active {
@@ -381,19 +383,24 @@
     justify-content: space-between;
 }
 @media (max-width: 575.98px) {
+
     .side_Cart_wrapper {
         right: -75%;
         width: 75%;
     }
+    .cartButtonCheckoutmini {
+        display: block;
+    }
     .CartminiBtnDetail {
         font-size: 14px;
         height: 51px;
-        width: 150px;
+        width: 100%;
+        margin-bottom: 10px;
     }
     .CartminiBtnDetail1 {
         font-size: 14px;
         height: 51px;
-        width: 150px;
+        width: 100%;
     }
     /*  */
     .MainCartItems {
@@ -447,6 +454,20 @@
         right: -75%;
         width: 75%;
     }
+    .cartButtonCheckoutmini {
+        display: block;
+    }
+    .CartminiBtnDetail {
+        font-size: 14px;
+        height: 51px;
+        width: 100%;
+        margin-bottom: 10px;
+    }
+    .CartminiBtnDetail1 {
+        font-size: 14px;
+        height: 51px;
+        width: 100%;
+    }
     /*  */
     .MainCartItems {
         display: block;
@@ -497,6 +518,24 @@
 /* Medium Devices (Tablet Landscape) */
 @media (min-width: 768px) and (max-width: 991.98px) {
     /*  */
+    .side_Cart_wrapper {
+        right: -60%;
+        width: 60%;
+    }
+    .cartButtonCheckoutmini {
+        display: block;
+    }
+    .CartminiBtnDetail {
+        font-size: 14px;
+        height: 51px;
+        width: 100%;
+        margin-bottom: 10px;
+    }
+    .CartminiBtnDetail1 {
+        font-size: 14px;
+        height: 51px;
+        width: 100%;
+    }
     .MainCartItems {
         display: block;
     }
@@ -547,8 +586,26 @@
 
 /* Large Devices (Desktops) */
 @media (min-width: 992px) and (max-width: 1199.98px) {
-      /*  */
-      .MainCartItems {
+    .side_Cart_wrapper {
+        right: -55%;
+        width: 55%;
+    }
+    .cartButtonCheckoutmini {
+        display: block;
+    }
+    .CartminiBtnDetail {
+        font-size: 14px;
+        height: 51px;
+        width: 100%;
+        margin-bottom: 10px;
+    }
+    .CartminiBtnDetail1 {
+        font-size: 14px;
+        height: 51px;
+        width: 100%;
+    }
+    /*  */
+    .MainCartItems {
         display: block;
     }
     .MainCartItems {
@@ -598,6 +655,5 @@
 
 /* Extra Large Devices (Large Desktops) */
 @media (min-width: 1200px) {
-    /* Your styles for extra large devices go here */
 
 }

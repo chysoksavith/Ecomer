@@ -68,6 +68,7 @@
     <script src="https://cdn.datatables.net/2.0.2/js/dataTables.js"></script>
     <script>
         $(document).ready(function() {
+
             $('#shippingTable').DataTable({
 
             });
@@ -75,6 +76,9 @@
 
             });
             $('#logoTable').DataTable({
+
+            });
+            $('#GoalTable').DataTable({
 
             });
             //
@@ -189,7 +193,7 @@
         });
     </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/canvasjs/1.7.0/canvasjs.min.js"></script>
-   
+
 
     @yield('scritps')
 

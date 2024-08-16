@@ -114,55 +114,54 @@
                                 <div class="form-group">
                                     <label for="amount">Amount</label>
                                     <input type="number" class="form-control" id="amount" name="amount"
-                                        placeholder="Enter Amount Coupon" value="{{$coupon['amount']}}">
-                                    @error('amount')
-                                        <div class="text-danger">{{ $message }}</div>
-                                    @enderror
+                                        placeholder="Enter Amount Coupon" value="{{ $coupon['amount'] }}">
+                                    <span style="color: red; font-size: 13px;">{{ $errors->first('amount') }}</span>
                                 </div>
 
                                 {{-- Expiry Date --}}
                                 <div class="form-group">
                                     <label for="expiry_date"> Expiry Date</label>
-                                    <input type="date" class="form-control" id="expiry_date" name="expiry_date" value="{{ $coupon['expiry_date'] }}">
-                                    @error('expiry_date')
-                                        <div class="text-danger">{{ $message }}</div>
-                                    @enderror
+                                    <input type="date" class="form-control" id="expiry_date" name="expiry_date"
+                                        value="{{ $coupon['expiry_date'] }}">
+
+                                    <span style="color: red; font-size: 13px;">{{ $errors->first('expiry_date') }}</span>
                                 </div>
 
 
 
                                 {{-- select category --}}
+
+
+
                                 <div class="form-group">
-                                    <label for="categories">coupon Category</label>
-                                    <select class="form-select" name="categories[]" multiple>
+                                    <label for="selectCategory">Click to select Category</label>
+                                    <select name="categories[]" multiple class="form-select select2" id="selectCategory">
                                         @foreach ($getCategories as $cat)
                                             <option value="{{ $cat->id }}"
-                                                @if (in_array($cat->id, $selCats)) selected @endif>
-                                                ⚫{{ $cat->category_name }}
+                                                {{ in_array($cat->id, old('categories', $selCats)) ? 'selected' : '' }}>
+                                                {{ $cat->category_name }} (Main Category)
                                             </option>
                                             @foreach ($cat->subCategories as $subcat)
                                                 <option value="{{ $subcat->id }}"
-                                                    @if (in_array($subcat->id, $selCats)) selected @endif>
-                                                    ⚪ ⚪ {{ $subcat->category_name }}
+                                                    {{ in_array($subcat->id, old('categories', $selCats)) ? 'selected' : '' }}>
+                                                    &emsp; &emsp; {{ $subcat->category_name }} (Sub Category)
                                                 </option>
                                                 @foreach ($subcat->subCategories as $subsubcat)
                                                     <option value="{{ $subsubcat->id }}" class="red-text"
-                                                        @if (in_array($subsubcat->id, $selCats)) selected @endif>
-                                                        ⚪⚪⚪{{ $subsubcat->category_name }}
+                                                        {{ in_array($subsubcat->id, old('categories', $selCats)) ? 'selected' : '' }}>
+                                                        &emsp; &emsp; &emsp; &emsp; {{ $subsubcat->category_name }} (Sub
+                                                        Sub Category)
                                                     </option>
                                                 @endforeach
                                             @endforeach
                                         @endforeach
                                     </select>
-                                    @error('categories')
-                                        <div class="text-danger">{{ $message }}</div>
-                                    @enderror
+                                    <span style="color: red; font-size: 13px;">{{ $errors->first('categories') }}</span>
                                 </div>
 
-                                {{-- select brand --}}
                                 <div class="form-group">
-                                    <label>coupon Brands</label>
-                                    <select name="brands[]" multiple class="form-select">
+                                    <label>Click to select Brands</label>
+                                    <select name="brands[]" multiple class="form-select select2" id="selectBrands">
                                         @foreach ($getBrands as $brand)
                                             <option value="{{ $brand['id'] }}"
                                                 @if (in_array($brand['id'], $selBrands)) selected @endif>
@@ -170,26 +169,23 @@
                                             </option>
                                         @endforeach
                                     </select>
-                                    @error('brands')
-                                        <div class="text-danger">{{ $message }}</div>
-                                    @enderror
+                                    <span style="color: red; font-size: 13px;">{{ $errors->first('brands') }}</span>
                                 </div>
 
                                 {{-- select users --}}
                                 <div class="form-group">
-                                    <label>select Users</label>
-                                    <select name="users[]" multiple class="form-select">
+                                    <label>Click to select Users</label>
+                                    <select name="users[]" multiple class="form-select select2" id="selectUsers">
+
                                         @foreach ($getUsers as $user)
-                                            <option
-                                                value="{{ $user['email'] }}"@if (in_array($user['email'], $selUsers)) selected @endif>
+                                            <option value="{{ $user['email'] }}"
+                                                @if (in_array($user['email'], $selUsers)) selected @endif>
                                                 ⚫{{ $user['email'] }}
                                             </option>
                                         @endforeach
                                     </select>
-                                    @error('users')
-                                        <div class="text-danger">{{ $message }}</div>
-                                    @enderror
                                 </div>
+
                             </div>
 
                             <!-- /.card-body -->

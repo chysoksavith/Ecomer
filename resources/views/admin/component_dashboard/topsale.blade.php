@@ -16,8 +16,12 @@
     </div>
     <!-- /.card-header -->
     <div class="card-body p-0">
+        @php
+            $count = 1;
+        @endphp
         <ul class="products-list product-list-in-card pl-2 pr-2">
             @foreach ($topSaleItems as $top)
+                {{ $count++ }}
                 <li class="item">
                     <div class="product-img">
                         @php

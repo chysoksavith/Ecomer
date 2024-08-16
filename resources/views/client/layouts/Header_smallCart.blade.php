@@ -45,17 +45,10 @@ $getCartItems = getCartItems();
                             </a>
                         </span>
                         <span class="nameMiniCart">
-                            Brand
-                            {{ $item['product']['brand']['brand_name'] }}
+                            Size: {{ $item['product_size'] }}
                         </span>
-                        <span class="nameMiniCart">
-                            Qty {{ $item['product_qty'] }}
-                        </span>
-                        <span class="nameMiniCart">
-                            Size {{ $item['product_size'] }}
-                        </span>
-                        <span class="nameMiniCart">
-                            Color {{ $item['product']['product_color'] }}
+                        <span class="nameMiniCart priceBoldMinicart">
+                            {{ $item['product']['product_price'] }} $
                         </span>
 
 

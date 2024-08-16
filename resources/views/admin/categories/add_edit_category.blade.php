@@ -38,6 +38,7 @@
                                     <input type="text" class="form-control" id="category_name" name="category_name"
                                         placeholder="Enter Page category_name"
                                         @if (!empty($category['category_name'])) value="{{ $category['category_name'] }}"  @else value="{{ old('category_name') }}" @endif>
+                                    <span style="color: red; font-size: 13px;">{{ $errors->first('category_name') }}</span>
                                 </div>
                                 <div class="form-group">
                                     <label for="category_image">Category Level (Parent Category)</label>
@@ -106,6 +107,7 @@
                                     <input type="text" class="form-control" name="url" id="url"
                                         placeholder="Enter Page url"
                                         @if (!empty($category['url'])) value="{{ $category['url'] }}"  @else value="{{ old('url') }}" @endif>
+                                    <span style="color: red; font-size: 13px;">{{ $errors->first('url') }}</span>
                                 </div>
 
                                 {{-- ----------------------------Meta title----------------------------- --}}

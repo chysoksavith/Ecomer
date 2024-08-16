@@ -13,10 +13,12 @@ use App\Models\Orders;
 use App\Models\Product;
 use App\Models\ProductsAttribure;
 use App\Models\ShippingCharges;
+use App\Notifications\NewOrderNotification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Session;
 
 class CheckoutController extends Controller
@@ -184,13 +186,24 @@ class CheckoutController extends Controller
             }
             // inser Order ID in Session variable
             Session::put('order_id', $order_id);
-            DB::commit();
+            $recipientEmail = '';
+            // Check if the user is logged in as an admin
+            if (Auth::guard('admin')->check()) {
+                $adminUser = Auth::guard('admin')->user();
+                $recipientEmail = $adminUser->email;
 
+                // Trigger the notification only for admin accounts
+                Notification::route('mail', $recipientEmail)
+                    ->notify(new NewOrderNotification($order_id));
+            } else {
+                // Handle the case where a normal user tries to access the checkout (optional)
+                return response()->json(['error' => 'Unauthorized'], 403);
+            }
+            DB::commit();
+            // Checkout Transaction
             if ($data['payment_geteway'] == "COD" || $data['payment_geteway'] == "Bank Transfer" || $data['payment_geteway'] == "Check") {
                 // Send order email
-
                 $orderDetails = Orders::with('orders_products', 'user')->where('id', $order_id)->first()->toArray();
-
                 // send order email
                 $email = Auth::user()->email;
                 $messageData = [
@@ -212,21 +225,16 @@ class CheckoutController extends Controller
                 }
             }
             if ($data['payment_geteway'] == "Paypal") {
-                // Paypal - Redirect user to paypal page after saving orders
-
-                return redirect('/paypal');
+                echo "payapl";
+                die;
+                // return redirect('/paypal');
             } else {
                 echo "Prepaid methods coming soon";
                 die;
             }
-
         }
-
-        // echo $total_price;
-        // die;
         return view('client.checkout.checkout')->with(compact('shipping_charges', 'getCartItems', 'countries', 'deliveryAddress'));
     }
-
     // thanks pages
     public function thanks()
     {

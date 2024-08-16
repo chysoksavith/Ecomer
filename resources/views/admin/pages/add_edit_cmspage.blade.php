@@ -40,12 +40,14 @@
                                     <input type="text" class="form-control" id="title" name="title"
                                         placeholder="Enter Page Title"
                                         @if (!empty($cmsPage['title'])) value="{{ $cmsPage->title }}" @else value="{{ old('title') }}" @endif>
+                                    <span style="color: red; font-size: 13px;">{{ $errors->first('title') }}</span>
                                 </div>
                                 <div class="form-group">
                                     <label for="url">Url*</label>
                                     <input type="text" class="form-control" name="url" id="url"
                                         placeholder="Enter Page Url"
                                         @if (!empty($cmsPage['url'])) value="{{ $cmsPage->url }}" @else value="{{ old('url') }}" @endif>
+                                    <span style="color: red; font-size: 13px;">{{ $errors->first('url') }}</span>
                                 </div>
                                 <div class="form-group">
                                     <section class="content">
@@ -62,6 +64,8 @@
 {{ $cmsPage['description'] }}@else{{ old('description') }}
 @endif
                                                     </textarea>
+                                                        <span
+                                                            style="color: red; font-size: 13px;">{{ $errors->first('description') }}</span>
                                                     </div>
 
                                                 </div>

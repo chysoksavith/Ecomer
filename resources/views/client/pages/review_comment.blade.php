@@ -22,7 +22,7 @@
     }
 
 @endphp
-@if (!empty($avgStartRating))
+@if (!empty($avgStartRating) && $rating->isNotEmpty())
     <div class="section-review">
         <h2 class="title_review">
             WHAT OUR BELOVED <br>
@@ -98,9 +98,10 @@
                         <li>
                             <div class="nameItemUserReview">
                                 <span class="textNameiteREviews">
-                                    {{ $rate->product->product_name }}
+                                    {{ optional($rate->product)->product_name ?? 'Unknown Product' }}
                                 </span>
                             </div>
+
                         </li>
                         <li>
                             {{-- descroption user cmt --}}
@@ -126,4 +127,5 @@
 
         </div>
     </div>
+
 @endif

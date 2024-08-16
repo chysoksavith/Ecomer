@@ -28,7 +28,7 @@
                     </span>
                 @endif
 
-               
+
             </div>
             <div class="orderDetailContainerBody">
                 <div class="header_cartOrder bdnone">
@@ -103,7 +103,8 @@
                             <div class="div_delailitems">
                                 <span class="Name_itemDetaik">Product Name: <span class="quant res__Prod">
                                         {{ $items['product_name'] }} </span> </span>
-                                <span class="Name_itemDetaik res__Prod">Code: <span class="quant"> {{ $items['product_code'] }}
+                                <span class="Name_itemDetaik res__Prod">Code: <span class="quant">
+                                        {{ $items['product_code'] }}
                                     </span> </span>
                                 <span class="Name_itemDetaik">Size: <span class="quant"> {{ $items['product_size'] }}
                                     </span> </span>
@@ -280,6 +281,7 @@
         </div>
 
     </div>
+
     @include('popup')
 
 @endsection

@@ -59,14 +59,12 @@ class BannersController extends Controller
             if ($id === null || $request->hasFile('image')) {
                 $rules = [
                     'type' => 'required',
-                    'image' => 'required|image|mimes:jpeg,png,jpg,gif,webp|max:2048', // Adjusted image validation rules
                 ];
             }
 
             // Custom validation messages
             $customMessage = [
                 'image.required' => 'Image is required',
-                'image.image' => 'Invalid image format',
                 'type.required' => 'Banner type is required',
             ];
 

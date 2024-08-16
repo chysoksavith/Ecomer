@@ -68,6 +68,7 @@ class UserController extends Controller
                     return response()->json([
                         'status' => true,
                         'type' => 'success',
+                        'message' => 'Welcome to Sike',
                         'url' => $redirectUrl,
                     ]);
                 } else {

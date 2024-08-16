@@ -1,5 +1,5 @@
 {{-- above footer contetn --}}
-<div class="above_footer_content">
+<div class="above_footer_content" >
     <div class="container_above_footer">
         <div class="professionalSpp">
             <div class="icon-wrapper">

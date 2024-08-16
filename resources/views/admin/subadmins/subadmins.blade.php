@@ -7,7 +7,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>Admins</h1>
+                    <h1>Sub Admins</h1>
                 </div>
 
             </div>
@@ -25,7 +25,7 @@
                         <div class="card-header">
                             <div class="row">
                                 <div class="col">
-                                    <h3 class="card-title">Admin Table</h3>
+                                    <h3 class="card-title">Sub Admin Table</h3>
                                 </div>
                                 <div class="col-auto">
                                     <a href="{{ route('admin-addedit-subadmin') }}" class="btn btn-primary">Add Subadmin</a>

@@ -70,7 +70,7 @@
                             @endif
                         </li>
                     @endforeach
-                 
+
                 </ul>
             </section>
         </div>

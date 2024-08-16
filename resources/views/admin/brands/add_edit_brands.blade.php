@@ -38,6 +38,7 @@
                                     <input type="text" class="form-control" id="brand_name" name="brand_name"
                                         placeholder="Enter Page brand name"
                                         @if (!empty($brand['brand_name'])) value="{{ $brand['brand_name'] }}"  @else value="{{ old('brand_name') }}" @endif>
+                                    <span style="color: red; font-size: 13px;">{{ $errors->first('brand_name') }}</span>
                                 </div>
                                 <div class="form-group">
                                     <label for="brand_image">brand Image*</label>
@@ -85,7 +86,7 @@
                                     <label for="description">Description</label>
                                     <textarea class="form-control" rows="3" name="description" id="description" placeholder="Enter ...">
                                         @if (!empty($brand['description']))
-{{ $cmsPage['description'] }}@else{{ old('description') }}
+@else{{ old('description') }}
 @endif
                                     </textarea>
 
@@ -103,6 +104,7 @@
                                     <input type="text" class="form-control" name="url" id="url"
                                         placeholder="Enter Page url"
                                         @if (!empty($brand['url'])) value="{{ $brand['url'] }}"  @else value="{{ old('url') }}" @endif>
+                                    <span style="color: red; font-size: 13px;">{{ $errors->first('url') }}</span>
                                 </div>
 
                                 {{-- ----------------------------Meta title----------------------------- --}}
@@ -114,8 +116,8 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="meta_description">meta description </label>
-                                    <input type="text" class="form-control" name="meta_description" id="meta_description"
-                                        placeholder="Enter Page meta description"
+                                    <input type="text" class="form-control" name="meta_description"
+                                        id="meta_description" placeholder="Enter Page meta description"
                                         @if (!empty($brand['meta_description'])) value="{{ $brand['meta_description'] }}"  @else value="{{ old('meta_description') }}" @endif>
                                 </div>
                                 <div class="form-group">

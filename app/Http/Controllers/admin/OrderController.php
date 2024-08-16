@@ -34,7 +34,11 @@ class OrderController extends Controller
         } else {
             $ordersModule = AdminRoles::where(['subadmins_id' => Auth::guard('admin')->user()->id, 'module' => 'orders'])->first()->toArray();
         }
-        return view('admin.order.order')->with(compact('orders', 'ordersModule'));
+        $orderCompleteCount = Orders::where('order_status', '=','Delivered')->count();
+        $orderNewCount = Orders::where('order_status', '=', 'New')->count();
+        $orderPendingCount = Orders::where('order_status', '=', 'Pending')->count();
+        $orderCancelCount = Orders::where('order_status', '=', 'User Cancelled')->count();
+        return view('admin.order.order')->with(compact('orders', 'orderNewCount','orderCompleteCount','orderPendingCount','orderCancelCount', 'ordersModule'));
     }
     public function DetailOrder(Request $request, $id)
     {

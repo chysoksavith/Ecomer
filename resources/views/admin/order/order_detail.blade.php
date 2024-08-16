@@ -41,6 +41,7 @@
                                                     <td>Order Status</td>
                                                     <td>{{ $orderDetails['order_status'] }}</td>
                                                 </tr>
+
                                                 <tr>
                                                     <td>Order Total</td>
                                                     <td>{{ $orderDetails['grand_total'] }} $</td>
@@ -49,10 +50,7 @@
                                                     <td>Shippin Charge</td>
                                                     <td>{{ $orderDetails['shipping_charges'] }} $</td>
                                                 </tr>
-                                                <tr>
-                                                    <td>Couponn Code</td>
-                                                    <td>{{ $orderDetails['coupon_code'] }}</td>
-                                                </tr>
+
                                                 <tr>
                                                     <td>Coupon Amount</td>
                                                     <td>{{ $orderDetails['coupon_amount'] }}</td>
@@ -88,7 +86,10 @@
                                                     <td>Email</td>
                                                     <td>{{ $orderDetails['user']['email'] }}</td>
                                                 </tr>
-
+                                                <tr>
+                                                    <td>Mobile</td>
+                                                    <td>{{ $orderDetails['user']['mobile'] }}</td>
+                                                </tr>
                                             </tbody>
                                         </table>
                                     </div>
@@ -153,27 +154,27 @@
                                                 </tr>
                                                 <tr>
                                                     <td>Address</td>
-                                                    <td>{{ $orderDetails['user']['address'] }}</td>
+                                                    <td>{{ $orderDetails['address'] }}</td>
                                                 </tr>
                                                 <tr>
                                                     <td>City</td>
-                                                    <td>{{ $orderDetails['user']['city'] }}</td>
+                                                    <td>{{ $orderDetails['city'] }}</td>
                                                 </tr>
                                                 <tr>
                                                     <td>State</td>
-                                                    <td>{{ $orderDetails['user']['state'] }}</td>
+                                                    <td>{{ $orderDetails['state'] }}</td>
                                                 </tr>
                                                 <tr>
                                                     <td>Country</td>
-                                                    <td>{{ $orderDetails['user']['country'] }}</td>
+                                                    <td>{{ $orderDetails['country'] }}</td>
                                                 </tr>
                                                 <tr>
                                                     <td>Pincode</td>
-                                                    <td>{{ $orderDetails['user']['pincode'] }}</td>
+                                                    <td>{{ $orderDetails['pincode'] }}</td>
                                                 </tr>
                                                 <tr>
                                                     <td>Mobile</td>
-                                                    <td>{{ $orderDetails['user']['mobile'] }}</td>
+                                                    <td>{{ $orderDetails['mobile'] }}</td>
                                                 </tr>
                                             </tbody>
                                         </table>

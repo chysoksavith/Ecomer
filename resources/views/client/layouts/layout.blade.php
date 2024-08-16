@@ -34,7 +34,6 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
     {{-- swiper js  --}}
     <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
-    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
     @yield('css')
     <title>Sike</title>
 </head>
@@ -101,12 +100,14 @@
             }).showToast();
         }
 
-        @if (session('error_message'))
-            showToast("{{ session('error_message') }} ", "error");
-        @endif
-        @if (session('success_message'))
-            showToast("{{ session('success_message') }}", "success");
-        @endif
+        document.addEventListener("DOMContentLoaded", function() {
+            @if (session('error_message'))
+                showToast("{{ session('error_message') }}", "error");
+            @endif
+            @if (session('success_message'))
+                showToast("{{ session('success_message') }}", "success");
+            @endif
+        });
     </script>
 
     @if (session('toast'))
@@ -139,6 +140,7 @@
     <script src="{{ asset('front/js/tabContentSidebar.js') }}"></script>
     <script src="{{ asset('front/js/showpass.js') }}"></script>
     <script src="{{ asset('front/js/asideDropdownMenu.js') }}"></script>
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
 
     @yield('scripts')
 

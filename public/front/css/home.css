@@ -122,8 +122,11 @@
 }
 .fial_price {
     display: flex;
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
     gap: 30px;
 }
+
 .PriceFirstPageoG {
     text-decoration: line-through;
 }

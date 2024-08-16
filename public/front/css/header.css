@@ -19,25 +19,30 @@
     cursor: pointer;
     display: none;
 }
-.MenuREs {
-}
 .LogoHeader {
     height: 30px;
     display: flex;
     align-items: center;
+    justify-content: center;
 }
+
 .LogoHeader img {
     width: 158px;
-    animation: spin 3s infinite linear; /* Adjust the duration as needed */
+    animation: flip 10s linear infinite;
 }
-@keyframes spin {
+
+@keyframes flip {
     0% {
         transform: rotateY(0deg);
+    }
+    50% {
+        transform: rotateY(180deg);
     }
     100% {
         transform: rotateY(360deg);
     }
 }
+
 .header_nav.nav-scroll {
     background-color: white;
 }
@@ -134,10 +139,12 @@
 }
 
 .subsubtxt {
+    display: block;
     text-decoration: none;
     color: black;
     font-size: 14px;
     font-weight: 300;
+    margin-bottom: 10px;
 }
 /* sidebar account */
 .side_Account_wrapper {
@@ -465,6 +472,7 @@ details p {
     margin-left: 20px;
 }
 .price__live {
+    font-size: 14px;
     display: block;
 }
 .image__live img {
@@ -473,6 +481,7 @@ details p {
     object-fit: contain;
 }
 .name__live {
+    font-size: 14px;
     white-space: nowrap;
     width: 50px;
     overflow: hidden;

@@ -41,6 +41,7 @@
                                         <option @if (!empty($banner['type']) && $banner['type'] == 'Fix') selected @endif value="Fix">Fix
                                         </option>
                                     </select>
+                                    <span style="color: red; font-size: 13px;">{{ $errors->first('type') }}</span>
                                 </div>
                                 <div class="form-group">
                                     <label for="image">banner image*</label>
@@ -58,12 +59,15 @@
                                                         <i class="fas fa-trash"></i>Delete
                                                     </a>
                                                 </div>
+                                                <span
+                                                    style="color: red; font-size: 13px;">{{ $errors->first('image') }}</span>
                                             @endif
                                         </div>
 
 
                                     </div>
                                 </div>
+
                                 <div class="form-group">
                                     <label for="title">title*</label>
                                     <input type="text" class="form-control" name="title" id="title"
@@ -89,6 +93,7 @@
                                         placeholder="Enter Page sort"
                                         @if (!empty($banner['sort'])) value="{{ $banner['sort'] }}"  @else value="{{ old('sort') }}" @endif>
                                 </div>
+
                             </div>
                             <!-- /.card-body -->
 
@@ -100,6 +105,7 @@
                     <!-- /.card -->
                 </div>
             </div>
+
             <!-- /.row -->
         </div><!-- /.container-fluid -->
     </section>

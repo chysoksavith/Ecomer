@@ -80,7 +80,7 @@ $(document).ready(function () {
     var addButton = $(".add_button"); //Add button selector
     var wrapper = $(".field_wrapper"); //Input field wrapper
     var fieldHTML =
-        '<div><input type="text" name="size[]" style=" width: 120px;" placeholder="Size" /> <input type="text" name="sku[]" style=" width: 120px;" placeholder="sku"/> <input type="text" name="price[]" style=" width: 120px;"placeholder="price" /> <input type="text" name="stock[]" style=" width: 120px;"placeholder="stock" /><a href="javascript:void(0);" class="remove_button">Remove</a></div>'; //New input field html
+        '<div><input type="text" name="size[]" style=" width: 120px;" placeholder="Size" /> <input type="text" name="sku[]" style=" width: 120px;" placeholder="sku"/> <input type="text" name="price[]" style=" width: 120px;"placeholder="price" /> <input type="text" name="stock[]" style=" width: 120px;"placeholder="stock" /><a href="javascript:void(0);" class="remove_button btn-sm btn-danger">Remove</a></div>'; //New input field html
     var x = 1; //Initial field counter is 1
 
     // Once add button is clicked

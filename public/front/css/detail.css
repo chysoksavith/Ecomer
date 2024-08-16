@@ -225,9 +225,10 @@
 /* description */
 
 .Description,
-span {
-    font-size: 14px;
+p {
+    font-size: 14px !important;
     text-align: justify;
+    font-family: "Poppins", sans-serif !important;
 }
 /* color */
 
@@ -300,6 +301,7 @@ span {
     color: black;
     border: 1px solid black;
 }
+
 .wishLis {
     gap: 10px;
     display: flex;
@@ -362,13 +364,15 @@ span {
     border: 1px solid gray;
     width: 25px;
     height: 25px;
-transition: 0.3s ease-out;
+    transition: 0.3s ease-out;
     border-radius: 50%;
     display: inline-block; /* Ensures each radio button is on its own line */
 }
 
 .clor_radio label:hover {
-    transform: scale(1.1); /* Increased scale on hover for a slight zoom effect */
+    transform: scale(
+        1.1
+    ); /* Increased scale on hover for a slight zoom effect */
 }
 
 .clor_radio label:last-child {
@@ -444,6 +448,15 @@ transition: 0.3s ease-out;
     font-size: 13px;
     color: #b3b3b3;
 }
+.shopping_bag_icon {
+    font-size: 20px;
+    color: white;
+    transition: color 0.3s;
+}
+.CartBtnDetail:hover .shopping_bag_icon {
+    color: black;
+}
+
 @media (max-width: 575.98px) {
     .MainContainer {
         display: block;

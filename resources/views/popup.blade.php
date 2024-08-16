@@ -22,7 +22,7 @@
                 </select>
             </div>
             <div class="group-btn">
-                <button type="submit" id="cancelBtn" class="order-btn-cancel">Cancel Order</button>
+                <button type="submit" id="cancelBtn" class="order-btn-cancel">Submit</button>
             </div>
         </form>
     </div>

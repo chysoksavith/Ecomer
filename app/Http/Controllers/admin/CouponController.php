@@ -133,28 +133,6 @@ class CouponController extends Controller
         $getUsers = User::select('email')->where('status', 1)->get()->toArray();;
         return view('admin.coupons.add_edit_coupon')->with(compact('title', 'coupon', 'getCategories', 'getBrands', 'getUsers', 'selCats', 'selUsers', 'selBrands'));
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     // update status
     public function updateCouponStatus(Request $request)
     {

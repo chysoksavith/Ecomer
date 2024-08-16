@@ -53,7 +53,6 @@
                                     <div class="form-group">
                                         <label for="category_id">Select Category *</label>
                                         <select class="custom-select rounded-0" name="category_id">
-                                            <option value="">Select</option>
                                             @foreach ($getCategories as $cat)
                                                 <option
                                                     @if (!empty(old('category_id')) && $cat->id == old('category_id')) selected @elseif (!empty($product->category_id) && $product->category_id == $cat->id) selected @endif
@@ -72,6 +71,9 @@
                                                 @endforeach
                                             @endforeach
                                         </select>
+                                        <span
+                                            style="color: red; font-size: 13px;">{{ $errors->first('category_id') }}</span>
+
                                     </div>
                                     <div class="form-group">
                                         <label>Product Brands</label>
@@ -99,18 +101,27 @@
                                         <input type="text" class="form-control" id="product_name" name="product_name"
                                             placeholder="Enter Product Name"
                                             @if (!empty($product['product_name'])) value="{{ $product['product_name'] }}" @else value="{{ old('product_name') }}" @endif>
+                                        <span
+                                            style="color: red; font-size: 13px;">{{ $errors->first('product_name') }}</span>
+
                                     </div>
                                     <div class="form-group">
                                         <label for="product_code">product Code*</label>
                                         <input type="text" class="form-control" id="product_code" name="product_code"
                                             placeholder="Enter Page product code"
                                             @if (!empty($product['product_code'])) value="{{ $product['product_code'] }}" @else value="{{ old('product_code') }}" @endif>
+                                        <span
+                                            style="color: red; font-size: 13px;">{{ $errors->first('product_code') }}</span>
+
                                     </div>
                                     <div class="form-group">
                                         <label for="product_color">product color*</label>
                                         <input type="text" class="form-control" id="product_color" name="product_color"
                                             placeholder="Enter Page product color"
                                             @if (!empty($product['product_color'])) value="{{ $product['product_color'] }}" @else value="{{ old('product_color') }}" @endif>
+                                        <span
+                                            style="color: red; font-size: 13px;">{{ $errors->first('product_color') }}</span>
+
                                     </div>
                                     @php
                                         $familyColors = \App\Models\Color::colors();
@@ -124,7 +135,7 @@
                                                     @if (old('family_color', $product->family_color) == $color['color_code'] ||
                                                             $product->family_color == $color['color_code']
                                                     ) selected @endif>
-                                                    {{$color['color_name']}} &nabla; {{ $color['color_code'] }}
+                                                    {{ $color['color_name'] }} &nabla; {{ $color['color_code'] }}
                                                 </option>
                                             @endforeach
                                         </select>
@@ -140,6 +151,9 @@
                                         <input type="number" class="form-control" id="product_price" name="product_price"
                                             placeholder="Enter Page product price"
                                             @if (!empty($product['product_price'])) value="{{ $product['product_price'] }}" @else value="{{ old('product_price') }}" @endif>
+                                        <span
+                                            style="color: red; font-size: 13px;">{{ $errors->first('product_price') }}</span>
+
                                     </div>
                                     <div class="form-group">
                                         <label for="product_discount">product discount(%)</label>
@@ -187,10 +201,7 @@
                                             </div>
                                         @endif
                                     </div>
-                                    <div class="form-group">
-                                        <label for="product_images">Product image</label>
-                                        <input type="file" class="form-control" id="product_images"
-                                            name="product_images[]" multiple>
+                                    {{-- <div class="form-group">
                                         <label for="product_images" class="mt-3">Current image</label>
                                         <div class="container-fluid ">
                                             <div class="row">
@@ -218,7 +229,72 @@
                                                 </div>
                                             </div>
                                         </div>
+                                    </div> --}}
+                                    <div class="mb-4">
+                                        <label>Product Images <span style="color: red;">*</span></label>
+                                        <table class="table table-bordered table-hover">
+                                            <thead>
+                                                <tr>
+                                                    <th>Select Image</th>
+                                                    <th>Image Preview</th>
+                                                    <th>Remove Row</th>
+                                                    <th>Action</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="image_table">
+                                                <tr id="item_below_row100">
+                                                    <td>
+                                                        <input type="file" name="product_images[]"
+                                                            class="form-control" onchange="previewImage(this)">
+                                                    </td>
+                                                    <td>
+                                                        <img src="" alt="Image Preview" class="img-preview"
+                                                            style="width: 200px; height:150px; display: none;">
+                                                    </td>
+                                                    <td>
+                                                    </td>
+                                                    <td>
+                                                        <button type="button" id="100"
+                                                            class="btn btn-info add_row">Add Row</button>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                            @if (count($product['images']) > 0)
+                                                <tfoot>
+                                                    <tr>
+                                                        <th>Image</th>
+                                                        <th>Sort Image</th>
+                                                        <th>Delete image</th>
+
+                                                    </tr>
+                                                    @foreach ($product['images'] as $image)
+                                                        <tr>
+                                                            <td>
+                                                                <input type="hidden" name="image[]"
+                                                                    value="{{ $image['image'] }}">
+                                                                <img src="{{ asset('front/images/products/' . $image['image']) }}"
+                                                                    alt="Current Image" class="img-preview"
+                                                                    style="width: 200px; height:150px">
+                                                            </td>
+                                                            <td>
+                                                                <input type="number" class="sort_input"
+                                                                    name="image_sort[]"
+                                                                    value="{{ $image['image_sort'] }}"
+                                                                    style="width:100px">
+                                                            </td>
+                                                            <td>
+                                                                <a class="btn btn-danger confirmDelete"
+                                                                    title="Delete Product images"
+                                                                    href="javascript:void(0)" record="product-image"
+                                                                    recordid="{{ $image['id'] }}">Delete Image</a>
+                                                            </td>
+                                                        </tr>
+                                                    @endforeach
+                                                </tfoot>
+                                            @endif
+                                        </table>
                                     </div>
+
                                 </div>
                             </div>
                         </div>
@@ -300,8 +376,6 @@
                                 </div>
                             </div>
                         </div>
-
-
                         {{-- Filter Product such as fabric  --}}
                         <div class="col-md-6">
                             <div class="card card-primary">
@@ -419,8 +493,50 @@
                 </div>
             </div>
             <div class="card-footer col-md-6">
-                <button type="submit" id="sub" class=" btn-primary float-right btn-lg">Submit</button>
+                <button type="submit" id="sub" class=" btn-info float-right btn">Submit</button>
             </div>
         </form>
     </section>
+@endsection
+@section('scritps')
+    <script>
+        var item_row = 101;
+
+        function previewImage(input) {
+            var file = input.files[0];
+            var reader = new FileReader();
+
+            reader.onload = function(e) {
+                $(input).closest('tr').find('.img-preview').attr('src', e.target.result).show();
+            }
+
+            if (file) {
+                reader.readAsDataURL(file);
+            }
+        }
+
+        $(document).on('click', '.add_row', function(e) {
+            e.preventDefault();
+            var html = `
+        <tr>
+            <td>
+                <input type="file" name="product_images[${item_row}]" class="form-control" onchange="previewImage(this)">
+            </td>
+            <td>
+                <img src="" alt="Image Preview" class="img-preview" style="width: 200px; height:150px; display: none;">
+            </td>
+            <td>
+                <a href="javascript:;" class="item_remove btn btn-danger">Remove Row</a>
+            </td>
+        </tr>
+    `;
+            $('#item_below_row100').before(html);
+            item_row++;
+        });
+
+        $(document).on('click', '.item_remove', function(e) {
+            e.preventDefault();
+            $(this).closest('tr').remove();
+        });
+    </script>
 @endsection

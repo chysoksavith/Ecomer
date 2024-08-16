@@ -7,6 +7,7 @@ use App\Http\Controllers\admin\CategoryController;
 use App\Http\Controllers\admin\CmsController;
 use App\Http\Controllers\admin\ColorController;
 use App\Http\Controllers\admin\CouponController;
+use App\Http\Controllers\Admin\GoalController;
 use App\Http\Controllers\admin\LocalShippingController as AdminLocalShippingController;
 use App\Http\Controllers\Admin\LogoController;
 use App\Http\Controllers\admin\NewseltterController;
@@ -22,9 +23,9 @@ use App\Http\Controllers\front\ContactUsController;
 use App\Http\Controllers\front\IndexController;
 use App\Http\Controllers\front\NewseletterController;
 use App\Http\Controllers\front\OrderController;
-use App\Http\Controllers\front\PaypalController;
 use App\Http\Controllers\front\ProductController;
 use App\Http\Controllers\front\RatingFrontController;
+use App\Http\Controllers\front\SmsController;
 use App\Http\Controllers\front\UserController;
 use App\Http\Controllers\front\WishListController;
 use App\Http\Controllers\localShippingController;
@@ -91,7 +92,12 @@ Route::namespace('App\Http\Controllers\front')->group(function () {
         Route::match(['get', 'post'], 'contact-us', 'contactUs')->name('front.contact-us');
     });
     // middleware
-    Route::group(['middleware' => ['auth']], function () {
+    Route::middleware(['auth'])->group(function () {
+        Route::controller(CheckoutController::class)->group(function () {
+            Route::match(['post', 'get'], 'checkout', 'checkout');
+            // Thanks Pages
+            Route::get('/thank', 'thanks');
+        });
         Route::controller(UserController::class)->group(function () {
             Route::get('user/logout', 'userLogout');
             Route::match(['get', 'post'], 'user/account', 'userAccount')->name('user.account');
@@ -99,11 +105,7 @@ Route::namespace('App\Http\Controllers\front')->group(function () {
             Route::post('/apply-coupon', [ProductController::class, 'applyCoupon']);
         });
         // checkout
-        Route::controller(CheckoutController::class)->group(function () {
-            Route::match(['post', 'get'], 'checkout', 'checkout');
-            // Thanks Pages
-            Route::get('/thank', 'thanks');
-        });
+
         // get delivery address
         Route::controller(AddressController::class)->group(function () {
             Route::post('get-delivery-address', 'GetDeliveryAddress');
@@ -119,12 +121,10 @@ Route::namespace('App\Http\Controllers\front')->group(function () {
             // Cancel order
             Route::match(['get', 'post'], '/user/orders/{id}/cancel', 'cancelOrder');
         });
-        // Paypal
-        Route::controller(PaypalController::class)->group(function () {
-            Route::get('paypal', 'paypals');
-            Route::post('paypal', 'pay')->name('payment'); // Change to POST method
-            Route::get('success', 'success');
-            Route::get('error', 'errors');
+
+        Route::controller(SmsController::class)->group(function () {
+            Route::get('verify-mobile', 'showVerifyForm');
+            Route::post('verify-mobile', 'verifyMobile');
         });
     });
     // login
@@ -270,14 +270,23 @@ Route::group(['prefix' => '/admin'], function () {
             Route::post('update-color-status', 'updateColorStatus');
             Route::get('delete-color/{id?}', 'deleteColor');
         });
-        Route::controller(LogoController::class)->group(function(){
-            Route::get('logo-list','logoList');
-            Route::get('logo-add','logo_add');
-            Route::post('logo-insert','logo_insert');
-            Route::get('logo-edit/{id}','logo_edit');
-            Route::post('logo-update/{id}','logo_update');
-            Route::post('logo-update-status','logo_updateStatus');
-            Route::get('delete-logo/{id}','logo_delete');
+        Route::controller(LogoController::class)->group(function () {
+            Route::get('logo-list', 'logoList');
+            Route::get('logo-add', 'logo_add');
+            Route::post('logo-insert', 'logo_insert');
+            Route::get('logo-edit/{id}', 'logo_edit');
+            Route::post('logo-update/{id}', 'logo_update');
+            Route::post('logo-update-status', 'logo_updateStatus');
+            Route::get('delete-logo/{id}', 'logo_delete');
+        });
+        // goal
+        Route::controller(GoalController::class)->group(function () {
+            Route::get('goal-list', 'GoalList');
+            Route::get('goal-add', 'goalAdd');
+            Route::post('goal-insert', 'goalInsert');
+            Route::get('goal-edit/{id}', 'goalEdit');
+            Route::post('goal-update/{id}', 'goalUpdate');
+            Route::get('delete-goal/{id}', 'goalDelete');
         });
     });
 

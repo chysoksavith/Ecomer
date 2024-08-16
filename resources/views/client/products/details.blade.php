@@ -76,10 +76,8 @@
                     <li class="rightDet">
                         <div class="OfferPrice RightD getAttributePrice">
                             <div class="divPricedetail">
-                                <span class="FinalPrice ">{{ $productDetails->final_price }}$</span>
-
+                                <span class="FinalPrice">{{ number_format($productDetails->final_price, 2) }} $</span>
                             </div>
-
                             {{-- <div class="DiscoAFinal"> --}}
                             @if ($productDetails->discount_type != '')
                                 <span class="offerPercentage">( {{ $productDetails->product_discount }}% )</span>
@@ -120,13 +118,6 @@
                             </div>
                         </div>
                     </li>
-                    {{-- Description --}}
-                    <li class="rightDet">
-                        <div class="RightD Description">
-                            <span>{!! $productDetails->description !!}</span>
-                        </div>
-
-                    </li>
                     {{-- Color --}}
                     <form action="j" name="addToCart" id="addToCart">
                         <input type="hidden" name="product_id" value="{{ $productDetails->id }}">
@@ -139,7 +130,7 @@
                                             @foreach ($groupProducts as $product)
                                                 <a href="{{ url('product/' . $product->id) }}">
                                                     <div class="clor_radio">
-                                                        <label style="background-color: {{ $product->family_color}}"
+                                                        <label style="background-color: {{ $product->family_color }}"
                                                             class="productColor"></label>
                                                     </div>
                                                 </a>
@@ -161,19 +152,23 @@
                         </li>
                         {{-- Size --}}
                         <li class="rightDet">
-                            <div class=" RightD ColorSelected">
-                                <span class="TtitleColor">Select Size </span>
-                                <div class="selectedSizes">
-                                    @foreach ($productDetails->attributes as $attribute)
-                                        <input class="btnsize getPrice" type="radio" id="{{ $attribute->size }}"
-                                            name="size" value="{{ $attribute->size }}"
-                                            product_id="{{ $productDetails->id }}" />
-                                        <label for="{{ $attribute->size }}" class="btnsizeee">
-                                            <span>{{ $attribute->size }}</span>
-                                        </label>
-                                    @endforeach
-                                </div>
-                            </div>
+                            @if (!empty($productDetails) && !empty($productDetails->attributes))
+                                @if (count($productDetails->attributes) > 0)
+                                    <div class="RightD ColorSelected">
+                                        <span class="TtitleColor">Select Size</span>
+                                        <div class="selectedSizes">
+                                            @foreach ($productDetails->attributes as $attribute)
+                                                <input class="btnsize getPrice" type="radio" id="{{ $attribute->size }}"
+                                                    name="size" value="{{ $attribute->size }}"
+                                                    product_id="{{ $productDetails->id }}" />
+                                                <label for="{{ $attribute->size }}" class="btnsizeee">
+                                                    <span>{{ $attribute->size }}</span>
+                                                </label>
+                                            @endforeach
+                                        </div>
+                                    </div>
+                                @endif
+                            @endif
                         </li>
                         {{-- Cart --}}
                         <li class="rightDet">
@@ -185,7 +180,9 @@
                                     <div class="Decre"><span class="i-c">+</span></div>
 
                                     <div class="btCartDetail">
-                                        <button type="submit" class="CartBtnDetail">ADD TO CART</button>
+                                        <button type="submit" class="CartBtnDetail">
+                                            <i class="fa-solid fa-bag-shopping shopping_bag_icon"></i> &nbsp; Add to Cart
+                                        </button>
                                     </div>
                                 </div>
                             </div>
@@ -205,7 +202,7 @@
                                         <i
                                             class=" @if ($countWishList > 0) fa-solid fa-heart @else  fa-regular   fa-heart @endif icoHead"></i>
                                     </span>
-                                    <span class="textwis">Add to Wish List</span>
+                                    <span class="textwis"> Add to Wish List</span>
                                 </div>
                             </div>
                         </li>
@@ -308,7 +305,18 @@
                         </details>
                         {{-- detail prodict --}}
                         <details onclick="handleDetailsClick(this)" class="detail_summary">
-                            <summary>Details</summary>
+                            <summary>Product Details</summary>
+                            <div class="descriptionContent">
+                                <div class="productInfo">
+                                    <div class="Description">
+                                        <span>{!! $productDetails->description !!}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </details>
+                        {{-- detail prodict --}}
+                        <details onclick="handleDetailsClick(this)" class="detail_summary">
+                            <summary>More Details</summary>
                             <div class="descriptionContent">
                                 <div class="productInfo">
                                     <span class="ProdInfo">Specification:</span>
@@ -445,7 +453,6 @@
                 </ul>
             </div>
         </div>
-        {{-- content tab detail revire video description --}}
     </div>
     @include('client.products.relate_product')
 @endsection
